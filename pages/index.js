@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import HeaderHome from '../components/home/Headerhome.js'
+import HeaderHome from '../components/home/HeaderHome'
 import Footer from '../components/footer'
 import MainHome from '../components/home/mainHome.js'
 
