@@ -72,9 +72,6 @@ const Login = (props) => {
                             initialValues={initValue}
                             // validationSchema={SignupSchema}
                             onSubmit={values => {
-                                // same shape as initial values
-                                console.log(values);
-
                                 return userService.login(values.email, values.password)
                                 .then(() => {
                                     // get return url from query parameters or default to '/'
@@ -113,7 +110,7 @@ const Login = (props) => {
                                             style={{ background: '#23432E', borderRadius: 8, padding: 15 }}
                                             className='w-full' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
-                                        <Divider className='my-5' />
+                                        <Divider className='my-5' style={{marginTop:'1.25rem !important',marginBottom:'1.25rem !important'}} />
                                         <Button className={styles.butonZalo}>
                                             <span className="mr-2" style={{ height: 34 }}>
                                                 <Image
