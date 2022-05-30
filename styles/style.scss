@@ -105,7 +105,6 @@
     }
     .product-item--title{
         p{
-            font-family: 'Roboto';
             font-style: normal;
             font-weight: 300;
             font-size: 12px;
@@ -119,7 +118,6 @@
     .product-item--number{
         padding: 13px 0;
         div{
-            font-family: 'Roboto';
             font-style: normal;
             font-weight: 500;
             font-size: 18px;
@@ -155,9 +153,15 @@
     z-index: 99;
     width: 100%;
 }
+.product-item--hh{
+    padding: 20px 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+}
 .title-page{
     margin: 0 -15px;
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -568,7 +572,6 @@
         margin: auto;
     }
     h3{
-        font-family: 'Roboto';
         font-style: normal;
         font-weight: 700;
         font-size: 16px;
@@ -579,7 +582,6 @@
         margin-bottom: 8px;
     }
     p{
-        font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
@@ -652,5 +654,10 @@
     .main-user > div {
         margin: 15px 0;
         padding: 20px;
+    }
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
     }
 }
