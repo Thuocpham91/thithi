@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import FooterCart from '../../components/FooterCart'
+import FooterCart from '../../components/footerCart'
 import Moment from 'react-moment';
 import Image from 'next/image'
 import CloseIcon from '@mui/icons-material/Close';

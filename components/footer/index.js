@@ -12,7 +12,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 
 export default function Footer() {
-  const router = useRouter()
+  const router = useRouter();
   const [value, setValue] = useState(0);
 
   const handleLink = (link) =>{
