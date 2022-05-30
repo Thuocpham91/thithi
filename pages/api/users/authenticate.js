@@ -13,14 +13,6 @@ export default apiHandler(handler);
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
-            console.log("vo day ")
-            return res.status(200).json({
-                id: 3,
-                username: 1,
-                firstName: 1,
-                lastName:1,
-                
-            });
             return authenticate();
         default:
             return res.status(405).end(`Method ${req.method} Not Allowed`)
