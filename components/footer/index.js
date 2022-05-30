@@ -22,6 +22,10 @@ export default function Footer() {
     if(router.pathname == '/user'){
       setValue(3);
     }
+    if(router.pathname == '/cart'){
+      setValue(1);
+    }
+    
   }
   useEffect(() => {
     handleActive();
@@ -37,7 +41,7 @@ export default function Footer() {
         }}
       >
         <BottomNavigationAction onClick={e => handleLink('/')} label="Đặt hàng" icon={<HomeIcon />} />
-        <BottomNavigationAction onClick={e => handleLink('/')} label="Giỏ hàng" icon={<LocalMallIcon />} />
+        <BottomNavigationAction onClick={e => handleLink('/cart')} label="Giỏ hàng" icon={<LocalMallIcon />} />
         <BottomNavigationAction onClick={e => handleLink('/')} label="Thông báo" icon={<NotificationsIcon />} />
         <BottomNavigationAction onClick={e => handleLink('/user')} label="Cá nhân" icon={<PersonIcon />} />
       </BottomNavigation>
