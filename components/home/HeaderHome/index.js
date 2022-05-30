@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const HeaderHome = () => {
     const listCate = [
-        {id:1,title:'White horse',image:'/images/list-cate/wh.png'},
+        {id:1,title:'White horse',image:'/images/list-cate/wh.png',},
         {id:2,title:'CAMEL',image:'/images/list-cate/CAMEL.png'},
         {id:3,title:'CRAVEN',image:'/images/list-cate/CRAVEN.png'},
         {id:4,title:'Marlboro',image:'/images/list-cate/Marlboro.png'},

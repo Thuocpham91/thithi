@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 
 const MainHome = () => {
     const [listProduct, setListProduct] = useState([
-        {id:1,title:'Ngựa lớn',image:'/images/prd1.png'},
-        {id:2,title:'Ngựa nhỏ',image:'/images/prd1.png'},
-        {id:3,title:'Ngựa lớn 2',image:'/images/prd1.png'},
+        {id:1,title:'Ngựa lớn',imagePackage:'/images/prd1.png',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:0},
+        {id:2,title:'Ngựa nhỏ',imagePackage:'/images/prd4.png',imageTobacco:'/images/prd5.png',imageBarrel:'/images/prd3.png',outOfStock:0},
+        {id:3,title:'Ngựa lớn 2',imagePackage:'/images/prd1.png',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:1},
     ]);
     const [orderList, setOrderList] = useState([]);
 
@@ -187,7 +187,7 @@ const MainHome = () => {
                                 <span>
                                     <Image
                                         alt={d.title}
-                                        src={d.image}
+                                        src={d.imagePackage}
                                         layout='fill'
                                         objectFit='contain'
                                         quality={100}
@@ -198,20 +198,25 @@ const MainHome = () => {
                                 <h3>{d.title}</h3>
                                 <p>Gói</p>
                             </div>
-                            <div className='product-item--number flex justify-center items-center'>
-                                <button onClick={e => minusNumber(d,'package')}>-</button>
-                                <div className={d.numberPackage > 0 ? 'red':''}>
-                                    {d.numberPackage || 0 }
+                            {d.outOfStock == 1 && <>
+                                <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                            </>}
+                            {d.outOfStock == 0 && <>
+                                <div className='product-item--number flex justify-center items-center'>
+                                    <button onClick={e => minusNumber(d,'package')}>-</button>
+                                    <div className="text-[#ff0000]">
+                                        {d.numberPackage > 0 ? d.numberPackage : '' }
+                                    </div>
+                                    <button onClick={e => plusNumber(d,'package')}>+</button>
                                 </div>
-                                <button onClick={e => plusNumber(d,'package')}>+</button>
-                            </div>
+                            </>}
                         </div>
                         <div className="product-item">
                             <div className='product-item--img'>
                                 <span>
                                     <Image
                                         alt={d.title}
-                                        src={d.image}
+                                        src={d.imageTobacco}
                                         layout='fill'
                                         objectFit='contain'
                                         quality={100}
@@ -222,20 +227,25 @@ const MainHome = () => {
                                 <h3>{d.title}</h3>
                                 <p>Cây</p>
                             </div>
-                            <div className='product-item--number flex justify-center items-center'>
-                                <button onClick={e => minusNumber(d,'tobacco')}>-</button>
-                                <div className={d.numberTobacco > 0 ? 'red':''}>
-                                    {d.numberTobacco||0}
+                            {d.outOfStock == 1 && <>
+                                <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                            </>}
+                            {d.outOfStock == 0 && <>
+                                <div className='product-item--number flex justify-center items-center'>
+                                    <button onClick={e => minusNumber(d,'tobacco')}>-</button>
+                                    <div className="text-[#ff0000]">
+                                        {d.numberTobacco > 0 ? d.numberTobacco : '' }
+                                    </div>
+                                    <button onClick={e => plusNumber(d,'tobacco')}>+</button>
                                 </div>
-                                <button onClick={e => plusNumber(d,'tobacco')}>+</button>
-                            </div>
+                            </>}
                         </div>
                         <div className="product-item">
                             <div className='product-item--img'>
                                 <span>
                                     <Image
                                         alt={d.title}
-                                        src={d.image}
+                                        src={d.imageBarrel}
                                         layout='fill'
                                         objectFit='contain'
                                         quality={100}
@@ -246,13 +256,19 @@ const MainHome = () => {
                                 <h3>{d.title}</h3>
                                 <p>Thùng</p>
                             </div>
-                            <div className='product-item--number flex justify-center items-center'>
-                                <button onClick={e => minusNumber(d,'barrel')}>-</button>
-                                <div className={d.numberBarrel > 0 ? 'red':''}>
-                                    {d.numberBarrel||0}
+                            {d.outOfStock == 1 && <>
+                                <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                            </>}
+                            {d.outOfStock == 0 && <>
+                                <div className='product-item--number flex justify-center items-center'>
+                                    <button onClick={e => minusNumber(d,'barrel')}>-</button>
+                                    <div className="text-[#ff0000]">
+                                        {d.numberBarrel > 0 ? d.numberBarrel : '' }
+                                    </div>
+                                    <button onClick={e => plusNumber(d,'barrel')}>+</button>
                                 </div>
-                                <button onClick={e => plusNumber(d,'barrel')}>+</button>
-                            </div>
+                            </>}
+
                         </div>
                         
                     </div>
