@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Image from 'next/image'
 import Button from '@mui/material/Button';
+import { useRouter } from 'next/router'
 
 const MainHome = () => {
     const [listProduct, setListProduct] = useState([
@@ -170,6 +171,10 @@ const MainHome = () => {
         }
         return newArray
     }
+    const router = useRouter();
+    const handleLink = (link) =>{
+        router.push(link);
+    }
 
   return (
     <div className="main-home">
@@ -255,7 +260,7 @@ const MainHome = () => {
             })}
         </div>
         {orderList.length > 0 && <>
-            <div className='oder-button'><Button style={{background:'#23432E',borderRadius: 8,padding:15,margin:'0 15px',width:'calc(100% - 30px)'}} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
+            <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{background:'#23432E',borderRadius: 8,padding:15,margin:'0 15px',width:'calc(100% - 30px)'}} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
         </>}
     </div>
   )
