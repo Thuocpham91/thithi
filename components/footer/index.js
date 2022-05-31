@@ -27,7 +27,7 @@ export default function Footer() {
     }
     if(router.pathname == '/notification'){
       setValue(2);
-    }notification
+    }
     
   }
   useEffect(() => {
