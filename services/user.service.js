@@ -28,6 +28,20 @@ function login(username, password) {
         });
 }
 
+
+function getLogin(username, password) {
+    console.log("username",username)
+    return fetchWrapper.post(`${baseUrl}/authenticate`, { username, password })
+        .then(user => {
+            // publish user to subscribers and store in local storage to stay logged in between page refreshes
+            userSubject.next(user);
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
+
+
 function logout() {
     // remove user from local storage, publish null to user subscribers and redirect to login page
     localStorage.removeItem('user');

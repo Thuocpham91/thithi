@@ -55,6 +55,19 @@ const Login = (props) => {
         setOpenRules(newOpen);
     };
 
+    const clickHandleZalo = (newOpen) => () => {
+
+        return userService.login(values.email, values.password)
+        .then((value) => {
+            // get return url from query parameters or default to '/'
+          
+        })
+        .catch(error => {
+            console.log(error)
+            // setError('apiError', { message: error });
+        });
+    };
+
     // This is used only for the example
     const container = window !== undefined ? () => window().document.body : undefined;
     return (
@@ -111,7 +124,7 @@ const Login = (props) => {
                                             className='w-full' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
                                         <Divider className='my-5' style={{marginTop:'1.25rem !important',marginBottom:'1.25rem !important'}} />
-                                        <Button className={styles.butonZalo}>
+                                        <Button className={styles.butonZalo} onClick={()=>clickHandleZalo()}>
                                             <span className="mr-2" style={{ height: 34 }}>
                                                 <Image
                                                     alt="Zalo Login"
@@ -122,11 +135,6 @@ const Login = (props) => {
                                             </span>
                                             Đăng nhập bằng Zalo</Button>
                                     </div>
-
-
-
-
-
                                 </Form>
                             )}
 
