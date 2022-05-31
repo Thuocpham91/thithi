@@ -42,7 +42,7 @@ export default function Footer() {
       >
         <BottomNavigationAction onClick={e => handleLink('/')} label="Đặt hàng" icon={<HomeIcon />} />
         <BottomNavigationAction onClick={e => handleLink('/cart')} label="Giỏ hàng" icon={<LocalMallIcon />} />
-        <BottomNavigationAction onClick={e => handleLink('/')} label="Thông báo" icon={<NotificationsIcon />} />
+        <BottomNavigationAction onClick={e => handleLink('/notification')} label="Thông báo" icon={<NotificationsIcon />} />
         <BottomNavigationAction onClick={e => handleLink('/user')} label="Cá nhân" icon={<PersonIcon />} />
       </BottomNavigation>
     </Box>
