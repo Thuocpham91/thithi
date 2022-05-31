@@ -29,6 +29,15 @@ function login(username, password) {
 }
 
 
+function loginViettekll(username, password) {
+    console.log("username",username)
+    return fetchWrapper.post(`${baseUrl}/loginViettel`, { username, password })
+        .then(user => {
+      
+            return user;
+        });
+}
+
 function getLogin(username, password) {
     console.log("username",username)
     return fetchWrapper.post(`${baseUrl}/authenticate`, { username, password })

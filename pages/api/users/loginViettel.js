@@ -19,6 +19,7 @@ function handler(req, res) {
     }
 
     function authenticate() {
+        console.log("loginViettel")
     
     }
 }

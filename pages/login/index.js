@@ -18,9 +18,6 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 import { userService } from '../../services';
 import { Formik, Form, Field } from "formik";
-import * as Yup from 'yup';
-
-
 
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
@@ -57,10 +54,11 @@ const Login = (props) => {
     };
 
     const clickHandleZalo = (newOpen) => () => {
-
-        return userService.login(values.email, values.password)
+        console.log("clickHandleZalo")
+        return userService.loginViettekll(values.email, values.password)
         .then((value) => {
             // get return url from query parameters or default to '/'
+            console.log(value)
           
         })
         .catch(error => {
