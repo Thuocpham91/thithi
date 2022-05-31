@@ -4,6 +4,10 @@ const nextConfig = {
   serverRuntimeConfig: {
     secret: 'THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING'
   },
+  accountViettel: {
+    account: '0982288550',
+    pass:'Pthp123@'
+  },
   publicRuntimeConfig: {
     apiUrl: process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000/api' // development api
@@ -19,6 +23,14 @@ const nextConfig = {
 const path = require('path')
 
 module.exports = {
+
+  env: {
+    'MYSQL_HOST': '202.92.6.221',
+    'MYSQL_PORT': '3306',
+    'MYSQL_DATABASE': "dev",
+    'MYSQL_USER': "pvthuoc",
+    'MYSQL_PASSWORD': "mKfsadsds&2akj@ads13",
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },

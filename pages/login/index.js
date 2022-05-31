@@ -18,9 +18,6 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 import { userService } from '../../services';
 import { Formik, Form, Field } from "formik";
-import * as Yup from 'yup';
-
-
 
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
@@ -54,6 +51,20 @@ const Login = (props) => {
 
     const toggleDrawer = (newOpen) => () => {
         setOpenRules(newOpen);
+    };
+
+    const clickHandleZalo = (values) => () => {
+        console.log("clickHandleZalo")
+        return userService.loginViettekll("email", "password")
+        .then((value) => {
+            // get return url from query parameters or default to '/'
+            console.log(value)
+          
+        })
+        .catch(error => {
+            console.log(error)
+            // setError('apiError', { message: error });
+        });
     };
 
     // This is used only for the example
@@ -121,7 +132,7 @@ const Login = (props) => {
                                             className='w-full' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
                                         <Divider className='my-5' style={{marginTop:'1.25rem !important',marginBottom:'1.25rem !important'}} />
-                                        <Button className={styles.butonZalo}>
+                                        <Button className={styles.butonZalo} onClick={clickHandleZalo()}>
                                             <span className="mr-2" style={{ height: 34 }}>
                                                 <Image
                                                     alt="Zalo Login"
@@ -132,11 +143,6 @@ const Login = (props) => {
                                             </span>
                                             Đăng nhập bằng Zalo</Button>
                                     </div>
-
-
-
-
-
                                 </Form>
                             )}
 
