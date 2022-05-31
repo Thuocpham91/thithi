@@ -7,6 +7,7 @@ const { publicRuntimeConfig } = getConfig();
 export const fetchWrapper = {
     get,
     post,
+    posth,
     put,
     delete: _delete
 };
@@ -20,11 +21,21 @@ function get(url) {
 }
 
 function post(url, body) {
-    console.log("body",body)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
         credentials: 'include',
+        body: JSON.stringify(body)
+    };
+    return fetch(url, requestOptions).then(handleResponse);
+}
+
+function posth(url, body) {
+    console.log("bodyposth",body)
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      
         body: JSON.stringify(body)
     };
     return fetch(url, requestOptions).then(handleResponse);
@@ -66,16 +77,6 @@ function handleResponse(response) {
     return response.text().then(text => {
         console.log("text",text)
         const data = text && JSON.parse(text);
-        
-        if (!response.ok) {
-            if ([401, 403].includes(response.status) && userService.userValue) {
-                // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-                userService.logout();
-            }
-
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
-        }
 
         return data;
     });

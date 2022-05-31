@@ -53,9 +53,9 @@ const Login = (props) => {
         setOpenRules(newOpen);
     };
 
-    const clickHandleZalo = (newOpen) => () => {
+    const clickHandleZalo = (values) => () => {
         console.log("clickHandleZalo")
-        return userService.loginViettekll(values.email, values.password)
+        return userService.loginViettekll("email", "password")
         .then((value) => {
             // get return url from query parameters or default to '/'
             console.log(value)
@@ -132,7 +132,7 @@ const Login = (props) => {
                                             className='w-full' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
                                         <Divider className='my-5' style={{marginTop:'1.25rem !important',marginBottom:'1.25rem !important'}} />
-                                        <Button className={styles.butonZalo} onClick={()=>clickHandleZalo()}>
+                                        <Button className={styles.butonZalo} onClick={clickHandleZalo()}>
                                             <span className="mr-2" style={{ height: 34 }}>
                                                 <Image
                                                     alt="Zalo Login"

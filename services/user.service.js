@@ -13,6 +13,7 @@ export const userService = {
     get userValue () { return userSubject.value },
     login,
     logout,
+    loginViettekll,
     getAll
 };
 
@@ -30,8 +31,8 @@ function login(username, password) {
 
 
 function loginViettekll(username, password) {
-    console.log("username",username)
-    return fetchWrapper.post(`${baseUrl}/loginViettel`, { username, password })
+    console.log("loginViettekll",username)
+    return fetchWrapper.posth(`${baseUrl}/loginViettel`, { username, password })
         .then(user => {
       
             return user;
