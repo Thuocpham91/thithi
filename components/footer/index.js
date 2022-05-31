@@ -25,6 +25,9 @@ export default function Footer() {
     if(router.pathname == '/cart'){
       setValue(1);
     }
+    if(router.pathname == '/notification'){
+      setValue(2);
+    }notification
     
   }
   useEffect(() => {
