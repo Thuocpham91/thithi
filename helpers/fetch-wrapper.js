@@ -9,6 +9,7 @@ export const fetchWrapper = {
     post,
     posth,
     put,
+    getVT,
     delete: _delete
 };
 
@@ -41,6 +42,13 @@ function posth(url, body) {
     return fetch(url, requestOptions).then(handleResponse);
 }
 
+function getVT(url) {
+    const requestOptions = {
+        method: 'GET',  };
+    return fetch(url, requestOptions).then(handleResponse);
+}
+
+
 function put(url, body) {
     const requestOptions = {
         method: 'PUT',
@@ -65,7 +73,11 @@ function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = userService.userValue;
     const isLoggedIn = user && user.token;
+    console.log("url",url);
     const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
+    console.log("publicRuntimeConfig",publicRuntimeConfig)
+    console.log("isApiUrl",isApiUrl)
+    console.log(user)
     if (isLoggedIn && isApiUrl) {
         return { Authorization: `Bearer ${user.token}` };
     } else {
@@ -75,9 +87,7 @@ function authHeader(url) {
 
 function handleResponse(response) {
     return response.text().then(text => {
-        console.log("text",text)
         const data = text && JSON.parse(text);
-
         return data;
     });
 }
