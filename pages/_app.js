@@ -27,17 +27,26 @@ function MyApp({ Component, pageProps }) {
 
   }, []);
 
-  function authCheck(url) {
+  async function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in 
     const publicPaths = ['/login'];
     const path = url.split('?')[0];
-    console.log(userService.userValue)
-    if ( !userService.userValue && !publicPaths.includes(path)) {
-      setAuthorized(false);
-      router.push({
-        pathname: '/login',
-        query: { returnUrl: router.asPath }
-      });
+
+    if (!publicPaths.includes(path)) {
+      const check_login = await userService.getLogin();
+
+      if (check_login.status != 200) {
+        setAuthorized(false);
+        router.push({
+          pathname: '/login',
+          query: { returnUrl: router.asPath }
+        });
+
+      }else {
+
+        setAuthorized(true);
+      }
+
     } else {
       setAuthorized(true);
     }

@@ -14,17 +14,16 @@ export const userService = {
     login,
     logout,
     loginViettekll,
-    getAll
+    getviettell,
+    getAll,
+    getLogin
 };
 
-function login(username, password) {
-    console.log("username",username)
-    return fetchWrapper.post(`${baseUrl}/authenticate`, { username, password })
+function login(form) {
+    return fetchWrapper.post(`${baseUrl}/authenticate`, form)
         .then(user => {
-            // publish user to subscribers and store in local storage to stay logged in between page refreshes
             userSubject.next(user);
             localStorage.setItem('user', JSON.stringify(user));
-
             return user;
         });
 }
@@ -39,14 +38,20 @@ function loginViettekll(username, password) {
         });
 }
 
-function getLogin(username, password) {
-    console.log("username",username)
-    return fetchWrapper.post(`${baseUrl}/authenticate`, { username, password })
+function getviettell(username, password) {
+    console.log("getviettell",username)
+    return fetchWrapper.getVT(`${baseUrl}/loginViettel`, { username, password })
+        .then(user => {
+      
+            return user;
+        });
+}
+
+function getLogin() {
+    return fetchWrapper.get(`${baseUrl}/authenticate`)
         .then(user => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
             userSubject.next(user);
-            localStorage.setItem('user', JSON.stringify(user));
-
             return user;
         });
 }
