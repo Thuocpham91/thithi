@@ -72,17 +72,15 @@ function _delete(url) {
 function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = userService.userValue;
-    const isLoggedIn = user && user.token;
-    console.log("url",url);
-    const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
-    console.log("publicRuntimeConfig",publicRuntimeConfig)
-    console.log("isApiUrl",isApiUrl)
     console.log(user)
-    if (isLoggedIn && isApiUrl) {
-        return { Authorization: `Bearer ${user.token}` };
-    } else {
-        return {};
-    }
+    // console.log(user)
+    // const isLoggedIn = user && user.token;
+    // const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
+    // if (isLoggedIn && isApiUrl) {
+        return { Authorization: `Bearer ${user?user.token?user.token:"ádadsda":"ádsadasd"}` };
+    // } else {
+        // return {};
+    // }
 }
 
 function handleResponse(response) {

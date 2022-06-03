@@ -51,7 +51,7 @@ function getLogin() {
     return fetchWrapper.get(`${baseUrl}/authenticate`)
         .then(user => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
-            userSubject.next(user);
+            // userSubject.next(user);
             return user;
         });
 }

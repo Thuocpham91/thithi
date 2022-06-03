@@ -8,6 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Head from 'next/head'
 
 const Cart = () => {
+  console.log("Cart")
   const today = new Date();
   const [listProduct, setListProduct] = useState([
     {id:1,title:'Ngựa lớn',imagePackage:'/images/prd1.png',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',numberPackage:3,numberTobacco:4,numberBarrel:1},

@@ -13,6 +13,8 @@ const nextConfig = {
   },
   publicRuntimeConfig: {
     apiUrl: process.env.NODE_ENV === 'development'
+    // ? 'http://localhost:3000/api' // development api
+    // : 'http://localhost:3000/api' // production api
     ? 'http://202.92.6.221:3000/api' // development api
     : 'http://202.92.6.221:3000/api' // production api
   },
@@ -26,14 +28,6 @@ const nextConfig = {
 const path = require('path')
 
 module.exports = {
-
-  env: {
-    'MYSQL_HOST': '202.92.6.221',
-    'MYSQL_PORT': '3306',
-    'MYSQL_DATABASE': "dev",
-    'MYSQL_USER': "pvthuoc",
-    'MYSQL_PASSWORD': "mKfsadsds&2akj@ads13",
-  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },

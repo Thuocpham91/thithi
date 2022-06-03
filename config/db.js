@@ -9,13 +9,11 @@ const db = mysql({
   }
 });
 export default async function excuteQuery({ query, values }) {
-    console.log(process.env.MYSQL_HOST)
   try {
     const results = await db.query(query, values);
     await db.end();
     return results;
   } catch (error) {
-    console.log(error)
     return { error };
   }
 }
