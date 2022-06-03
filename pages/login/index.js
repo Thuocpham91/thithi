@@ -37,7 +37,9 @@ const Login = (props) => {
 
     useEffect(() => {
         // redirect to home if already logged in
-        if (userService.userValue.status==200) {
+
+        if (!userService.userValue) return;
+        if (userService.userValue.status == 200) {
             router.push('/');
         }
     }, []);
@@ -93,7 +95,7 @@ const Login = (props) => {
                             onSubmit={values => {
                                 return userService.login(initValue)
                                     .then((response) => {
-                                        console.log(response)
+                                        // console.log(response)
                                         if (response.status == "200") {
                                             const returnUrl = router.query.returnUrl || '/';
                                             router.push(returnUrl);

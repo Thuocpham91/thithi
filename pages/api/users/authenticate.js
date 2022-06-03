@@ -4,13 +4,10 @@ import getConfig from 'next/config';
 import { apiHandler } from '../../../helpers/api';
 import { User } from '../../../querySql/queryuser'
 import { UserRole } from '../../../querySql/qeryUserRole';
+import { apiViettel } from './common/apiViettell';
 
 
 const { serverRuntimeConfig } = getConfig();
-
-// users in JSON file for simplicity, store in a db for production applications
-const users = require('../../../data/users.json');
-
 export default apiHandler(handler);
 
 function handler(req, res) {
@@ -27,7 +24,7 @@ function handler(req, res) {
     async function checkLogin() {
         try {
 
-            if(typeof req.headers.authorization == "undefined")return res.status(200).json({
+            if (typeof req.headers.authorization == "undefined") return res.status(200).json({
                 status: 163,
                 message: "sai token",
             });
@@ -100,7 +97,16 @@ function handler(req, res) {
 
             User.update(user_);
             user_.password = "";
+            const role_user = await UserRole.findByID(user_.id);
+            user_.dataRole = role_user;
 
+            const datavietel = await apiViettel.logInViettel();
+
+            const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
+            const listproduct=await apiViettel.getListproduct(rp2.access_token);
+
+            user_.listproduct = JSON.parse(listproduct);
+        
             return res.status(200).json({
                 status: 200,
                 data: user_,

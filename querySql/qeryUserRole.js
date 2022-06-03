@@ -3,12 +3,11 @@ import excuteQuery from '../config/db';
 
 
 export const UserRole = {
-    findByUser,
+    findByID,
 
 };
 
 async function insert(status, role_id, user_id) {
-
     try {
         const result = await excuteQuery({
             query: 'INSERT INTO user_Role(status,role_id,user_id) VALUES(?,?,?)',
@@ -32,7 +31,7 @@ async function update(id, astatus, role_id, user_id) {
 
 }
 
-async function findByUser(id_user) {
+async function findByID(id_user) {
     try {
         const result = await excuteQuery({
             query: 'SELECT ur.id, r.name,r.key_role   FROM user_Role ur  LEFT JOIN `role` r  ON r.id = ur.role_id and ur.user_id = ?  ',
