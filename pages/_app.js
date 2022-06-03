@@ -4,6 +4,9 @@ import '../styles/style.scss'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { userService } from '../services';
+import { BehaviorSubject } from 'rxjs';
+
+
 
 export default MyApp;
 
@@ -28,6 +31,8 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   async function authCheck(url) {
+    const userSubject = new BehaviorSubject(process.browser && JSON.parse(localStorage.getItem('user')));
+
     // redirect to login page if accessing a private page and not logged in 
     const publicPaths = ['/login'];
     const path = url.split('?')[0];
@@ -36,6 +41,7 @@ function MyApp({ Component, pageProps }) {
       const check_login = await userService.getLogin();
 
       if (check_login.status != 200) {
+        userSubject.next(null);
         setAuthorized(false);
         router.push({
           pathname: '/login',

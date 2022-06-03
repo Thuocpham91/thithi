@@ -39,7 +39,7 @@ const Login = (props) => {
         // redirect to home if already logged in
 
         if (!userService.userValue) return;
-        if (userService.userValue.status == 200) {
+        if (userService.userValue.token == 200) {
             router.push('/');
         }
     }, []);
