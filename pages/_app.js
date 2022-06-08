@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import '../styles/style.scss'
+import '../styles/admin.scss'
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -57,9 +58,8 @@ function MyApp({ Component, pageProps }) {
       setAuthorized(true);
     }
   }
-
-  return (<>
-
+  const getLayout = Component.getLayout || ((page) => page);
+  return getLayout(<>
     {authorized && <Component {...pageProps} />}
   </>
   )
