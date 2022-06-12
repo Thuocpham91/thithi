@@ -100,12 +100,12 @@ function handler(req, res) {
             const role_user = await UserRole.findByID(user_.id);
             user_.dataRole = role_user;
 
-            const datavietel = await apiViettel.logInViettel();
+            // const datavietel = await apiViettel.logInViettel();
 
-            const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
-            const listproduct=await apiViettel.getListproduct(rp2.access_token);
+            // const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
+            // const listproduct=await apiViettel.getListproduct(rp2.access_token);
 
-            user_.listproduct = JSON.parse(listproduct);
+            // user_.listproduct = JSON.parse(listproduct);
         
             return res.status(200).json({
                 status: 200,

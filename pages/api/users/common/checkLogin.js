@@ -1,5 +1,5 @@
 import getConfig from 'next/config';
-
+const jwt = require('jsonwebtoken');
 import { User } from '../../../../querySql/queryuser';
 const { serverRuntimeConfig } = getConfig();
 
@@ -10,20 +10,19 @@ export const checlogin = {
 
 
 
-async function checkLogin(token) {
+async function checkLogin(req,res) {
     try {
-
-        if (typeof token == "undefined") return res.status(200).json({
+        if (typeof req.headers.authorization == "undefined") return res.status(200).json({
             status: 163,
             message: "sai token",
         });
 
-     
-        if (token == "") return res.status(200).json({
+        const tok = req.headers.authorization ? req.headers.authorization.split(' ')[1] : "";
+        if (tok == "") return res.status(200).json({
             status: 167,
             message: "sai token",
         });
-        const chec_token = jwt.verify(token, serverRuntimeConfig.secret);
+        const chec_token = jwt.verify(tok, serverRuntimeConfig.secret);
 
         if (!chec_token) return res.status(200).json({
             status: 177,
@@ -47,6 +46,8 @@ async function checkLogin(token) {
             status: 182,
             message: "token exit",
         });
+
+        return user_;
 
 
 

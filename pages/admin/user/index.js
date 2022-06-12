@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminLayout from "../../../layouts/Admin";
 
 
@@ -55,9 +55,17 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { userService } from '../../../services/user.service';
+import DialogChangemk from './component/dialogChangemk'
+
+
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
+
+
+
+
 
   const handleFirstPageButtonClick = (event) => {
     onPageChange(event, 0);
@@ -125,14 +133,43 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 const User = () => {
-  
+
   const [rowUser, setRowUser] = useState([
-    {id: 15 ,name:"Nguyễn văn A",idUser:"id2712",desc:"Thông tin về khách hàng nguyễn văn A"},
-    {id: 16 ,name:"Nguyễn văn B",idUser:"id2713",desc:"Thông tin về khách hàng nguyễn văn B"},
-    {id: 17 ,name:"Nguyễn văn C",idUser:"id2714",desc:"Thông tin về khách hàng nguyễn văn C"},
-    {id: 18 ,name:"Nguyễn văn D",idUser:"id2715",desc:"Thông tin về khách hàng nguyễn văn D"},
-    {id: 19 ,name:"Nguyễn văn E",idUser:"id2716",desc:"Thông tin về khách hàng nguyễn văn E"},
+    // { id: 15, name: "Nguyễn văn A", idUser: "id2712", desc: "Thông tin về khách hàng nguyễn văn A" },
+    // { id: 16, name: "Nguyễn văn B", idUser: "id2713", desc: "Thông tin về khách hàng nguyễn văn B" },
+    // { id: 17, name: "Nguyễn văn C", idUser: "id2714", desc: "Thông tin về khách hàng nguyễn văn C" },
+    // { id: 18, name: "Nguyễn văn D", idUser: "id2715", desc: "Thông tin về khách hàng nguyễn văn D" },
+    // { id: 19, name: "Nguyễn văn E", idUser: "id2716", desc: "Thông tin về khách hàng nguyễn văn E" },
   ]);
+
+
+  useEffect(() => {
+    let array = [];
+    async function fetchData() {
+      let data = await userService.getAll();
+      if (data.status != 200) return;
+      data.data.map(item => {
+        let obj = array.find(k => { return item.account == k.account });
+        if (!obj) {
+          let ark = [];
+          ark.push({ name: item.name, keyRole: item.key_role })
+          array.push({ id: item.id, account: item.account, created_at: item.created_at, role: ark })
+        } else {
+          array.map(ite => {
+            if (ite.account == item.account) {
+              ite.role.push({ name: item.name, keyRole: item.key_role });
+            }
+          })
+        }
+      })
+      setRowUser(array);
+    }
+    fetchData();
+
+
+
+  }, []);
+
 
 
 
@@ -164,12 +201,13 @@ const User = () => {
   };
 
 
-// changePass
+  // changePass
   const [openChangePass, setOpenChangePass] = useState(false);
 
   const handleClickOpenChangePass = () => {
     handleCloseMenu();
     setOpenChangePass(true);
+    console.log("handleClickOpenChangePass")
   };
 
 
@@ -221,41 +259,38 @@ const User = () => {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            <TableCell>Họ và tên</TableCell>
-            <TableCell align="right">Mã thành viên</TableCell>
-            <TableCell align="right">Mô tả</TableCell>
+            <TableCell>ID</TableCell>
+            <TableCell align="right">Account</TableCell>
+            <TableCell align="right">Ngày đăng ký</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {(rowsPerPage > 0
-            ? rowUser.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rowUser
-          ).map((row) => (
-            <TableRow key={row.name}>
+          {rowUser.map((row) => (
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.id}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.idUser}
+                {row.account}
               </TableCell>
-              <TableCell  align="right">
-                {row.desc}
+              <TableCell align="right">
+                {row.created_at}
               </TableCell>
               <TableCell style={{ width: 100 }} align="right">
                 <Button
                   aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={openMenu ? 'true' : undefined}
-                  onClick={ e => handleOpenMenu(e, row)}
-                  style={{color:"#EE0232"}}
+                  onClick={e => handleOpenMenu(e, row)}
+                  style={{ color: "#EE0232" }}
                 >
                   <MoreHorizIcon />
                 </Button>
 
 
               </TableCell>
-              
+
             </TableRow>
           ))}
 
@@ -297,124 +332,55 @@ const User = () => {
         'aria-labelledby': 'basic-button',
       }}
     >
-      <MenuItem onClick={handleClickOpenChangePass}>
+      <MenuItem onClick={ e=> handleClickOpenChangePass()}>
         <ListItemIcon>
-            <ManageAccountsIcon fontSize="small" />
+          <ManageAccountsIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Đổi mật khẩu</ListItemText>
-        </MenuItem>
+      </MenuItem>
       <MenuItem onClick={handleClickOpenDeleteuser}>
         <ListItemIcon>
-            <DeleteIcon fontSize="small" />
+          <DeleteIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Xóa</ListItemText>
       </MenuItem>
     </Menu>
 
 
+
+
     <Dialog
-        open={openChangePass}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleCloseChangePass}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>{"Đổi mật khẩu"}</DialogTitle>
-        <DialogContent>
+      open={openDeleteUser}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={handleClickCloseDeleteUser}
+      fullWidth
+      maxWidth="sm"
+    >
+      <DialogContent className='text-center'>
+
+        <div className="modal-delete--warning"><div className="modal-delete--warning__content">!</div></div>
+        <div><h2 className="text-warning mb-2">Bạn có chắc chắn?</h2></div>
+        <div className="mb-5">Bạn có chắc chắn muốn xoá thành viên <strong>{"userChoose.name"}</strong> ?</div>
+
+      </DialogContent>
+
+    </Dialog>
 
 
-          <FormControl className='mb-3' sx={{ m: 1,  }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Mật khẩu</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={valuesChangePass.showPassword ? 'text' : 'password'}
-              value={valuesChangePass.newPassword}
-              fullWidth
-              onChange={handleChangeValueForm('newPassword')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {valuesChangePass.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-repassword">Nhập lại mật khẩu</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-repassword"
-              type={valuesChangePass.showPassword ? 'text' : 'password'}
-              value={valuesChangePass.reNewPassword}
-              onChange={handleChangeValueForm('reNewPassword')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {valuesChangePass.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
-          
-        </DialogContent>
-        <DialogActions className='mb-3'>
-          <Button onClick={handleCloseChangePass} variant="contained" style={{background:"#EE0232"}}>Thay đổi</Button>
-          <Button onClick={handleCloseChangePass} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
-        </DialogActions>
-      </Dialog>
+    <DialogChangemk
+     open={openChangePass}
+     close={setOpenChangePass}
+     row={userChoose}
+    
+    
+    ></DialogChangemk>
 
-
-
-
-
-
-
-
-
-
-
-
-      <Dialog
-        open={openDeleteUser}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClickCloseDeleteUser}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogContent className='text-center'>
-
-
-          <div class="modal-delete--warning"><div class="modal-delete--warning__content">!</div></div>
-          <div><h2 class="text-warning mb-2">Bạn có chắc chắn?</h2></div>
-          <div class="mb-5">Bạn có chắc chắn muốn xoá thành viên <strong>{userChoose.name}</strong> ?</div>
-          
-        </DialogContent>
-
-      </Dialog>
-
-
-
-
-    </>)
+  </>)
 }
 
 export default User
 
 User.getLayout = function getLayout(page) {
-    return <AdminLayout>{page}</AdminLayout>;
-  };
-  
+  return <AdminLayout>{page}</AdminLayout>;
+};
