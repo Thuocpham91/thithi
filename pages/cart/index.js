@@ -7,8 +7,9 @@ import Link from 'next/link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Head from 'next/head'
 
-const Cart = () => {
+const Cart = (props) => {
   console.log("Cart")
+  console.log(props)
   const today = new Date();
   const [listProduct, setListProduct] = useState([
     {id:1,title:'Ngựa lớn',imagePackage:'/images/prd1.png',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',numberPackage:3,numberTobacco:4,numberBarrel:1},
@@ -133,7 +134,7 @@ const Cart = () => {
             { listProduct.map(function(d,idx){
               return (<>
                   {d.numberPackage?Number(d.numberPackage )> 0 ?
-                  <div className='item-cart'>
+                  <div key={idx} className='item-cart'>
                       <div className="product-item">
                           <div className='product-item--img'>
                             <span>
@@ -162,7 +163,7 @@ const Cart = () => {
                     </div>  :"":""
                   }
                   {d.numberTobacco?Number(d.numberTobacco )> 0 ?
-                    <div className='item-cart'>
+                    <div key={idx+"ko"} className='item-cart'>
                       <div className="product-item">
                           <div className='product-item--img'>
                               <span>
@@ -192,7 +193,7 @@ const Cart = () => {
                     </div>:"":""
                   }
                   {d.numberBarrel?Number(d.numberBarrel )> 0 ?
-                    <div className='item-cart'>
+                    <div key={idx+"ban"}   className='item-cart'>
                       <div className="product-item">
                           <div className='product-item--img'>
                             <span>
