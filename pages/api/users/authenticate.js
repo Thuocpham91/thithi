@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 import getConfig from 'next/config';
 
 import { apiHandler } from '../../../helpers/api';
-import { User } from '../../../querySql/queryuser'
+import { User } from '../../../querySql/queryuser';
 import { UserRole } from '../../../querySql/qeryUserRole';
 import { apiViettel } from './common/apiViettell';
 
