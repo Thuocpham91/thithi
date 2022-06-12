@@ -16,7 +16,8 @@ export const userService = {
     loginViettekll,
     getviettell,
     getAll,
-    getLogin
+    getLogin,
+    changePass,
 };
 
 function login(form) {
@@ -65,5 +66,10 @@ function logout() {
 }
 
 function getAll() {
-    return fetchWrapper.get(baseUrl);
+    return fetchWrapper.get(`${baseUrl}/user`);
+}
+
+
+function changePass(data){
+    return fetchWrapper.post(`${baseUrl}/chagepass`,data);
 }
