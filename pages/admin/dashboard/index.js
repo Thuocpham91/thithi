@@ -3,6 +3,7 @@ import AdminLayout from "../../../layouts/Admin";
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import Link from 'next/link'
 import LocalMallIcon from '@mui/icons-material/LocalMall';
+import * as XLSX from "xlsx";
 
 import {
   Chart as ChartJS,
@@ -56,7 +57,24 @@ export default function Dashboard() {
   };
 
 
+  const onChange = (e) => {
+    const [file] = e.target.files;
+    const reader = new FileReader();
 
+    reader.onload = (evt) => {
+      const bstr = evt.target.result;
+      const wb = XLSX.read(bstr, { type: "binary" });
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+      const json = XLSX.utils.sheet_to_json(ws);
+      console.log(json);
+    };
+    reader.readAsBinaryString(file);
+
+
+
+  }
 
 
 
@@ -85,6 +103,7 @@ export default function Dashboard() {
         <div className='home-chart--main'><Bar options={options} data={data} /></div>
       </div>
     </div> 
+    <input type="file" onChange={onChange} />
 
 
   </>)
