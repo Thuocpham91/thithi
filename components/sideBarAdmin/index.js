@@ -12,7 +12,6 @@ const SideBarAdmin = () => {
   const listMenu =[
       {name:"Bảng điều khiển",link:'/admin/dashboard',icon:<DashboardCustomizeOutlinedIcon />},
       {name:"Thành viên",link:'/admin/user',icon:<GroupOutlinedIcon />},
-      {name:"Tích điểm",link:'/admin/accumulatePoints',icon:<ControlPointDuplicateOutlinedIcon />},
       {name:"Danh mục sản phẩm",link:'/admin/category',icon:<ImageAspectRatioIcon />},
   ]
 
