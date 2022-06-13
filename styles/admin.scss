@@ -143,6 +143,40 @@ $key-color : #EE0232;
     font-size: 3.6em;
     color: $key-color;
 }
+.MuiPaper-root table thead{
+    background: #f4f4f5;
+}
+.header-title-popup{
+    margin: -20px -24px 20px -24px;
+    background: #f4f4f5;
+}
+.form-file{
+    padding: 30px;
+    background: #f1f1f1;
+    border-radius: 8px;
+    border: 2px dashed $key-color;
+    position: relative;
+    min-width: 500px;
+    .form-file__icon{
+        font-size: 18px;
+        span{display: block;}
+    }
+    .form-file__img{
+        min-height: 80px;
+    }
+    input{
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+        z-index: 99;
+    }
+}
+
+
 
 
 

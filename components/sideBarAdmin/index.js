@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
+import ImageAspectRatioIcon from '@mui/icons-material/ImageAspectRatio';
 
 const SideBarAdmin = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ const SideBarAdmin = () => {
       {name:"Bảng điều khiển",link:'/admin/dashboard',icon:<DashboardCustomizeOutlinedIcon />},
       {name:"Thành viên",link:'/admin/user',icon:<GroupOutlinedIcon />},
       {name:"Tích điểm",link:'/admin/accumulatePoints',icon:<ControlPointDuplicateOutlinedIcon />},
+      {name:"Danh mục sản phẩm",link:'/admin/category',icon:<ImageAspectRatioIcon />},
   ]
 
   const handleActive = (link) =>{
