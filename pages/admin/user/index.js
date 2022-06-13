@@ -5,7 +5,7 @@ import DeleteUser from "../../../components/uerAdmin/DeleteUser";
 import ChangePass from "../../../components/uerAdmin/ChangePass";
 import EditUser from "../../../components/uerAdmin/EditUser";
 
-import Grid from '@mui/material/Grid';
+import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -32,24 +32,10 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+
 import Slide from '@mui/material/Slide';
 
 
-
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 
@@ -146,7 +132,7 @@ const User = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowUser.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -308,7 +294,7 @@ const User = () => {
       </MenuItem>
       <MenuItem onClick={handleOpenEditUser}>
         <ListItemIcon>
-            <ManageAccountsIcon fontSize="small" />
+            <EditIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Thay đổi thông tin</ListItemText>
       </MenuItem>
