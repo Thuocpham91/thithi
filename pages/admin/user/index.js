@@ -1,7 +1,11 @@
 import React, {useState} from 'react'
 import AdminLayout from "../../../layouts/Admin";
+import AddUser from "../../../components/uerAdmin/AddUser";
+import DeleteUser from "../../../components/uerAdmin/DeleteUser";
+import ChangePass from "../../../components/uerAdmin/ChangePass";
+import EditUser from "../../../components/uerAdmin/EditUser";
 
-
+import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -31,7 +35,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
@@ -54,6 +57,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -124,14 +128,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
+
 const User = () => {
   
   const [rowUser, setRowUser] = useState([
-    {id: 15 ,name:"Nguyễn văn A",idUser:"id2712",desc:"Thông tin về khách hàng nguyễn văn A"},
-    {id: 16 ,name:"Nguyễn văn B",idUser:"id2713",desc:"Thông tin về khách hàng nguyễn văn B"},
-    {id: 17 ,name:"Nguyễn văn C",idUser:"id2714",desc:"Thông tin về khách hàng nguyễn văn C"},
-    {id: 18 ,name:"Nguyễn văn D",idUser:"id2715",desc:"Thông tin về khách hàng nguyễn văn D"},
-    {id: 19 ,name:"Nguyễn văn E",idUser:"id2716",desc:"Thông tin về khách hàng nguyễn văn E"},
+    {id: 15 ,name:"Nguyễn văn A",idUser:"id2712",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn A"},
+    {id: 16 ,name:"Nguyễn văn B",idUser:"id2713",point:11,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn B"},
+    {id: 17 ,name:"Nguyễn văn C",idUser:"id2714",point:19,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn C"},
+    {id: 18 ,name:"Nguyễn văn D",idUser:"id2715",point:100,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn D"},
+    {id: 19 ,name:"Nguyễn văn E",idUser:"id2716",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn E"},
   ]);
 
 
@@ -154,6 +159,7 @@ const User = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [userChoose, setUserChoose] = useState(null);
+
   const openMenu = Boolean(anchorEl);
   const handleOpenMenu = (event, row) => {
     setUserChoose(row)
@@ -165,7 +171,7 @@ const User = () => {
 
 
 // changePass
-  const [openChangePass, setOpenChangePass] = useState(false);
+  const {renderChangePass, setOpenChangePass} = ChangePass(userChoose);
 
   const handleClickOpenChangePass = () => {
     handleCloseMenu();
@@ -173,120 +179,117 @@ const User = () => {
   };
 
 
-  const handleCloseChangePass = () => {
-    setOpenChangePass(false);
-    setValuesChangePass({
-      newPassword: '',
-      reNewPassword: '',
-      showPassword: false,
-    })
-  };
-
-  const [valuesChangePass, setValuesChangePass] = useState({
-    newPassword: '',
-    reNewPassword: '',
-    showPassword: false,
-  });
-
-  const handleClickShowPassword = () => {
-    setValuesChangePass({
-      ...valuesChangePass,
-      showPassword: !valuesChangePass.showPassword,
-    });
-  };
-
-  const handleChangeValueForm = (prop) => (event) => {
-    setValuesChangePass({ ...valuesChangePass, [prop]: event.target.value });
-  };
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
 
   // deleteUser
-  const [openDeleteUser, setOpenDeleteUser] = useState(false);
+  const {renderDeleteUser, setOpenDeleteUser} = DeleteUser(userChoose);
 
-  const handleClickOpenDeleteuser = () => {
+  const handleOpenDelte = () =>{
     setOpenDeleteUser(true);
     handleCloseMenu();
-  };
+  }
 
-  const handleClickCloseDeleteUser = () => {
-    setOpenDeleteUser(false);
-  };
+
+  // addUser
+  const {renderAddUser, setOpenAddUser} = AddUser();
+  
+  // editUser
+
+  const {renderEditUser, setOpenEditUser} = EditUser(userChoose);
+
+  const handleOpenEditUser = () =>{
+    setOpenEditUser(true);
+    handleCloseMenu();
+  }
+
+
+
 
 
   return (<>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Họ và tên</TableCell>
-            <TableCell align="right">Mã thành viên</TableCell>
-            <TableCell align="right">Mô tả</TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? rowUser.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rowUser
-          ).map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.idUser}
-              </TableCell>
-              <TableCell  align="right">
-                {row.desc}
-              </TableCell>
-              <TableCell style={{ width: 100 }} align="right">
-                <Button
-                  aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={openMenu ? 'true' : undefined}
-                  onClick={ e => handleOpenMenu(e, row)}
-                  style={{color:"#EE0232"}}
-                >
-                  <MoreHorizIcon />
-                </Button>
-
-
-              </TableCell>
-              
+    <div className='body-user bg-white rounded-lg'>
+      <div className='header-user flex justify-between px-4 py-5 items-center'>
+        <h3>Quản lý thành viên</h3>
+        <div><Button className='mr-2' onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button></div> 
+      </div> 
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Họ và tên</TableCell>
+              <TableCell >Mã thành viên</TableCell>
+              <TableCell align="right">Số điện thoại</TableCell>
+              <TableCell align="right">Điểm thưởng</TableCell>
+              <TableCell align="right">Mô tả</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
-          ))}
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? rowUser.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : rowUser
+            ).map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell style={{ width: 160 }}>
+                  {row.idUser}
+                </TableCell>
+                <TableCell  align="right">
+                  {row.phoneNumber}
+                </TableCell>
+                <TableCell  align="right">
+                  {row.point}
+                </TableCell>
+                <TableCell  align="right">
+                  {row.desc}
+                </TableCell>
+                <TableCell style={{ width: 100 }} align="right">
+                  <Button
+                    aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openMenu ? 'true' : undefined}
+                    onClick={ e => handleOpenMenu(e, row)}
+                    style={{color:"#EE0232"}}
+                  >
+                    <MoreHorizIcon />
+                  </Button>
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
+
+                </TableCell>
+                
+              </TableRow>
+            ))}
+
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[8, 20, 50, { value: -1, label: 'Tất cả' }]}
+                colSpan={6}
+                count={rowUser.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    'aria-label': 'Hàng trên bảng',
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
             </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[8, 20, 50, { value: -1, label: 'Tất cả' }]}
-              colSpan={3}
-              count={rowUser.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'Hàng trên bảng',
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    </div> 
 
     <Menu
       id="basic-menu"
@@ -302,8 +305,15 @@ const User = () => {
             <ManageAccountsIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Đổi mật khẩu</ListItemText>
-        </MenuItem>
-      <MenuItem onClick={handleClickOpenDeleteuser}>
+      </MenuItem>
+      <MenuItem onClick={handleOpenEditUser}>
+        <ListItemIcon>
+            <ManageAccountsIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Thay đổi thông tin</ListItemText>
+      </MenuItem>
+      
+      <MenuItem onClick={handleOpenDelte}>
         <ListItemIcon>
             <DeleteIcon fontSize="small" />
         </ListItemIcon>
@@ -311,105 +321,18 @@ const User = () => {
       </MenuItem>
     </Menu>
 
+    {/* change password */}
+    {renderChangePass}
 
-    <Dialog
-        open={openChangePass}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleCloseChangePass}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>{"Đổi mật khẩu"}</DialogTitle>
-        <DialogContent>
+    {/* delete user */}
+    {renderDeleteUser}
 
+    {/* add user */}
+    {renderAddUser}
 
-          <FormControl className='mb-3' sx={{ m: 1,  }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Mật khẩu</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={valuesChangePass.showPassword ? 'text' : 'password'}
-              value={valuesChangePass.newPassword}
-              fullWidth
-              onChange={handleChangeValueForm('newPassword')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {valuesChangePass.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-repassword">Nhập lại mật khẩu</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-repassword"
-              type={valuesChangePass.showPassword ? 'text' : 'password'}
-              value={valuesChangePass.reNewPassword}
-              onChange={handleChangeValueForm('reNewPassword')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {valuesChangePass.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
-          
-        </DialogContent>
-        <DialogActions className='mb-3'>
-          <Button onClick={handleCloseChangePass} variant="contained" style={{background:"#EE0232"}}>Thay đổi</Button>
-          <Button onClick={handleCloseChangePass} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
-        </DialogActions>
-      </Dialog>
-
-
-
-
-
-
-
-
-
-
-
-
-      <Dialog
-        open={openDeleteUser}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClickCloseDeleteUser}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogContent className='text-center'>
-
-
-          <div class="modal-delete--warning"><div class="modal-delete--warning__content">!</div></div>
-          <div><h2 class="text-warning mb-2">Bạn có chắc chắn?</h2></div>
-          <div class="mb-5">Bạn có chắc chắn muốn xoá thành viên <strong>{userChoose.name}</strong> ?</div>
-          
-        </DialogContent>
-
-      </Dialog>
-
-
-
-
-    </>)
+    {/* Edit User */}
+    {renderEditUser}
+  </>)
 }
 
 export default User
