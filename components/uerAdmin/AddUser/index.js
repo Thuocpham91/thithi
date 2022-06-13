@@ -59,12 +59,12 @@ const AddUser = () => {
     setOpenAddUser,
     renderAddUser:(<>
             <Dialog
-            open={openAddUser}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleClickCloseAddUser}
-            fullWidth
-            maxWidth="sm"
+                open={openAddUser}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClickCloseAddUser}
+                fullWidth
+                maxWidth="sm"
             >
             <DialogContent className='text-center'>
                 <div className="header-title-popup p-4 font-bold">Thêm thành viên</div>
