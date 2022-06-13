@@ -4,6 +4,7 @@ import AddUser from "../../../components/uerAdmin/AddUser";
 import DeleteUser from "../../../components/uerAdmin/DeleteUser";
 import ChangePass from "../../../components/uerAdmin/ChangePass";
 import EditUser from "../../../components/uerAdmin/EditUser";
+import ImportPoint from "../../../components/uerAdmin/ImportPoint";
 
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
@@ -187,6 +188,8 @@ const User = () => {
     handleCloseMenu();
   }
 
+   // ImportPoint
+   const {renderImport, setOpenImport} = ImportPoint();
 
 
 
@@ -195,7 +198,10 @@ const User = () => {
     <div className='body-user bg-white rounded-lg'>
       <div className='header-user flex justify-between px-4 py-5 items-center'>
         <h3>Quản lý thành viên</h3>
-        <div><Button className='mr-2' onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button></div> 
+        <div>
+          <Button onClick={e=> setOpenImport(true)} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}} className="mr-4">Import điểm</Button>
+          <Button className='mr-2' onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button>
+          </div> 
       </div> 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
@@ -318,6 +324,10 @@ const User = () => {
 
     {/* Edit User */}
     {renderEditUser}
+
+    {/* import point */}
+    {renderImport}
+
   </>)
 }
 
