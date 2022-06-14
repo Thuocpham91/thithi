@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import AdminLayout from "../../../layouts/Admin";
 import AddPromotion from "../../../components/promotion/AddPromotion";
+import EditPromotion from "../../../components/promotion/EditPromotion";
+import DeletePromotion from "../../../components/promotion/DeletePromotion";
 
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
@@ -142,22 +144,39 @@ TablePaginationActions.propTypes = {
   
     //   menu
     const [anchorEl, setAnchorEl] = useState(null);
-    const [notiChoose, setNotiChoose] = useState(null);
+    const [promotionChoose, setPromotionChoose] = useState(null);
 
     const openMenu = Boolean(anchorEl);
     const handleOpenMenu = (event, row) => {
-        setNotiChoose(row)
+        setPromotionChoose(row)
         setAnchorEl(event.currentTarget);
     };
     const handleCloseMenu = () => {
-    setAnchorEl(null);
+        setAnchorEl(null);
     };
+
+    
 
 
     // add Promotion
     const {renderAddPromotion, setOpenAddPromotion} = AddPromotion();
 
-  
+    // Edit Promotion
+    const {renderEditPromotion, setOpenEditPromotion} = EditPromotion(promotionChoose);
+
+    const handleOpenEditPromotion = () => {
+        handleCloseMenu();
+        setOpenEditPromotion(true)
+    };
+
+    // delete Promotion
+    const {renderDeletePromotion, setOpenDeletePromotion} = DeletePromotion(promotionChoose);
+    const handleOpenDeletePromotion = () => {
+        handleCloseMenu();
+        setOpenDeletePromotion(true)
+    };
+
+
   
     return (<>
         <div className='body-user bg-white rounded-lg'>
@@ -277,23 +296,29 @@ TablePaginationActions.propTypes = {
             }}
         >
     
-            <MenuItem >
-            <ListItemIcon>
-                <EditIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Chỉnh sửa</ListItemText>
+            <MenuItem  onClick={ handleOpenEditPromotion} >
+                <ListItemIcon>
+                    <EditIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Chỉnh sửa</ListItemText>
             </MenuItem>
             
             <MenuItem >
-            <ListItemIcon>
-                <DeleteIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Xóa</ListItemText>
+                <ListItemIcon>
+                    <DeleteIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Xóa</ListItemText>
             </MenuItem>
         </Menu>
 
         {/* add Promotion */}
         {renderAddPromotion}
+
+        {/* edit Promotion */}
+        {renderEditPromotion}
+
+        {/* delete Promotion */}
+        {renderDeletePromotion}
   
   
     </>)
