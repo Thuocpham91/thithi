@@ -46,8 +46,7 @@ async function checkLogin(req,res) {
             status: 182,
             message: "token exit",
         });
-         const role_= await UserRole.findByID(user_.id);
-         user_.role=role_;
+        
         return user_;
 
 

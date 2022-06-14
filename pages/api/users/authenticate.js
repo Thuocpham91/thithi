@@ -97,9 +97,7 @@ function handler(req, res) {
 
             User.update(user_);
             user_.password = "";
-            const role_user = await UserRole.findByID(user_.id);
-            user_.dataRole = role_user;
-
+           
             // const datavietel = await apiViettel.logInViettel();
 
             // const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);

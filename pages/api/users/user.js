@@ -21,7 +21,7 @@ function handler(req, res) {
 
     async function getListUser() {
         try {
-            const danhsachuser = await User.selectAllRole();
+            const danhsachuser = await User.selectALL();
             let count=await User.countUser();
 
             return res.status(200).json({

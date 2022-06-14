@@ -6,7 +6,6 @@ export const User = {
     findByAccount,
     update,
     selectALL,
-    selectAllRole,
     countUser,
     updatePass,
     findBId,
@@ -53,11 +52,11 @@ async function updatePass(pass,id) {
 
 }
 
-async function selectALL(id) {
+async function selectALL() {
     try {
         const result = await excuteQuery({
-            query: 'select * from user ',
-            values: [id],
+            query: 'SELECT ur.account,ur.status,ur.id_khataco ,ur.score,ur.phone,ur.description ,us.name ,us.key_role,ur.created_at  FROM user ur  LEFT JOIN `role` us ON  us.id = ur.id_role',
+           
         });
         return result;
     } catch (error) {
@@ -65,10 +64,10 @@ async function selectALL(id) {
     }
 }
 
-async function selectAllRole() {
+async function selectRole() {
     try {
         const result = await excuteQuery({
-            query: 'SELECT us.* , r.name, r.key_role FROM user_Role ur RIGHT JOIN `user` us ON  us.id = ur.user_id  LEFT JOIN `role` r  ON r.id = ur.role_id ',
+            query: 'SELECT us.* , r.name, r.key_role FROM user_role ur RIGHT JOIN `user` us ON  us.id = ur.user_id  LEFT JOIN `role` r  ON r.id = ur.role_id ',
         });
         return result;
     } catch (error) {
@@ -79,7 +78,7 @@ async function selectAllRole() {
 async function findByAccount(account) {
     try {
         const result = await excuteQuery({
-            query: 'select * from user where account= ? ',
+            query: 'SELECT ur.* , us.* FROM user ur  LEFT JOIN `role` us ON  us.id = ur.id_role  where account= ? ',
             values: [account],
         });
         return result[0];

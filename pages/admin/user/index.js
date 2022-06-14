@@ -143,22 +143,8 @@ const User = () => {
     async function fetchData() {
       let data = await userService.getAll();
       if (data.status != 200) return;
-      data.data.map(item => {
-        let obj = array.find(k => { return item.account == k.account });
-        if (!obj) {
-          let ark = [];
-          ark.push({ name: item.name, keyRole: item.key_role })
-          array.push({ id: item.id, account: item.account, created_at: item.created_at, role: ark })
-        } else {
-          array.map(ite => {
-            if (ite.account == item.account) {
-              ite.role.push({ name: item.name, keyRole: item.key_role });
-            }
-          })
-        }
-      })
-      console.log(array)
-      setRowUser(array);
+      console.log(data)
+      setRowUser(data.data);
     }
     fetchData();
 
