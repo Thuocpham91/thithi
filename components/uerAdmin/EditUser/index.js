@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 const EditUser = (userChoose) => {
-    const [openeditUser, setOpenEditUser] = useState(false);
+    const [openEditUser, setOpenEditUser] = useState(false);
 
     const [valueEditUser, setValueEditUser] = useState(null);
 
@@ -47,7 +47,7 @@ const EditUser = (userChoose) => {
     setOpenEditUser,
     renderEditUser:(<>
             <Dialog
-            open={openeditUser}
+            open={openEditUser}
             TransitionComponent={Transition}
             keepMounted
             onClose={handleCloseEditUser}
