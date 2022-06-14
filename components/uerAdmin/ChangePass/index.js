@@ -21,19 +21,37 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
+import { userService } from '../../../services/user.service';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
   
 
-const ChangePass = () => {
+const ChangePass = (value) => {
+  console.log(value)
 
     const [openChangePass, setOpenChangePass] = useState(false);
 
       const handleCloseChangePass = () => {
         setOpenChangePass(false);
+        setValuesChangePass({
+          newPassword: '',
+          reNewPassword: '',
+          showPassword: false,
+        })
+      };
+
+      const handleChangePass = async() => {
+        setOpenChangePass(false);
+        valuesChangePass.id=value.id;
+
+        console.log(valuesChangePass)
+        if(valuesChangePass.newPassword!= valuesChangePass.reNewPassword)return; 
+
+
+        const data=await userService.changePassAdmin(valuesChangePass);
+        console.log(data);
         setValuesChangePass({
           newPassword: '',
           reNewPassword: '',
@@ -81,9 +99,11 @@ const ChangePass = () => {
                     <OutlinedInput
                     id="outlined-adornment-password"
                     type={valuesChangePass.showPassword ? 'text' : 'password'}
-                    value={valuesChangePass.newPassword}
+                    
                     fullWidth
-                    onChange={handleChangeValueForm('newPassword')}
+                    onChange={(e) => {
+                      setValuesChangePass({ ...valuesChangePass, newPassword: e.target.value })
+                    }}
                     endAdornment={
                         <InputAdornment position="end">
                         <IconButton
@@ -104,8 +124,10 @@ const ChangePass = () => {
                     <OutlinedInput
                     id="outlined-adornment-repassword"
                     type={valuesChangePass.showPassword ? 'text' : 'password'}
-                    value={valuesChangePass.reNewPassword}
-                    onChange={handleChangeValueForm('reNewPassword')}
+                   
+                    onChange={(e) => {
+                      setValuesChangePass({ ...valuesChangePass, reNewPassword: e.target.value })
+                    }}
                     endAdornment={
                         <InputAdornment position="end">
                         <IconButton
@@ -124,7 +146,7 @@ const ChangePass = () => {
                 
                 </DialogContent>
                 <DialogActions className='mb-3'>
-                <Button onClick={handleCloseChangePass} variant="contained" style={{background:"#EE0232"}}>Thay đổi</Button>
+                <Button onClick={(e)=>handleChangePass()} variant="contained" style={{background:"#EE0232"}}>Thay đổi</Button>
                 <Button onClick={handleCloseChangePass} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
                 </DialogActions>
             </Dialog>

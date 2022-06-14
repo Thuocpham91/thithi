@@ -9,6 +9,7 @@ export const User = {
     selectAllRole,
     countUser,
     updatePass,
+    findBId,
 
 
 };
@@ -79,6 +80,18 @@ async function findByAccount(account) {
     try {
         const result = await excuteQuery({
             query: 'select * from user where account= ? ',
+            values: [account],
+        });
+        return result[0];
+    } catch (error) {
+        return null;
+    }
+}
+
+async function findBId(account) {
+    try {
+        const result = await excuteQuery({
+            query: 'select * from user where id= ? ',
             values: [account],
         });
         return result[0];

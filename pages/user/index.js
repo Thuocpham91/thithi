@@ -15,6 +15,12 @@ const User = () => {
     {id:5,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
     {id:6,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
   ]
+
+  const onChange = (e) => {
+
+
+
+  }
   return (<>
     <Head>
         <title>Thông tin</title>
@@ -26,6 +32,7 @@ const User = () => {
         <meta property="og:site_name" content="Khatoco" />
     </Head>
     <div className='main-body body-f2f2f2'>
+   
       <div className='title-page'>
         <Link href="/"><a><ArrowBackIcon /></a></Link>
         Tích điểm đổi quà

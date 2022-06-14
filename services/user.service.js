@@ -18,6 +18,7 @@ export const userService = {
     getAll,
     getLogin,
     changePass,
+    changePassAdmin,
 };
 
 function login(form) {
@@ -72,4 +73,9 @@ function getAll() {
 
 function changePass(data){
     return fetchWrapper.post(`${baseUrl}/chagepass`,data);
+}
+
+
+function changePassAdmin(data){
+    return fetchWrapper.post(`${baseUrl}/chagepassAdmin`,data);
 }
