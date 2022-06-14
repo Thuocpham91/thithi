@@ -227,7 +227,7 @@ const User = () => {
         <div>
           <Button onClick={e=> setOpenImport(true)} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}} className="mr-4" startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
           <Button className='mr-2' onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button>
-          </div> 
+        </div> 
       </div> 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">

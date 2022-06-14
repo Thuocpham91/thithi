@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
 import ImageAspectRatioIcon from '@mui/icons-material/ImageAspectRatio';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
 const SideBarAdmin = () => {
   const router = useRouter();
@@ -13,6 +14,8 @@ const SideBarAdmin = () => {
       {name:"Bảng điều khiển",link:'/admin/dashboard',icon:<DashboardCustomizeOutlinedIcon />},
       {name:"Thành viên",link:'/admin/user',icon:<GroupOutlinedIcon />},
       {name:"Danh mục sản phẩm",link:'/admin/category',icon:<ImageAspectRatioIcon />},
+      {name:"Thông báo",link:'/admin/notification',icon:<NotificationsActiveIcon />},
+      {name:"Khuyến mại",link:'/admin/promotion',icon:<CardGiftcardIcon />},
   ]
 
   const handleActive = (link) =>{
