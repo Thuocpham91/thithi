@@ -2,7 +2,7 @@ import getConfig from 'next/config';
 const jwt = require('jsonwebtoken');
 import { User } from '../../../../querySql/queryuser';
 const { serverRuntimeConfig } = getConfig();
-
+import { UserRole } from '../../../../querySql/qeryUserRole';
 
 export const checlogin = {
     checkLogin,
@@ -46,7 +46,8 @@ async function checkLogin(req,res) {
             status: 182,
             message: "token exit",
         });
-
+         const role_= await UserRole.findByID(user_.id);
+         user_.role=role_;
         return user_;
 
 

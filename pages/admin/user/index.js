@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
+import { userService } from '../../../services/user.service';
+
 import AdminLayout from "../../../layouts/Admin";
 import AddUser from "../../../components/uerAdmin/AddUser";
 import DeleteUser from "../../../components/uerAdmin/DeleteUser";
@@ -66,6 +68,11 @@ function TablePaginationActions(props) {
   };
 
 
+
+
+
+
+
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
       <IconButton
@@ -118,12 +125,43 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const User = () => {
   
   const [rowUser, setRowUser] = useState([
-    {id: 15 ,name:"Nguyễn văn A",idUser:"id2712",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn A"},
-    {id: 16 ,name:"Nguyễn văn B",idUser:"id2713",point:11,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn B"},
-    {id: 17 ,name:"Nguyễn văn C",idUser:"id2714",point:19,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn C"},
-    {id: 18 ,name:"Nguyễn văn D",idUser:"id2715",point:100,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn D"},
-    {id: 19 ,name:"Nguyễn văn E",idUser:"id2716",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn E"},
+    // {id: 15 ,name:"Nguyễn văn A",idUser:"id2712",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn A"},
+    // {id: 16 ,name:"Nguyễn văn B",idUser:"id2713",point:11,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn B"},
+    // {id: 17 ,name:"Nguyễn văn C",idUser:"id2714",point:19,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn C"},
+    // {id: 18 ,name:"Nguyễn văn D",idUser:"id2715",point:100,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn D"},
+    // {id: 19 ,name:"Nguyễn văn E",idUser:"id2716",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn E"},
   ]);
+
+
+
+
+  useEffect(() => {
+    let array = [];
+    async function fetchData() {
+      let data = await userService.getAll();
+      if (data.status != 200) return;
+      data.data.map(item => {
+        let obj = array.find(k => { return item.account == k.account });
+        if (!obj) {
+          let ark = [];
+          ark.push({ name: item.name, keyRole: item.key_role })
+          array.push({ id: item.id, account: item.account, created_at: item.created_at, role: ark })
+        } else {
+          array.map(ite => {
+            if (ite.account == item.account) {
+              ite.role.push({ name: item.name, keyRole: item.key_role });
+            }
+          })
+        }
+      })
+      console.log(array)
+      setRowUser(array);
+    }
+    fetchData();
+
+
+
+  }, []);
 
 
 
@@ -201,7 +239,7 @@ const User = () => {
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <TableCell>Họ và tên</TableCell>
+              <TableCell>ID</TableCell>
               <TableCell >Mã thành viên</TableCell>
               <TableCell align="right">Số điện thoại</TableCell>
               <TableCell align="right">Điểm thưởng</TableCell>
@@ -210,25 +248,22 @@ const User = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? rowUser.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rowUser
-            ).map((row) => (
-              <TableRow key={row.name}>
+            {rowUser.map((row,idex) => (
+              <TableRow key={idex}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.id}
                 </TableCell>
                 <TableCell style={{ width: 160 }}>
-                  {row.idUser}
+                  {row.account}
                 </TableCell>
                 <TableCell  align="right">
-                  {row.phoneNumber}
+                  {row.account}
                 </TableCell>
                 <TableCell  align="right">
-                  {row.point}
+                  {row.account}
                 </TableCell>
                 <TableCell  align="right">
-                  {row.desc}
+                  {row.account}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
                   <Button
