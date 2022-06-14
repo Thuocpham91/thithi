@@ -175,10 +175,20 @@ $key-color : #EE0232;
         z-index: 99;
     }
 }
-
-
-
-
+.MuiAutocomplete-root.MuiAutocomplete-fullWidth{
+    width: 100% !important;
+}
+.area-list{
+    display: flex;
+    flex-wrap: wrap;
+    span{
+        margin-right: 5px;
+        &:last-child{
+            i{display: none;}
+        }
+    }
+}
+.MuiTextField-root{width: 100%;}
 
 
 
