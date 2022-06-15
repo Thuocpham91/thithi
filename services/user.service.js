@@ -22,6 +22,7 @@ export const userService = {
     getCitiDistrict,
     addUser,
     updateUser,
+    getNotification,
 };
 
 function login(form) {
@@ -93,4 +94,8 @@ function addUser(data){
 
 function  updateUser(data){
     return fetchWrapper.post(`${baseUrl}/updateUser`,data);
+}
+
+function  getNotification(data){
+    return fetchWrapper.get(`${baseUrl}/notification`,data);
 }

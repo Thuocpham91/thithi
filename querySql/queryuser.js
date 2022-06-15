@@ -12,6 +12,7 @@ export const User = {
     insert_User,
     deleteUser,
     updatetoken,
+    findCityCode,
 
 
 };
@@ -132,6 +133,19 @@ async function findBId(account) {
         return null;
     }
 }
+
+async function findCityCode(city_id) {
+    try {
+        const result = await excuteQuery({
+            query: 'select * from user where city_id= ? ',
+            values: [city_id],
+        });
+        return result;
+    } catch (error) {
+        return [];
+    }
+}
+
 
 async function countUser(account) {
     try {

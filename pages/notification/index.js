@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Footer from '../../components/footer'
 
+import { userService } from '../../services';
 
 const Notification = () => {
+
+  const [dataNotification, setDataNofi] = useState([]);
+
+  useEffect(() => {
+    async function getCategory() {
+      const data = await userService.getNotification();
+      if (data.status != 200) return;
+      setDataNofi(data.data)
+
+      console.log(data)
+
+    }
+
+    getCategory();
+
+  }, []);
+
+
+
   return (
-    
+
     <div className='main-body body-f2f2f2'>
       <Head>
         <title>Thông báo</title>
@@ -20,46 +40,36 @@ const Notification = () => {
         Thông báo
       </div>
       <div className='list-noti'>
-        <div className='noti-item'>
-          <div className='text-right noti-item__header'>15-06-2022</div>
-          <div className='noti-item__body'>
-            <h3>Chương trình khuyến mại tháng 6</h3>
-            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 6 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
-          </div>
-        </div>
-        <div className='noti-item'>
-          <div className='text-right noti-item__header'>15-06-2022</div>
-          <div className='noti-item__body'>
-            <h3>Chương trình khuyến mại tháng 6</h3>
-            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 6 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
-          </div>
-        </div>
-        <div className='noti-item'>
-          <div className='text-right noti-item__header'>15-06-2022</div>
-          <div className='noti-item__body'>
-            <h3>Chương trình khuyến mại tháng 5</h3>
-            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 5 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
-          </div>
-        </div>
-        <div className='noti-item'>
-          <div className='text-right noti-item__header'>15-06-2022</div>
-          <div className='noti-item__body'>
-            <h3>Chương trình khuyến mại tháng 4</h3>
-            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 4 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
-          </div>
-        </div>
-        <div className='noti-item'>
-          <div className='text-right noti-item__header'>15-06-2022</div>
-          <div className='noti-item__body'>
-            <h3>Chương trình khuyến mại tháng 3</h3>
-            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 3 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
-          </div>
-        </div>
-        
-      </div>
+
+        {dataNotification.map((item, idx) => {
+
+          return (
+
+            < div key={idx} className='noti-item' >
+              <div className='text-right noti-item__header'>{item.created_at.split("T")[0]}</div>
+              <div className='noti-item__body'>
+                <h3>{item.tile}</h3>
+                <p>{item.message}</p>
+              </div>
+            </div>
+
+
+
+
+          )
+
+
+
+
+        })}
+
+
+
+
+      </div >
       <Footer />
-    </div>
-    
+    </div >
+
   )
 }
 

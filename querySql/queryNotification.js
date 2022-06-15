@@ -2,20 +2,21 @@ import excuteQuery from '../config/db';
 
 
 
-export const Catogory = {
+export const Notification = {
     insert,
-    Select,
+    count,
     update,
     SelectAll,
+    SelectById_user,
     
 };
 
-async function insert(name,code,status,url) {
+async function insert(id_user,message,status,tile) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO category(name,code,status,url) VALUES(?,?,?,?)',
-            values: [name,code,status,url],
+            query: 'INSERT INTO notification(id_user,message,status,tile) VALUES(?,?,?,?)',
+            values: [id_user,message,status,tile],
         });
         return result;
     } catch (error) {
@@ -25,13 +26,13 @@ async function insert(name,code,status,url) {
 }
 
 
-async function Select(code) {
+async function SelectById_user(id_user) {
 
 
     try {
         const result = await excuteQuery({
-            query: 'select * from category where code = ?',
-            values: [code],
+            query: 'select * from notification where id_user = ?',
+            values: [id_user],
         });
         return result;
     } catch (error) {
@@ -44,7 +45,7 @@ async function SelectAll(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from category',
+            query: 'select * from notification',
             values: [code],
         });
         return result;
@@ -59,7 +60,7 @@ async function SelectAll(code) {
 async function update(ca) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  category SET name=?,code= ? ,status= ?,url= ?   where id= ?',
+            query: 'UPDATE  notification SET name=?,code= ? ,status= ?,url= ?   where id= ?',
             values: [ca.name, ca.code, ca.status,ca.url,ca.id],
         });
         return result;
@@ -67,5 +68,18 @@ async function update(ca) {
         console.log(error);
     }
 
+}
+
+
+async function count(id_user) {
+    try {
+        const result = await excuteQuery({
+            query: 'SELECT COUNT(id) AS number FROM notification id_user= ?',
+            values: [id_user],
+        });
+        return result[0];
+    } catch (error) {
+        return null;
+    }
 }
 
