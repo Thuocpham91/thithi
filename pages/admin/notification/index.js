@@ -1,6 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import AdminLayout from "../../../layouts/Admin";
 import Button from '@mui/material/Button';
+
+import { productService } from '../../../services/product.service';
+import { userService } from '../../../services/user.service';
 
 
 import Grid from '@mui/material/Grid';
@@ -23,6 +26,7 @@ const Notification = () => {
     const [valueNoti, setValueNoti] = useState({
         title:'',
         content:'',
+        city:[]
     });
 
     const handleOpenNoti = () => {
@@ -32,23 +36,41 @@ const Notification = () => {
     const handleCloseNoti = () => {
         setOpenNoti(false);
     };
+    
+    const handleNoti = async () => {
 
-    const handleChangeNoti = (prop) => (event) => {
-        setValueNoti({ ...valueNoti, [prop]: event.target.value });
+        const data=await productService.putNotification(valueNoti);
+        console.log(data);
+
+
+
+
+        setOpenNoti(false);
     };
 
 
 
-    const areaTT = [
-        {id: '01', title: 'Hà nội'},
-        {id: '02', title: 'Hồ chí minh'},
-        {id: '03', title: 'Hải phòng'},
-        {id: '04', title: 'Đà nẵng'},
-        {id: '05', title: 'Nghệ an'},
-        {id: '06', title: 'Thanh hóa'},
-        {id: '07', title: 'huế'}
-    ];
+
      
+
+
+    const [city, setCIty] = useState([]);
+
+    const [disStrict, setDisStrict] = useState([]);
+
+
+    useEffect(() => {
+
+        async function fetchData() {
+            let data = await userService.getCitiDistrict();
+            if (data.status != 200) return;
+
+            setCIty(data.citi);
+            setDisStrict(data.district)
+
+        }
+        fetchData();
+    }, []);
    
   
   
@@ -76,10 +98,10 @@ const Notification = () => {
                     <div className='form-Noti'>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={handleChangeNoti('title')} value={valueNoti.title}/>
+                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e =>setValueNoti({...valueNoti,title:e.target.value})} value={valueNoti.title}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={handleChangeNoti('content')} value={valueNoti.content}/>
+                            <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e =>setValueNoti({...valueNoti,content:e.target.value}) } value={valueNoti.content}/>
                         </Grid>
                         <Grid item xs={12}>
                         <Autocomplete
@@ -87,8 +109,9 @@ const Notification = () => {
                             fullWidth
                             limitTags={2}
                             id="multiple-limit-tags"
-                            options={areaTT}
-                            getOptionLabel={(option) => option.title}
+                            options={city}
+                            onChange={(event, value) => setValueNoti({...valueNoti,city:value})} 
+                            getOptionLabel={(option) => option.name}
                             renderInput={(params) => (
                                 <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
                             )}
@@ -98,7 +121,7 @@ const Notification = () => {
                     </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                    <Button className='mr-2' onClick={handleCloseNoti} variant="contained" style={{background:"#EE0232"}}>Thêm mới</Button>
+                    <Button className='mr-2' onClick={e=>handleNoti()} variant="contained" style={{background:"#EE0232"}}>Thêm mới</Button>
                     <Button onClick={handleCloseNoti} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>

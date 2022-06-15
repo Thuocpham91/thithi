@@ -10,6 +10,7 @@ export const productService = {
     getProduct,
     updateCatogory,
     getCategory,
+    putNotification,
 };
 
 function getProduct() {
@@ -28,6 +29,12 @@ function updateCatogory(data) {
 
 function getCategory(data) {
     return fetchWrapper.get(`${baseUrl}/updateCatogory`,data)
+        .then(user => {
+            return user;
+        });
+}
+function putNotification(data) {
+    return fetchWrapper.post(`${baseUrl}/notification`,data)
         .then(user => {
             return user;
         });
