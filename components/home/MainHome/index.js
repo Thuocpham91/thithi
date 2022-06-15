@@ -42,7 +42,9 @@ const MainHome = () => {
 
     const plusNumber = (data, type) => {
         const newArray = plusFunc(listProduct, data, type);
+
         const arrayOrder = plusFuncOrder(orderList, data, type);
+
         setListProduct(newArray);
         setOrderList(arrayOrder);
     }
@@ -152,6 +154,7 @@ const MainHome = () => {
         const newArray = [];
         array.map(function (item, idx) {
             let it = item;
+            it.type=type;
             if (item.product_id === data.product_id) {
                 check = true;
                 if (type == "package") {
