@@ -111,28 +111,18 @@ const EditPromotion = (promotionChoose) => {
                             <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={handleChangeEditPromotion('numberOfUses')} value={valueEditPromotion.numberOfUses}/>
                         </Grid>
                         <Grid item xs={6}>
-                            {/* <Autocomplete
-                                value={valueEditPromotion.product}
-                                onChange={(e, newValue) => {
-                                    setValueEditPromotion({ ...valueEditPromotion, product: newValue })
-                                }}
-                                options={productItems}
-                                getOptionLabel={(option) => option.title}
-                                disablePortal
-                                renderInput={(params) => (
-                                    <TextField fullWidth {...params} label="Sản phẩm"/>
-                                )}
-                            /> */}
-
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 options={productItems}
                                 renderInput={(params) => <TextField {...params} label="Sản phẩm" />}
                             />
-
-
-
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={setValueEditPromotion('quantityPurchased')} value={valueEditPromotion.quantityPurchased}/>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={setValueEditPromotion('promotionalQuantity')} value={valueEditPromotion.promotionalQuantity}/>
                         </Grid>
                         <Grid item xs={12}>
                             <Autocomplete

@@ -113,13 +113,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const User = () => {
   
-  const [rowUser, setRowUser] = useState([
-    // {id: 15 ,name:"Nguyễn văn A",idUser:"id2712",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn A"},
-    // {id: 16 ,name:"Nguyễn văn B",idUser:"id2713",point:11,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn B"},
-    // {id: 17 ,name:"Nguyễn văn C",idUser:"id2714",point:19,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn C"},
-    // {id: 18 ,name:"Nguyễn văn D",idUser:"id2715",point:100,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn D"},
-    // {id: 19 ,name:"Nguyễn văn E",idUser:"id2716",point:15,phoneNumber:'098686868686',desc:"Thông tin về khách hàng nguyễn văn E"},
-  ]);
+  const [rowUser, setRowUser] = useState([]);
 
 
 

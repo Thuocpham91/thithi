@@ -22,6 +22,8 @@ const AddPromotion = () => {
         title:'',
         code:'',
         numberOfUses:'',
+        quantityPurchased: '',
+        promotionalQuantity:'',
         startDate:null,
         endDate:null,
         product:'',
@@ -115,28 +117,18 @@ const AddPromotion = () => {
                             <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={handleChangeAddPromotion('numberOfUses')} value={valueAddPromotion.numberOfUses}/>
                         </Grid>
                         <Grid item xs={6}>
-                            {/* <Autocomplete
-                                value={valueAddPromotion.product}
-                                onChange={(e, newValue) => {
-                                    setValueAddPromotion({ ...valueAddPromotion, product: newValue })
-                                }}
-                                options={productItems}
-                                getOptionLabel={(option) => option.title}
-                                disablePortal
-                                renderInput={(params) => (
-                                    <TextField fullWidth {...params} label="Sản phẩm"/>
-                                )}
-                            /> */}
-
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 options={productItems}
                                 renderInput={(params) => <TextField {...params} label="Sản phẩm" />}
                             />
-
-
-
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={handleChangeAddPromotion('quantityPurchased')} value={valueAddPromotion.quantityPurchased}/>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={handleChangeAddPromotion('promotionalQuantity')} value={valueAddPromotion.promotionalQuantity}/>
                         </Grid>
                         <Grid item xs={12}>
                             <Autocomplete

@@ -7,6 +7,7 @@ import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import ImageAspectRatioIcon from '@mui/icons-material/ImageAspectRatio';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
 
 const SideBarAdmin = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const SideBarAdmin = () => {
       {name:"Danh mục sản phẩm",link:'/admin/category',icon:<ImageAspectRatioIcon />},
       {name:"Thông báo",link:'/admin/notification',icon:<NotificationsActiveIcon />},
       {name:"Khuyến mại",link:'/admin/promotion',icon:<CardGiftcardIcon />},
+      {name:"Đổi điểm",link:'/admin/exchangePoints',icon:<ControlPointDuplicateIcon />},
   ]
 
   const handleActive = (link) =>{
