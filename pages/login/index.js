@@ -115,7 +115,7 @@ const Login = (props) => {
                                         </label>
                                         <input className=" appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             id="username"
-                                            type="email"
+                                            type="text"
                                             onChange={(e) => {
                                                 setiInitValuee({ ...initValue, email: e.target.value })
                                             }}

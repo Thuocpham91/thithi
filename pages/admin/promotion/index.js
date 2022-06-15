@@ -111,14 +111,14 @@ TablePaginationActions.propTypes = {
   const Promotion = () => {
     
     const  [listPromotion, seListPromotion] = useState([
-        {id:1,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
-        {id:2,title:'12c - 8g',code:'NN8',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
-        {id:3,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa lớn',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
-        {id:4,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
-        {id:5,title:'12c - 8g',code:'NN8',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ ',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'},{id:'03',name:'Nghệ an'}]},
-        {id:6,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
-        {id:7,title:'12c - 8g',code:'NN8',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa lớn',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
-        {id:8,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
+        {id:1,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
+        {id:2,title:'12c - 8g',code:'NN8',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
+        {id:3,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa lớn',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
+        {id:4,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
+        {id:5,title:'12c - 8g',code:'NN8',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ ',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'},{id:'03',name:'Nghệ an'}]},
+        {id:6,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
+        {id:7,title:'12c - 8g',code:'NN8',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa lớn',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
+        {id:8,title:'3c - 5g',code:'NN6',numberOfUses:6,startDate:'16-06-2022',endDate:'22-06-2022',product:'Ngựa nhỏ 2',quantityPurchased:'50',promotionalQuantity:'4',area:[{id:'01',name:'Hà nội'},{id:'02',name:'Hồ chí minh'}]},
     ]);
   
   
@@ -149,6 +149,7 @@ TablePaginationActions.propTypes = {
     const openMenu = Boolean(anchorEl);
     const handleOpenMenu = (event, row) => {
         setPromotionChoose(row)
+        console.log('row=',row);
         setAnchorEl(event.currentTarget);
     };
     const handleCloseMenu = () => {
@@ -190,14 +191,15 @@ TablePaginationActions.propTypes = {
             <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>Id</TableCell>
                     <TableCell>Tiêu đề</TableCell>
                     <TableCell>Mã</TableCell>
                     <TableCell>Sản phẩm</TableCell>
                     <TableCell className='text-right'>Lần dùng</TableCell>
+                    <TableCell className='text-right'>Lượng mua</TableCell>
+                    <TableCell className='text-right'>Lượng khuyến mại</TableCell>
                     <TableCell>Tỉnh/Thành áp dụng </TableCell>
-                    <TableCell>Ngày bắt đầu</TableCell>
-                    <TableCell>Ngày kết thúc</TableCell>
+                    <TableCell>Bắt đầu</TableCell>
+                    <TableCell>Kết thúc</TableCell>
                     <TableCell></TableCell>
                 </TableRow>
                 </TableHead>
@@ -207,22 +209,25 @@ TablePaginationActions.propTypes = {
                     : listPromotion
                 ).map((row,idx) => (
                     <TableRow key={idx}>
-                    <TableCell component="th" scope="row">
-                        {row.id}
-                    </TableCell>
-                    <TableCell >
+                    <TableCell  component="th" scope="row">
                         {row.title}
                     </TableCell>
-                    <TableCell >
+                    <TableCell  >
                         {row.code}
                     </TableCell>
-                    <TableCell >
+                    <TableCell  >
                         {row.product}
                     </TableCell>
-                    <TableCell className='text-right'>
+                    <TableCell  className='text-right'>
                         {row.numberOfUses}
                     </TableCell>
-                    <TableCell style={{ width: 280 }}>
+                    <TableCell  className='text-right'>
+                        {row.quantityPurchased}
+                    </TableCell>
+                    <TableCell  className='text-right'>
+                        {row.promotionalQuantity}
+                    </TableCell>
+                    <TableCell  style={{ width: 200 }}>
                         <div className='area-list'>
                             {
                                 row.area.map( function(d,idx){
@@ -233,13 +238,13 @@ TablePaginationActions.propTypes = {
                             }
                         </div>
                     </TableCell>
-                    <TableCell >
+                    <TableCell  >
                         {row.startDate}
                     </TableCell>
-                    <TableCell >
+                    <TableCell  >
                         {row.endDate}
                     </TableCell>
-                    <TableCell style={{ width: 100 }} align="right">
+                    <TableCell style={{ width: 30 }} align="right">
                     <Button
                         aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
                         aria-haspopup="true"
@@ -248,7 +253,7 @@ TablePaginationActions.propTypes = {
                         style={{color:"#EE0232"}}
                         >
                         <MoreHorizIcon />
-                        </Button>
+                    </Button>
     
                     </TableCell>
                     
@@ -296,7 +301,7 @@ TablePaginationActions.propTypes = {
             }}
         >
     
-            <MenuItem  onClick={ handleOpenEditPromotion} >
+            <MenuItem  onClick={handleOpenEditPromotion} >
                 <ListItemIcon>
                     <EditIcon fontSize="small" />
                 </ListItemIcon>

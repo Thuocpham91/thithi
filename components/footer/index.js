@@ -45,9 +45,33 @@ export default function Footer() {
       >
         <BottomNavigationAction onClick={e => handleLink('/')} label="Đặt hàng" icon={<HomeIcon />} />
         <BottomNavigationAction onClick={e => handleLink('/cart')} label="Giỏ hàng" icon={<LocalMallIcon />} />
-        <BottomNavigationAction onClick={e => handleLink('/notification')} label="Thông báo" icon={<NotificationsIcon />} />
+        <BottomNavigationAction onClick={e => handleLink('/notification')} label="Thông báo1" icon={<NotificationsIcon />} style={{content:'2'}} />
         <BottomNavigationAction onClick={e => handleLink('/user')} label="Cá nhân" icon={<PersonIcon />} />
       </BottomNavigation>
+      <style jsx global>{`
+        .footer .MuiBottomNavigation-root button:nth-child(3){
+          position: relative;
+        }
+        .footer .MuiBottomNavigation-root button:nth-child(3):after{
+          content: "3";
+          position: absolute;
+          padding: 5px;
+          background: #EE0232;
+          height: 17px;
+          width: 18px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          color: #fff;
+          font-weight: bold;
+          top: 3px;
+          right: 50%;
+          transform: translateX(20px);
+        }
+      `}</style>
+
     </Box>
   );
 }
