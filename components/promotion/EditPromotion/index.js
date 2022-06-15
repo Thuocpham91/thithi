@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -16,25 +16,17 @@ import Autocomplete from '@mui/material/Autocomplete';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
-const AddPromotion = () => {
-    const [openAddPromotion, setOpenAddPromotion] = useState(false);
-    const [valueAddPromotion, setValueAddPromotion] = useState({
-        title:'',
-        code:'',
-        numberOfUses:'',
-        startDate:null,
-        endDate:null,
-        product:'',
-        area:[],
-    });
+const EditPromotion = (promotionChoose) => {
+    const [openEditPromotion, setOpenEditPromotion] = useState(false);
+    const [valueEditPromotion, setValueEditPromotion] = useState({});
 
-    const handleCloseAddPromotion = () => {
-        setOpenAddPromotion(false);
+    const handleCloseEditPromotion = () => {
+        setOpenEditPromotion(false);
     };
 
 
-    const handleChangeAddPromotion = (prop) => (event) => {
-        setValueAddPromotion({ ...valueAddPromotion, [prop]: event.target.value });
+    const handleChangeEditPromotion = (prop) => (event) => {
+        setValueEditPromotion({ ...valueEditPromotion, [prop]: event.target.value });
     };
 
     const areaTT = [
@@ -57,30 +49,34 @@ const AddPromotion = () => {
         {id: '06', label: 'PRINCE KTC'},
         {id: '07', label: 'NGỰA NÂU'}
     ];
-    
+
+    useEffect(() => {
+        setValueEditPromotion({promotionChoose});
+    }, [promotionChoose])
 
 
 
     return {
-    setOpenAddPromotion,
-    renderAddPromotion:(<>
+    setOpenEditPromotion,
+    renderEditPromotion:(<>
+        {promotionChoose&& <>
             <Dialog
-                open={openAddPromotion}
+                open={openEditPromotion}
                 TransitionComponent={Transition}
                 keepMounted
-                onClose={handleCloseAddPromotion}
+                onClose={handleCloseEditPromotion}
                 fullWidth
                 maxWidth="sm"
             >
                 <DialogContent className='text-center'>
-                    <div className="header-title-popup p-4 font-bold">Thêm khuyến mại</div>
-                    <div className='form-AddPromotion'>
+                    <div className="header-title-popup p-4 font-bold">Sửa khuyến mại</div>
+                    <div className='form-EditPromotion'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={handleChangeAddPromotion('title')} value={valueAddPromotion.title}/>
+                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={handleChangeEditPromotion('title')} value={valueEditPromotion.title}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={handleChangeAddPromotion('code')} value={valueAddPromotion.code}/>
+                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={handleChangeEditPromotion('code')} value={valueEditPromotion.code}/>
                         </Grid>
                         <Grid item xs={6}>
                             <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>
@@ -88,9 +84,9 @@ const AddPromotion = () => {
                                     fullWidth
                                     className="w-full"
                                     label="Thời gian bắt đầu"
-                                    value={valueAddPromotion.startDate}
+                                    value={valueEditPromotion.startDate}
                                     onChange={(newValue) => {
-                                        setValueAddPromotion({ ...valueAddPromotion, startDate: newValue })
+                                        setValueEditPromotion({ ...valueEditPromotion, startDate: newValue })
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
@@ -103,22 +99,22 @@ const AddPromotion = () => {
                                     style={{width: "100%"}}
                                     fullWidth
                                     label="Thời gian kết thúc"
-                                    value={valueAddPromotion.endDate}
+                                    value={valueEditPromotion.endDate}
                                     onChange={(newValue) => {
-                                        setValueAddPromotion({ ...valueAddPromotion, endDate: newValue })
+                                        setValueEditPromotion({ ...valueEditPromotion, endDate: newValue })
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={handleChangeAddPromotion('numberOfUses')} value={valueAddPromotion.numberOfUses}/>
+                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={handleChangeEditPromotion('numberOfUses')} value={valueEditPromotion.numberOfUses}/>
                         </Grid>
                         <Grid item xs={6}>
                             {/* <Autocomplete
-                                value={valueAddPromotion.product}
+                                value={valueEditPromotion.product}
                                 onChange={(e, newValue) => {
-                                    setValueAddPromotion({ ...valueAddPromotion, product: newValue })
+                                    setValueEditPromotion({ ...valueEditPromotion, product: newValue })
                                 }}
                                 options={productItems}
                                 getOptionLabel={(option) => option.title}
@@ -140,9 +136,9 @@ const AddPromotion = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <Autocomplete
-                                value={valueAddPromotion.area}
+                                value={valueEditPromotion.area}
                                 onChange={(e, newValue) => {
-                                    setValueAddPromotion({ ...valueAddPromotion, area: newValue })
+                                    setValueEditPromotion({ ...valueEditPromotion, area: newValue })
                                 }}
                                 multiple
                                 fullWidth
@@ -159,14 +155,15 @@ const AddPromotion = () => {
                     </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                    <Button className='mr-2' onClick={handleCloseAddPromotion} variant="contained" style={{background:"#EE0232"}}>Thêm mới</Button>
-                    <Button onClick={handleCloseAddPromotion} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy bỏ</Button>
+                    <Button className='mr-2' onClick={handleCloseEditPromotion} variant="contained" style={{background:"#EE0232"}}>Thêm mới</Button>
+                    <Button onClick={handleCloseEditPromotion} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>
             </Dialog>
+        </>}
         </>
         )
     }
 }
 
-export default AddPromotion
+export default EditPromotion

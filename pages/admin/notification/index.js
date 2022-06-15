@@ -39,7 +39,7 @@ const Notification = () => {
 
 
 
-    const top100Films = [
+    const areaTT = [
         {id: '01', title: 'Hà nội'},
         {id: '02', title: 'Hồ chí minh'},
         {id: '03', title: 'Hải phòng'},
@@ -47,7 +47,7 @@ const Notification = () => {
         {id: '05', title: 'Nghệ an'},
         {id: '06', title: 'Thanh hóa'},
         {id: '07', title: 'huế'}
-      ];
+    ];
      
    
   
@@ -87,7 +87,7 @@ const Notification = () => {
                             fullWidth
                             limitTags={2}
                             id="multiple-limit-tags"
-                            options={top100Films}
+                            options={areaTT}
                             getOptionLabel={(option) => option.title}
                             renderInput={(params) => (
                                 <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
