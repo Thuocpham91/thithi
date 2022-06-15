@@ -23,6 +23,7 @@ export const userService = {
     addUser,
     updateUser,
     getNotification,
+    getCountNotification,
 };
 
 function login(form) {
@@ -98,4 +99,8 @@ function  updateUser(data){
 
 function  getNotification(data){
     return fetchWrapper.get(`${baseUrl}/notification`,data);
+}
+
+function  getCountNotification(data){
+    return fetchWrapper.get(`${baseUrl}/getcountNotification`,data);
 }

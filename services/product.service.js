@@ -11,6 +11,7 @@ export const productService = {
     updateCatogory,
     getCategory,
     putNotification,
+    addPromotion,
 };
 
 function getProduct() {
@@ -40,6 +41,11 @@ function putNotification(data) {
         });
 }
 
-
+function addPromotion(data) {
+    return fetchWrapper.post(`${baseUrl}/promotion`,data)
+        .then(user => {
+            return user;
+        });
+}
 
 

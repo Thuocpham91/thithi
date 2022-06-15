@@ -36,6 +36,7 @@ const AddUser = () => {
         city_code: "",
         district: "",
         district_code: "",
+        address: "",
         showPassword: false
     });
 
@@ -73,7 +74,7 @@ const AddUser = () => {
         const datah=await userService.addUser(valueAddUser);
         console.log(datah)
 
-         if(datah.code==200)  {
+         if(datah.status==200)  {
             toast.success("Thêm thành viên thành công");
             setOpenAddUser(false);
 
@@ -194,10 +195,16 @@ const AddUser = () => {
 
                             </Grid>
 
+                            <Grid item xs={12}>
+                                <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, address: e.target.value }) }} value={valueAddUser.address} />
+                            </Grid>
+
 
                             <Grid item xs={12}>
                                 <TextField className='mb-1' fullWidth label="Mô tả" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, desc: e.target.value }) }} value={valueAddUser.desc} />
                             </Grid>
+                            
+                           
                         </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>

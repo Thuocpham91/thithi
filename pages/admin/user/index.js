@@ -115,9 +115,6 @@ const User = () => {
   
   const [rowUser, setRowUser] = useState([]);
 
-
-
-
   useEffect(() => {
     let array = [];
     async function fetchData() {

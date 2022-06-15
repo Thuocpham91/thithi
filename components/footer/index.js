@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -8,31 +8,51 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 
+import { userService } from '../../services';
 
 
 
 export default function Footer() {
   const router = useRouter();
   const [value, setValue] = useState(0);
+  const [countNoti, setCountNoti] = useState(0);
 
-  const handleLink = (link) =>{
+  const handleLink = (link) => {
     router.push(link);
   }
-  const handleActive = () =>{
-    if(router.pathname == '/user'){
+  const handleActive = () => {
+    if (router.pathname == '/user') {
       setValue(3);
     }
-    if(router.pathname == '/cart'){
+    if (router.pathname == '/cart') {
       setValue(1);
     }
-    if(router.pathname == '/notification'){
+    if (router.pathname == '/notification') {
       setValue(2);
     }
-    
+
   }
   useEffect(() => {
     handleActive();
-  },[]);
+  }, []);
+
+
+
+  useEffect(() => {
+    async function getCategory() {
+      const data = await userService.getCountNotification();
+      if (data.status != 200) return;
+     
+      setCountNoti( data.data[0].number)
+
+      console.log(data)
+
+    }
+
+    getCategory();
+
+  }, []);
+
 
   return (
     <Box className='w-full footer'>
@@ -45,15 +65,16 @@ export default function Footer() {
       >
         <BottomNavigationAction onClick={e => handleLink('/')} label="Đặt hàng" icon={<HomeIcon />} />
         <BottomNavigationAction onClick={e => handleLink('/cart')} label="Giỏ hàng" icon={<LocalMallIcon />} />
-        <BottomNavigationAction onClick={e => handleLink('/notification')} label="Thông báo1" icon={<NotificationsIcon />} style={{content:'2'}} />
+        <BottomNavigationAction onClick={e => handleLink('/notification')} label="Thông báo" icon={<NotificationsIcon />} style={{ content: '2' }} />
         <BottomNavigationAction onClick={e => handleLink('/user')} label="Cá nhân" icon={<PersonIcon />} />
       </BottomNavigation>
-      <style jsx global>{`
+
+      {countNoti == 0 ? "" : <style jsx global>{`
         .footer .MuiBottomNavigation-root button:nth-child(3){
           position: relative;
         }
         .footer .MuiBottomNavigation-root button:nth-child(3):after{
-          content: "3";
+          content: '${countNoti}';
           position: absolute;
           padding: 5px;
           background: #EE0232;
@@ -71,6 +92,7 @@ export default function Footer() {
           transform: translateX(20px);
         }
       `}</style>
+      }
 
     </Box>
   );

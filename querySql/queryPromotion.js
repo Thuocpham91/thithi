@@ -2,21 +2,21 @@ import excuteQuery from '../config/db';
 
 
 
-export const Notification = {
+export const Promotion = {
     insert,
     count,
     update,
     SelectAll,
-    SelectById_user,
+   
     
 };
 
-async function insert(id_user,message,status,tile) {
+async function insert(title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product_id,city_id,status) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO notification(id_user,message,status,tile) VALUES(?,?,?,?)',
-            values: [id_user,message,status,tile],
+            query: 'INSERT INTO Promotion(title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product_id,city_id,status) VALUES(?,?,?,?,?,?,?,?,?,?)',
+            values: [title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product_id,city_id,status],
         });
         return result;
     } catch (error) {
@@ -45,7 +45,7 @@ async function SelectAll(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification',
+            query: 'select * from Promotion',
             values: [code],
         });
         return result;

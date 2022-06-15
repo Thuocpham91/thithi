@@ -42,9 +42,7 @@ const Notification = () => {
       <div className='list-noti'>
 
         {dataNotification.map((item, idx) => {
-
           return (
-
             < div key={idx} className='noti-item' >
               <div className='text-right noti-item__header'>{item.created_at.split("T")[0]}</div>
               <div className='noti-item__body'>
@@ -53,13 +51,7 @@ const Notification = () => {
               </div>
             </div>
 
-
-
-
           )
-
-
-
 
         })}
 

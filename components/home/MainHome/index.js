@@ -21,6 +21,8 @@ const MainHome = () => {
             if (data.status != 200) return;
 
             setListProduct(data.data.variants);
+
+            localStorage.setItem('listVariants',JSON.stringify(data.data.variants));
             console.log(data.data.variants)
 
 

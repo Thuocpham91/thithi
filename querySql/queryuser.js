@@ -17,12 +17,12 @@ export const User = {
 
 };
 
-async function insert_User(account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name) {
+async function insert_User(account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name,address) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO user(account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-            values: [account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name],
+            query: 'INSERT INTO user(account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name,address) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            values: [account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name,address],
         });
         return result;
     } catch (error) {
