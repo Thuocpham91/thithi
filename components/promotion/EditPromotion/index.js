@@ -51,7 +51,9 @@ const EditPromotion = (promotionChoose) => {
     ];
 
     useEffect(() => {
-        setValueEditPromotion({promotionChoose});
+        if(promotionChoose != null){
+            setValueEditPromotion({promotionChoose});
+        }
     }, [promotionChoose])
 
 
