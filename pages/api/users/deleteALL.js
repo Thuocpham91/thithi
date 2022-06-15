@@ -22,9 +22,12 @@ function handler(req, res) {
 
     async function changePass(req, res) {
         try {
-            const {id } = req.body;
+            const {id,code } = req.body;
+            let rt;
+
+            if(code==1)  rt= await User.deleteUser(id);
             
-            const rt= await User.deleteUser(id);
+           
             return res.status(200).json({
                 status: 200,
                 message: "thay đổi thành công",
