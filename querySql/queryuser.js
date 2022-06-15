@@ -11,6 +11,7 @@ export const User = {
     findBId,
     insert_User,
     deleteUser,
+    updatetoken,
 
 
 };
@@ -32,10 +33,25 @@ async function insert_User(account,password,status,id_khataco,token,token_refres
 
 
 async function update(user) {
+    console.log(user)
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  user SET account=?,status= ? ,id_khataco= ?,score= ?,id_role= ?,phone= ? ,description= ? ,city_id= ? ,district_id= ?,name= ?    where id= ?',
-            values: [user.phone, user.status, user.id_khataco,user.score, user.id_role,  user.phone,user.description,user.city_id,user.district_id,user.name,user.id],
+            query: 'UPDATE  user SET token=?,token_refresh=?,account=?,status= ? ,id_khataco= ?,score= ?,id_role= ?,phone= ? ,description= ? ,city_id= ? ,district_id= ?,name= ?    where id= ?',
+            values: [user.token,user.token_refresh,user.phone, user.status, user.id_khataco,user.score, user.id_role,  user.phone,user.description,user.city_id,user.district_id,user.name,user.id],
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+async function updatetoken(user) {
+    console.log(user)
+    try {
+        const result = await excuteQuery({
+            query: 'UPDATE  user SET token=?,token_refresh=?  where id= ?',
+            values: [user.token,user.token_refresh,user.id],
         });
         return result;
     } catch (error) {
@@ -96,7 +112,7 @@ async function selectRole() {
 async function findByAccount(account) {
     try {
         const result = await excuteQuery({
-            query: 'SELECT ur.* , us.* FROM user ur  LEFT JOIN `role` us ON  us.id = ur.id_role  where account= ? ',
+            query: 'SELECT ur.* , us.key_role,us.name as name_role FROM user ur  LEFT JOIN `role` us ON  us.id = ur.id_role  where account= ? ',
             values: [account],
         });
         return result[0];

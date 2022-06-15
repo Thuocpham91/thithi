@@ -37,27 +37,29 @@ function MyApp({ Component, pageProps }) {
     // redirect to login page if accessing a private page and not logged in 
     const publicPaths = ['/login'];
     const path = url.split('?')[0];
-    setAuthorized(true);
+    setAuthorized(false);
 
-    // if (!publicPaths.includes(path)) {
-    //   const check_login = await userService.getLogin();
+    if (!publicPaths.includes(path)) {
+      const check_login = await userService.getLogin();
+      console.log(check_login)
 
-    //   if (check_login.status != 200) {
-    //     userSubject.next(null);
-    //     setAuthorized(false);
-    //     router.push({
-    //       pathname: '/login',
-    //       query: { returnUrl: router.asPath }
-    //     });
 
-    //   }else {
+      if (check_login.status != 200) {
+        userSubject.next(null);
+        setAuthorized(false);
+        router.push({
+          pathname: '/login',
+          query: { returnUrl: router.asPath }
+        });
 
-    //     setAuthorized(true);
-    //   }
+      }else {
 
-    // } else {
-    //   setAuthorized(true);
-    // }
+        setAuthorized(true);
+      }
+
+    } else {
+      setAuthorized(true);
+    }
   }
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(<>

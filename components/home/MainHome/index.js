@@ -195,6 +195,8 @@ const MainHome = () => {
     }
     const router = useRouter();
     const handleLink = (link) => {
+
+        localStorage.setItem('dataCart',JSON.stringify(orderList));
         router.push({pathname: link, query: { pid: "post.id" }});
     }
 

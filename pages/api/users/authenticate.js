@@ -95,16 +95,16 @@ function handler(req, res) {
             user_.token = token;
             user_.token_refresh = token_refresh;
 
-            User.update(user_);
+            const ds = await User.updatetoken(user_);
             user_.password = "";
-           
+
             // const datavietel = await apiViettel.logInViettel();
 
             // const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
             // const listproduct=await apiViettel.getListproduct(rp2.access_token);
 
             // user_.listproduct = JSON.parse(listproduct);
-        
+
             return res.status(200).json({
                 status: 200,
                 data: user_,
