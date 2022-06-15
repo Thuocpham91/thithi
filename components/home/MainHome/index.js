@@ -198,8 +198,9 @@ const MainHome = () => {
     }
     const router = useRouter();
     const handleLink = (link) => {
+        const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
 
-        localStorage.setItem('dataCart',JSON.stringify(orderList));
+        localStorage.setItem('dataCart',JSON.stringify(mns));
         router.push({pathname: link, query: { pid: "post.id" }});
     }
 

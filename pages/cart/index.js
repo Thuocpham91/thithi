@@ -11,12 +11,12 @@ const Cart = (props) => {
   console.log(props)
   // const today = new Date();
   const [listProduct, setListProduct] = useState([
-    { id: 1, title: 'Ngựa lớn', imagePackage: '/images/prd1.png', imageTobacco: '/images/prd2.png', imageBarrel: '/images/prd3.png', numberPackage: 3, numberTobacco: 4, numberBarrel: 1 },
-    { id: 2, title: 'Ngựa nhỏ', imagePackage: '/images/prd4.png', imageTobacco: '/images/prd5.png', imageBarrel: '/images/prd3.png', numberPackage: 1 },
-    { id: 3, title: 'Ngựa lớn', imagePackage: '/images/prd1.png', imageTobacco: '/images/prd2.png', imageBarrel: '/images/prd3.png', numberPackage: 5, numberTobacco: 2, numberBarrel: 1 },
-    { id: 4, title: 'Ngựa nhỏ', imagePackage: '/images/prd4.png', imageTobacco: '/images/prd5.png', imageBarrel: '/images/prd3.png', numberPackage: 1 },
-    { id: 5, title: 'Ngựa lớn', imagePackage: '/images/prd1.png', imageTobacco: '/images/prd2.png', imageBarrel: '/images/prd3.png', numberPackage: 7, numberTobacco: 3, numberBarrel: 9 },
-    { id: 6, title: 'Ngựa nhỏ', imagePackage: '/images/prd4.png', imageTobacco: '/images/prd5.png', imageBarrel: '/images/prd3.png', numberPackage: 6 },
+    // { id: 1, title: 'Ngựa lớn', imagePackage: '/images/prd1.png', imageTobacco: '/images/prd2.png', imageBarrel: '/images/prd3.png', numberPackage: 3, numberTobacco: 4, numberBarrel: 1 },
+    // { id: 2, title: 'Ngựa nhỏ', imagePackage: '/images/prd4.png', imageTobacco: '/images/prd5.png', imageBarrel: '/images/prd3.png', numberPackage: 1 },
+    // { id: 3, title: 'Ngựa lớn', imagePackage: '/images/prd1.png', imageTobacco: '/images/prd2.png', imageBarrel: '/images/prd3.png', numberPackage: 5, numberTobacco: 2, numberBarrel: 1 },
+    // { id: 4, title: 'Ngựa nhỏ', imagePackage: '/images/prd4.png', imageTobacco: '/images/prd5.png', imageBarrel: '/images/prd3.png', numberPackage: 1 },
+    // { id: 5, title: 'Ngựa lớn', imagePackage: '/images/prd1.png', imageTobacco: '/images/prd2.png', imageBarrel: '/images/prd3.png', numberPackage: 7, numberTobacco: 3, numberBarrel: 9 },
+    // { id: 6, title: 'Ngựa nhỏ', imagePackage: '/images/prd4.png', imageTobacco: '/images/prd5.png', imageBarrel: '/images/prd3.png', numberPackage: 6 },
 
   ]);
 
@@ -25,8 +25,13 @@ const Cart = (props) => {
   useEffect(() => {
     const dataOrder = localStorage.getItem('dataCart');
     let dkm = JSON.parse(dataOrder);
-    console.log(dkm)
-    // setListProduct(dkm);
+    console.log(dkm);
+    dkm.map(item=> {
+      console.log(  item)
+      
+      
+    })
+    setListProduct(dkm);
 
 
   }, [])
@@ -142,21 +147,22 @@ const Cart = (props) => {
 
         {listProduct.map(function (d, idx) {
           return (<>
-            {d.total_quantity ? Number(d.total_quantity) > 0 ?
+            {d.numberPackage ? Number(d.numberPackage) > 0 ?
               <div key={idx} className='item-cart'>
                 <div className="product-item">
                   <div className='product-item--img'>
                     <span>
                       <Image
+                         unoptimized
                         alt={d.title}
-                        src={d.imagePackage}
+                        src={d.variants[0].photo.length>0 ? d.variants[0].photo[0].url : "/images/prd1.png"}
                         layout='fill'
                         objectFit='contain'
                         quality={100}
                       />
                     </span>
                     <div className='product-item--title'>
-                      <h3>{d.title}</h3>
+                      <h3>{d.product_name}</h3>
                       <p>gói</p>
                     </div>
                   </div>
@@ -177,15 +183,16 @@ const Cart = (props) => {
                   <div className='product-item--img'>
                     <span>
                       <Image
+                         unoptimized
                         alt={d.title}
-                        src={d.imageTobacco}
+                        src={d.variants[0].photo.length>0 ? d.variants[0].photo[1].url : "/images/prd1.png"}
                         layout='fill'
                         objectFit='contain'
                         quality={100}
                       />
                     </span>
                     <div className='product-item--title'>
-                      <h3>{d.title}</h3>
+                      <h3>{d.product_name}</h3>
                       <p>Cây</p>
                     </div>
                   </div>
@@ -207,15 +214,16 @@ const Cart = (props) => {
                   <div className='product-item--img'>
                     <span>
                       <Image
+                         unoptimized
                         alt={d.title}
-                        src={d.imageBarrel}
+                        src={d.variants[0].photo.length>0 ? d.variants[0].photo[2].url : "/images/prd1.png"}
                         layout='fill'
                         objectFit='contain'
                         quality={100}
                       />
                     </span>
                     <div className='product-item--title'>
-                      <h3>{d.title}</h3>
+                      <h3>{d.product_name}</h3>
                       <p>Thùng</p>
                     </div>
                   </div>

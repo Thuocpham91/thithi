@@ -45,13 +45,15 @@ function handler(req, res) {
 
     async function addUser() {
         try {
-          console.log(req.body)
+            var bcrypt = require('bcrypt');
 
         //   account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id
 
           const {name,password,idUser,desc,phoneNumber,city,city_code,district,district_code}=req.body;
 
-          const djj= await User.insert_User(phoneNumber,password,1,idUser,"","",0,2,phoneNumber,desc,city_code,district_code,name);
+          const hash = bcrypt.hashSync(password, 10);
+
+          const djj= await User.insert_User(phoneNumber,hash,1,idUser,"","",0,2,phoneNumber,desc,city_code,district_code,name);
 
             return res.status(200).json({
                 status: 200,
