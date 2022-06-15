@@ -27,7 +27,6 @@ const EditUser = (userChoose) => {
     const [listdisStrict, setListDisStrict] = useState([]);
 
     useEffect(() => {
-
         async function fetchData() {
             let data = await userService.getCitiDistrict();
             if (data.status != 200) return;

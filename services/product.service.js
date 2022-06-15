@@ -8,6 +8,8 @@ const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
 export const productService = {
   
     getProduct,
+    updateCatogory,
+    getCategory,
 };
 
 function getProduct() {
@@ -16,4 +18,21 @@ function getProduct() {
             return user;
         });
 }
+
+function updateCatogory(data) {
+    return fetchWrapper.post(`${baseUrl}/updateCatogory`,data)
+        .then(user => {
+            return user;
+        });
+}
+
+function getCategory(data) {
+    return fetchWrapper.get(`${baseUrl}/updateCatogory`,data)
+        .then(user => {
+            return user;
+        });
+}
+
+
+
 
