@@ -36,15 +36,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 
 import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
 
-
-
 import Slide from '@mui/material/Slide';
-
-
-
-
-
-
 
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -69,12 +61,6 @@ function TablePaginationActions(props) {
   const handleLastPageButtonClick = (event) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
-
-
-
-
-
-
 
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
@@ -147,9 +133,6 @@ const User = () => {
       setRowUser(data.data);
     }
     fetchData();
-
-
-
   }, []);
 
 

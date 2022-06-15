@@ -19,6 +19,9 @@ export const userService = {
     getLogin,
     changePass,
     changePassAdmin,
+    getCitiDistrict,
+    addUser,
+    updateUser,
 };
 
 function login(form) {
@@ -78,4 +81,16 @@ function changePass(data){
 
 function changePassAdmin(data){
     return fetchWrapper.post(`${baseUrl}/chagepassAdmin`,data);
+}
+
+function getCitiDistrict(data){
+    return fetchWrapper.get(`${baseUrl}/getCitiDistrict`,data);
+}
+
+function addUser(data){
+    return fetchWrapper.post(`${baseUrl}/user`,data);
+}
+
+function  updateUser(data){
+    return fetchWrapper.post(`${baseUrl}/updateUser`,data);
 }
