@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Footer from '../../components/footer'
 import Link from 'next/link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -6,7 +6,38 @@ import Image from 'next/image'
 import Button from '@mui/material/Button';
 import Head from 'next/head'
 
-const User = () => {
+
+
+
+
+import { useRouter } from 'next/router'
+import Box from '@mui/material/Box';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import styles from '../../styles/Login.module.scss'
+import CloseIcon from '@mui/icons-material/Close';
+
+import PropTypes from 'prop-types';
+import { Global } from '@emotion/react';
+import { styled } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { grey } from '@mui/material/colors';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
+
+const drawerBleeding = 0;
+const Root = styled('div')(({ theme }) => ({
+  height: '100%',
+  borderRadius: '8px 8px 0 0',
+  backgroundColor:
+    theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
+}));
+
+
+
+
+
+
+const User = (props) => {
   const listGift = [
     {id:1,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
     {id:2,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
@@ -15,6 +46,22 @@ const User = () => {
     {id:5,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
     {id:6,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
   ]
+
+  const { window } = props;
+  const [openRules, setOpenRules] = useState(false);
+  const [coupon, setCoupon] = useState(null);
+  const toggleDrawer = (newOpen) => () => {
+      setOpenRules(newOpen);
+  };
+
+  // This is used only for the example
+  const container = window !== undefined ? () => window().document.body : undefined;
+
+
+
+ 
+  
+
   return (<>
     <Head>
         <title>Thông tin</title>
@@ -25,40 +72,85 @@ const User = () => {
         <meta property="og:description" content="Conng ty Khatoco" />
         <meta property="og:site_name" content="Khatoco" />
     </Head>
+    <Root>
     <div className='main-body body-f2f2f2'>
       <div className='title-page'>
-        <Link href="/"><a><ArrowBackIcon /></a></Link>
-        Tích điểm đổi quà
+        Thông tin cá nhân
       </div>
-      <div className='main-user text-center'>
+      <div className='body-user'>
         <div>
-          <h5><i>Kính chào</i> anh Phước</h5>
-          <p>Điểm tích lũy:</p>
-          <p><h2>12.000</h2> điểm</p>
+          <p><span>Tên đại lý:</span> <i>Hàm Thu</i></p>
+          <p><span>Mã ID đại lý:</span> <i>79T2837</i></p>
+          <p><span>Số điện thoại:</span> <i>0988888888</i></p>
+          <p><span>Địa chỉ giao hàng:</span> <i>Số 7, Võ thị Sáu, Vĩnh Nguyên, Nhà Trang, Khánh Hòa</i></p>
         </div>
       </div>
-      <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4'>
-        {listGift.map(function(d,idx){
-          return(
-            <div key={idx} className="item-gift">
-              <span>
-                  <Image
-                      alt={d.title}
-                      src={d.image}
-                      layout='fill'
-                      objectFit='contain'
-                      quality={100}
-                  />
-              </span>
-              <h3>{d.poit.toLocaleString()} điểm</h3>
-              <p>{d.name}</p>
-              <Button variant="outlined" style={{border:'1px solid',color:'#23432E',textTransform:'initial',fontWeight:'bold'}} >Đổi quà</Button>
-            </div>
-          )
-        })}
+      <div className='text-center m-4'>
+        <Button onClick={toggleDrawer(true)} variant="contained" style={{background:"#EE0232"}} >Đổi điểm</Button>
       </div>
+
+      
+
       <Footer />
+      
+        <CssBaseline />
+        <Global
+            styles={{
+            '.MuiDrawer-root > .MuiPaper-root': {
+                height: `calc(100% - ${drawerBleeding}px)`,
+                overflow: 'visible',
+            },
+            }}
+        />
+
+        <SwipeableDrawer
+            container={container}
+            anchor="bottom"
+            open={openRules}
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer(true)}
+            swipeAreaWidth={drawerBleeding}
+            disableSwipeToOpen={false}
+            ModalProps={{
+            keepMounted: true,
+            }}
+        >
+            <div className='user-promotion' style={{height: '100% !important'}}>
+                <div className="coupon-form--title">Tích điểm đổi quà <CloseIcon onClick={toggleDrawer(false)}/></div> 
+                <div className="coupon-form--content body-f2f2f2">
+                  <div className='main-user text-center'  >
+                    <div>
+                      <h5><i>Kính chào</i> anh Phước</h5>
+                      <p>Điểm tích lũy:</p>
+                      <p><h2>12.000</h2> điểm</p>
+                    </div>
+                  </div>
+                  <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4'>
+                    {listGift.map(function(d,idx){
+                      return(
+                        <div key={idx} className="item-gift">
+                          <span>
+                              <Image
+                                  alt={d.title}
+                                  src={d.image}
+                                  layout='fill'
+                                  objectFit='contain'
+                                  quality={100}
+                              />
+                          </span>
+                          <h3>{d.poit.toLocaleString()} điểm</h3>
+                          <p>{d.name}</p>
+                          <Button variant="outlined" style={{border:'1px solid',color:'#23432E',textTransform:'initial',fontWeight:'bold'}} >Đổi điểm</Button>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+            </div>
+            
+        </SwipeableDrawer>
     </div>
+    </Root>
     </>)
 }
 

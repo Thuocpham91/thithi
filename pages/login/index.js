@@ -95,7 +95,7 @@ const Login = (props) => {
                             onSubmit={values => {
                                 return userService.login(initValue)
                                     .then((response) => {
-                                        // console.log(response)
+                                        console.log(response)
                                         if (response.status == "200") {
                                             const returnUrl = router.query.returnUrl || '/';
                                             router.push(returnUrl);

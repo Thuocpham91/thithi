@@ -16,7 +16,12 @@ export const userService = {
     loginViettekll,
     getviettell,
     getAll,
-    getLogin
+    getLogin,
+    changePass,
+    changePassAdmin,
+    getCitiDistrict,
+    addUser,
+    updateUser,
 };
 
 function login(form) {
@@ -65,5 +70,27 @@ function logout() {
 }
 
 function getAll() {
-    return fetchWrapper.get(baseUrl);
+    return fetchWrapper.get(`${baseUrl}/user`);
+}
+
+
+function changePass(data){
+    return fetchWrapper.post(`${baseUrl}/chagepass`,data);
+}
+
+
+function changePassAdmin(data){
+    return fetchWrapper.post(`${baseUrl}/chagepassAdmin`,data);
+}
+
+function getCitiDistrict(data){
+    return fetchWrapper.get(`${baseUrl}/getCitiDistrict`,data);
+}
+
+function addUser(data){
+    return fetchWrapper.post(`${baseUrl}/user`,data);
+}
+
+function  updateUser(data){
+    return fetchWrapper.post(`${baseUrl}/updateUser`,data);
 }

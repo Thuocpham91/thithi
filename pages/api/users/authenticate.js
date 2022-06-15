@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 import getConfig from 'next/config';
 
 import { apiHandler } from '../../../helpers/api';
-import { User } from '../../../querySql/queryuser'
+import { User } from '../../../querySql/queryuser';
 import { UserRole } from '../../../querySql/qeryUserRole';
 import { apiViettel } from './common/apiViettell';
 
@@ -95,18 +95,16 @@ function handler(req, res) {
             user_.token = token;
             user_.token_refresh = token_refresh;
 
-            User.update(user_);
+            const ds = await User.updatetoken(user_);
             user_.password = "";
-            const role_user = await UserRole.findByID(user_.id);
-            user_.dataRole = role_user;
 
-            const datavietel = await apiViettel.logInViettel();
+            // const datavietel = await apiViettel.logInViettel();
 
-            const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
-            const listproduct=await apiViettel.getListproduct(rp2.access_token);
+            // const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
+            // const listproduct=await apiViettel.getListproduct(rp2.access_token);
 
-            user_.listproduct = JSON.parse(listproduct);
-        
+            // user_.listproduct = JSON.parse(listproduct);
+
             return res.status(200).json({
                 status: 200,
                 data: user_,

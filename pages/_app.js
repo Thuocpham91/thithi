@@ -1,11 +1,12 @@
 import '../styles/globals.css'
 import '../styles/style.scss'
+import '../styles/admin.scss'
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { userService } from '../services';
 import { BehaviorSubject } from 'rxjs';
-
+import { Toaster } from "react-hot-toast";
 
 
 export default MyApp;
@@ -36,9 +37,12 @@ function MyApp({ Component, pageProps }) {
     // redirect to login page if accessing a private page and not logged in 
     const publicPaths = ['/login'];
     const path = url.split('?')[0];
+    setAuthorized(false);
 
     if (!publicPaths.includes(path)) {
       const check_login = await userService.getLogin();
+      console.log(check_login)
+
 
       if (check_login.status != 200) {
         userSubject.next(null);
@@ -57,10 +61,10 @@ function MyApp({ Component, pageProps }) {
       setAuthorized(true);
     }
   }
-
-  return (<>
-
+  const getLayout = Component.getLayout || ((page) => page);
+  return getLayout(<>
     {authorized && <Component {...pageProps} />}
+    <Toaster position="bottom-right" />
   </>
   )
 }

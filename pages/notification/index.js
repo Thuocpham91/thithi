@@ -16,7 +16,47 @@ const Notification = () => {
         <meta property="og:description" content="Conng ty Khatoco" />
         <meta property="og:site_name" content="Khatoco" />
       </Head>
-      Thông báo
+      <div className='title-page'>
+        Thông báo
+      </div>
+      <div className='list-noti'>
+        <div className='noti-item'>
+          <div className='text-right noti-item__header'>15-06-2022</div>
+          <div className='noti-item__body'>
+            <h3>Chương trình khuyến mại tháng 6</h3>
+            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 6 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
+          </div>
+        </div>
+        <div className='noti-item'>
+          <div className='text-right noti-item__header'>15-06-2022</div>
+          <div className='noti-item__body'>
+            <h3>Chương trình khuyến mại tháng 6</h3>
+            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 6 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
+          </div>
+        </div>
+        <div className='noti-item'>
+          <div className='text-right noti-item__header'>15-06-2022</div>
+          <div className='noti-item__body'>
+            <h3>Chương trình khuyến mại tháng 5</h3>
+            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 5 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
+          </div>
+        </div>
+        <div className='noti-item'>
+          <div className='text-right noti-item__header'>15-06-2022</div>
+          <div className='noti-item__body'>
+            <h3>Chương trình khuyến mại tháng 4</h3>
+            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 4 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
+          </div>
+        </div>
+        <div className='noti-item'>
+          <div className='text-right noti-item__header'>15-06-2022</div>
+          <div className='noti-item__body'>
+            <h3>Chương trình khuyến mại tháng 3</h3>
+            <p>Chân trọng gửi đến quý khách hàng gói khuyến mại tháng 3 gồm những ưu đãi hấp dẫn mua 5 tặng 1</p>   
+          </div>
+        </div>
+        
+      </div>
       <Footer />
     </div>
     

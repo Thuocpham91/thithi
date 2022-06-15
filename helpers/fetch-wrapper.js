@@ -18,7 +18,14 @@ function get(url) {
         method: 'GET',
         headers: authHeader(url)
     };
-    return fetch(url, requestOptions).then(handleResponse);
+    try {
+        return fetch(url, requestOptions).then(handleResponse);
+
+    } catch (erro) {
+
+        return null
+    }
+
 }
 
 function post(url, body) {
@@ -32,11 +39,11 @@ function post(url, body) {
 }
 
 function posth(url, body) {
-    console.log("bodyposth",body)
+    console.log("bodyposth", body)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-      
+
         body: JSON.stringify(body)
     };
     return fetch(url, requestOptions).then(handleResponse);
@@ -44,7 +51,8 @@ function posth(url, body) {
 
 function getVT(url) {
     const requestOptions = {
-        method: 'GET',  };
+        method: 'GET',
+    };
     return fetch(url, requestOptions).then(handleResponse);
 }
 
@@ -55,7 +63,7 @@ function put(url, body) {
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
         body: JSON.stringify(body)
     };
-    return fetch(url, requestOptions).then(handleResponse);    
+    return fetch(url, requestOptions).then(handleResponse);
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
@@ -72,20 +80,26 @@ function _delete(url) {
 function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = userService.userValue;
-    console.log(user)
     // console.log(user)
     // const isLoggedIn = user && user.token;
     // const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
     // if (isLoggedIn && isApiUrl) {
-        return { Authorization: `Bearer ${user?user.token?user.token:"ádadsda":"ádsadasd"}` };
+    return { Authorization: `Bearer ${user ? user.token ? user.token : "ádadsda" : "ádsadasd"}` };
     // } else {
-        // return {};
+    // return {};
     // }
 }
 
 function handleResponse(response) {
     return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        return data;
+        try { 
+            const data = text && JSON.parse(text);
+            return data;
+
+        } catch (erro) { 
+            return text;
+
+        }
+      
     });
 }
