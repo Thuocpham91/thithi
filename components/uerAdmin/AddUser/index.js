@@ -17,6 +17,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 import { userService} from '../../../services/user.service';
 
+import toast from "react-hot-toast";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -69,9 +71,20 @@ const AddUser = () => {
     const handleClickAddUser = async() => {
 
         const datah=await userService.addUser(valueAddUser);
-        console.log(datah);
+        console.log(datah)
 
-        setOpenAddUser(false);
+         if(datah.code==200)  {
+            toast.success("Thêm thành viên thành công");
+            setOpenAddUser(false);
+
+
+         }else {
+            toast.error("Có lỗi ở đây!");
+         }
+
+      
+
+       
     };
     
 

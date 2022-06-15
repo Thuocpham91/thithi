@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { userService } from '../services';
 import { BehaviorSubject } from 'rxjs';
-
+import { Toaster } from "react-hot-toast";
 
 
 export default MyApp;
@@ -62,6 +62,7 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(<>
     {authorized && <Component {...pageProps} />}
+    <Toaster position="bottom-right" />
   </>
   )
 }

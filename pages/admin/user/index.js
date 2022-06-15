@@ -201,8 +201,6 @@ const User = () => {
    const {renderImport, setOpenImport} = ImportPoint();
 
 
-
-
   return (<>
     <div className='body-user bg-white rounded-lg'>
       <div className='header-user flex justify-between px-4 py-5 items-center'>
