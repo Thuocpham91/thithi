@@ -271,7 +271,7 @@ const MainHome = () => {
                                         <Image
                                             unoptimized
                                             alt={d.product_name}
-                                            src={d.variants[0].photo[0] ? d.variants[0].photo[2].url : "/images/prd1.png"}
+                                            src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/prd1.png"}
                                             layout='fill'
                                             objectFit='contain'
                                             quality={100}
