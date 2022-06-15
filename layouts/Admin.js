@@ -1,6 +1,6 @@
 import React from "react";
-import SideBarAdmin from "../components/sideBarAdmin"
-import HeaderAdmin from "../components/headerAdmin"
+import SideBarAdmin from "../components/sideBarAdmin/index"
+import HeaderAdmin from "../components/headerAdmin/index"
 
 
 export default function Admin({ children}) {

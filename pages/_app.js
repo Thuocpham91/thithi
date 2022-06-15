@@ -4,7 +4,7 @@ import '../styles/admin.scss'
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { userService } from '../services';
+import { userService } from '../services/index';
 import { BehaviorSubject } from 'rxjs';
 import { Toaster } from "react-hot-toast";
 
