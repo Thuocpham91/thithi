@@ -46,7 +46,6 @@ const ChangePass = (value) => {
         setOpenChangePass(false);
         valuesChangePass.id=value.id;
 
-        console.log(valuesChangePass)
         if(valuesChangePass.newPassword!= valuesChangePass.reNewPassword)return; 
 
 

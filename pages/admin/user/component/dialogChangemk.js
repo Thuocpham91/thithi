@@ -76,11 +76,9 @@ const DialogChangemk = (props) => {
   };
 
   const handleCloseChangePass = async () => {
-    console.log(props.row);
-    console.log(valuesChangePass)
+
 
     const data=await userService.changePass(valuesChangePass);
-    console.log(data)
 
 
   };

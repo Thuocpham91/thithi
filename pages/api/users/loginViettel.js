@@ -10,7 +10,6 @@ import { UserRole } from '../../../querySql/qeryUserRole';
 export default handler;
 
 function handler(req, res) {
-    console.log("req.method", req.method);
     switch (req.method) {
         case 'POST':
             authenticate(req, res);

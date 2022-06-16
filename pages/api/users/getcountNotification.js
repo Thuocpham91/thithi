@@ -45,7 +45,6 @@ function handler(req, res) {
            
 
             const data= await Notification.count(user.id);
-            console.log("data",data)
             return res.status(200).json({
                 status: 200,
                 data: data,

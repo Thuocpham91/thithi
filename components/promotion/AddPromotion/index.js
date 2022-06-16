@@ -36,10 +36,8 @@ const AddPromotion = () => {
         setOpenAddPromotion(false);
     };
     const handleAddPromotion = async () => {
-        console.log(valueAddPromotion);
 
         const data = await productService.addPromotion(valueAddPromotion);
-        console.log(data);
         // setOpenAddPromotion(false);
     };
 
@@ -79,7 +77,6 @@ const AddPromotion = () => {
     useEffect(() => {
 
 
-        console.log(JSON.parse(localStorage.getItem('listVariants')));
         const fda = JSON.parse(localStorage.getItem('listVariants'));
         if (fda == null) return;
 

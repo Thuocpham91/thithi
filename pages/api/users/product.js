@@ -21,12 +21,17 @@ function handler(req, res) {
 
 
             const datavietel = await apiViettel.logInViettel();
+            console.log("datavietel");
+            if (datavietel.access_token == null) return res.status(200).json({
+                status: 1900,
+                data: datavietel
+            });
             const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
-            let listproduct=await apiViettel.getListproduct(rp2.access_token);
+            let listproduct = await apiViettel.getListproduct(rp2.access_token);
 
-             listproduct = JSON.parse(listproduct);
+            listproduct = JSON.parse(listproduct);
 
-             return res.status(200).json({
+            return res.status(200).json({
                 status: 200,
                 data: listproduct
             });

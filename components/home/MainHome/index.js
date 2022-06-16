@@ -23,7 +23,6 @@ const MainHome = () => {
             setListProduct(data.data.variants);
 
             localStorage.setItem('listVariants',JSON.stringify(data.data.variants));
-            console.log(data.data.variants)
 
 
         }

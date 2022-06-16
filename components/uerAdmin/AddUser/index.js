@@ -72,7 +72,6 @@ const AddUser = () => {
     const handleClickAddUser = async() => {
 
         const datah=await userService.addUser(valueAddUser);
-        console.log(datah)
 
          if(datah.status==200)  {
             toast.success("Thêm thành viên thành công");

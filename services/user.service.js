@@ -37,7 +37,6 @@ function login(form) {
 
 
 function loginViettekll(username, password) {
-    console.log("loginViettekll",username)
     return fetchWrapper.posth(`${baseUrl}/loginViettel`, { username, password })
         .then(user => {
       
@@ -46,7 +45,6 @@ function loginViettekll(username, password) {
 }
 
 function getviettell(username, password) {
-    console.log("getviettell",username)
     return fetchWrapper.getVT(`${baseUrl}/loginViettel`, { username, password })
         .then(user => {
       

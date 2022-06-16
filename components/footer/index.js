@@ -45,7 +45,6 @@ export default function Footer() {
      
       setCountNoti( data.data[0].number)
 
-      console.log(data)
 
     }
 

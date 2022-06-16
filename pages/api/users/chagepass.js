@@ -23,7 +23,6 @@ function handler(req, res) {
 
     async function changePass(req, res) {
         try {
-            console.log(req.body)
             const { newPassword, reNewPassword } = req.body;
 
             const user = await checlogin.checkLogin(req, res);

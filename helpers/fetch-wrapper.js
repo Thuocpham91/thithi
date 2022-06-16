@@ -39,7 +39,6 @@ function post(url, body) {
 }
 
 function posth(url, body) {
-    console.log("bodyposth", body)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
