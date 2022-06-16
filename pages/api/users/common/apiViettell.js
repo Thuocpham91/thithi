@@ -35,6 +35,7 @@ async function logInViettel() {
 
 
     } catch (orro) {
+        console.log(orro)
         return null
 
     }

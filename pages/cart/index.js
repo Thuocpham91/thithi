@@ -26,6 +26,7 @@ const Cart = (props) => {
     const dataOrder = localStorage.getItem('dataCart');
     let dkm = JSON.parse(dataOrder);
     console.log(dkm);
+    if(!dkm)return;
     dkm.map(item=> {
       console.log(  item)
       

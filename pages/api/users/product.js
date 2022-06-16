@@ -21,7 +21,7 @@ function handler(req, res) {
 
 
             const datavietel = await apiViettel.logInViettel();
-            console.log("datavietel");
+            console.log("datavietel",datavietel);
             if (datavietel.access_token == null) return res.status(200).json({
                 status: 1900,
                 data: datavietel
