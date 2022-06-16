@@ -163,6 +163,7 @@ const Category = () => {
       let data = await productService.getCategory();
       if (data.status != 200) return;
       // setListProduct(data.data.variants);
+      console.log(data.data)
       seListCate(data.data);
     }
 
@@ -203,9 +204,43 @@ const Category = () => {
     setOpenEditCate(false);
   };
 
+  const handleEditCate =async () => {
+
+
+
+    const body = new FormData();
+    body.append("file", image);
+   
+
+    const sdsd = await productService.upaloadFile(body);
+    cateChoose.url=sdsd.url;
+    const upda= await productService.updateCatogory({...cateChoose,key:3});
+
+
+    setOpenEditCate(false);
+  };
+
+
   const [imagesUpload, setImagesUpload] = useState(null);
-  const handleChangeFile = (file) => {
-    setImagesUpload(URL.createObjectURL(file[0]))
+
+  const [image, setImage] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(null);
+
+
+
+  const handleChangeFile = (event) => {
+
+
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
+      setImagesUpload(URL.createObjectURL(i))
+    }
+
+
+    
   }
 
   return (<>
@@ -240,7 +275,7 @@ const Category = () => {
                   {row.code}
                 </TableCell>
                 <TableCell  >
-                  {row.image && <>
+                  {row.url && <>
                     <Image
                       alt={row.name}
                       src={row.url?row.url:'/images/list-cate/Marlboro.png'}
@@ -291,8 +326,8 @@ const Category = () => {
                   },
                   native: true,
                 }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
+                onPageChange={e=>handleChangePage()}
+                onRowsPerPageChange={e=>handleChangeRowsPerPage()}
                 ActionsComponent={TablePaginationActions}
               />
             </TableRow>
@@ -306,7 +341,7 @@ const Category = () => {
       open={openEditCate}
       TransitionComponent={Transition}
       keepMounted
-      onClose={handleCloseEditCate}
+      onClose={e=>handleCloseEditCate()}
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogContent className='text-center'>
@@ -323,11 +358,11 @@ const Category = () => {
               />
             </>}
           </div>
-          <input type="file" accept="image/*" onChange={e => handleChangeFile(e.target.files)} />
+          <input type="file" accept="image/*" onChange={e => handleChangeFile(e)} />
         </div>
         <div className='flex justify-center mt-8 mb-3'>
-          <Button className='mr-2' onClick={handleCloseEditCate} variant="contained" style={{ background: "#EE0232" }}>Lưu lại</Button>
-          <Button onClick={handleCloseEditCate} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
+          <Button className='mr-2' onClick={e=>handleEditCate()} variant="contained" style={{ background: "#EE0232" }}>Lưu lại</Button>
+          <Button onClick={e=>handleCloseEditCate()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
         </div>
       </DialogContent>
     </Dialog>

@@ -33,10 +33,25 @@ function handler(req, res) {
 
     async function changePass(req, res) {
         try {
-            const { data } = req.body;
-            data.map(item => {
-                createCatogory(item);
-            });
+            const { data, key } = req.body;
+            const ol = key ? key : "0";
+
+            if (ol == "0") {
+                data.map(item => {
+                    createCatogory(item);
+                });
+
+
+            } else {
+                const {name,code,status,url,id}=req.body;
+
+                Catogory.update(name,code,status,url,id)
+
+
+            }
+
+
+
             return res.status(200).json({
                 status: 200,
                 message: "thay đổi thành công",

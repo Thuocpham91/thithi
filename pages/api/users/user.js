@@ -53,7 +53,7 @@ function handler(req, res) {
 
           const hash = bcrypt.hashSync(password, 10);
 
-          const djj= await User.insert_User(phoneNumber,hash,1,idUser,"","",0,2,phoneNumber,desc,city_code,district_code,name,address);
+          const djj= await User.insert_User(phoneNumber,hash,0,idUser,"","",0,2,phoneNumber,desc,city_code,district_code,name,address);
 
             return res.status(200).json({
                 status: 200,

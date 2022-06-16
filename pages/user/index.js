@@ -139,9 +139,9 @@ const User = (props) => {
             <div className="coupon-form--content body-f2f2f2">
               <div className='main-user text-center'  >
                 <div>
-                  <h5><i>Kính chào</i> anh Phước</h5>
+                  <h5><i>Kính chào</i>{init.name}</h5>
                   <p>Điểm tích lũy:</p>
-                  <p><h2>12.000</h2> điểm</p>
+                  <p><h2>{init.score}</h2> điểm</p>
                 </div>
               </div>
               <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4'>

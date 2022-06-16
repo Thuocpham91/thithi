@@ -56,11 +56,11 @@ async function SelectAll(code) {
 
 
 
-async function update(ca) {
+async function update(name, code, status,url,id) {
     try {
         const result = await excuteQuery({
             query: 'UPDATE  category SET name=?,code= ? ,status= ?,url= ?   where id= ?',
-            values: [ca.name, ca.code, ca.status,ca.url,ca.id],
+            values: [name, code, status,url,id],
         });
         return result;
     } catch (error) {

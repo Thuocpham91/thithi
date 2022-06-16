@@ -48,7 +48,6 @@ async function update(user) {
 }
 
 async function updatetoken(user) {
-    console.log(user)
     try {
         const result = await excuteQuery({
             query: 'UPDATE  user SET token=?,token_refresh=?  where id= ?',

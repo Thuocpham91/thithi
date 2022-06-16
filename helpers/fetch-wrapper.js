@@ -10,7 +10,8 @@ export const fetchWrapper = {
     posth,
     put,
     getVT,
-    delete: _delete
+    delete: _delete,
+    postLile,
 };
 
 function get(url) {
@@ -34,6 +35,14 @@ function post(url, body) {
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
         credentials: 'include',
         body: JSON.stringify(body)
+    };
+    return fetch(url, requestOptions).then(handleResponse);
+}
+
+function postLile(url, body) {
+    const requestOptions = {
+        method: 'POST',
+        body:body
     };
     return fetch(url, requestOptions).then(handleResponse);
 }

@@ -13,7 +13,7 @@ function handler(req, res) {
         case 'POST':
             return addPromotion();
         case 'GET':
-            return getListproduct();
+            return getPromotion();
         default:
             return res.status(200).end(`Method ${req.method} Not Allowed`)
     }
@@ -23,15 +23,13 @@ function handler(req, res) {
     async function addPromotion() {
         try {
 
-            console.log(req.body);
-            const{title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product ,area} =req.body;
+            const { title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product, area } = req.body;
+            console.log(product)
+            const data = await Promotion.insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product.product_id,product.product_name, JSON.stringify(area), 0);
 
-            const data=await Promotion.insert(title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product.product_id,JSON.stringify(area),0);
-
-
-
-             return res.status(200).json({
+            return res.status(200).json({
                 status: 200,
+                message: "Thành công",
                 data: data
             });
 
@@ -48,19 +46,15 @@ function handler(req, res) {
     }
 
 
-    async function getListproduct() {
+    async function getPromotion() {
         try {
 
-
-            const datavietel = await apiViettel.logInViettel();
-            const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
-            let listproduct=await apiViettel.getListproduct(rp2.access_token);
-
-             listproduct = JSON.parse(listproduct);
-
-             return res.status(200).json({
+            const data = await Promotion.SelectAll();
+            const count = await Promotion.count();
+            return res.status(200).json({
                 status: 200,
-                data: listproduct
+                data: data,
+                count:count[0]
             });
 
 

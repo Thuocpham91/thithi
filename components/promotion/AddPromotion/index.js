@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { compareAsc, format } from 'date-fns'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -38,7 +39,9 @@ const AddPromotion = () => {
     const handleAddPromotion = async () => {
 
         const data = await productService.addPromotion(valueAddPromotion);
-        // setOpenAddPromotion(false);
+        if(data.status!=200)return;
+        console.log(data)
+        setOpenAddPromotion(false);
     };
 
 
@@ -115,9 +118,11 @@ const AddPromotion = () => {
                                         value={valueAddPromotion.startDate}
                                         onChange={(newValue) => {
                                             // console.log(newValue)
-                                            const date=new Date(newValue);
+                                            if (newValue == "Invalid Date") return;
+                                            const date = new Date(newValue);
+                                            const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
                                             // console.log(date.getTime())
-                                            setValueAddPromotion({ ...valueAddPromotion, startDate: date.getTime() })
+                                            setValueAddPromotion({ ...valueAddPromotion, startDate: dj })
                                         }}
                                         renderInput={(params) => <TextField {...params} />}
                                     />
@@ -132,8 +137,14 @@ const AddPromotion = () => {
                                         label="Thời gian kết thúc"
                                         value={valueAddPromotion.endDate}
                                         onChange={(newValue) => {
-                                            const date=new Date(newValue);
-                                            setValueAddPromotion({ ...valueAddPromotion, endDate: date })
+
+                                            if (newValue == "Invalid Date") return;
+
+                                            console.log(newValue)
+
+                                            const date = new Date(newValue);
+                                            const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
+                                            setValueAddPromotion({ ...valueAddPromotion, endDate: dj })
                                         }}
                                         renderInput={(params) => <TextField {...params} />}
                                     />
