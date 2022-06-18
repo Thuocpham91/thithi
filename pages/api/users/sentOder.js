@@ -24,7 +24,6 @@ function handler(req, res) {
 
     async function setOder() {
 
-    console.log(req.body);
 
         const data = await apiViettel.sentOder();
 

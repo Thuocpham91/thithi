@@ -15,6 +15,11 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { userService } from '../../../services/user.service';
 import { productService } from '../../../services/product.service';
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -30,6 +35,7 @@ const AddPromotion = () => {
         startDate: null,
         endDate: null,
         product: '',
+        listId: [],
         area: [],
     });
 
@@ -40,7 +46,6 @@ const AddPromotion = () => {
 
         const data = await productService.addPromotion(valueAddPromotion);
         if(data.status!=200)return;
-        console.log(data)
         setOpenAddPromotion(false);
     };
 
@@ -52,13 +57,15 @@ const AddPromotion = () => {
     };
 
 
-
+    
 
     const [city, setCIty] = useState([]);
 
     const [disStrict, setDisStrict] = useState([]);
 
     const [listdisStrict, setListDisStrict] = useState([]);
+
+    
 
     useEffect(() => {
 
@@ -87,6 +94,15 @@ const AddPromotion = () => {
 
 
     }, [])
+
+    const [byID, setById] = useState(false);
+
+    const handleChangeById = () => {
+        setById(!byID);
+    };
+
+
+
 
     return {
         setOpenAddPromotion,
@@ -171,24 +187,52 @@ const AddPromotion = () => {
                             <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion.promotionalQuantity} />
                             </Grid>
-                            <Grid item xs={12}>
-                                <Autocomplete
-                                    value={valueAddPromotion.area}
-                                    onChange={(e, newValue) => {
-                                        setValueAddPromotion({ ...valueAddPromotion, area: newValue })
-                                    }}
-                                    multiple
-                                    fullWidth
-                                    limitTags={2}
-                                    id="multiple-limit-tags"
-                                    options={city}
-                                    getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => (
-                                        <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
-                                    )}
-                                />
+                            {!byID && <>
+                                <Grid item xs={12}>
+                                    <Autocomplete
+                                        value={valueAddPromotion.area}
+                                        onChange={(e, newValue) => {
+                                            setValueAddPromotion({ ...valueAddPromotion, area: newValue })
+                                        }}
+                                        multiple
+                                        fullWidth
+                                        limitTags={2}
+                                        id="multiple-limit-tags"
+                                        options={city}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => (
+                                            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                        )}
+                                    />
 
+                                </Grid>
+                            </>}
+                            <Grid item xs={12}>
+                                <FormGroup>
+                                    <FormControlLabel control={<Checkbox onChange={handleChangeById} />} label="Nhập theo danh sách id" />
+                                </FormGroup>
                             </Grid>
+                            {byID && <>
+                                <Grid item xs={12}>
+                                    <Autocomplete
+                                        value={valueAddPromotion.listId}
+                                        onChange={(e, newValue) => {
+                                            setValueAddPromotion({ ...valueAddPromotion, listId: newValue })
+                                        }}
+                                        multiple
+                                        fullWidth
+                                        limitTags={2}
+                                        id="multiple-limit-tags"
+                                        options={city}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => (
+                                            <TextField fullWidth {...params} label="Id thành viên" placeholder="Chọn id thành viên" />
+                                        )}
+                                    />
+
+                                </Grid>
+                            </>}
+
                         </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>

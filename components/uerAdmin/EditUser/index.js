@@ -46,9 +46,7 @@ const EditUser = (userChoose) => {
 
 
     const handleEditUser = async() => {
-        console.log(valueEditUser);
         const data=await userService.updateUser(valueEditUser);
-        console.log(data)
         setOpenEditUser(false);
     };
 

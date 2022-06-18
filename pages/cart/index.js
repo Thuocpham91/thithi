@@ -5,11 +5,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Head from 'next/head'
+import Moment from 'react-moment';
 
 const Cart = (props) => {
-  console.log("Cart")
-  console.log(props)
-  // const today = new Date();
+
+  const today = new Date();
   const [listProduct, setListProduct] = useState([
     // { id: 1, title: 'Ngựa lớn', imagePackage: '/images/prd1.png', imageTobacco: '/images/prd2.png', imageBarrel: '/images/prd3.png', numberPackage: 3, numberTobacco: 4, numberBarrel: 1 },
     // { id: 2, title: 'Ngựa nhỏ', imagePackage: '/images/prd4.png', imageTobacco: '/images/prd5.png', imageBarrel: '/images/prd3.png', numberPackage: 1 },
@@ -142,7 +142,7 @@ const Cart = (props) => {
         Chi tiết đơn hàng
       </div>
       <div className='sub-title-page'>
-        <div><strong>Ngày đặt:</strong></div>
+      <div><strong>Ngày đặt:</strong> <Moment format="DD.MM.YYYY">{today}</Moment></div>
       </div>
       <div className='list-cart'>
 
