@@ -12,11 +12,7 @@ const nextConfig = {
     pass:'Pthp123@'
   },
   publicRuntimeConfig: {
-    apiUrl: process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/api' // development api
-    : 'http://ktcshop.top/api' // production api
-    // ? 'http://202.92.6.221:3000/api' // development api
-    // : 'http://202.92.6.221:3000/api' // production api
+    apiUrl: process.env.NODE_ENV_API 
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
