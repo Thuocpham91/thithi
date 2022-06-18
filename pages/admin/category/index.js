@@ -205,9 +205,6 @@ const Category = () => {
   };
 
   const handleEditCate =async () => {
-
-
-
     const body = new FormData();
     body.append("file", image);
    
@@ -224,7 +221,6 @@ const Category = () => {
   const [imagesUpload, setImagesUpload] = useState(null);
 
   const [image, setImage] = useState(null);
-  const [createObjectURL, setCreateObjectURL] = useState(null);
 
 
 
@@ -235,7 +231,6 @@ const Category = () => {
       const i = event.target.files[0];
 
       setImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
       setImagesUpload(URL.createObjectURL(i))
     }
 

@@ -15,6 +15,9 @@ export const productService = {
     getPromotion,
     postOder,
     upaloadFile,
+    changeGift,
+    getGift,
+    updateGift,
 };
 
 function getProduct() {
@@ -73,5 +76,28 @@ function upaloadFile(data) {
             return user;
         });
 }
+
+
+function changeGift(data) {
+    return fetchWrapper.post(`${baseUrl}/changeGift`, data)
+        .then(user => {
+            return user;
+        });
+}
+
+function getGift(data) {
+    return fetchWrapper.get(`${baseUrl}/changeGift`, data)
+        .then(user => {
+            return user;
+        });
+}
+
+function updateGift(data) {
+    return fetchWrapper.post(`${baseUrl}/updateGift`, data)
+        .then(user => {
+            return user;
+        });
+}
+
 
 

@@ -39,27 +39,10 @@ export default function Dashboard() {
   });
 
 
-  const [image, setImage] = useState(null);
-  const [createObjectURL, setCreateObjectURL] = useState(null);
 
 
 
-  const uploadToClient = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
 
-      setImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-    }
-  };
-
-  const uploadToServer = async (event) => {
-    const body = new FormData();
-    body.append("file", image);
-
-    const sdsd = await productService.upaloadFile(body);
-
-  };
 
 
   const [labels, setlabels] = useState(["06-06-2022", "07-06-2022", "08-06-2022", "09-06-2022", "10-06-2022", "11-06-2022", "12-06-2022"]);
@@ -97,29 +80,10 @@ export default function Dashboard() {
       console.log(json);
     };
     reader.readAsBinaryString(file);
-
-
-
   }
-
-
-
-
 
   return (<>
 
-    <div>
-      <img src={createObjectURL} />
-      <h4>Select Image</h4>
-      <input type="file" name="myImage" onChange={uploadToClient} />
-      <button
-        className="btn btn-primary"
-        type="submit"
-        onClick={uploadToServer}
-      >
-        Send to server
-      </button>
-    </div>
     <div className='home-top mb-10 grid grid-cols-2 gap-8'>
       <div className='flex routing-sample-box1  rounded-lg bg-white shadow-sm p-5 relative'>
         <div className='home-top--icon'><GroupOutlinedIcon /></div>

@@ -45,154 +45,163 @@ import EditExchangePoints from "../../../components/exchangePoints/EditExchangeP
 import DeleteExchangePoints from "../../../components/exchangePoints/DeleteExchangePoints";
 
 
+import { productService } from '../../../services/product.service';
 
 
 
 function TablePaginationActions(props) {
-    const theme = useTheme();
-    const { count, page, rowsPerPage, onPageChange } = props;
-  
-  
-    const handleFirstPageButtonClick = (event) => {
-      onPageChange(event, 0);
-    };
-  
-    const handleBackButtonClick = (event) => {
-      onPageChange(event, page - 1);
-    };
-  
-    const handleNextButtonClick = (event) => {
-      onPageChange(event, page + 1);
-    };
-  
-    const handleLastPageButtonClick = (event) => {
-      onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-    };
-  
-  
-    return (
-      <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-        <IconButton
-          onClick={handleFirstPageButtonClick}
-          disabled={page === 0}
-          aria-label="first page"
-        >
-          {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-        </IconButton>
-        <IconButton
-          onClick={handleBackButtonClick}
-          disabled={page === 0}
-          aria-label="previous page"
-        >
-          {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-        </IconButton>
-        <IconButton
-          onClick={handleNextButtonClick}
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-          aria-label="next page"
-        >
-          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-        </IconButton>
-        <IconButton
-          onClick={handleLastPageButtonClick}
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-          aria-label="last page"
-        >
-          {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-        </IconButton>
-      </Box>
-    );
-  }
-  
-  TablePaginationActions.propTypes = {
-    count: PropTypes.number.isRequired,
-    onPageChange: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
+  const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props;
+
+
+  const handleFirstPageButtonClick = (event) => {
+    onPageChange(event, 0);
   };
-  
+
+  const handleBackButtonClick = (event) => {
+    onPageChange(event, page - 1);
+  };
+
+  const handleNextButtonClick = (event) => {
+    onPageChange(event, page + 1);
+  };
+
+  const handleLastPageButtonClick = (event) => {
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  };
 
 
+  return (
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton
+        onClick={handleFirstPageButtonClick}
+        disabled={page === 0}
+        aria-label="first page"
+      >
+        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+      </IconButton>
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
+        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+      </IconButton>
+    </Box>
+  );
+}
 
-
-
-
-
-
-
-
-
+TablePaginationActions.propTypes = {
+  count: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+};
 
 
 const ExchangePoints = () => {
 
-    // table
+  // table
 
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-  
-    const emptyRows =
-      page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listCate.length) : 0;
-  
-    const handleChangePage = (event, newPage) => {
-      setPage(newPage);
-    };
-  
-    const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
-    // end table
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listCate.length) : 0;
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-    const [listGif, setListGif] = useState([
-        {id:1,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
-        {id:2,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
-        {id:3,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
-        {id:4,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
-        {id:5,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
-        {id:6,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
-    ]);
-
-
-    const [anchorEl, setAnchorEl] = useState(null);
-  
-    const openMenu = Boolean(anchorEl);
-    const handleOpenMenu = (event, row) => {
-        setChooseItem(row);
-        setAnchorEl(event.currentTarget);
-    };
-    const handleCloseMenu = () => {
-      setAnchorEl(null);
-    };
-
-    const [chooseItem, setChooseItem] = useState(null);
-
-
-    // add  DeleteExchangePoints
-    const {renderAddExchangePoints,setOpenAddExchangePoints} = AddExchangePoints();
-
-
-    // Edit  
-    const {renderEditExchangePoints,setOpenEditExchangePoints} = EditExchangePoints(chooseItem);
-
-    // Delete  EditExchangePoints
-    const {renderDeleteExchangePoints,setOpenDeleteExchangePoints} = DeleteExchangePoints(chooseItem);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  // end table
 
 
 
-    
+  const [listGif, setListGif] = useState([
+    { id: 1, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
+    { id: 2, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
+    { id: 3, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
+    { id: 4, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
+    { id: 5, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
+    { id: 6, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
+  ]);
 
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+
+  useEffect(() => {
+
+    async function fetchData() {
+      let data = await productService.getGift();
+      if (data.status != 200) return;
+
+      setListGif(data.data)
+
+    }
+    fetchData();
+
+
+  }, [])
+
+
+  const openMenu = Boolean(anchorEl);
+  const handleOpenMenu = (event, row) => {
+    setChooseItem(row);
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const [chooseItem, setChooseItem] = useState(null);
+
+
+  // add  DeleteExchangePoints
+  const { renderAddExchangePoints, setOpenAddExchangePoints } = AddExchangePoints();
+
+
+  // Edit  
+  const { renderEditExchangePoints, setOpenEditExchangePoints } = EditExchangePoints(chooseItem);
+
+  // Delete  EditExchangePoints
+  const { renderDeleteExchangePoints, setOpenDeleteExchangePoints } = DeleteExchangePoints(chooseItem,callback);
+
+
+
+
+const callback=()=>{
+  console.log("callback")
+
+
+}
 
   return (
     <div className='body-user bg-white rounded-lg'>
       <div className='header-user flex justify-between px-4 py-5 items-center'>
         <h3>Quản lý đổi quà</h3>
         <div>
-          <Button className='mr-2' onClick={e =>setOpenAddExchangePoints(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm Quà</Button>
-        </div> 
-      </div> 
+          <Button className='mr-2' onClick={e => setOpenAddExchangePoints(true)} variant="contained" style={{ background: "#EE0232" }} startIcon={<AddIcon />} >Thêm Quà</Button>
+        </div>
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
@@ -217,13 +226,13 @@ const ExchangePoints = () => {
                   {row.name}
                 </TableCell>
                 <TableCell >
-                  {row.poit.toLocaleString()}
+                  {row.score}
                 </TableCell>
                 <TableCell  >
-                  {row.image && <>
+                  {row.url && <>
                     <Image
                       alt={row.name}
-                      src={row.image}
+                      src={row.url}
                       width="50px"
                       height="50px"
                       quality={100}
@@ -231,15 +240,15 @@ const ExchangePoints = () => {
                   </>}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
-                    <Button
-                        aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openMenu ? 'true' : undefined}
-                        onClick={ e => handleOpenMenu(e, row)}
-                        style={{color:"#EE0232"}}
-                    >
-                        <MoreHorizIcon />
-                    </Button>
+                  <Button
+                    aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openMenu ? 'true' : undefined}
+                    onClick={e => handleOpenMenu(e, row)}
+                    style={{ color: "#EE0232" }}
+                  >
+                    <MoreHorizIcon />
+                  </Button>
 
                 </TableCell>
 
@@ -276,29 +285,29 @@ const ExchangePoints = () => {
       </TableContainer>
 
       <Menu
-      id="basic-menu"
-      anchorEl={anchorEl}
-      open={openMenu}
-      onClose={handleCloseMenu}
-      MenuListProps={{
-        'aria-labelledby': 'basic-button',
-      }}
-    >
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={openMenu}
+        onClose={handleCloseMenu}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
 
-      <MenuItem  onClick={ e=> setOpenEditExchangePoints(true)}>
-        <ListItemIcon>
+        <MenuItem onClick={e => setOpenEditExchangePoints(true)}>
+          <ListItemIcon>
             <EditIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Chỉnh sửa</ListItemText>
-      </MenuItem>
-      
-      <MenuItem onClick={e=> setOpenDeleteExchangePoints(true)}>
-        <ListItemIcon>
+          </ListItemIcon>
+          <ListItemText>Chỉnh sửa</ListItemText>
+        </MenuItem>
+
+        <MenuItem onClick={e => setOpenDeleteExchangePoints(true)}>
+          <ListItemIcon>
             <DeleteIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Xóa</ListItemText>
-      </MenuItem>
-    </Menu>
+          </ListItemIcon>
+          <ListItemText>Xóa</ListItemText>
+        </MenuItem>
+      </Menu>
 
       {/* add */}
       {renderAddExchangePoints}
@@ -309,15 +318,15 @@ const ExchangePoints = () => {
       {/* Delete */}
       {renderDeleteExchangePoints}
 
-      
 
 
-    </div> 
+
+    </div>
   )
 }
 
 export default ExchangePoints
 
 ExchangePoints.getLayout = function getLayout(page) {
-    return <AdminLayout>{page}</AdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };

@@ -7,6 +7,10 @@ export const apiViettel = {
     getTokenchanel,
     getListproduct,
     sentOder,
+    getCity,
+    getDistrict,
+    getWards,
+
 
 };
 
@@ -107,6 +111,79 @@ async function createOder(token, data) {
 
         const rp = await axios.post(url, data, config);
         return rp.data.data ? rp.data.data : rp.data;
+    } catch (ero) {
+        return null;
+
+    }
+
+}
+
+
+async function getCity(token) {
+    try {
+
+
+        const request = require('request');
+        const util = require('util');
+        var config = {
+            headers: { 'Content-Type': 'application/json', 'Authorization': token },
+            responseType: 'json'
+        };
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city";
+        // const resul = await request(url, config);
+        const requestPromise = util.promisify(request);
+        const response = await requestPromise(url, config);
+    
+        return response.body.cities;
+  
+    } catch (ero) {
+        return null;
+
+    }
+
+}
+
+
+async function getDistrict(token,id_city) {
+    try {
+
+        const request = require('request');
+        const util = require('util');
+        var config = {
+            headers: { 'Content-Type': 'application/json', 'Authorization': token },
+            responseType: 'json'
+        };
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city/"+id_city+"/districts";
+        // const resul = await request(url, config);
+        const requestPromise = util.promisify(request);
+        const response = await requestPromise(url, config);
+    
+        return response.body.data;
+  
+    } catch (ero) {
+        return null;
+
+    }
+
+}
+
+
+async function getWards(token,id_dis) {
+    try {
+
+        const request = require('request');
+        const util = require('util');
+        var config = {
+            headers: { 'Content-Type': 'application/json', 'Authorization': token },
+            responseType: 'json'
+        };
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/district/"+id_dis+"/wards";
+        // const resul = await request(url, config);
+        const requestPromise = util.promisify(request);
+        const response = await requestPromise(url, config);
+    
+        return response.body.data;
+  
     } catch (ero) {
         return null;
 

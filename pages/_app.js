@@ -15,14 +15,13 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
   useEffect(() => {
+    
 
     authCheck(router.asPath);
 
     const hideContent = () => setAuthorized(false);
     router.events.on('routeChangeStart', hideContent);
     router.events.on('routeChangeComplete', authCheck)
-
-
 
     return () => {
       router.events.off('routeChangeStart', hideContent);

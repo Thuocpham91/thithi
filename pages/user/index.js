@@ -6,10 +6,6 @@ import Image from 'next/image'
 import Button from '@mui/material/Button';
 import Head from 'next/head'
 
-
-
-
-
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -23,6 +19,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { grey } from '@mui/material/colors';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
+import { productService } from '../../services/product.service';
+import toast from 'react-hot-toast';
 
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
@@ -35,19 +33,26 @@ const Root = styled('div')(({ theme }) => ({
 
 
 
+function showToast(pos, message) {
+  toast.success(message, {
+    position: pos,
+    duration: 1000,
+  });
+}
+function showToastEro(pos, message) {
+  toast.error(message, {
+    position: pos,
+    duration: 1000,
+  });
+}
 
 
 
 const User = (props) => {
 
-  const listGift = [
-    { id: 1, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    { id: 2, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-    { id: 3, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    { id: 4, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-    { id: 5, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    { id: 6, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-  ]
+  const [listGif, setListGif] = useState([
+
+  ]);
   const [init, setInit] = useState({});
 
 
@@ -59,7 +64,20 @@ const User = (props) => {
 
 
 
-  })
+  }, [])
+
+  useEffect(() => {
+
+    async function fetchData() {
+      let data = await productService.getGift();
+      if (data.status != 200) return;
+      setListGif(data.data)
+
+    }
+    fetchData();
+
+
+  }, [])
 
 
 
@@ -75,7 +93,17 @@ const User = (props) => {
   const container = window !== undefined ? () => window().document.body : undefined;
 
 
+  const checkChagePoin = (d) => {
 
+    const data = JSON.parse(localStorage.getItem('user'));
+
+    const poin = data.data.score ? data.data.score : 0;
+    const scoreU = d.score ? d.score : 0;
+    if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Bạn không đủ điểm")
+
+
+    showToast('top-center', "Đổi điểm thành công")
+  }
 
 
 
@@ -100,7 +128,7 @@ const User = (props) => {
             <p><span>Mã ID đại lý:</span> <i>{init.id_khataco}</i></p>
             <p><span>Số điện thoại:</span> <i>{init.phone}</i></p>
 
-            
+
             <p><span>Địa chỉ giao hàng:</span> <i>{init.address}</i></p>
           </div>
         </div>
@@ -141,25 +169,25 @@ const User = (props) => {
                 <div>
                   <h5><i>Kính chào</i>{init.name}</h5>
                   <p>Điểm tích lũy:</p>
-                  <p><h2>{init.score}</h2> điểm</p>
+                  <p><h2>{init.score ? init.score : 0}</h2> điểm</p>
                 </div>
               </div>
               <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4'>
-                {listGift.map(function (d, idx) {
+                {listGif.map(function (d, idx) {
                   return (
                     <div key={idx} className="item-gift">
                       <span>
                         <Image
                           alt={d.title}
-                          src={d.image}
+                          src={d.url}
                           layout='fill'
                           objectFit='contain'
                           quality={100}
                         />
                       </span>
-                      <h3>{d.poit.toLocaleString()} điểm</h3>
+                      <h3>{d.score} điểm</h3>
                       <p>{d.name}</p>
-                      <Button variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Đổi điểm</Button>
+                      <Button onClick={e => checkChagePoin(d)} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Đổi điểm</Button>
                     </div>
                   )
                 })}
@@ -169,6 +197,8 @@ const User = (props) => {
 
         </SwipeableDrawer>
       </div>
+
+
     </Root>
   </>)
 }

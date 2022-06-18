@@ -18,6 +18,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 import { userService } from '../../services';
 import { Formik, Form, Field } from "formik";
+import toast from 'react-hot-toast';
 
 import axios from 'axios';
 
@@ -30,6 +31,19 @@ const Root = styled('div')(({ theme }) => ({
         theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
 }));
 
+
+function showToastSuccess(pos, message) {
+    toast.success(message, {
+        position: pos,
+        duration: 1000,
+    });
+}
+function showToastEro(pos, message) {
+    toast.error(message, {
+        position: pos,
+        duration: 1000,
+    });
+}
 
 const Login = (props) => {
 
@@ -98,12 +112,16 @@ const Login = (props) => {
                                         console.log(response)
                                         if (response.status == "200") {
                                             const returnUrl = router.query.returnUrl || '/';
+                                            showToastSuccess('top-center', "Đăng nhập thành công")
                                             router.push(returnUrl);
+                                        } else {
+                                            showToastEro('top-center', "Bạn sai Thông tin")
                                         }
 
                                     })
                                     .catch(error => {
-                                        console.log(error)
+                                        console.log(error);
+                                        showToastEro('top-center', "Bạn sai Thông tin")
                                     });
                             }}
                         >

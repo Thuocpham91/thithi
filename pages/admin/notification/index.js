@@ -40,19 +40,9 @@ const Notification = () => {
     const handleNoti = async () => {
 
         const data=await productService.putNotification(valueNoti);
-        console.log(data);
-
-
-
-
+    
         setOpenNoti(false);
     };
-
-
-
-
-     
-
 
     const [city, setCIty] = useState([]);
 
