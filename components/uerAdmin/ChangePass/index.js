@@ -29,7 +29,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   
 
 const ChangePass = (value) => {
-  console.log(value)
 
     const [openChangePass, setOpenChangePass] = useState(false);
 
@@ -50,7 +49,6 @@ const ChangePass = (value) => {
 
 
         const data=await userService.changePassAdmin(valuesChangePass);
-        console.log(data);
         setValuesChangePass({
           newPassword: '',
           reNewPassword: '',

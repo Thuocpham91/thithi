@@ -13,7 +13,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { grey } from '@mui/material/colors';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { productService } from '../../services/product.service';
-
+import Moment from 'react-moment';
 
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
@@ -47,7 +47,6 @@ export default function FooterCart(props) {
 
     const data= await productService.postOder(dataOrder);
 
-    console.log(data);
 
 
   }
@@ -68,7 +67,6 @@ export default function FooterCart(props) {
     async function fetchData() {
       let data = await productService.getPromotion();
       if (data.status != 200) return;
-      console.log(data.data);
       setListCoupon(data.data)
       setGoListCoupon(data.data);
 
@@ -144,7 +142,7 @@ export default function FooterCart(props) {
                         <div className='btn-coupon-center'>
                           <h3>{d.title}</h3>
                           <p>Dùng được {d.numberOfUses} lần</p>
-                          <span>{d.startDate}{d.endDate}</span>
+                          <span><Moment format="DD-MM">{d.startDate}</Moment>/<Moment format="DD-MM">{d.endDate}</Moment></span>
                         </div>
                         <div className='btn-coupon-right'>
                           {/* {d.active == 1 && <> */}
