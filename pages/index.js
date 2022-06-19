@@ -4,6 +4,9 @@ import HeaderHome from '../components/home/HeaderHome'
 import Footer from '../components/footer'
 import MainHome from '../components/home/MainHome'
 
+import { Provider } from 'react-redux'
+import { useStore } from '../../Store/store'
+
 
 export default function Home() {
   return (

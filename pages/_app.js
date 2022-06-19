@@ -8,11 +8,16 @@ import { userService } from '../services/index';
 import { BehaviorSubject } from 'rxjs';
 import { Toaster } from "react-hot-toast";
 
+import { Provider } from 'react-redux'
+import { useStore } from '../Store/store'
+
+
 
 export default MyApp;
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const store = useStore(pageProps.initialReduxState)
   const [authorized, setAuthorized] = useState(false);
   useEffect(() => {
     
@@ -62,7 +67,7 @@ function MyApp({ Component, pageProps }) {
   }
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(<>
-    {authorized && <Component {...pageProps} />}
+    {authorized &&    <Provider store={store}>   < Component {...pageProps} /></Provider> }
     <Toaster position="bottom-right" />
   </>
   )

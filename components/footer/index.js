@@ -11,12 +11,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import { userService } from '../../services';
 
 
-
 export default function Footer() {
   const router = useRouter();
   const [value, setValue] = useState(0);
   const [countNoti, setCountNoti] = useState(0);
-
+ 
   const handleLink = (link) => {
     router.push(link);
   }
@@ -42,16 +41,14 @@ export default function Footer() {
     async function getCategory() {
       const data = await userService.getCountNotification();
       if (data.status != 200) return;
-     
       setCountNoti( data.data[0].number)
-
-
     }
 
     getCategory();
 
   }, []);
 
+  // dispatch(setNotification(value));
 
   return (
     <Box className='w-full footer'>

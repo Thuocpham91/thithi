@@ -4,6 +4,9 @@ import Button from '@mui/material/Button';
 import { useRouter } from 'next/router'
 import { productService } from '../../../services/product.service';
 
+import { useSelector, useDispatch } from 'react-redux'
+import { setNotification } from '../../../Store/actions'
+
 
 const MainHome = () => {
     const [listProduct, setListProduct] = useState([
@@ -13,21 +16,34 @@ const MainHome = () => {
     ]);
     const [orderList, setOrderList] = useState([]);
 
+    const count = useSelector((state) => state.counter);
+
 
 
     useEffect(() => {
+
+        console.log("useEffect",count)
         async function fetchData() {
             let data = await productService.getProduct();
             if (data.status != 200) return;
+            console.log(data.data.variants)
 
-            setListProduct(data.data.variants);
+             
+          let showDa=data.data.variants;
+            if(count != -1) {
+               const lK=data.data.variants.filter(item=>{
+                return item.variants[0].category.code==count.code;
+               })
 
+               showDa=lK;
+            }
+
+            setListProduct(showDa);
             localStorage.setItem('listVariants',JSON.stringify(data.data.variants));
-
 
         }
         fetchData();
-    }, []);
+    }, [count]);
 
 
 

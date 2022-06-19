@@ -2,15 +2,27 @@ import React,{useState, useEffect} from 'react'
 import Image from 'next/image'
 import { productService } from '../../../services/product.service';
 
+
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setNotification } from '../../../Store/actions'
+
+
 const HeaderHome = () => {
- 
+  const dispatch = useDispatch();
+
 
     const [listCa, setListCate] = useState([]);
     const [activeCate, setActiveCate] = useState(0);
 
-    const handleChangeActiveCate = (id) =>{
-        setActiveCate(id);
+    const handleChangeActiveCate = (d) =>{
+      dispatch(setNotification(d));
+
+        setActiveCate(d.id);
     }
+
+
+
 
     useEffect(() => {
    
@@ -31,7 +43,7 @@ const HeaderHome = () => {
     <div className="flex justify-start align-middle list-cate">
         {listCa.map(function(d, idx){
          return (
-            <div key={idx} className={activeCate == d.id ? 'cate-item active' : 'cate-item'} onClick={e => handleChangeActiveCate(d.id)}>
+            <div key={idx} className={activeCate == d.id ? 'cate-item active' : 'cate-item'} onClick={e => handleChangeActiveCate(d)}>
                 <div className='cate-item__img'>
                     <span>
                         <Image

@@ -31,7 +31,7 @@ async function SelectById_user(id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification where id_user = ?',
+            query: 'select * from notification where id_user = ?  order by created_at  DESC ',
             values: [id_user],
         });
         return result;
@@ -45,7 +45,7 @@ async function SelectAll(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification',
+            query: 'select * from notification  order by created_at  DESC ',
             values: [code],
         });
         return result;
