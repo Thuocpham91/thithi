@@ -12,6 +12,12 @@ import TextField from '@mui/material/TextField';
 import { Toaster } from "react-hot-toast";
 import { productService } from '../../../services/product.service';
 
+import Autocomplete from '@mui/material/Autocomplete';
+import { userService } from '../../../services/user.service';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -23,7 +29,9 @@ const AddExchangePoints = () => {
         id: '',
         name: '',
         score: '',
-        url: ''
+        url: '',
+        listId: [],
+        area: [],
     });
 
 
@@ -46,24 +54,37 @@ const AddExchangePoints = () => {
         valueAddExchangePoints.url = sdsd.url;
 
         const sdsdj = await productService.changeGift(valueAddExchangePoints);
-        console.log(sdsdj);
 
         setOpenAddExchangePoints(false);
 
     };
 
     const handleChangeFile = (event) => {
-
-
         if (event.target.files && event.target.files[0]) {
             const i = event.target.files[0];
-
             setImage(i);
-
             setImagesUpload(URL.createObjectURL(i))
         }
-
     }
+
+    const [city, setCIty] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            let data = await userService.getCitiDistrict();
+            if (data.status != 200) return;
+            setCIty(data.citi);
+        }
+        fetchData();
+    }, []);
+
+    const [byID, setById] = useState(false);
+
+    const handleChangeById = () => {
+        setById(!byID);
+    };
+
+
 
 
 
@@ -88,6 +109,52 @@ const AddExchangePoints = () => {
                             <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Điểm cần đạt" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, score: e.target.value }) }} value={valueAddExchangePoints.poit} />
                             </Grid>
+                            {!byID && <>
+                                <Grid item xs={12}>
+                                    <Autocomplete
+                                        value={valueAddExchangePoints.area}
+                                        onChange={(e, newValue) => {
+                                            setValueAddExchangePoints({ ...valueAddExchangePoints, area: newValue })
+                                        }}
+                                        multiple
+                                        fullWidth
+                                        limitTags={2}
+                                        id="multiple-limit-tags"
+                                        options={city}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => (
+                                            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                        )}
+                                    />
+
+                                </Grid>
+                            </>}
+                            <Grid item xs={12}>
+                                <FormGroup>
+                                    <FormControlLabel control={<Checkbox onChange={handleChangeById} />} label="Nhập theo danh sách id" />
+                                </FormGroup>
+                            </Grid>
+                            {byID && <>
+                                <Grid item xs={12}>
+                                    <Autocomplete
+                                        value={valueAddExchangePoints.listId}
+                                        onChange={(e, newValue) => {
+                                            setValueAddExchangePoints({ ...valueAddExchangePoints, listId: newValue })
+                                        }}
+                                        multiple
+                                        fullWidth
+                                        limitTags={2}
+                                        id="multiple-limit-tags"
+                                        options={city}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => (
+                                            <TextField fullWidth {...params} label="Id thành viên" placeholder="Chọn id thành viên" />
+                                        )}
+                                    />
+
+                                </Grid>
+                            </>}
+
                             <Grid item xs={12}>
                                 <div className='form-file'>
                                     <div className='form-file__icon'><CloudUploadIcon sx={{ fontSize: 40 }} /><span>Upload hình ảnh</span></div>

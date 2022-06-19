@@ -33,6 +33,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import Moment from 'react-moment';
+
 import { EditPromotionD }  from "../../../components/promotion/EditPromotion/dialog";
 
 
@@ -154,7 +156,7 @@ const Promotion = () => {
                             <TableCell className='text-right'>Lần dùng</TableCell>
                             <TableCell className='text-right'>Lượng mua</TableCell>
                             <TableCell className='text-right'>Lượng khuyến mại</TableCell>
-                            <TableCell>Tỉnh/Thành áp dụng </TableCell>
+                            <TableCell>Áp dụng </TableCell>
                             <TableCell>Bắt đầu</TableCell>
                             <TableCell>Kết thúc</TableCell>
                             <TableCell></TableCell>
@@ -193,10 +195,10 @@ const Promotion = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell  >
-                                    {row.startDate}
+                                <Moment format="DD-MM-YYYY">{row.startDate}</Moment>
                                 </TableCell>
                                 <TableCell  >
-                                    {row.endDate}
+                                    <Moment format="DD-MM-YYYY">{row.endDate}</Moment>
                                 </TableCell>
                                 <TableCell style={{ width: 30 }} align="right">
                                     <Button

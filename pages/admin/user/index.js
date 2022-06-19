@@ -120,7 +120,6 @@ const User = () => {
     async function fetchData() {
       let data = await userService.getAll();
       if (data.status != 200) return;
-      console.log(data)
       setRowUser(data.data);
     }
     fetchData();
@@ -220,16 +219,16 @@ const User = () => {
                   {row.id}
                 </TableCell>
                 <TableCell style={{ width: 160 }}>
-                  {row.account}
+                  {row.id_khataco}
                 </TableCell>
                 <TableCell  align="right">
                   {row.account}
                 </TableCell>
                 <TableCell  align="right">
-                  {row.account}
+                  {row.score}
                 </TableCell>
                 <TableCell  align="right">
-                  {row.account}
+                  {row.description}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
                   <Button

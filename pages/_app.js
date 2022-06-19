@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }) {
   }
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(<>
-    {authorized &&    <Provider store={store}>   < Component {...pageProps} /></Provider> }
+    {authorized &&    <Provider store={store}>   < Component {...pageProps} /></Provider>}
     <Toaster position="bottom-right" />
   </>
   )
