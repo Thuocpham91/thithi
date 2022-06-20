@@ -6,6 +6,7 @@ import { apiHandler } from '../../../helpers/api';
 import { Promotion } from '../../../querySql/queryPromotion';
 import { sassNull } from 'sass';
 
+import { checlogin } from './common/checkLogin';
 
 export default apiHandler(handler);
 

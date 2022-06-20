@@ -8,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 
-
 import PropTypes from 'prop-types';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
@@ -154,16 +153,22 @@ const Login = (props) => {
                                             className='w-full' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
                                         <Divider className='my-5' style={{ marginTop: '1.25rem !important', marginBottom: '1.25rem !important' }} />
-                                        <Button className={styles.butonZalo} onClick={clickHandleZalo()}>
-                                            <span className="mr-2" style={{ height: 34 }}>
-                                                <Image
-                                                    alt="Zalo Login"
-                                                    src="/images/zalo-icon.png"
-                                                    width={36}
-                                                    height={34}
-                                                />
-                                            </span>
-                                            Đăng nhập bằng Zalo</Button>
+
+                                        <Link href="https://oauth.zaloapp.com/v4/permission?app_id=809218530111061135&redirect_uri=https://ktcshop.top/login&code_challenge=XKktx0OMJjyY9rC9HkSDCn8z-PfVSV4QfH1VQKjmKUI&state=4e7ba7f759a1e010974e9d7ceb62069c382654d37c2fe3c5a9696d177687fa1d">
+                                            <Button className={styles.butonZalo}>
+                                                <span className="mr-2" style={{ height: 34 }}>
+                                                    <Image
+                                                        alt="Zalo Login"
+                                                        src="/images/zalo-icon.png"
+                                                        width={36}
+                                                        height={34}
+                                                    />
+                                                </span>
+                                                Đăng nhập bằng Zalo</Button>
+
+                                        </Link>
+
+
                                     </div>
                                 </Form>
                             )}

@@ -2,6 +2,7 @@
 
 import { changeGift } from "../../../querySql/queryChangeGift"
 
+import { checlogin } from './common/checkLogin';
 
 export default handler;
 

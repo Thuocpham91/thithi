@@ -50,6 +50,7 @@ const AddPromotion = () => {
     const handleAddPromotion = async () => {
 
         const data = await productService.addPromotion(valueAddPromotion);
+        console.log(data)
         if (data.status != 200) return;
 
         if(data.status==200)  {
@@ -59,10 +60,6 @@ const AddPromotion = () => {
             toast.error("Có lỗi ở đây!");
          }
     };
-
-
-
-
 
 
 
@@ -247,7 +244,7 @@ const AddPromotion = () => {
                         </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                        <Button className='mr-2' onClick={handleAddPromotion} variant="contained" style={{ background: "#EE0232" }}>Thêm mới</Button>
+                        <Button className='mr-2' onClick={e=>handleAddPromotion()} variant="contained" style={{ background: "#EE0232" }}>Thêm mới</Button>
                         <Button onClick={handleCloseAddPromotion} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>
