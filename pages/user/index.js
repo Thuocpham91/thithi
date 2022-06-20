@@ -169,7 +169,7 @@ const User = (props) => {
                   <p><h2>{init.score ? init.score : 0}</h2> điểm</p>
                 </div>
               </div>
-              <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4'>
+              <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4 w-full'>
                 {listGif.map(function (d, idx) {
                   return (
                     <div key={idx} className="item-gift">
