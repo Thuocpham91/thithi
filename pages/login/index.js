@@ -74,13 +74,6 @@ const Login = (props) => {
 
     const clickHandleZalo = (values) => async () => {
 
-        return userService.getviettell("email", "password")
-            .then((value) => {
-                console.log("clickHandleZalo", value)
-            })
-            .catch(error => {
-                console.log("error", error)
-            });
     };
 
     // This is used only for the example

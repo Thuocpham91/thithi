@@ -112,6 +112,7 @@ const User = (props) => {
       <meta property="og:title" content="Khatoco" />
       <meta property="og:description" content="Conng ty Khatoco" />
       <meta property="og:site_name" content="Khatoco" />
+      <meta name="zalo-platform-site-verification" content="QCVl8hRLIoDyefjzjgmoMKlIatsdea4ZC3S" />
     </Head>
     <Root>
       <div className='main-body body-f2f2f2'>
