@@ -125,51 +125,53 @@ export default function FooterCart(props) {
           }}
         >
           <div className={styles.rulesMain}>
-            <div className="coupon-form--title">Mã áp dụng  {codeapp} <CloseIcon onClick={e => setOpenRules(false)} /></div>
+            <div className="coupon-form--title">Mã áp dụng <CloseIcon onClick={e => setOpenRules(false)} /></div>
             <div className='coupon-form flex'>
-              <input type="text" onChange={e => { settextSearch(e.target.value) }} placeholder='Nhập mã' />
+              <input type="text" value={codeapp} onChange={e => { settextSearch(e.target.value) }} placeholder='Nhập mã' />
               <Button onClick={e => toggleDrawer()} variant="contained">Tìm kiếm</Button>
             </div>
             <div className="coupon-form--content">
               {listCoupon.map(function (d, idx) {
                 return (
-                
-                  // <button key={idx} className={d.active == 2 ? 'btn-coupon chddk' : 'btn-coupon'} disabled={d.active == 1 ? '' : 'disabled'} >
+                  <div key={idx} style={{width:700}}>
 
-                  <button key={idx} className={'btn-coupon'} onClick={e => { setcodeAp(d.title) }} >
-                    <div className='btn-coupon--body'>
-                      <div>
-                        <div className='btn-coupon-left'>
-                          <h3>{d.code}</h3>
-                          <p>{d.product_name}</p>
-                        </div>
-                        <div className='btn-coupon-center'>
-                          <h3>{d.title}</h3>
-                          <p>Dùng được {d.numberOfUses} lần</p>
+                    <button className={d.active == 2 ? 'btn-coupon chddk' : 'btn-coupon'} disabled={d.active == 1 ? '' : 'disabled'} ></button>
 
-                       
-                                  
+                    <button className={'btn-coupon'} onClick={e => { setcodeAp(d.title) }} >
+                      <div className='btn-coupon--body'>
+                        <div>
+                          <div className='btn-coupon-left'>
+                            <h3>{d.code}</h3>
+                            <p>{d.product_name}</p>
+                          </div>
+                          <div className='btn-coupon-center'>
+                            <h3>{d.title}</h3>
+                            <p>Dùng được {d.numberOfUses} lần</p>
 
-                          <span>    { format(parseISO(d.startDate), 'dd-mm')} / { format(parseISO(d.endDate), 'dd-mm')}</span>
-                        </div>
-                        <div className='btn-coupon-right'>
-                          {/* {d.active == 1 && <> */}
-                          <>
-                            <p>Đã dùng</p>
-                            <p><strong>{7}/{10}</strong> lần</p>
-                          </>
+                            <span>    {format(parseISO(d.startDate), 'dd-mm')} / {format(parseISO(d.endDate), 'dd-mm')}</span>
+                          </div>
+                          <div className='btn-coupon-right'>
+                            {/* {d.active == 1 && <> */}
+                            <>
+                              <p>Đã dùng</p>
+                              <p><strong>{7}/{10}</strong> lần</p>
+                            </>
 
-                          {/* </>} */}
-                          {/* {d.active == 2 && <>
-                            <div className='btn-coupon-right--noti-bot red'>Chưa đủ điều kiện</div>
-                          </>}
-                          {d.active == 3 && <>
-                            <div className='btn-coupon-right--noti-bot'>Hết lần sử dụng</div>
-                          </>} */}
+                            {/* </>} */}
+                            {/* {d.active == 2 && <>
+                                <div className='btn-coupon-right--noti-bot red'>Chưa đủ điều kiện</div>
+                              </>}
+                              {d.active == 3 && <>
+                                <div className='btn-coupon-right--noti-bot'>Hết lần sử dụng</div>
+                              </>} */}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </button>
+                    </button>
+
+
+                  </div>
+
                 )
               })}
             </div>
