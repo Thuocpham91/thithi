@@ -11,6 +11,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 import { userService } from '../../../services/user.service';
 
+import toast from "react-hot-toast";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -22,17 +23,17 @@ const EditUser = (userChoose) => {
     const [valueEditUser, setValueEditUser] = useState(null);
     const [city, setCIty] = useState([]);
 
-    const [disStrict, setDisStrict] = useState([]);
 
     const [listdisStrict, setListDisStrict] = useState([]);
+    const [listWards, setLisWards] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
-            let data = await userService.getCitiDistrict();
+            let data = await userService.getCitiDistrict({key:"city"});
             if (data.status != 200) return;
 
-            setCIty(data.citi);
-            setDisStrict(data.district)
+            setCIty(data.city);
+            // setDisStrict(data.district)
 
         }
         fetchData();
@@ -47,13 +48,13 @@ const EditUser = (userChoose) => {
 
     const handleEditUser = async() => {
         const data=await userService.updateUser(valueEditUser);
-        setOpenEditUser(false);
+        if(data.status==200)  {
+            toast.success("Sửa thành công");
+            setOpenEditUser(false);
+         }else {
+            toast.error("Sửa thất bại!");
+         }
     };
-
-
-
-
-
 
     useEffect(() => {
         setValueEditUser(userChoose);
@@ -82,13 +83,13 @@ const EditUser = (userChoose) => {
                                         />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, phone: e.target.value })} disabled value={valueEditUser.phone} />
+                                    <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, phone: e.target.value })} disabled defaultValue={valueEditUser.phone} />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, idUser: e.target.value })} disabled value={valueEditUser.id_khataco} />
+                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, idUser: e.target.value })}  defaultValue={valueEditUser.id_khataco} />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, point: e.target.value })} value={valueEditUser.score} />
+                                    <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, score: e.target.value })} defaultValue ={valueEditUser.score} />
                                 </Grid>
 
                                 <Grid item xs={6}>
@@ -98,11 +99,14 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        defaultValue={ city.find(item =>{return item.matp==valueEditUser.city_id})||null}
-                                        onChange={(item, value) => {
-                                            setValueEditUser({ ...valueEditUser, city: value.name, city_id: value.matp })
-                                            const ds = disStrict.filter(item => { return value.matp == item.matp });
-                                            setListDisStrict(ds);
+                                        defaultValue={ userChoose?{name:userChoose.name_cityVT}:null}
+                                        onChange={async(item, value) => {
+                                            if (!value)return;
+                                            setValueEditUser({ ...valueEditUser, city: value.name,city_code:value.id,id_cityVT:value.id,code_cityVT:value.vtp_id,name_cityVT:value.name });
+                                            let data = await userService.getCitiDistrict( {key:"district",id:value.id});
+                                            if (data.status != 200) return;
+                                            // const ds = disStrict.filter(item => { return value.matp == item.matp });
+                                            setListDisStrict(data.city.districts);
                                         }}
                                         options={city}
                                         getOptionLabel={(option) => option.name}
@@ -120,9 +124,15 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        defaultValue={disStrict.find(item =>{return item.name==valueEditUser.name_district})|| null}
-                                        onChange={(item, value) => {
-                                            setValueEditUser({ ...valueEditUser, district: value.name, district_id: value.maqh })
+                                        defaultValue={ userChoose?{name:userChoose.name_districtVT}:null}
+                                        onChange={async(item, value) => {
+                                          
+                                            if (!value)return;
+                                            setValueEditUser({ ...valueEditUser, district: value.name,district_code:value.id,id_districtVT:value.id,code_districtVT:value.vtp_id,name_districtVT:value.name });
+                                            let data = await userService.getCitiDistrict( {key:"wards",id:value.id});
+                                            if (data.status != 200) return;
+                                            // const ds = disStrict.filter(item => { return value.matp == item.matp });
+                                            setLisWards(data.city.wards);
 
                                         }}
                                         options={listdisStrict}
@@ -134,6 +144,26 @@ const EditUser = (userChoose) => {
                                     />
 
                                 </Grid>
+                                <Grid item xs={6}>
+                                <Autocomplete
+                                    fullWidth
+                                    limitTags={2}
+                                    defaultValue={ userChoose?{name:userChoose.name_wardsVT}:null}
+                                    id="multiple-limit-tags"
+                                    onChange={async(item, value) => {
+                                        if (!value)return;
+                                        setValueEditUser({ ...valueEditUser, id_wardsVT:value.id,code_wardsVT:value.vtp_id,name_wardsVT:value.name });
+                                      
+                                    }}
+                                    options={listWards}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="Khu vực" placeholder="Chọn khu vực" />
+                                    )}
+                                // sx={{ width: '500px' }}
+                                />
+
+                            </Grid>
                                 <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Mô tả" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, description: e.target.value })} value={valueEditUser.description} />
                                 </Grid>

@@ -23,9 +23,16 @@ function handler(req, res) {
 
     async function changePass(req, res) {
         try {
-            const {id, phone, name,district_id,city_id,id_khataco,id_role,status,score,description } = req.body;
-            console.log(req.body);
 
+            const user = await checlogin.checkLogin(req, res);
+            const checkl = user.id_role==1?true:false;
+            if (!checkl) return res.status(200).json({
+                status: 194,
+                message: "Bạn ko có quền"
+            });
+
+            const {id, phone, name,district_id,city_id,id_khataco,id_role,status,score,description } = req.body;
+         
             const user_change = await User.findBId(id);
             if(!user_change) return;
             if(id_role)user_change.id_role=id_role;

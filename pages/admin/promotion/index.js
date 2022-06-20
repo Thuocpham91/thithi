@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import AdminLayout from "../../../layouts/Admin";
 import AddPromotion from "../../../components/promotion/AddPromotion";
-import EditPromotion from "../../../components/promotion/EditPromotion";
 import DeletePromotion from "../../../components/promotion/DeletePromotion";
 
 import PropTypes from 'prop-types';
@@ -33,9 +32,11 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import Moment from 'react-moment';
+import { compareAsc, format } from 'date-fns'
 
-import { EditPromotionD }  from "../../../components/promotion/EditPromotion/dialog";
+// 
+import EditPromotionD from "../../../components/promotion/EditPromotion/dialog";
+import parseISO from 'date-fns/parseISO';
 
 
 import { productService } from '../../../services/product.service';
@@ -74,7 +75,7 @@ const Promotion = () => {
             if (data.status != 200) return;
 
             seListPromotion(data.data)
-    
+
         }
         fetchData();
     }, []);
@@ -103,12 +104,14 @@ const Promotion = () => {
 
     //   menu
     const [anchorEl, setAnchorEl] = useState(null);
-    const [openEdit, setOpenEdit ] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
     const [dialogEdit, setDialogEdit] = useState(false);
+
+    const [promotionChose, setPromotionChose] = useState({});
     const openMenu = Boolean(anchorEl);
     const handleOpenMenu = (event, row) => {
-        // setPromotionChoose(row)
-        console.log('row=', row);
+        setPromotionChose(row)
+        console.log(row)
         setAnchorEl(event.currentTarget);
         setOpenEdit(true)
     };
@@ -122,17 +125,23 @@ const Promotion = () => {
     // add Promotion
     const { renderAddPromotion, setOpenAddPromotion } = AddPromotion();
 
-    // Edit Promotion
+    const { renderDeletePromotion, setOpenDeletePromotion } = DeletePromotion(promotionChose);
+
+    
 
 
     const handleOpenEditPromotion = () => {
-        setOpenEdit(false)
+        setOpenEdit(false);
+        setDialogEdit(true);
+
     };
+
+
 
     // delete Promotion
     // const { renderDeletePromotion, setOpenDeletePromotion } = DeletePromotion(promotionChoose);
     const handleOpenDeletePromotion = () => {
-        handleCloseMenu();
+        setOpenEdit(false);
         setOpenDeletePromotion(true)
     };
 
@@ -195,10 +204,14 @@ const Promotion = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell  >
-                                <Moment format="DD-MM-YYYY">{row.startDate}</Moment>
+                                    {format(parseISO(row.startDate), 'yyyy-MM-dd HH:mm')}
+
                                 </TableCell>
                                 <TableCell  >
-                                    <Moment format="DD-MM-YYYY">{row.endDate}</Moment>
+
+                                    {format(parseISO(row.endDate), 'yyyy-MM-dd  HH:mm')}
+
+
                                 </TableCell>
                                 <TableCell style={{ width: 30 }} align="right">
                                     <Button
@@ -236,9 +249,9 @@ const Promotion = () => {
                                     },
                                     native: true,
                                 }}
-                                onPageChange={e=>handleChangePage}
-                                onRowsPerPageChange={e=>handleChangeRowsPerPage}
-                                ActionsComponent={e=>TablePaginationActions}
+                                onPageChange={e => handleChangePage}
+                                onRowsPerPageChange={e => handleChangeRowsPerPage}
+                                ActionsComponent={e => TablePaginationActions}
                             />
                         </TableRow>
                     </TableFooter>
@@ -257,16 +270,20 @@ const Promotion = () => {
         {/* {renderEditPromotion} */}
 
         {/* delete Promotion */}
-        {/* {renderDeletePromotion} */}
+        {renderDeletePromotion}
 
-
-        {/* <EditPromotionD ></EditPromotionD> */}
+        <EditPromotionD
+            open={dialogEdit}
+            setOpen={setDialogEdit}
+            item={promotionChose}
+        ></EditPromotionD>
 
         <MenuView
             anchorEl={anchorEl}
             openMenu={openEdit}
             handleCloseMenu={handleCloseMenu}
-            edit={handleOpenEditPromotion }
+            edit={handleOpenEditPromotion}
+            delete={handleOpenDeletePromotion}
 
         ></MenuView>
 
@@ -353,7 +370,7 @@ const MenuView = (props) => {
                 <ListItemText>Chỉnh sửa</ListItemText>
             </MenuItem>
 
-            <MenuItem >
+            <MenuItem onClick={e => props.delete()} >
                 <ListItemIcon>
                     <DeleteIcon fontSize="small" />
                 </ListItemIcon>

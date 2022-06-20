@@ -11,12 +11,12 @@ export const Promotion = {
     
 };
 
-async function insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id,product_name, area,status) {
+async function insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id,product_name, area,status,users) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO promotion(title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product_id,product_name,city_id,status) VALUES(?,?,?,?,?,?,?,?,?,?,?)',
-            values: [title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id,product_name, area, status],
+            query: 'INSERT INTO promotion(title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product_id,product_name,city_id,status,users) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+            values: [title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id,product_name, area, status,users],
         });
         return result;
     } catch (error) {
@@ -31,7 +31,7 @@ async function SelectById_user(id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from promotion where id_user = ?',
+            query: 'select * from promotion where id_user = ? and status=0',
             values: [id_user],
         });
         return result;
@@ -45,7 +45,7 @@ async function SelectAll(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from promotion',
+            query: 'select * from promotion where status=0',
             values: [code],
         });
         return result;
@@ -57,11 +57,11 @@ async function SelectAll(code) {
 
 
 
-async function update(ca) {
+async function update(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id,product_name, area, status,users,id) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  promotion SET name=?,code= ? ,status= ?,url= ?   where id= ?',
-            values: [ca.name, ca.code, ca.status,ca.url,ca.id],
+            query: 'UPDATE  promotion SET title=?,code= ? ,numberOfUses= ?,quantityPurchased= ? ,promotionalQuantity=? ,startDate=? ,endDate=? ,product_id=? ,product_name=? ,area=? ,status=? ,users=?      where id= ?',
+            values: [title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id,product_name, area, status,users,id],
         });
         return result;
     } catch (error) {
@@ -74,7 +74,7 @@ async function update(ca) {
 async function count(id_user) {
     try {
         const result = await excuteQuery({
-            query: 'SELECT COUNT(id) AS number FROM promotion',
+            query: 'SELECT COUNT(id) AS number FROM promotion where status=0',
             values: [],
         });
         return result;

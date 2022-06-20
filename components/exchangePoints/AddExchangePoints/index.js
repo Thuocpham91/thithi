@@ -9,7 +9,6 @@ import Image from 'next/image'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import TextField from '@mui/material/TextField';
 
-import { Toaster } from "react-hot-toast";
 import { productService } from '../../../services/product.service';
 
 import Autocomplete from '@mui/material/Autocomplete';
@@ -17,6 +16,7 @@ import { userService } from '../../../services/user.service';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import toast from "react-hot-toast";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -32,6 +32,7 @@ const AddExchangePoints = () => {
         url: '',
         listId: [],
         area: [],
+        users: [],
     });
 
 
@@ -53,9 +54,20 @@ const AddExchangePoints = () => {
         const sdsd = await productService.upaloadFile(body);
         valueAddExchangePoints.url = sdsd.url;
 
+
+        if (!byID) valueAddExchangePoints.users= [];
+        if (byID) valueAddExchangePoints.area= [];
+
+
         const sdsdj = await productService.changeGift(valueAddExchangePoints);
 
-        setOpenAddExchangePoints(false);
+        if (sdsdj.status == 200) {
+            toast.success("Thêm đổi quà thành công");
+            setOpenAddExchangePoints(false);
+        } else {
+            toast.error("Có lỗi ở đây!");
+        }
+
 
     };
 
@@ -68,12 +80,19 @@ const AddExchangePoints = () => {
     }
 
     const [city, setCIty] = useState([]);
+    const [rowUser, setRowUser] = useState([]);
+
 
     useEffect(() => {
         async function fetchData() {
-            let data = await userService.getCitiDistrict();
+            let data = await userService.getCitiDistrict({ key: "city" });
             if (data.status != 200) return;
-            setCIty(data.citi);
+            setCIty(data.city);
+
+
+            let data_user = await userService.getAll();
+            if (data_user.status != 200) return;
+            setRowUser(data_user.data);
         }
         fetchData();
     }, []);
@@ -82,11 +101,8 @@ const AddExchangePoints = () => {
 
     const handleChangeById = () => {
         setById(!byID);
+      
     };
-
-
-
-
 
     return {
         setOpenAddExchangePoints,
@@ -104,15 +120,14 @@ const AddExchangePoints = () => {
                     <div className='form-AddExchangePoints'>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Tên chiến dịch" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, name: e.target.value }) }} value={valueAddExchangePoints.name} />
+                                <TextField className='mb-1' fullWidth label="Tên chiến dịch" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, name: e.target.value }) }}  />
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Điểm cần đạt" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, score: e.target.value }) }} value={valueAddExchangePoints.poit} />
+                                <TextField className='mb-1' type="number" fullWidth label="Điểm cần đạt" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, score: e.target.value }) }}  />
                             </Grid>
                             {!byID && <>
                                 <Grid item xs={12}>
                                     <Autocomplete
-                                        value={valueAddExchangePoints.area}
                                         onChange={(e, newValue) => {
                                             setValueAddExchangePoints({ ...valueAddExchangePoints, area: newValue })
                                         }}
@@ -136,21 +151,21 @@ const AddExchangePoints = () => {
                             </Grid>
                             {byID && <>
                                 <Grid item xs={12}>
+
                                     <Autocomplete
-                                        value={valueAddExchangePoints.listId}
-                                        onChange={(e, newValue) => {
-                                            setValueAddExchangePoints({ ...valueAddExchangePoints, listId: newValue })
-                                        }}
                                         multiple
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        options={city}
-                                        getOptionLabel={(option) => option.name}
+                                        options={rowUser}
+                                        onChange={(event, value) => setValueAddExchangePoints({ ...valueAddExchangePoints, users: value })}
+                                        getOptionLabel={(option) => option.id_khataco}
                                         renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="Id thành viên" placeholder="Chọn id thành viên" />
+                                            <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
                                         )}
+                                        sx={{ width: '500px' }}
                                     />
+
 
                                 </Grid>
                             </>}

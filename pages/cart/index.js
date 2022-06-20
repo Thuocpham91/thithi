@@ -5,7 +5,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Head from 'next/head'
-import Moment from 'react-moment';
+import { compareAsc, format } from 'date-fns'
+
+
 
 const Cart = (props) => {
 
@@ -142,7 +144,7 @@ const Cart = (props) => {
         Chi tiết đơn hàng
       </div>
       <div className='sub-title-page'>
-      <div><strong>Ngày đặt:</strong> <Moment format="DD.MM.YYYY">{today}</Moment></div>
+      <div><strong>Ngày đặt:</strong> {format(today, 'yyyy-MM-dd')} </div>
       </div>
       <div className='list-cart'>
 

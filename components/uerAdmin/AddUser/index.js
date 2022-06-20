@@ -36,7 +36,17 @@ const AddUser = () => {
         district: "",
         district_code: "",
         address: "",
-        showPassword: false
+        showPassword: false,
+        id_cityVT:"",
+        code_cityVT:"",
+        name_cityVT:"",
+        id_districtVT:"",
+        code_districtVT:"",
+        name_districtVT:"",
+        id_wardsVT:"",
+        code_wardsVT:"",
+        name_wardsVT:"",
+
     });
 
     const [city, setCIty] = useState([]);
@@ -44,15 +54,16 @@ const AddUser = () => {
     const [disStrict, setDisStrict] = useState([]);
 
     const [listdisStrict, setListDisStrict] = useState([]);
+    const [listWards, setLisWards] = useState([]);
 
     useEffect(() => {
 
         async function fetchData() {
-            let data = await userService.getCitiDistrict();
+            let data = await userService.getCitiDistrict( {key:"city"});
             if (data.status != 200) return;
 
-            setCIty(data.citi);
-            setDisStrict(data.district)
+            setCIty(data.city);
+            // setDisStrict(data.district)
 
         }
         fetchData();
@@ -75,15 +86,9 @@ const AddUser = () => {
          if(datah.status==200)  {
             toast.success("Thêm thành viên thành công");
             setOpenAddUser(false);
-
-
          }else {
             toast.error("Có lỗi ở đây!");
          }
-
-      
-
-       
     };
     
 
@@ -157,10 +162,14 @@ const AddUser = () => {
                                     fullWidth
                                     limitTags={2}
                                     id="multiple-limit-tags"
-                                    onChange={(item, value) => {
-                                        setValueAddUser({ ...valueAddUser, city: value.name,city_code:value.matp })
-                                        const ds = disStrict.filter(item => { return value.matp == item.matp });
-                                        setListDisStrict(ds);
+                                    onChange={async(item, value) => {
+                                      
+                                        if (!value)return;
+                                        setValueAddUser({ ...valueAddUser, city: value.name,city_code:value.id,id_cityVT:value.id,code_cityVT:value.vtp_id,name_cityVT:value.name });
+                                        let data = await userService.getCitiDistrict( {key:"district",id:value.id});
+                                        if (data.status != 200) return;
+                                        // const ds = disStrict.filter(item => { return value.matp == item.matp });
+                                        setListDisStrict(data.city.districts);
                                     }}
                                     options={city}
                                     getOptionLabel={(option) => option.name}
@@ -172,21 +181,43 @@ const AddUser = () => {
 
                             </Grid>
                             <Grid item xs={6}>
-
                                 <Autocomplete
-
-
                                     fullWidth
                                     limitTags={2}
                                     id="multiple-limit-tags"
-                                    onChange={(item, value) => {
-                                        setValueAddUser({ ...valueAddUser, district: value.name,district_code:value.maqh })
+                                    onChange={async(item, value) => {
+                                        if (!value)return;
+                                        setValueAddUser({ ...valueAddUser, district: value.name,district_code:value.id,id_districtVT:value.id,code_districtVT:value.vtp_id,name_districtVT:value.name });
+                                        let data = await userService.getCitiDistrict( {key:"wards",id:value.id});
+                                        if (data.status != 200) return;
+                                        // const ds = disStrict.filter(item => { return value.matp == item.matp });
+                                        setLisWards(data.city.wards);
+                                      
 
                                     }}
                                     options={listdisStrict}
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => (
                                         <TextField fullWidth {...params} label="Quận huyện" placeholder="Chọn khu vực" />
+                                    )}
+                                // sx={{ width: '500px' }}
+                                />
+
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Autocomplete
+                                    fullWidth
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    onChange={async(item, value) => {
+                                        if (!value)return;
+                                        setValueAddUser({ ...valueAddUser, id_wardsVT:value.id,code_wardsVT:value.vtp_id,name_wardsVT:value.name });
+                                      
+                                    }}
+                                    options={listWards}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="Khu vực" placeholder="Chọn khu vực" />
                                     )}
                                 // sx={{ width: '500px' }}
                                 />

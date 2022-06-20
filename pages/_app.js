@@ -45,7 +45,6 @@ function MyApp({ Component, pageProps }) {
 
     if (!publicPaths.includes(path)) {
       const check_login = await userService.getLogin();
-      console.log(check_login)
 
 
       if (check_login.status != 200) {

@@ -25,6 +25,14 @@ function handler(req, res) {
         try {
             const { newPassword, reNewPassword } = req.body;
 
+            const userl = await checlogin.checkLogin(req, res);
+            const checkl = userl.id_role==1?true:false;
+            if (!checkl) return res.status(200).json({
+                status: 194,
+                message: "Bạn ko có quền"
+            });
+
+
             const user = await checlogin.checkLogin(req, res);
 
             var bcrypt = require('bcrypt');

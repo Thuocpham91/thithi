@@ -21,6 +21,14 @@ function handler(req, res) {
 
 
     async function changePass(req, res) {
+
+        const user = await checlogin.checkLogin(req, res);
+        const checkl = user.id_role==1?true:false;
+        if (!checkl) return res.status(200).json({
+            status: 194,
+            message: "Bạn ko có quền"
+        });
+
         try {
             const {id,code } = req.body;
             let rt;

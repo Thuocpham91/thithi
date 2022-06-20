@@ -23,9 +23,15 @@ function handler(req, res) {
     async function addPromotion() {
         try {
 
-            const { title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product, area } = req.body;
-            console.log(product)
-            const data = await Promotion.insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product.product_id,product.product_name, JSON.stringify(area), 0);
+            const user = await checlogin.checkLogin(req, res);
+            const checkl = user.id_role==1?true:false;
+            if (!checkl) return res.status(200).json({
+                status: 194,
+                message: "Bạn ko có quền"
+            });
+
+            const { title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product, area,users } = req.body;
+            const data = await Promotion.insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product.product_id?product.product_id:null,product.product_name?product.product_name:null, JSON.stringify(area), 0,JSON.stringify(users));
 
             return res.status(200).json({
                 status: 200,

@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
+import { compareAsc, format } from 'date-fns'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -12,71 +13,137 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 
-
-// const Transition = React.forwardRef(function Transition(props, ref) {
-//     return <Slide direction="up" ref={ref} {...props} />;
-//   });
-
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 
-const EditPromotionD = ( {open,setOpen}) => {
-    const [valueEditPromotion, setValueEditPromotion] = useState({});
+import { userService } from '../../../services/user.service';
+import { productService } from '../../../services/product.service';
+import toast from "react-hot-toast";
 
-    // const handleCloseEditPromotion = () => {
-    //     setOpen(false);
-    // };
+import parseISO from 'date-fns/parseISO';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
-    const handleChangeEditPromotion = (prop) => (event) => {
-        setValueEditPromotion({ ...valueEditPromotion, [prop]: event.target.value });
+
+const EditPromotionD = (props) => {
+
+    const handleCloseEditPromotion = () => {
+        props.setOpen(false);
     };
 
-    const areaTT = [
-        {id: '01', title: 'Hà nội'},
-        {id: '02', title: 'Hồ chí minh'},
-        {id: '03', title: 'Hải phòng'},
-        {id: '04', title: 'Đà nẵng'},
-        {id: '05', title: 'Nghệ an'},
-        {id: '06', title: 'Thanh hóa'},
-        {id: '07', title: 'huế'}
-    ];
+    const handleEditPromotion = async () => {
 
-    const productItems = [
-        {id: '01', label: 'NHA TRANG MỀM'},
-        {id: '01', label: 'NHA TRANG HỘP'},
-        {id: '02', label: 'CÒ THE'},
-        {id: '03', label: 'YETT XANH'},
-        {id: '04', label: 'YETT TRẮNG'},
-        {id: '05', label: 'PRINCE ĐIẾU DÀI'},
-        {id: '06', label: 'PRINCE KTC'},
-        {id: '07', label: 'NGỰA NÂU'}
-    ];
+        valueAddPromotion.endDate = format(parseISO(valueAddPromotion.endDate), 'yyyy-MM-dd HH:mm:ss');
+        valueAddPromotion.startDate = format(parseISO(valueAddPromotion.startDate), 'yyyy-MM-dd HH:mm:ss ');
 
-  
+        const data = await productService.updatePromotion(valueAddPromotion);
+        if (data.status == 200) {
+            toast.success("sửa thành công");
+            props.setOpen(false);
+        } else {
+            toast.error("Có lỗi ở đây!");
+        }
+    };
+
+    const [valueAddPromotion, setValueAddPromotion] = useState({
+        title: '',
+        code: '',
+        numberOfUses: '',
+        quantityPurchased: '',
+        promotionalQuantity: '',
+        startDate: null,
+        endDate: null,
+        product: '',
+        listId: [],
+        area: [],
+        users: [],
+    });
+
+    console.log(valueAddPromotion)
+
+    useEffect(() => {
+
+        async function fetchData() {
+            setValueAddPromotion(props.item);
+        }
+        fetchData();
+    }, [props.item]);
+
+
+
+    const [city, setCIty] = useState([]);
+    const [rowUser, setRowUser] = useState([]);
+    useEffect(() => {
+
+        async function fetchData() {
+            let data = await userService.getCitiDistrict({ key: "city" });
+            if (data.status != 200) return;
+            setCIty(data.city);
+            // setDisStrict(data.district)
+            let data_user = await userService.getAll();
+            if (data_user.status != 200) return;
+            setRowUser(data_user.data);
+        }
+        fetchData();
+    }, []);
+
+
+    const [productItems, setproductItems] = useState([]);
+    useEffect(() => {
+        const fda = JSON.parse(localStorage.getItem('listVariants'));
+        if (fda == null) return;
+        setproductItems(fda);
+    }, [])
+
+    const [byID, setById] = useState(false);
+
+    const handleChangeById = () => {
+        setById(!byID);
+        if (byID) setValueAddPromotion({ ...valueAddPromotion, area: [] })
+        if (!byID) setValueAddPromotion({ ...valueAddPromotion, users: [] })
+    };
+
+
+    const checkJson = (string) => {
+        let rp;
+        try {
+            if (string == null) return false;
+            rp = JSON.parse(string);
+            return true;
+        } catch (erro) {
+            return false;
+        }
+
+    };
+
 
 
 
 
     return (
-   
 
-            <Dialog
-                open={false}
-                // TransitionComponent={Transition}
-                keepMounted
-                // onClose={setOpen}
-                fullWidth
-                maxWidth="sm"
-            >
-                <DialogContent className='text-center'>
-                    <div className="header-title-popup p-4 font-bold">Sửa khuyến mại</div>
-                    <div className='form-EditPromotion'>
+        <Dialog
+            open={props.open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={e => props.setOpen(false)}
+            fullWidth
+            maxWidth="sm"
+        >
+            <DialogContent className='text-center'>
+                <div className="header-title-popup p-4 font-bold">Thêm khuyến mại</div>
+                <div className='form-AddPromotion'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={handleChangeEditPromotion('title')} value={valueEditPromotion.title}/>
+                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion.title} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={handleChangeEditPromotion('code')} value={valueEditPromotion.code}/>
+                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion.code} />
                         </Grid>
                         <Grid item xs={6}>
                             <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>
@@ -84,75 +151,118 @@ const EditPromotionD = ( {open,setOpen}) => {
                                     fullWidth
                                     className="w-full"
                                     label="Thời gian bắt đầu"
-                                    value={valueEditPromotion.startDate}
+                                    value={valueAddPromotion.startDate}
                                     onChange={(newValue) => {
-                                        setValueEditPromotion({ ...valueEditPromotion, startDate: newValue })
+                                        // console.log(newValue)
+                                        if (newValue == "Invalid Date") return;
+                                        const date = new Date(newValue);
+                                        const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
+                                        // console.log(date.getTime())
+                                        setValueAddPromotion({ ...valueAddPromotion, startDate: dj })
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
                         </Grid>
                         <Grid item xs={6}>
-                            <LocalizationProvider className="w-full"  dateAdapter={AdapterDateFns}>
+                            <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
                                     className="w-full"
-                                    style={{width: "100%"}}
+                                    style={{ width: "100%" }}
                                     fullWidth
                                     label="Thời gian kết thúc"
-                                    value={valueEditPromotion.endDate}
+                                    value={valueAddPromotion.endDate}
                                     onChange={(newValue) => {
-                                        setValueEditPromotion({ ...valueEditPromotion, endDate: newValue })
+                                        if (newValue == "Invalid Date") return;
+                                        const date = new Date(newValue);
+                                        const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
+                                        setValueAddPromotion({ ...valueAddPromotion, endDate: dj })
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={handleChangeEditPromotion('numberOfUses')} value={valueEditPromotion.numberOfUses}/>
+                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })} value={valueAddPromotion.numberOfUses} />
                         </Grid>
                         <Grid item xs={6}>
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
+                                value={checkJson(valueAddPromotion.product_name) ? { product_name: valueAddPromotion.product_name } : null}
+                                onChange={(e, newValue) => {
+                                    setValueAddPromotion({ ...valueAddPromotion, product_id: newValue.product_id, product_name: newValue.product_name })
+                                }}
                                 options={productItems}
+                                getOptionLabel={(option) => option.product_name}
                                 renderInput={(params) => <TextField {...params} label="Sản phẩm" />}
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={setValueEditPromotion('quantityPurchased')} value={valueEditPromotion.quantityPurchased}/>
+                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion.quantityPurchased} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={setValueEditPromotion('promotionalQuantity')} value={valueEditPromotion.promotionalQuantity}/>
+                            <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion.promotionalQuantity} />
                         </Grid>
-                        <Grid item xs={12}>
-                            <Autocomplete
-                                value={valueEditPromotion.area}
-                                onChange={(e, newValue) => {
-                                    setValueEditPromotion({ ...valueEditPromotion, area: newValue })
-                                }}
-                                multiple
-                                fullWidth
-                                limitTags={2}
-                                id="multiple-limit-tags"
-                                options={areaTT}
-                                getOptionLabel={(option) => option.title}
-                                renderInput={(params) => (
-                                <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
-                                )}
-                            />
+                        {!byID && <>
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    onChange={(e, newValue) => {
+                                        setValueAddPromotion({ ...valueAddPromotion, city_id: newValue })
+                                    }}
+                                    multiple
+                                    fullWidth
+                                    value={checkJson(valueAddPromotion.city_id) ? JSON.parse(valueAddPromotion.city_id) : []}
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={city}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                    )}
+                                />
 
+                            </Grid>
+                        </>}
+                        <Grid item xs={12}>
+                            <FormGroup>
+                                <FormControlLabel control={<Checkbox onChange={handleChangeById} />} label="Nhập theo danh sách id" />
+                            </FormGroup>
                         </Grid>
+                        {byID && <>
+                            <Grid item xs={12}>
+
+
+                                <Autocomplete
+                                    multiple
+                                    fullWidth
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    value={checkJson(valueAddPromotion.users) ? JSON.parse(valueAddPromotion.users) : []}
+                                    options={rowUser}
+                                    onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
+                                    getOptionLabel={(option) => option.id_khataco}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
+                                    )}
+                                    sx={{ width: '500px' }}
+                                />
+
+
+                            </Grid>
+                        </>}
+
                     </Grid>
-                    </div>
-                    <div className='flex justify-center mt-8 mb-3'>
-                    <Button className='mr-2' onClick={handleCloseEditPromotion} variant="contained" style={{background:"#EE0232"}}>Thêm mới</Button>
-                    <Button onClick={handleCloseEditPromotion} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy bỏ</Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-            )
-    
-    
+                </div>
+                <div className='flex justify-center mt-8 mb-3'>
+                    <Button className='mr-2' onClick={e => handleEditPromotion()} variant="contained" style={{ background: "#EE0232" }}>Thay đổi</Button>
+                    <Button onClick={e => handleCloseEditPromotion()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
+                </div>
+            </DialogContent>
+        </Dialog>
+    )
+
+
 }
 
 export default EditPromotionD

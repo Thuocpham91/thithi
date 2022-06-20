@@ -25,11 +25,18 @@ function handler(req, res) {
 
     async function setOder() {
 
-        const { name, score, url, status, id, key } = req.body;
+        const { name, score, url, status, id, key,users } = req.body;
+        const user = await checlogin.checkLogin(req, res);
+        const checkl = user.id_role==1?true:false;
+        if (!checkl) return res.status(200).json({
+            status: 194,
+            message: "Bạn ko có quền"
+        });
+
         // name,score,url,status
         let data;
 
-        data = await changeGift.update(name, score, url, status, id);
+        data = await changeGift.update(name, score, url, status,JSON.stringify(users), id);
 
 
         return res.status(200).json({

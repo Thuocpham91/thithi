@@ -19,6 +19,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
+import toast from "react-hot-toast";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -37,44 +38,52 @@ const AddPromotion = () => {
         product: '',
         listId: [],
         area: [],
+        users: [],
     });
 
     const handleCloseAddPromotion = () => {
         setOpenAddPromotion(false);
     };
+
+
+    
     const handleAddPromotion = async () => {
 
         const data = await productService.addPromotion(valueAddPromotion);
-        if(data.status!=200)return;
-        setOpenAddPromotion(false);
+        if (data.status != 200) return;
+
+        if(data.status==200)  {
+            toast.success("Thêm  khuyến mại thành công");
+            setOpenAddPromotion(false);
+         }else {
+            toast.error("Có lỗi ở đây!");
+         }
     };
 
 
 
 
-    const handleChangeAddPromotion = (prop) => (event) => {
-        setValueAddPromotion({ ...valueAddPromotion, [prop]: event.target.value });
-    };
 
 
-    
 
     const [city, setCIty] = useState([]);
 
-    const [disStrict, setDisStrict] = useState([]);
 
-    const [listdisStrict, setListDisStrict] = useState([]);
 
-    
+    const [rowUser, setRowUser] = useState([]);
+
 
     useEffect(() => {
 
         async function fetchData() {
-            let data = await userService.getCitiDistrict();
+            let data = await userService.getCitiDistrict({ key: "city" });
             if (data.status != 200) return;
+            setCIty(data.city);
+            // setDisStrict(data.district)
+            let data_user = await userService.getAll();
+            if (data_user.status != 200) return;
+            setRowUser(data_user.data);
 
-            setCIty(data.citi);
-            setDisStrict(data.district)
 
         }
         fetchData();
@@ -99,6 +108,7 @@ const AddPromotion = () => {
 
     const handleChangeById = () => {
         setById(!byID);
+        if(byID)setValueAddPromotion({...valueAddPromotion, area: []})
     };
 
 
@@ -214,21 +224,22 @@ const AddPromotion = () => {
                             </Grid>
                             {byID && <>
                                 <Grid item xs={12}>
+
+
                                     <Autocomplete
-                                        value={valueAddPromotion.listId}
-                                        onChange={(e, newValue) => {
-                                            setValueAddPromotion({ ...valueAddPromotion, listId: newValue })
-                                        }}
                                         multiple
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        options={city}
-                                        getOptionLabel={(option) => option.name}
+                                        options={rowUser}
+                                        onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
+                                        getOptionLabel={(option) => option.id_khataco}
                                         renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="Id thành viên" placeholder="Chọn id thành viên" />
+                                            <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
                                         )}
+                                        sx={{ width: '500px' }}
                                     />
+                                 
 
                                 </Grid>
                             </>}

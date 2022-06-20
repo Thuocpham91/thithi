@@ -136,12 +136,12 @@ const ExchangePoints = () => {
 
 
   const [listGif, setListGif] = useState([
-    { id: 1, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    { id: 2, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-    { id: 3, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    { id: 4, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-    { id: 5, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    { id: 6, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
+    // { id: 1, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
+    // { id: 2, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
+    // { id: 3, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
+    // { id: 4, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
+    // { id: 5, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
+    // { id: 6, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
   ]);
 
 

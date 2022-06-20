@@ -25,9 +25,9 @@ function handler(req, res) {
 
     async function setOder() {
 
-        const { id, name,score,url } = req.body;
+        const { id, name,score,url,users,area } = req.body;
         // name,score,url,status
-        const data=await changeGift.insert(name,score,url,0);
+        const data=await changeGift.insert(name,score,url,0,JSON.stringify(users),JSON.stringify(area));
 
         return res.status(200).json({
             status: 200,

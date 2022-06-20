@@ -13,7 +13,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { grey } from '@mui/material/colors';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { productService } from '../../services/product.service';
-import Moment from 'react-moment';
+import { compareAsc, format } from 'date-fns'
+import parseISO from 'date-fns/parseISO';
 
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
@@ -41,11 +42,11 @@ export default function FooterCart(props) {
 
 
   };
-  const handleAcept = async() => {
+  const handleAcept = async () => {
 
     const dataOrder = localStorage.getItem('dataCart');
 
-    const data= await productService.postOder(dataOrder);
+    const data = await productService.postOder(dataOrder);
 
 
 
@@ -56,10 +57,10 @@ export default function FooterCart(props) {
 
 
   const [listCoupon, setListCoupon] = useState([
-    { id: 1, key: 'NN6', name: 'Ngựa nhỏ', title: '3c - 5g', expiry: '18.04 - hết 30.04', timesOfUse: 5, timesUsed: 3, active: 1 },
-    { id: 2, key: 'NN7', name: 'Ngựa Lớn', title: '1c - 6g', expiry: '18.05 - hết 30.05', timesOfUse: 8, timesUsed: 1, active: 2 },
-    { id: 3, key: 'NN8', name: 'Ngựa nhỏ 2', title: '12c - 8g', expiry: '18.03 - hết 30.05', timesOfUse: 5, timesUsed: 3, active: 3 },
-    { id: 4, key: 'NN9', name: 'Ngựa nhỏ 2', title: '12c - 8g', expiry: '18.03 - hết 30.05', timesOfUse: 5, timesUsed: 3, active: 1 }
+    // { id: 1, key: 'NN6', name: 'Ngựa nhỏ', title: '3c - 5g', expiry: '18.04 - hết 30.04', timesOfUse: 5, timesUsed: 3, active: 1 },
+    // { id: 2, key: 'NN7', name: 'Ngựa Lớn', title: '1c - 6g', expiry: '18.05 - hết 30.05', timesOfUse: 8, timesUsed: 1, active: 2 },
+    // { id: 3, key: 'NN8', name: 'Ngựa nhỏ 2', title: '12c - 8g', expiry: '18.03 - hết 30.05', timesOfUse: 5, timesUsed: 3, active: 3 },
+    // { id: 4, key: 'NN9', name: 'Ngựa nhỏ 2', title: '12c - 8g', expiry: '18.03 - hết 30.05', timesOfUse: 5, timesUsed: 3, active: 1 }
   ]);
 
 
@@ -67,6 +68,8 @@ export default function FooterCart(props) {
     async function fetchData() {
       let data = await productService.getPromotion();
       if (data.status != 200) return;
+
+
       setListCoupon(data.data)
       setGoListCoupon(data.data);
 
@@ -130,6 +133,7 @@ export default function FooterCart(props) {
             <div className="coupon-form--content">
               {listCoupon.map(function (d, idx) {
                 return (
+                
                   // <button key={idx} className={d.active == 2 ? 'btn-coupon chddk' : 'btn-coupon'} disabled={d.active == 1 ? '' : 'disabled'} >
 
                   <button key={idx} className={'btn-coupon'} onClick={e => { setcodeAp(d.title) }} >
@@ -142,7 +146,11 @@ export default function FooterCart(props) {
                         <div className='btn-coupon-center'>
                           <h3>{d.title}</h3>
                           <p>Dùng được {d.numberOfUses} lần</p>
-                          <span><Moment format="DD-MM">{d.startDate}</Moment>/<Moment format="DD-MM">{d.endDate}</Moment></span>
+
+                       
+                                  
+
+                          <span>    { format(parseISO(d.startDate), 'dd-mm')} / { format(parseISO(d.endDate), 'dd-mm')}</span>
                         </div>
                         <div className='btn-coupon-right'>
                           {/* {d.active == 1 && <> */}

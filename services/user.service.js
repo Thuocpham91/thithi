@@ -84,7 +84,7 @@ function changePassAdmin(data){
 }
 
 function getCitiDistrict(data){
-    return fetchWrapper.get(`${baseUrl}/getCitiDistrict`,data);
+    return fetchWrapper.post(`${baseUrl}/getCitiDistrict`,data);
 }
 
 function addUser(data){

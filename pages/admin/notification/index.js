@@ -14,6 +14,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import AddIcon from '@mui/icons-material/Add';
 
+import toast from "react-hot-toast";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -21,12 +23,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Notification = () => {
 
-
     const [openNoti, setOpenNoti] = useState(false);
     const [valueNoti, setValueNoti] = useState({
         title:'',
         content:'',
-        city:[]
+        city:[],
+        users:[],
     });
 
     const handleOpenNoti = () => {
@@ -40,23 +42,34 @@ const Notification = () => {
     const handleNoti = async () => {
 
         const data=await productService.putNotification(valueNoti);
+
+        if(data.status==200)  {
+            toast.success("Gửi thông báo thành công");
+            setOpenNoti(false);
+         }else {
+            toast.error(data.message);
+         }
     
-        setOpenNoti(false);
     };
 
     const [city, setCIty] = useState([]);
 
-    const [disStrict, setDisStrict] = useState([]);
+    const [rowUser, setRowUser] = useState([]);
+
 
 
     useEffect(() => {
 
         async function fetchData() {
-            let data = await userService.getCitiDistrict();
+            let data = await userService.getCitiDistrict({key:"city"});
             if (data.status != 200) return;
 
-            setCIty(data.citi);
-            setDisStrict(data.district)
+            setCIty(data.city);
+
+            let data_user = await userService.getAll();
+            if (data_user.status != 200) return;
+            setRowUser(data_user.data);
+            // setDisStrict(data.district)
 
         }
         fetchData();
@@ -92,6 +105,21 @@ const Notification = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e =>setValueNoti({...valueNoti,content:e.target.value}) } value={valueNoti.content}/>
+                        </Grid>
+                        <Grid item xs={6}>
+                        <Autocomplete
+                            multiple
+                            fullWidth
+                            limitTags={2}
+                            id="multiple-limit-tags"
+                            options={rowUser}
+                            onChange={(event, value) => setValueNoti({...valueNoti,users:value})} 
+                            getOptionLabel={(option) => option.id_khataco}
+                            renderInput={(params) => (
+                                <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
+                            )}
+                            sx={{ width: '500px' }}
+                        />
                         </Grid>
                         <Grid item xs={12}>
                         <Autocomplete

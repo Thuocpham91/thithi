@@ -18,6 +18,7 @@ export const productService = {
     changeGift,
     getGift,
     updateGift,
+    updatePromotion,
 };
 
 function getProduct() {
@@ -98,6 +99,13 @@ function updateGift(data) {
             return user;
         });
 }
+function updatePromotion(data) {
+    return fetchWrapper.post(`${baseUrl}/updatepromotion `, data)
+        .then(user => {
+            return user;
+        });
+}
+
 
 
 

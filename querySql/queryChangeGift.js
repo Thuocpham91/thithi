@@ -10,12 +10,12 @@ export const changeGift = {
     
 };
 
-async function insert(name,score,url,status) {
+async function insert(name,score,url,status,users,area) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO change_gift(name,score,url,status) VALUES(?,?,?,?)',
-            values: [name,score,url,status],
+            query: 'INSERT INTO change_gift(name,score,url,status,users,area) VALUES(?,?,?,?,?,?)',
+            values: [name,score,url,status,users,area],
         });
         return result;
     } catch (error) {
@@ -44,7 +44,7 @@ async function SelectAll() {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from change_gift',
+            query: 'select * from change_gift where status=0',
             values: [],
         });
         return result;
@@ -56,11 +56,11 @@ async function SelectAll() {
 
 
 
-async function update(name,score,url,status,id) {
+async function update(name,score,url,status,users,id) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  change_gift SET name=?,score= ? ,url= ?,status= ?   where id= ?',
-            values: [name,score,url,status,id],
+            query: 'UPDATE  change_gift SET name=?,score= ? ,url= ?,status= ? ,users=?  where id= ? ',
+            values: [name,score,url,status,users,id],
         });
         return result;
     } catch (error) {

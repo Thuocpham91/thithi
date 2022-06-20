@@ -14,10 +14,11 @@ export const fetchWrapper = {
     postLile,
 };
 
-function get(url) {
+function get(url,data) {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader(url)
+        headers: authHeader(url),
+        query:data,
     };
     try {
         return fetch(url, requestOptions).then(handleResponse);

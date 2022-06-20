@@ -112,13 +112,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 const User = () => {
-  
   const [rowUser, setRowUser] = useState([]);
 
+ 
   useEffect(() => {
     let array = [];
     async function fetchData() {
       let data = await userService.getAll();
+      console.log("data",data)
       if (data.status != 200) return;
       setRowUser(data.data);
     }

@@ -120,74 +120,64 @@ async function createOder(token, data) {
 
 
 async function getCity(token) {
+
+
     try {
-
-
-        const request = require('request');
-        const util = require('util');
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city"; 
         var config = {
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
             responseType: 'json'
         };
-        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city";
-        // const resul = await request(url, config);
-        const requestPromise = util.promisify(request);
-        const response = await requestPromise(url, config);
-    
-        return response.body.cities;
-  
+
+        const rp = await axios.get(url, config);
+        return rp.data.data ? rp.data.data : rp.data;
     } catch (ero) {
-        return null;
+        return [];
 
     }
+
 
 }
 
 
 async function getDistrict(token,id_city) {
-    try {
 
-        const request = require('request');
-        const util = require('util');
+    try {
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city/"+id_city+"/districts";
         var config = {
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
             responseType: 'json'
         };
-        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city/"+id_city+"/districts";
-        // const resul = await request(url, config);
-        const requestPromise = util.promisify(request);
-        const response = await requestPromise(url, config);
-    
-        return response.body.data;
-  
+
+        const rp = await axios.get(url, config);
+        return rp.data.data ? rp.data.data : rp.data;
     } catch (ero) {
-        return null;
+        return [];
 
     }
+
 
 }
 
 
 async function getWards(token,id_dis) {
-    try {
 
-        const request = require('request');
-        const util = require('util');
+
+    try {
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/district/"+id_dis+"/wards";
         var config = {
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
             responseType: 'json'
         };
-        const url = "https://partner.viettelsale.com/product/v2.0/api/location/district/"+id_dis+"/wards";
-        // const resul = await request(url, config);
-        const requestPromise = util.promisify(request);
-        const response = await requestPromise(url, config);
-    
-        return response.body.data;
-  
+
+        const rp = await axios.get(url, config);
+        return rp.data.data ? rp.data.data : rp.data;
     } catch (ero) {
-        return null;
+        return [];
 
     }
+
+
 
 }
 

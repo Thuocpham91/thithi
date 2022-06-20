@@ -55,14 +55,10 @@ const User = (props) => {
   ]);
   const [init, setInit] = useState({});
 
-
   useEffect(() => {
-
     const data = JSON.parse(localStorage.getItem('user'));
     if (!data) return;
     setInit(data.data);
-
-
 
   }, [])
 

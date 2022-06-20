@@ -11,7 +11,7 @@ export default apiHandler(handler);
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
-            return res.status(200).end(`Method ${req.method} Not Allowed`)
+            return getListUser();
         case 'GET':
             return getListUser();
         default:
@@ -21,14 +21,34 @@ function handler(req, res) {
 
     async function getListUser() {
         try {
-            const citi = await queryCenter.getCiti();
-            const district = await queryCenter.getDistrict();
-      
+            let data = [];
+            const { key, id } = req.body;
+            // console.log(req.query);
+
+            if (key == "city") {
+                const loginVT = await apiViettel.logInViettel();
+                const cityVT = await apiViettel.getCity(loginVT.access_token);
+
+                data = cityVT.cities;
+
+            } else if (key == "district") {
+                const loginVT = await apiViettel.logInViettel();
+                const cityVT = await apiViettel.getDistrict(loginVT.access_token, id);
+
+                data = cityVT;
+            } else if (key == "wards") {
+                const loginVT = await apiViettel.logInViettel();
+                const cityVT = await apiViettel.getWards(loginVT.access_token, id);
+                data = cityVT;
+
+            }
             return res.status(200).json({
                 status: 200,
-                citi,
-                district,
+                city: data,
+                // district,
             });
+
+
 
 
         } catch (erro) {

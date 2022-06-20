@@ -14,6 +14,8 @@ export default apiHandler(handler);
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
+
+        
             return changePass(req, res);
 
         case 'GET':
@@ -28,7 +30,7 @@ function handler(req, res) {
             const { newPassword, reNewPassword, id } = req.body;
 
             const user = await checlogin.checkLogin(req, res);
-            const checkl = user.role.find(item => { return item.key_role == "admin" });
+            const checkl = user.id_role==1?true:false;
             if (!checkl) return res.status(200).json({
                 status: 194,
                 message: "Bạn ko có quền"
