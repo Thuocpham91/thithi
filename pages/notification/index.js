@@ -5,27 +5,19 @@ import Footer from '../../components/footer'
 import { userService } from '../../services';
 
 const Notification = () => {
-
   const [dataNotification, setDataNofi] = useState([]);
-
   useEffect(() => {
     async function getCategory() {
       const data = await userService.getNotification();
       if (data.status != 200) return;
       setDataNofi(data.data)
-
-      console.log(data)
-
     }
-
     getCategory();
 
   }, []);
 
 
-
   return (
-
     <div className='main-body body-f2f2f2'>
       <Head>
         <title>Thông báo</title>
@@ -54,9 +46,6 @@ const Notification = () => {
           )
 
         })}
-
-
-
 
       </div >
       <Footer />

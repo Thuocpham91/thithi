@@ -96,6 +96,8 @@ function handler(req, res) {
             const user = await checlogin.checkLogin(req, res);
 
             const data= await Notification.SelectById_user(user.id);
+
+            await Notification.updateStatus(1,user.id);
             return res.status(200).json({
                 status: 200,
                 data: data,

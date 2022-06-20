@@ -8,6 +8,7 @@ export const Notification = {
     update,
     SelectAll,
     SelectById_user,
+    updateStatus,
     
 };
 
@@ -41,11 +42,9 @@ async function SelectById_user(id_user) {
 
 }
 async function SelectAll(code) {
-
-
     try {
         const result = await excuteQuery({
-            query: 'select * from notification  order by created_at  DESC ',
+            query: 'select * from notification where status=0  order by created_at  DESC  LIMIT 20',
             values: [code],
         });
         return result;
@@ -71,10 +70,25 @@ async function update(ca) {
 }
 
 
+async function updateStatus(status,id) {
+    try {
+        const result = await excuteQuery({
+            query: 'UPDATE  notification SET status=?  where id= ?',
+            values: [status,id],
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+
 async function count(id_user) {
     try {
         const result = await excuteQuery({
-            query: 'SELECT COUNT(id) AS number FROM notification  where id_user = ?',
+            query: 'SELECT COUNT(id) AS number FROM notification  where id_user = ? and  status=0 ',
             values: [id_user],
         });
         return result;
