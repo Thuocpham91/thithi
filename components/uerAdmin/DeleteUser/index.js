@@ -49,8 +49,6 @@ const DeleteUser = (userChoose) => {
                 maxWidth="sm"
                 >
                 <DialogContent className='text-center'>
-
-
                     <div className="modal-delete--warning"><div className="modal-delete--warning__content">!</div></div>
                     <div><h2 className="text-warning mb-2">Bạn có chắc chắn?</h2></div>
                     {userChoose&& <>

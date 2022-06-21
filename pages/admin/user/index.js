@@ -136,6 +136,7 @@ const User = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowUser.length) : 0;
 
   const handleChangePage = (event, newPage) => {
+    console.log('newPage =',newPage)
     setPage(newPage);
   };
 
@@ -262,6 +263,7 @@ const User = () => {
                 count={rowUser.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
+                labelRowsPerPage = "Hàng trên bảng"
                 SelectProps={{
                   inputProps: {
                     'aria-label': 'Hàng trên bảng',
