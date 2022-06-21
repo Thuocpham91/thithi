@@ -321,8 +321,9 @@ const Category = () => {
                   },
                   native: true,
                 }}
-                onPageChange={e=>handleChangePage()}
-                onRowsPerPageChange={e=>handleChangeRowsPerPage()}
+                labelRowsPerPage = "Hàng trên bảng"
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
               />
             </TableRow>

@@ -12,7 +12,7 @@ import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate
 const SideBarAdmin = () => {
   const router = useRouter();
   const listMenu =[
-      {name:"Bảng điều khiển",link:'/admin/dashboard',icon:<DashboardCustomizeOutlinedIcon />},
+      // {name:"Bảng điều khiển",link:'/admin/dashboard',icon:<DashboardCustomizeOutlinedIcon />},
       {name:"Thành viên",link:'/admin/user',icon:<GroupOutlinedIcon />},
       {name:"Danh mục sản phẩm",link:'/admin/category',icon:<ImageAspectRatioIcon />},
       {name:"Thông báo",link:'/admin/notification',icon:<NotificationsActiveIcon />},
