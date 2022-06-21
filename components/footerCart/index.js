@@ -46,7 +46,8 @@ export default function FooterCart(props) {
 
     const dataOrder = localStorage.getItem('dataCart');
 
-    const data = await productService.postOder(dataOrder);
+    // const data = await productService.postOder(dataOrder);
+    localStorage.removeItem('dataCart');
 
 
 

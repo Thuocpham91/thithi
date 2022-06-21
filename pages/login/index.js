@@ -19,8 +19,6 @@ import { userService } from '../../services';
 import { Formik, Form, Field } from "formik";
 import toast from 'react-hot-toast';
 
-import axios from 'axios';
-
 
 
 
@@ -48,13 +46,13 @@ function showToastEro(pos, message) {
 
 const Login = (props) => {
     console.log("Login")
+    const [check, setCheck] = useState(false);
+
 
     const router = useRouter();
 
     const { code } = router.query;
 
-
-    console.log("code",code);
 
 
 
@@ -81,7 +79,16 @@ const Login = (props) => {
         setOpenRules(newOpen);
     };
 
-    const clickHandleZalo = (values) => async () => {
+
+    const clickHandleZalo = async (values) => {
+        const code = "q7knPWn755VQTFSW84Dv8zrAsZfiSKWmd4IeEsTPSKoAKS96Q60ZC9HHv0XePq8IrrBL62fe3bZgSkih0tnMBUT0jLCPTX9_xNQCTsbw7dwFIFbDUciREOXWhJmqH6zciokIB2f7OokOQ_KmU3zANiT1xcixDZzvsGB23YWYPJt25C4kPMvH8OHDnb4lC710bck-6p50M6_CRknw6KOt6ifUt6qkVMO4dWcL1ITJUrZTT-jtPHW1CRyfeIiM2qKmYmt0KJPzONvATkHDkG0sEd4WjHYf4MKwBYVZ2ESaCIW_TUvkwsniNtGj3dgUAubPMRnECDw-w0itx7vSpxY9I3RLKYF3XAij8Si5NeMBmbL7hJPBs_2vRUFodp4FP68W";
+        console.log("clickHandleZalo");
+        const dataa = await userService.checkLoginZalo({ code: code })
+
+        console.log("dataa", dataa)
+
+
+
 
     };
 
@@ -109,22 +116,34 @@ const Login = (props) => {
                             initialValues={initValue}
                             // validationSchema={SignupSchema}
                             onSubmit={values => {
-                                return userService.login(initValue)
-                                    .then((response) => {
-                                        console.log(response)
-                                        if (response.status == "200") {
-                                            const returnUrl = router.query.returnUrl || '/';
-                                            showToastSuccess('top-center', "Đăng nhập thành công")
-                                            router.push(returnUrl);
-                                        } else {
-                                            showToastEro('top-center', "Bạn sai Thông tin")
-                                        }
 
-                                    })
-                                    .catch(error => {
-                                        console.log(error);
-                                        showToastEro('top-center', "Bạn sai Thông tin")
-                                    });
+                                console.log("check", check)
+                                if (check) {
+
+                                    return userService.login(initValue)
+                                        .then((response) => {
+                                            console.log(response)
+                                            if (response.status == "200") {
+                                                const returnUrl = router.query.returnUrl || '/';
+                                                showToastSuccess('top-center', "Đăng nhập thành công")
+                                                router.push(returnUrl);
+                                            } else {
+                                                showToastEro('top-center', "Bạn sai Thông tin")
+                                            }
+
+                                        })
+                                        .catch(error => {
+                                            console.log(error);
+                                            showToastEro('top-center', "Bạn sai Thông tin")
+                                        });
+
+
+                                } else {
+
+                                    showToastEro('top-center', "Bạn chưa chấp nhận điều khoản")
+
+                                }
+
                             }}
                         >
                             {({ errors, touched }) => (
@@ -164,19 +183,19 @@ const Login = (props) => {
                                         </Button>
                                         <Divider className='my-5' style={{ marginTop: '1.25rem !important', marginBottom: '1.25rem !important' }} />
 
-                                        <Link href="https://oauth.zaloapp.com/v4/permission?app_id=809218530111061135&redirect_uri=https://ktcshop.top/login&code_challenge=XKktx0OMJjyY9rC9HkSDCn8z-PfVSV4QfH1VQKjmKUI&state=4e7ba7f759a1e010974e9d7ceb62069c382654d37c2fe3c5a9696d177687fa1d">
-                                            <Button className={styles.butonZalo}>
-                                                <span className="mr-2" style={{ height: 34 }}>
-                                                    <Image
-                                                        alt="Zalo Login"
-                                                        src="/images/zalo-icon.png"
-                                                        width={36}
-                                                        height={34}
-                                                    />
-                                                </span>
-                                                Đăng nhập bằng Zalo</Button>
+                                        {/* <Link href="https://oauth.zaloapp.com/v4/permission?app_id=809218530111061135&redirect_uri=https://ktcshop.top/login&code_challenge=416c803b03611fe2a05647e318989cd181f804a62bb16e5655153ae84f703ac7&state=4e7ba7f759a1e010974e9d7ceb62069c382654d37c2fe3c5a9696d177687fa1d"> */}
+                                        <Button className={styles.butonZalo} onClick={e => clickHandleZalo()}>
+                                            <span className="mr-2" style={{ height: 34 }}>
+                                                <Image
+                                                    alt="Zalo Login"
+                                                    src="/images/zalo-icon.png"
+                                                    width={36}
+                                                    height={34}
+                                                />
+                                            </span>
+                                            Đăng nhập bằng Zalo</Button>
 
-                                        </Link>
+                                        {/* </Link> */}
 
 
                                     </div>
@@ -186,8 +205,8 @@ const Login = (props) => {
                     </div>
                 </div>
                 <div className={styles.rules}>
-                    <Checkbox {...label} defaultChecked />
-                    <div>Tôi đã đọc và đồng ý với <strong onClick={toggleDrawer(true)} className='text-[#23432E] cursor-pointer'>Điều khoản sử dụng</strong></div>
+                    <Checkbox checked={check} onChange={e => setCheck(!check)} defaultChecked />
+                    <div>Tôi đã đọc và đồng ý với <strong onClick={e => toggleDrawer(true)} className='text-[#23432E] cursor-pointer'>Điều khoản sử dụng</strong></div>
 
                     <Root>
                         <CssBaseline />
@@ -226,12 +245,6 @@ const Login = (props) => {
 
                 </div>
             </div>
-
-
-
-
-
-
         </>
     )
 }

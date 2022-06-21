@@ -22,11 +22,9 @@ const MainHome = () => {
 
     useEffect(() => {
 
-        console.log("useEffect",count)
         async function fetchData() {
             let data = await productService.getProduct();
             if (data.status != 200) return;
-            console.log(data.data.variants)
 
              
           let showDa=data.data.variants;
@@ -40,6 +38,15 @@ const MainHome = () => {
 
             setListProduct(showDa);
             localStorage.setItem('listVariants',JSON.stringify(data.data.variants));
+
+
+            const dataOrder = localStorage.getItem('listProduct');
+            let dkm = JSON.parse(dataOrder);
+            if(!dkm)return;
+        
+            setListProduct(dkm);
+        
+
 
         }
         fetchData();
@@ -216,7 +223,7 @@ const MainHome = () => {
     const router = useRouter();
     const handleLink = (link) => {
         const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
-
+        localStorage.setItem('listProduct',JSON.stringify(listProduct));
         localStorage.setItem('dataCart',JSON.stringify(mns));
         router.push({pathname: link, query: { pid: "post.id" }});
     }
