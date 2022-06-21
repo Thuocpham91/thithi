@@ -22,6 +22,8 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 
 
+
+
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
     height: '100%',
@@ -45,8 +47,16 @@ function showToastEro(pos, message) {
 }
 
 const Login = (props) => {
+    console.log("Login")
 
     const router = useRouter();
+
+    const { code } = router.query;
+
+
+    console.log("code",code);
+
+
 
     useEffect(() => {
         // redirect to home if already logged in
