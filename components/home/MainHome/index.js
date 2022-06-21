@@ -45,6 +45,8 @@ const MainHome = () => {
             if(!dkm)return;
         
             setListProduct(dkm);
+
+            setOrderList(dkm);
         
 
 
