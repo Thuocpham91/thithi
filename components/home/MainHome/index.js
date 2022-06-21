@@ -228,7 +228,7 @@ const MainHome = () => {
         router.push({pathname: link, query: { pid: "post.id" }});
     }
 
-    return (
+    return (<>
         <div className="main-home">
             <div className='list-product'>
                 {listProduct.map(function (d, idx) {
@@ -331,10 +331,11 @@ const MainHome = () => {
                     )
                 })}
             </div>
-            {orderList.length > 0 && <>
-                <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
-            </>}
         </div>
+        {orderList.length > 0 && <>
+            <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
+        </>}
+    </>
     )
 }
 

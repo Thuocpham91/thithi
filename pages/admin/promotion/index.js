@@ -243,6 +243,7 @@ const Promotion = () => {
                                 count={listPromotion.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
+                                labelRowsPerPage = "Hàng trên bảng"
                                 SelectProps={{
                                     inputProps: {
                                         'aria-label': 'Hàng trên bảng',

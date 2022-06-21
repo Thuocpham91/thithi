@@ -275,6 +275,7 @@ const callback=()=>{
                   },
                   native: true,
                 }}
+                labelRowsPerPage = "Hàng trên bảng"
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}

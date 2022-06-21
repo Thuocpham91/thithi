@@ -92,6 +92,12 @@ const Login = (props) => {
 
     };
 
+    const [tickdk,setTickdk] = useState(true);
+
+    const handleChangeTickdk = () => {
+        setTickdk(!tickdk);
+      };
+
     // This is used only for the example
     const container = window !== undefined ? () => window().document.body : undefined;
     return (
@@ -177,14 +183,13 @@ const Login = (props) => {
                                     </Link>
                                     <div className='mt-4'>
                                         <Button
+                                            disabled={tickdk ? '': 'disabled'}
                                             type="submit"
                                             style={{ background: '#23432E', borderRadius: 8, padding: 15 }}
-                                            className='w-full' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
+                                            className='w-full login-page--button' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
                                         <Divider className='my-5' style={{ marginTop: '1.25rem !important', marginBottom: '1.25rem !important' }} />
-
-                                        {/* <Link href="https://oauth.zaloapp.com/v4/permission?app_id=809218530111061135&redirect_uri=https://ktcshop.top/login&code_challenge=416c803b03611fe2a05647e318989cd181f804a62bb16e5655153ae84f703ac7&state=4e7ba7f759a1e010974e9d7ceb62069c382654d37c2fe3c5a9696d177687fa1d"> */}
-                                        <Button className={styles.butonZalo} onClick={e => clickHandleZalo()}>
+                                        <Button className={styles.butonZalo} onClick={clickHandleZalo()}>
                                             <span className="mr-2" style={{ height: 34 }}>
                                                 <Image
                                                     alt="Zalo Login"
@@ -193,11 +198,8 @@ const Login = (props) => {
                                                     height={34}
                                                 />
                                             </span>
-                                            Đăng nhập bằng Zalo</Button>
-
-                                        {/* </Link> */}
-
-
+                                            Đăng nhập bằng Zalo
+                                        </Button>
                                     </div>
                                 </Form>
                             )}
@@ -205,9 +207,8 @@ const Login = (props) => {
                     </div>
                 </div>
                 <div className={styles.rules}>
-                    <Checkbox checked={check} onChange={e => setCheck(!check)} defaultChecked />
-                    <div>Tôi đã đọc và đồng ý với <strong onClick={e => toggleDrawer(true)} className='text-[#23432E] cursor-pointer'>Điều khoản sử dụng</strong></div>
-
+                    <Checkbox {...label} defaultChecked onChange={handleChangeTickdk} />
+                    <div>Tôi đã đọc và đồng ý với <strong onClick={toggleDrawer(true)} className='text-[#23432E] cursor-pointer'>Điều khoản sử dụng</strong></div>
                     <Root>
                         <CssBaseline />
                         <Global
