@@ -46,16 +46,10 @@ function showToastEro(pos, message) {
 
 const Login = (props) => {
     console.log("Login")
-    const [check, setCheck] = useState(false);
-
-
+    const [check, setCheck] = useState(true);
     const router = useRouter();
 
     const { code } = router.query;
-
-
-
-
     useEffect(() => {
         // redirect to home if already logged in
 
@@ -124,7 +118,7 @@ const Login = (props) => {
                             onSubmit={values => {
 
                                 console.log("check", check)
-                                if (check) {
+                                if (tickdk) {
 
                                     return userService.login(initValue)
                                         .then((response) => {
@@ -189,7 +183,7 @@ const Login = (props) => {
                                             className='w-full login-page--button' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
                                         <Divider className='my-5' style={{ marginTop: '1.25rem !important', marginBottom: '1.25rem !important' }} />
-                                        <Button className={styles.butonZalo} onClick={clickHandleZalo()}>
+                                        <Button className={styles.butonZalo} onClick={e=>clickHandleZalo()}>
                                             <span className="mr-2" style={{ height: 34 }}>
                                                 <Image
                                                     alt="Zalo Login"
@@ -207,7 +201,7 @@ const Login = (props) => {
                     </div>
                 </div>
                 <div className={styles.rules}>
-                    <Checkbox {...label} defaultChecked onChange={handleChangeTickdk} />
+                    <Checkbox {...label} defaultChecked onChange={e =>handleChangeTickdk(e)} />
                     <div>Tôi đã đọc và đồng ý với <strong onClick={toggleDrawer(true)} className='text-[#23432E] cursor-pointer'>Điều khoản sử dụng</strong></div>
                     <Root>
                         <CssBaseline />

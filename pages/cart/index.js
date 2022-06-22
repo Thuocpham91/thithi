@@ -27,50 +27,54 @@ const Cart = (props) => {
   useEffect(() => {
     const dataOrder = localStorage.getItem('dataCart');
     let dkm = JSON.parse(dataOrder);
-    if(!dkm)return;
+    if (!dkm) return;
 
     setListProduct(dkm);
-
 
   }, [])
   const minusNumber = (data, type) => {
     const newArray = minusFunc(listProduct, data, type);
     setListProduct(newArray);
+
+    localStorage.setItem('dataCart',JSON.stringify(newArray));
+
   }
 
   const plusNumber = (data, type) => {
     const newArray = plusFunc(listProduct, data, type);
     setListProduct(newArray);
+    localStorage.setItem('dataCart',JSON.stringify(newArray));
   }
   const minusFunc = (array, data, type) => {
     const newArray = [];
-    array.map(function (item, idx) {
+   array.map(function (item, idx) {
       let it = item;
-      if (item.id === data.id) {
+      if (item.product_id === data.product_id) {
         if (type == "package") {
           let count = item.numberPackage || 0;
           if (count > 0) {
             count = Number(count) - 1;
             it = { ...it, numberPackage: count };
           }
-        }
-        if (type == "tobacco") {
-          let count = item.numberTobacco || 0;
-          if (count > 0) {
-            count = Number(count) - 1;
-            it = { ...it, numberTobacco: count };
-          }
-        }
-        if (type == "barrel") {
-          let count = item.numberBarrel || 0;
-          if (count > 0) {
-            count = Number(count) - 1;
-            it = { ...it, numberBarrel: count };
-          }
-        }
+        } else
+          if (type == "tobacco") {
+            let count = item.numberTobacco || 0;
+            if (count > 0) {
+              count = Number(count) - 1;
+              it = { ...it, numberTobacco: count };
+            }
+          } else
+            if (type == "barrel") {
+              let count = item.numberBarrel || 0;
+              if (count > 0) {
+                count = Number(count) - 1;
+                it = { ...it, numberBarrel: count };
+              }
+            }
       }
       newArray.push(it)
     })
+
     return newArray
   }
 
@@ -139,7 +143,7 @@ const Cart = (props) => {
         Chi tiết đơn hàng
       </div>
       <div className='sub-title-page'>
-      <div><strong>Ngày đặt:</strong> {format(today, 'yyyy-MM-dd')} </div>
+        <div><strong>Ngày đặt:</strong> {format(today, 'yyyy-MM-dd')} </div>
       </div>
       <div className='list-cart'>
 
@@ -151,9 +155,9 @@ const Cart = (props) => {
                   <div className='product-item--img'>
                     <span>
                       <Image
-                         unoptimized
+                        unoptimized
                         alt={d.title}
-                        src={d.variants[0].photo.length>0 ? d.variants[0].photo[0].url : "/images/prd1.png"}
+                        src={d.variants[0].photo.length > 0 ? d.variants[0].photo[0].url : "/images/prd1.png"}
                         layout='fill'
                         objectFit='contain'
                         quality={100}
@@ -181,9 +185,9 @@ const Cart = (props) => {
                   <div className='product-item--img'>
                     <span>
                       <Image
-                         unoptimized
+                        unoptimized
                         alt={d.title}
-                        src={d.variants[0].photo.length>0 ? d.variants[0].photo[1].url : "/images/prd1.png"}
+                        src={d.variants[0].photo.length > 0 ? d.variants[0].photo[1].url : "/images/prd1.png"}
                         layout='fill'
                         objectFit='contain'
                         quality={100}
@@ -212,9 +216,9 @@ const Cart = (props) => {
                   <div className='product-item--img'>
                     <span>
                       <Image
-                         unoptimized
+                        unoptimized
                         alt={d.title}
-                        src={d.variants[0].photo.length>0 ? d.variants[0].photo[2].url : "/images/prd1.png"}
+                        src={d.variants[0].photo.length > 0 ? d.variants[0].photo[2].url : "/images/prd1.png"}
                         layout='fill'
                         objectFit='contain'
                         quality={100}
