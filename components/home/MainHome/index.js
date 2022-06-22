@@ -55,23 +55,21 @@ const MainHome = () => {
     }, [count]);
 
 
-
-
-
-
     const minusNumber = (data, type) => {
         const newArray = minusFunc(listProduct, data, type);
         const arrayOrder = minusFuncOrder(orderList, data, type);
         setListProduct(newArray);
+        localStorage.setItem('listProduct',JSON.stringify(newArray));
+
         setOrderList(arrayOrder);
     }
 
     const plusNumber = (data, type) => {
         const newArray = plusFunc(listProduct, data, type);
-
         const arrayOrder = plusFuncOrder(orderList, data, type);
-
         setListProduct(newArray);
+        localStorage.setItem('listProduct',JSON.stringify(newArray));
+
         setOrderList(arrayOrder);
     }
 
@@ -224,9 +222,8 @@ const MainHome = () => {
     }
     const router = useRouter();
     const handleLink = (link) => {
-        const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
+        // const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
         localStorage.setItem('listProduct',JSON.stringify(listProduct));
-        localStorage.setItem('dataCart',JSON.stringify(mns));
         router.push({pathname: link});
     }
 

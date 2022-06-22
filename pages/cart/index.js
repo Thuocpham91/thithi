@@ -25,7 +25,7 @@ const Cart = (props) => {
 
 
   useEffect(() => {
-    const dataOrder = localStorage.getItem('dataCart');
+    const dataOrder = localStorage.getItem('listProduct');
     let dkm = JSON.parse(dataOrder);
     if (!dkm) return;
 
@@ -36,14 +36,14 @@ const Cart = (props) => {
     const newArray = minusFunc(listProduct, data, type);
     setListProduct(newArray);
 
-    localStorage.setItem('dataCart',JSON.stringify(newArray));
+    localStorage.setItem('listProduct',JSON.stringify(newArray));
 
   }
 
   const plusNumber = (data, type) => {
     const newArray = plusFunc(listProduct, data, type);
     setListProduct(newArray);
-    localStorage.setItem('dataCart',JSON.stringify(newArray));
+    localStorage.setItem('listProduct',JSON.stringify(newArray));
   }
   const minusFunc = (array, data, type) => {
     const newArray = [];

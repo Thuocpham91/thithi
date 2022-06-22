@@ -23,15 +23,13 @@ function handler(req, res) {
 
 
     async function setOder() {
-
-
-        const data = await apiViettel.sentOder();
-
-
+        console.log(req.body);
+        const data = await apiViettel.sentOder(req.body);
+        if(data==null)
 
         return res.status(200).json({
             status: 200,
-            message: "Thành công s",
+            message: "Thành công",
             data: data
         });
 

@@ -73,7 +73,7 @@ async function update(ca) {
 async function updateStatus(status,id) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  notification SET status=?  where id= ?',
+            query: 'UPDATE  notification SET status=?  where id_user= ?',
             values: [status,id],
         });
         return result;

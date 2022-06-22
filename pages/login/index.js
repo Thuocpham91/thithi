@@ -22,7 +22,8 @@ import toast from 'react-hot-toast';
 
 import AddUserLoginZalo from "../../components/login/AddUserLoginZalo";
 
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
@@ -64,6 +65,9 @@ const Login = (props) => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const { window } = props;
     const [openRules, setOpenRules] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+
     const [initValue, setiInitValuee] = React.useState({
         password: '',
         lastName: '',
@@ -83,23 +87,20 @@ const Login = (props) => {
 
         console.log("dataa", dataa)
 
-
-
-
     };
 
-    const [tickdk,setTickdk] = useState(true);
+    const [tickdk, setTickdk] = useState(true);
 
     const handleChangeTickdk = () => {
         setTickdk(!tickdk);
-      };
+    };
 
     // This is used only for the example
     const container = window !== undefined ? () => window().document.body : undefined;
 
 
     // add user login zalo
-    const {renderAddUserLoginZalo,setOpenAddUserLoginZalo} = AddUserLoginZalo();
+    const { renderAddUserLoginZalo, setOpenAddUserLoginZalo } = AddUserLoginZalo();
 
 
 
@@ -128,6 +129,7 @@ const Login = (props) => {
                             onSubmit={values => {
 
                                 console.log("check", check)
+                                setLoading(true);
                                 if (tickdk) {
 
                                     return userService.login(initValue)
@@ -153,6 +155,7 @@ const Login = (props) => {
                                     showToastEro('top-center', "Bạn chưa chấp nhận điều khoản")
 
                                 }
+                                setLoading(false)
 
                             }}
                         >
@@ -168,7 +171,7 @@ const Login = (props) => {
                                             onChange={(e) => {
                                                 setiInitValuee({ ...initValue, email: e.target.value })
                                             }}
-                                             placeholder="Nhập số điện thoại" />
+                                            placeholder="Nhập số điện thoại" />
                                         {errors.email && touched.email ? <div>{errors.email}</div> : null}
                                     </div>
                                     <div className="mb-4">
@@ -187,13 +190,13 @@ const Login = (props) => {
                                     </Link> */}
                                     <div className='mt-4'>
                                         <Button
-                                            disabled={tickdk ? '': 'disabled'}
+                                            disabled={tickdk ? '' : 'disabled'}
                                             type="submit"
                                             style={{ background: '#23432E', borderRadius: 8, padding: 15 }}
                                             className='w-full login-page--button' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
                                         </Button>
                                         <Divider className='my-5' style={{ marginTop: '1.25rem !important', marginBottom: '1.25rem !important' }} />
-                                        <Button className={styles.butonZalo} onClick={e=>clickHandleZalo()}>
+                                        <Button className={styles.butonZalo} onClick={e => clickHandleZalo()}>
                                             <span className="mr-2" style={{ height: 34 }}>
                                                 <Image
                                                     alt="Zalo Login"
@@ -211,7 +214,7 @@ const Login = (props) => {
                     </div>
                 </div>
                 <div className={styles.rules}>
-                    <Checkbox {...label} defaultChecked onChange={e =>handleChangeTickdk(e)} />
+                    <Checkbox {...label} defaultChecked onChange={e => handleChangeTickdk(e)} />
                     <div>Tôi đã đọc và đồng ý với <strong onClick={toggleDrawer(true)} className='text-[#23432E] cursor-pointer'>Điều khoản sử dụng</strong></div>
                     <Root>
                         <CssBaseline />
@@ -251,8 +254,15 @@ const Login = (props) => {
                 </div>
                 {/* add user login by zalo */}
                 {renderAddUserLoginZalo}
+
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </div>
-            
+
         </>
     )
 }

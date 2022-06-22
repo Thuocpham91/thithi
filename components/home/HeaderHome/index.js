@@ -35,7 +35,7 @@ const HeaderHome = () => {
           if (data.status != 200) return;
   
           setListCate(data.data);
-          setActiveCate(data.data[0]?data.data[0].id:0)
+          // setActiveCate(data.data[0]?data.data[0].id:0)
         }
     
         getCategory();
