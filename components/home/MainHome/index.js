@@ -227,7 +227,7 @@ const MainHome = () => {
         const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
         localStorage.setItem('listProduct',JSON.stringify(listProduct));
         localStorage.setItem('dataCart',JSON.stringify(mns));
-        // router.push({pathname: link, query: { pid: "post.id" }});
+        router.push({pathname: link});
     }
 
     return (<>
