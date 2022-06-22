@@ -116,10 +116,8 @@ const User = () => {
 
  
   useEffect(() => {
-    let array = [];
     async function fetchData() {
       let data = await userService.getAll();
-      console.log("data",data)
       if (data.status != 200) return;
       setRowUser(data.data);
     }
@@ -129,14 +127,13 @@ const User = () => {
 
 
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(8);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowUser.length) : 0;
 
   const handleChangePage = (event, newPage) => {
-    console.log('newPage =',newPage)
     setPage(newPage);
   };
 
@@ -191,6 +188,7 @@ const User = () => {
 
    // ImportPoint
    const {renderImport, setOpenImport} = ImportPoint();
+   console.log('rowUser',rowUser.length)
 
 
   return (<>
@@ -215,8 +213,11 @@ const User = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rowUser.map((row,idex) => (
-              <TableRow key={idex}>
+            {(rowsPerPage > 0
+              ? rowUser.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : rowUser
+            ).map((row) => (
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
@@ -242,13 +243,10 @@ const User = () => {
                   >
                     <MoreHorizIcon />
                   </Button>
-
-
                 </TableCell>
                 
               </TableRow>
-            ))}
-
+             ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -258,7 +256,7 @@ const User = () => {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[8, 20, 50, { value: -1, label: 'Tất cả' }]}
+                rowsPerPageOptions={[5, 20, 50, { value: -1, label: 'Tất cả' }]}
                 colSpan={6}
                 count={rowUser.length}
                 rowsPerPage={rowsPerPage}
