@@ -78,11 +78,11 @@ export default function FooterCart(props) {
 
     const dataUser = JSON.parse(localStorage.getItem('user'));
 
-    if (!dataUser) return setLoading(flase);
+    if (!dataUser) return setLoading(false);
 
     if (dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null) {
       setOpenEditUser(true);
-      setLoading(flase);
+      setLoading(false);
 
       return;
 
