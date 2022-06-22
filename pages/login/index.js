@@ -168,7 +168,7 @@ const Login = (props) => {
                                             onChange={(e) => {
                                                 setiInitValuee({ ...initValue, email: e.target.value })
                                             }}
-                                            name="email" placeholder="Nhập email" />
+                                             placeholder="Nhập số điện thoại" />
                                         {errors.email && touched.email ? <div>{errors.email}</div> : null}
                                     </div>
                                     <div className="mb-4">
