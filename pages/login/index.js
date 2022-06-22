@@ -182,9 +182,9 @@ const Login = (props) => {
                                             className=" appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" />
                                         {errors.password && touched.password ? <div>{errors.password}</div> : null}
                                     </div>
-                                    <Link href="/">
+                                    {/* <Link href="/">
                                         <a className='underline text-xs text-[#23432E]'>Quên mật khẩu?</a>
-                                    </Link>
+                                    </Link> */}
                                     <div className='mt-4'>
                                         <Button
                                             disabled={tickdk ? '': 'disabled'}
