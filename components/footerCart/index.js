@@ -118,7 +118,7 @@ export default function FooterCart(props) {
         "payer_type": 1
       },
       "transport_type": 1,
-      "staff_note": codeapp.title,
+      "staff_note": codeapp.title? codeapp.title:"",
       "total_weight": 1,
       "total_money_product": 20000,
       "total_ship": 32400,

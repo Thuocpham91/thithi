@@ -135,6 +135,8 @@ const Login = (props) => {
                                     return userService.login(initValue)
                                         .then((response) => {
                                             console.log(response)
+                                            setLoading(false);
+
                                             if (response.status == "200") {
                                                 const returnUrl = router.query.returnUrl || '/';
                                                 showToastSuccess('top-center', "Đăng nhập thành công")
@@ -146,6 +148,8 @@ const Login = (props) => {
                                         })
                                         .catch(error => {
                                             console.log(error);
+                                            setLoading(false);
+
                                             showToastEro('top-center', "Bạn sai Thông tin")
                                         });
 

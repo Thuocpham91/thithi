@@ -25,7 +25,11 @@ function handler(req, res) {
     async function setOder() {
         console.log(req.body);
         const data = await apiViettel.sentOder(req.body);
-        if(data==null)
+        if(data==null) return res.status(200).json({
+            status: 1767,
+            message: "Thất bại",
+            data: data
+        });
 
         return res.status(200).json({
             status: 200,
