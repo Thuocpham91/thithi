@@ -172,8 +172,11 @@ const Promotion = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {listPromotion.map((row, idx) => (
-                            <TableRow key={idx}>
+                        {(rowsPerPage > 0
+                            ? listPromotion.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            : listPromotion
+                        ).map((row) => (
+                            <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.title}
                                 </TableCell>

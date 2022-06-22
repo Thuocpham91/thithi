@@ -48,6 +48,10 @@ import DeleteExchangePoints from "../../../components/exchangePoints/DeleteExcha
 import { productService } from '../../../services/product.service';
 
 
+const loadImg = ({ src , width }) => {
+  return `https://ktcshop.top/${src}?w=${width}}`
+}
+
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -187,7 +191,6 @@ const ExchangePoints = () => {
 
 
 
-
 const callback=()=>{
   console.log("callback")
 
@@ -230,10 +233,11 @@ const callback=()=>{
                 </TableCell>
                 <TableCell  >
                   {row.url && <>
-                    <Image
+                    <Image 
+                      loader={loadImg}
                       alt={row.name}
                       src={row.url}
-                      width="50px"
+                      width={50}
                       height="50px"
                       quality={100}
                     />

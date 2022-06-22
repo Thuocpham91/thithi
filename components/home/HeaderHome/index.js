@@ -8,6 +8,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setNotification } from '../../../Store/actions'
 
 
+const loadImg = ({ src , width }) => {
+  return `https://ktcshop.top/${src}?w=${width}}`
+}
 const HeaderHome = () => {
   const dispatch = useDispatch();
 
@@ -47,11 +50,12 @@ const HeaderHome = () => {
                 <div className='cate-item__img'>
                     <span>
                         <Image
-                            alt={d.title}
-                            src={d.url?d.url:'/images/list-cate/Marlboro.png'}
-                            layout='fill'
-                            objectFit='contain'
-                            quality={100}
+                          loader={loadImg}
+                          alt={d.title}
+                          src={d.url?d.url:'/images/list-cate/Marlboro.png'}
+                          layout='fill'
+                          objectFit='contain'
+                          quality={100}
                         />
                     </span>
                 </div> 
