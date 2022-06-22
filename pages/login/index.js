@@ -20,6 +20,8 @@ import { Formik, Form, Field } from "formik";
 import toast from 'react-hot-toast';
 
 
+import AddUserLoginZalo from "../../components/login/AddUserLoginZalo";
+
 
 
 const drawerBleeding = 0;
@@ -94,6 +96,14 @@ const Login = (props) => {
 
     // This is used only for the example
     const container = window !== undefined ? () => window().document.body : undefined;
+
+
+    // add user login zalo
+    const {renderAddUserLoginZalo,setOpenAddUserLoginZalo} = AddUserLoginZalo();
+
+
+
+
     return (
         <>
             <Head>
@@ -239,7 +249,10 @@ const Login = (props) => {
                     </Root>
 
                 </div>
+                {/* add user login by zalo */}
+                {renderAddUserLoginZalo}
             </div>
+            
         </>
     )
 }
