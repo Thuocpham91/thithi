@@ -78,10 +78,12 @@ export default function FooterCart(props) {
 
     const dataUser = JSON.parse(localStorage.getItem('user'));
 
-    if (!dataUser) return;
+    if (!dataUser) return setLoading(flase);
 
     if (dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null) {
       setOpenEditUser(true);
+      setLoading(flase);
+
       return;
 
     }
@@ -141,7 +143,7 @@ export default function FooterCart(props) {
     console.log(datarp)
     setLoading(false);
     if (datarp.status != 200) return showToastEro('top-center', "gửi đợn thất thất bại!");
-    if (!datarp.data) return;
+    if (!datarp.data) return ;
     if (datarp.data.status == 1) {
       let me = "Gửi đơn  hàng thành công id: " + datarp.data.data.order_vtsale_id;
       showToast('top-center', me);
