@@ -38,6 +38,11 @@ const MainHome = () => {
                 return item.variants[0].category.code==count.code;
                })
                dkm=lK;
+            }else{
+                let data = await productService.getProduct();
+                if (data.status != 200) return;
+                 dkm=data.data.variants;
+
             }
             setListProduct(dkm);
             localStorage.setItem('listVariants',JSON.stringify(dkm));
