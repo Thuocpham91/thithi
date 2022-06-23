@@ -24,29 +24,19 @@ function handler(req, res) {
     async function changePass(req, res) {
         try {
 
-            const user = await checlogin.checkLogin(req, res);
-            const checkl = user.id_role==1?true:false;
-            if (!checkl) return res.status(200).json({
-                status: 194,
-                message: "Bạn ko có quền"
-            });
+         
 
             const {id, phone, name,district_id,city_id,id_khataco,id_role,status,score,description } = req.body;
             const {id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT } = req.body;
          
             const user_change = await User.findBId(id);
-            if(!user_change) return;
-            if(id_role)user_change.id_role=id_role;
-            if(phone)user_change.phone=phone;
-            
-            if(name)user_change.name=name;
-            if(district_id)user_change.district_id=district_id;
-            if(city_id)user_change.city_id=city_id;
-            if(id_khataco)user_change.id_khataco=id_khataco;
-            if(status)user_change.status=status;
-            if(score)user_change.score=score;
-            if(description)user_change.description=description;
+            if(!user_change) return res.status(200).json({
+                status: 199,
+                message: "Không có dữ liệu",
+                data:rt
 
+            });
+           
             user_change.id_cityVT=id_cityVT;
             user_change.code_cityVT=code_cityVT;
             user_change.name_cityVT=name_cityVT;

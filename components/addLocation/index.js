@@ -13,12 +13,16 @@ import { userService } from '../../services/user.service';
 
 import toast from "react-hot-toast";
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 const EditUser = (userChoose) => {
     const [openEditUser, setOpenEditUser] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [valueEditUser, setValueEditUser] = useState(null);
     const [city, setCIty] = useState([]);
@@ -48,16 +52,20 @@ const EditUser = (userChoose) => {
 
 
     const handleEditUser = async () => {
-        const data = await userService.updateUser(valueEditUser);
+
+        setLoading(true)
+        const data = await userService.updateUserCustom(valueEditUser);
         if (data.status == 200) {
 
             let dataUser = JSON.parse(localStorage.getItem('user'));
             dataUser.data=valueEditUser;
 
             localStorage.setItem('user',JSON.stringify(dataUser));
+            setLoading(false);
             toast.success("Sửa thành công");
             setOpenEditUser(false);
         } else {
+            setLoading(false)
             toast.error("Sửa thất bại!");
         }
     };
@@ -91,15 +99,15 @@ const EditUser = (userChoose) => {
                                         value={valueEditUser.name}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
+                                {/* <Grid item xs={6}>
                                     <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, phone: e.target.value })} disabled defaultValue={valueEditUser.phone} />
-                                </Grid>
-                                <Grid item xs={6}>
+                                </Grid> */}
+                                {/* <Grid item xs={6}>
                                     <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, idUser: e.target.value })} defaultValue={valueEditUser.id_khataco} />
-                                </Grid>
-                                <Grid item xs={6}>
+                                </Grid> */}
+                                {/* <Grid item xs={6}>
                                     <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, score: e.target.value })} defaultValue={valueEditUser.score} />
-                                </Grid>
+                                </Grid> */}
 
                                 <Grid item xs={6}>
 
@@ -184,6 +192,15 @@ const EditUser = (userChoose) => {
                     </div>
                 </DialogContent>
             </Dialog>
+
+
+            
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
         </>
         )
     }

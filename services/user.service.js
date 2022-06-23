@@ -25,6 +25,7 @@ export const userService = {
     getNotification,
     getCountNotification,
     checkLoginZalo,
+    updateUserCustom,
 };
 
 function login(form) {
@@ -107,3 +108,8 @@ function  getCountNotification(data){
 function  checkLoginZalo(data){
     return fetchWrapper.post(`${baseUrl}/loginzalo`,data);
 }
+
+function  updateUserCustom(data){
+    return fetchWrapper.post(`${baseUrl}/updateUserCustom`,data);
+}
+

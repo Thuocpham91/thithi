@@ -33,13 +33,13 @@ const Root = styled('div')(({ theme }) => ({
 function showToast(pos, message) {
   toast.success(message, {
     position: pos,
-    duration: 1000,
+    duration: 2000,
   });
 }
 function showToastEro(pos, message) {
   toast.error(message, {
     position: pos,
-    duration: 1000,
+    duration: 2000,
   });
 }
 
@@ -80,7 +80,7 @@ export default function FooterCart(props) {
 
     if (!dataUser) return setLoading(false);
 
-    if (dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null) {
+    if (dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null||dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT =="" || dataUser.data.id_wardsVT == "") {
       setOpenEditUser(true);
       setLoading(false);
 
