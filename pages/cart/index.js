@@ -31,20 +31,38 @@ const Cart = (props) => {
 
     setListProduct(dkm);
 
-  }, [])
+  }, []);
+
+
+
+  const updateArray = (listOder) => {
+    let dataTotal = localStorage.getItem('listProduct');
+    let dkm = JSON.parse(dataTotal);
+
+    const kFix = dkm.map(ils => {
+        let im = ils;
+        let kmm = listOder.find(itemsd => { return ils.product_id == itemsd.product_id });
+        if (kmm) im = kmm;
+        return im;
+    });
+    localStorage.setItem('listProduct', JSON.stringify(kFix));
+
+
+}
+
+
   const minusNumber = (data, type) => {
     const newArray = minusFunc(listProduct, data, type);
     setListProduct(newArray);
-
-    localStorage.setItem('listProduct',JSON.stringify(newArray));
-
+    updateArray(newArray);
   }
 
   const plusNumber = (data, type) => {
     const newArray = plusFunc(listProduct, data, type);
     setListProduct(newArray);
-    localStorage.setItem('listProduct',JSON.stringify(newArray));
+    updateArray(newArray);
   }
+
   const minusFunc = (array, data, type) => {
     const newArray = [];
    array.map(function (item, idx) {

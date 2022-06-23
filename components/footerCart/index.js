@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -76,16 +78,17 @@ export default function FooterCart(props) {
     if (!lst) return;
     lst = JSON.parse(lst);
 
+
+
+
     const dataUser = JSON.parse(localStorage.getItem('user'));
 
     if (!dataUser) return setLoading(false);
 
-    if (dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null||dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT =="" || dataUser.data.id_wardsVT == "") {
+    if (dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null || dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT == "" || dataUser.data.id_wardsVT == "") {
       setOpenEditUser(true);
       setLoading(false);
-
       return;
-
     }
 
     const mns = lst.filter(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
@@ -118,7 +121,7 @@ export default function FooterCart(props) {
         "payer_type": 1
       },
       "transport_type": 1,
-      "staff_note": codeapp.title? codeapp.title:"",
+      "staff_note": codeapp.title ? codeapp.title : "",
       "total_weight": 1,
       "total_money_product": 20000,
       "total_ship": 32400,
@@ -131,7 +134,7 @@ export default function FooterCart(props) {
         "phone": dataUser.data.phone,
         "fullName": dataUser.data.name,
         "province_id": Number(dataUser.data.code_cityVT),
-        "district_id":Number( dataUser.data.code_districtVT),
+        "district_id": Number(dataUser.data.code_districtVT),
         "ward_id": Number(dataUser.data.code_wardsVT),
         "address": dataUser.data.address,
         "location_type": "VIETTELPOST"
@@ -143,7 +146,7 @@ export default function FooterCart(props) {
     console.log(datarp)
     setLoading(false);
     if (datarp.status != 200) return showToastEro('top-center', "gửi đợn thất thất bại!");
-    if (!datarp.data) return ;
+    if (!datarp.data) return;
     if (datarp.data.status == 1) {
       let me = "Gửi đơn  hàng thành công id: " + datarp.data.data.order_vtsale_id;
       showToast('top-center', me);
@@ -183,6 +186,28 @@ export default function FooterCart(props) {
   }, []);
 
 
+  const [orderList, setOrderList] = useState(false);
+
+  const count = useSelector((state) => state.counter);
+
+  useEffect(() => {
+
+    async function fetchData() {
+      let dkm=[];
+      let dataad = localStorage.getItem('listProduct');
+      dkm = JSON.parse(dataad);
+
+      const check = dkm.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
+      if (check) setOrderList(true);
+      if (!check) setOrderList(false);
+      // setOrderList(dkm);
+
+    }
+    fetchData();
+  }, [count]);
+
+
+
 
 
 
@@ -199,13 +224,15 @@ export default function FooterCart(props) {
         </div>
         <p className={'color-C5A153'}>  {codeapp ? codeapp.title : 'Chọn hoặc nhập mã'} <ChevronRightIcon /></p>
       </div>
-      <div className='mb-4'>
+
+      {orderList ? <div className='mb-4'>
         <Button style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }}
 
           onClick={e => { handleAcept() }}
 
           variant="contained"><span className=' text-base font-semibold'>Xác nhận đơn</span></Button>
-      </div>
+      </div> : ""}
+
 
       <Root>
         <CssBaseline />

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { productService } from '../../../services/product.service';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setNotification } from '../../../Store/actions'
+
 
 
 const MainHome = () => {
@@ -14,63 +14,78 @@ const MainHome = () => {
         // {id:2,title:'Ngựa nhỏ',imagePackage:'/images/prd4.png',imageTobacco:'/images/prd5.png',imageBarrel:'/images/prd3.png',outOfStock:0},
         // {id:3,title:'Ngựa lớn 2',imagePackage:'/images/prd1.png',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:1},
     ]);
-    const [orderList, setOrderList] = useState([]);
+    const [orderList, setOrderList] = useState(false);
 
     const count = useSelector((state) => state.counter);
-
-
 
     useEffect(() => {
 
         async function fetchData() {
             let dkm = [];
             if (count != -1) {
-                const dataOrder = localStorage.getItem('listProduct');
-                dkm = JSON.parse(dataOrder);
-                if (!dkm) {
-                    let data = await productService.getProduct();
-                    if (data.status != 200) return;
-                    dkm = data.data.variants;
-                }
+                let dataad = localStorage.getItem('listProduct');
+                dkm = JSON.parse(dataad);
+
                 const lK = dkm.filter(item => {
                     return item.variants[0].category.code == count.code;
                 })
                 dkm = lK;
-                localStorage.setItem('listProduct', JSON.stringify(dkm));
-
             } else {
-                let data = await productService.getProduct();
-                if (data.status != 200) return;
-                dkm = data.data.variants;
+                let dataTotal = localStorage.getItem('listVariants');
+                if(dataTotal){
+                    dkm=JSON.parse(dataTotal);
+
+                }else{
+                    let data = await productService.getProduct();
+                    if (data.status != 200) return;
+                    dkm = data.data.variants;
+                }
+
+                localStorage.setItem('listProduct', JSON.stringify(dkm));
+                localStorage.setItem('listVariants', JSON.stringify(dkm));
 
             }
             setListProduct(dkm);
-            localStorage.setItem('listVariants', JSON.stringify(dkm));
-            setOrderList(dkm);
+
+            const check = dkm.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
+            if(check)setOrderList(true);
+            if(!check)setOrderList(false);
+            // setOrderList(dkm);
 
         }
         fetchData();
     }, [count]);
 
 
+    const updateArray = (listOder) => {
+        let dataTotal = localStorage.getItem('listProduct');
+        let dkm = JSON.parse(dataTotal);
+
+        const kFix = dkm.map(ils => {
+            let im = ils;
+            let kmm = listOder.find(itemsd => { return ils.product_id == itemsd.product_id });
+            if (kmm) im = kmm;
+            return im;
+        });
+        localStorage.setItem('listProduct', JSON.stringify(kFix));
+
+        const cont = kFix.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
+        if(cont)setOrderList(true);
+        if(!cont)setOrderList(false);
+
+    }
 
 
     const minusNumber = (data, type) => {
         const newArray = minusFunc(listProduct, data, type);
-        const arrayOrder = minusFuncOrder(orderList, data, type);
         setListProduct(newArray);
-        localStorage.setItem('listProduct', JSON.stringify(newArray));
-
-        setOrderList(arrayOrder);
+        updateArray(newArray)
     }
 
     const plusNumber = (data, type) => {
         const newArray = plusFunc(listProduct, data, type);
-        const arrayOrder = plusFuncOrder(orderList, data, type);
         setListProduct(newArray);
-        localStorage.setItem('listProduct', JSON.stringify(newArray));
-
-        setOrderList(arrayOrder);
+        updateArray(newArray)
     }
 
     const minusFunc = (array, data, type) => {
@@ -223,7 +238,7 @@ const MainHome = () => {
     const router = useRouter();
     const handleLink = (link) => {
         // const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
-        localStorage.setItem('listProduct', JSON.stringify(listProduct));
+        // localStorage.setItem('listProduct', JSON.stringify(listProduct));
         router.push({ pathname: link });
     }
 
@@ -331,7 +346,7 @@ const MainHome = () => {
                 })}
             </div>
         </div>
-        {orderList.length > 0 && <>
+        {orderList  && <>
             <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
         </>}
     </>
