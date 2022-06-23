@@ -23,43 +23,43 @@ const MainHome = () => {
     useEffect(() => {
 
         async function fetchData() {
-            let dkm= [];
+            let dkm = [];
+            if (count != -1) {
+                const dataOrder = localStorage.getItem('listProduct');
+                dkm = JSON.parse(dataOrder);
+                if (!dkm) {
+                    let data = await productService.getProduct();
+                    if (data.status != 200) return;
+                    dkm = data.data.variants;
+                }
+                const lK = dkm.filter(item => {
+                    return item.variants[0].category.code == count.code;
+                })
+                dkm = lK;
+                localStorage.setItem('listProduct', JSON.stringify(dkm));
 
-            const dataOrder = localStorage.getItem('listProduct');
-             dkm = JSON.parse(dataOrder);
-            if(!dkm){
+            } else {
                 let data = await productService.getProduct();
                 if (data.status != 200) return;
-                 dkm=data.data.variants;
-            }
-
-            if(count != -1) {
-               const lK=dkm.filter(item=>{
-                return item.variants[0].category.code==count.code;
-               })
-               dkm=lK;
-            }else{
-                let data = await productService.getProduct();
-                if (data.status != 200) return;
-                 dkm=data.data.variants;
+                dkm = data.data.variants;
 
             }
             setListProduct(dkm);
-            localStorage.setItem('listVariants',JSON.stringify(dkm));
+            localStorage.setItem('listVariants', JSON.stringify(dkm));
             setOrderList(dkm);
-    
+
         }
         fetchData();
     }, [count]);
 
-    
+
 
 
     const minusNumber = (data, type) => {
         const newArray = minusFunc(listProduct, data, type);
         const arrayOrder = minusFuncOrder(orderList, data, type);
         setListProduct(newArray);
-        localStorage.setItem('listProduct',JSON.stringify(newArray));
+        localStorage.setItem('listProduct', JSON.stringify(newArray));
 
         setOrderList(arrayOrder);
     }
@@ -68,7 +68,7 @@ const MainHome = () => {
         const newArray = plusFunc(listProduct, data, type);
         const arrayOrder = plusFuncOrder(orderList, data, type);
         setListProduct(newArray);
-        localStorage.setItem('listProduct',JSON.stringify(newArray));
+        localStorage.setItem('listProduct', JSON.stringify(newArray));
 
         setOrderList(arrayOrder);
     }
@@ -178,7 +178,7 @@ const MainHome = () => {
         const newArray = [];
         array.map(function (item, idx) {
             let it = item;
-            it.type=type;
+            it.type = type;
             if (item.product_id === data.product_id) {
                 check = true;
                 if (type == "package") {
@@ -223,8 +223,8 @@ const MainHome = () => {
     const router = useRouter();
     const handleLink = (link) => {
         // const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
-        localStorage.setItem('listProduct',JSON.stringify(listProduct));
-        router.push({pathname: link});
+        localStorage.setItem('listProduct', JSON.stringify(listProduct));
+        router.push({ pathname: link });
     }
 
     return (<>
