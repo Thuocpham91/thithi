@@ -23,36 +23,31 @@ const MainHome = () => {
     useEffect(() => {
 
         async function fetchData() {
-            let data = await productService.getProduct();
-            if (data.status != 200) return;
-
-             
-          let showDa=data.data.variants;
-            if(count != -1) {
-               const lK=data.data.variants.filter(item=>{
-                return item.variants[0].category.code==count.code;
-               })
-
-               showDa=lK;
-            }
-
-            setListProduct(showDa);
-            localStorage.setItem('listVariants',JSON.stringify(data.data.variants));
-
+            let dkm= [];
 
             const dataOrder = localStorage.getItem('listProduct');
-            let dkm = JSON.parse(dataOrder);
-            if(!dkm)return;
-        
+             dkm = JSON.parse(dataOrder);
+            if(!dkm){
+                let data = await productService.getProduct();
+                if (data.status != 200) return;
+                 dkm=data.data.variants;
+            }
+
+            if(count != -1) {
+               const lK=dkm.filter(item=>{
+                return item.variants[0].category.code==count.code;
+               })
+               dkm=lK;
+            }
             setListProduct(dkm);
-
+            localStorage.setItem('listVariants',JSON.stringify(dkm));
             setOrderList(dkm);
-        
-
-
+    
         }
         fetchData();
     }, [count]);
+
+    
 
 
     const minusNumber = (data, type) => {
