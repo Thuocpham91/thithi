@@ -130,9 +130,9 @@ export default function FooterCart(props) {
       "customer": {
         "phone": dataUser.data.phone,
         "fullName": dataUser.data.name,
-        "province_id": dataUser.data.code_cityVT,
-        "district_id": dataUser.data.code_districtVT,
-        "ward_id": dataUser.data.code_wardsVT,
+        "province_id": Number(dataUser.data.code_cityVT),
+        "district_id":Number( dataUser.data.code_districtVT),
+        "ward_id": Number(dataUser.data.code_wardsVT),
         "address": dataUser.data.address,
         "location_type": "VIETTELPOST"
       }
