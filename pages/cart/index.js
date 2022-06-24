@@ -156,12 +156,12 @@ const Cart = (props) => {
       <meta property="og:site_name" content="Khatoco" />
     </Head>
     <div className='main-body body-f2f2f2'>
-      {/* <div className='title-page'>
+      <div className='title-page'>
         <Link href="/"><a><ArrowBackIcon /></a></Link>
         Chi tiết đơn hàng
-      </div> */}
+      </div>
       <div className='sub-title-page'>
-        <div><strong>Ngày đặt:</strong> {format(today, 'yyyy-MM-dd')} </div>
+        <div><strong>Ngày đặt:</strong> {format(today, 'dd-MM-yyyy')} </div>
       </div>
       <div className='list-cart'>
 

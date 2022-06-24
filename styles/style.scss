@@ -213,7 +213,7 @@
                     height: 70px !important;
                 }
                 .product-item--title{
-                    padding-left: 5px;
+                    padding-left: 10px;
                     text-align: left;
                     p{
                         text-align: left;
@@ -790,5 +790,8 @@
                 font-size: 13px;
             }
         }
+    }
+    .oder-button {
+        position: fixed;
     }
 }

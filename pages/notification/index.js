@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Footer from '../../components/footer'
+import { compareAsc, format } from 'date-fns'
 
 import { userService } from '../../services';
+import parseISO from 'date-fns/parseISO';
 
 const Notification = () => {
   const [dataNotification, setDataNofi] = useState([]);
@@ -15,7 +17,6 @@ const Notification = () => {
     getCategory();
 
   }, []);
-
 
   return (
     <div className='main-body body-f2f2f2'>
@@ -36,7 +37,9 @@ const Notification = () => {
         {dataNotification.map((item, idx) => {
           return (
             < div key={idx} className='noti-item' >
-              <div className='text-right noti-item__header'>{item.created_at.split("T")[0]}</div>
+              <div className='text-right noti-item__header'>
+                {format(parseISO(item.created_at), 'dd-MM-yyyy')}
+                </div>
               <div className='noti-item__body'>
                 <h3>{item.tile}</h3>
                 <p>{item.message}</p>
