@@ -224,7 +224,7 @@ const AddUser = () => {
 
                             </Grid>
 
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, address: e.target.value }) }} value={valueAddUser.address} />
                             </Grid>
 
