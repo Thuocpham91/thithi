@@ -193,7 +193,7 @@ export default function FooterCart(props) {
   useEffect(() => {
 
     async function fetchData() {
-      let dkm=[];
+      let dkm = [];
       let dataad = localStorage.getItem('listProduct');
       dkm = JSON.parse(dataad);
 
@@ -266,44 +266,42 @@ export default function FooterCart(props) {
             <div className="coupon-form--content">
               {listCoupon.map(function (d, idx) {
                 return (
-                  <div key={idx}>
+                  // <div key={idx}>
 
-                    <button className={d.active == 2 ? 'btn-coupon chddk' : 'btn-coupon'} disabled={d.active == 1 ? '' : 'disabled'} ></button>
+                  <button key={idx} className={'btn-coupon'} onClick={e => { handleClickItem(d) }} >
+                    <div className='btn-coupon--body'>
+                      <div>
+                        <div className='btn-coupon-left'>
+                          <h3>{d.code}</h3>
+                          <p>{d.product_name}</p>
+                        </div>
+                        <div className='btn-coupon-center'>
+                          <h3>{d.title}</h3>
+                          <p>Dùng được {d.numberOfUses} lần</p>
 
-                    <button className={'btn-coupon'} onClick={e => { handleClickItem(d) }} >
-                      <div className='btn-coupon--body'>
-                        <div>
-                          <div className='btn-coupon-left'>
-                            <h3>{d.code}</h3>
-                            <p>{d.product_name}</p>
-                          </div>
-                          <div className='btn-coupon-center'>
-                            <h3>{d.title}</h3>
-                            <p>Dùng được {d.numberOfUses} lần</p>
+                          <span>    {format(parseISO(d.startDate), 'dd-mm')} / {format(parseISO(d.endDate), 'dd-mm')}</span>
+                        </div>
+                        <div className='btn-coupon-right'>
+                          {/* {d.active == 1 && <> */}
+                          <>
+                            <p>Đã dùng</p>
+                            <p><strong>{7}/{10}</strong> lần</p>
+                          </>
 
-                            <span>    {format(parseISO(d.startDate), 'dd-mm')} / {format(parseISO(d.endDate), 'dd-mm')}</span>
-                          </div>
-                          <div className='btn-coupon-right'>
-                            {/* {d.active == 1 && <> */}
-                            <>
-                              <p>Đã dùng</p>
-                              <p><strong>{7}/{10}</strong> lần</p>
-                            </>
-
-                            {/* </>} */}
-                            {/* {d.active == 2 && <>
+                          {/* </>} */}
+                          {/* {d.active == 2 && <>
                                 <div className='btn-coupon-right--noti-bot red'>Chưa đủ điều kiện</div>
                               </>}
                               {d.active == 3 && <>
                                 <div className='btn-coupon-right--noti-bot'>Hết lần sử dụng</div>
                               </>} */}
-                          </div>
                         </div>
                       </div>
-                    </button>
+                    </div>
+                  </button>
 
 
-                  </div>
+                  // </div>
 
                 )
               })}
