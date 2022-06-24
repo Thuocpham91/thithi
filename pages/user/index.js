@@ -31,7 +31,9 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 
-
+const loadImg = ({ src }) => {
+  return `https://ktcshop.top${src}`
+}
 
 function showToast(pos, message) {
   toast.success(message, {
@@ -95,13 +97,9 @@ const User = (props) => {
 
     const poin = data.data.score ? data.data.score : 0;
     const scoreU = d.score ? d.score : 0;
-    if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Bạn không đủ điểm")
-
-
+    if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Quý Đại lý chưa đủ điểm")
     showToast('top-center', "Đổi điểm thành công")
   }
-
-
 
   return (<>
     <Head>
@@ -116,9 +114,9 @@ const User = (props) => {
     </Head>
     <Root>
       <div className='main-body body-f2f2f2'>
-        <div className='title-page'>
+        {/* <div className='title-page'>
           Thông tin cá nhân
-        </div>
+        </div> */}
         <div className='body-user'>
           <div>
             <p><span>Tên đại lý:</span> <i>{init.name}</i></p>
@@ -175,6 +173,7 @@ const User = (props) => {
                     <div key={idx} className="item-gift">
                       <span>
                         <Image
+                          loader={loadImg}
                           alt={d.title}
                           src={d.url}
                           layout='fill'

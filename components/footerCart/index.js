@@ -266,7 +266,7 @@ export default function FooterCart(props) {
             <div className="coupon-form--content">
               {listCoupon.map(function (d, idx) {
                 return (
-                  <div key={idx} style={{ width: 700 }}>
+                  <div key={idx}>
 
                     <button className={d.active == 2 ? 'btn-coupon chddk' : 'btn-coupon'} disabled={d.active == 1 ? '' : 'disabled'} ></button>
 

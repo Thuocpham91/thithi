@@ -139,10 +139,10 @@ const Login = (props) => {
 
                                             if (response.status == "200") {
                                                 const returnUrl = router.query.returnUrl || '/';
-                                                showToastSuccess('top-center', "Đăng nhập thành công")
+                                                showToastSuccess('bottom-right', "Đăng nhập thành công")
                                                 router.push(returnUrl);
                                             } else {
-                                                showToastEro('top-center', "Bạn sai Thông tin")
+                                                showToastEro('bottom-right', "Quý Đại lý chưa đúng thông tin")
                                             }
 
                                         })
@@ -150,13 +150,13 @@ const Login = (props) => {
                                             console.log(error);
                                             setLoading(false);
 
-                                            showToastEro('top-center', "Bạn sai Thông tin")
+                                            showToastEro('bottom-right', "Quý Đại lý chưa đúng thông tin")
                                         });
 
 
                                 } else {
 
-                                    showToastEro('top-center', "Bạn chưa chấp nhận điều khoản")
+                                    showToastEro('bottom-right', "Quý Đại lý chưa chấp nhận điều khoản")
 
                                 }
                                 setLoading(false)

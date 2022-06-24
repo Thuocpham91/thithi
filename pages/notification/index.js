@@ -28,9 +28,9 @@ const Notification = () => {
         <meta property="og:description" content="Conng ty Khatoco" />
         <meta property="og:site_name" content="Khatoco" />
       </Head>
-      <div className='title-page'>
+      {/* <div className='title-page'>
         Thông báo
-      </div>
+      </div> */}
       <div className='list-noti'>
 
         {dataNotification.map((item, idx) => {
