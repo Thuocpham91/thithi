@@ -164,7 +164,7 @@ const User = (props) => {
                 <div>
                   <h5><i>Kính chào</i>{init.name}</h5>
                   <p>Điểm tích lũy:</p>
-                  <p><h2>{init.score ? init.score : 0}</h2> điểm</p>
+                  <p><h2>{init.score ? init.score.toLocaleString() : 0}</h2> điểm</p>
                 </div>
               </div>
               <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4 w-full'>
@@ -181,7 +181,7 @@ const User = (props) => {
                           quality={100}
                         />
                       </span>
-                      <h3>{d.score} điểm</h3>
+                      <h3>{d.score.toLocaleString()} điểm</h3>
                       <p>{d.name}</p>
                       <Button onClick={e => checkChagePoin(d)} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Đổi điểm</Button>
                     </div>

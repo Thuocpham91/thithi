@@ -10,9 +10,9 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const MainHome = () => {
     const [listProduct, setListProduct] = useState([
-        // {id:1,title:'Ngựa lớn',imagePackage:'/images/prd1.png',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:0},
+        // {id:1,title:'Ngựa lớn',imagePackage:'/images/default.jpg',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:0},
         // {id:2,title:'Ngựa nhỏ',imagePackage:'/images/prd4.png',imageTobacco:'/images/prd5.png',imageBarrel:'/images/prd3.png',outOfStock:0},
-        // {id:3,title:'Ngựa lớn 2',imagePackage:'/images/prd1.png',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:1},
+        // {id:3,title:'Ngựa lớn 2',imagePackage:'/images/default.jpg',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:1},
     ]);
     const [orderList, setOrderList] = useState(false);
 
@@ -255,7 +255,7 @@ const MainHome = () => {
                                         <Image
                                             unoptimized
                                             alt={d.product_name}
-                                            src={d.variants[0].photo[0] ? d.variants[0].photo[0].url : "/images/prd1.png"}
+                                            src={d.variants[0].photo[0] ? d.variants[0].photo[0].url : "/images/default.jpg"}
                                             layout='fill'
                                             objectFit='contain'
                                             quality={100}
@@ -285,7 +285,7 @@ const MainHome = () => {
                                         <Image
                                             unoptimized
                                             alt={d.title}
-                                            src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/prd1.png"}
+                                            src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
                                             layout='fill'
                                             objectFit='contain'
                                             quality={100}
@@ -315,7 +315,7 @@ const MainHome = () => {
                                         <Image
                                             unoptimized
                                             alt={d.product_name}
-                                            src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/prd1.png"}
+                                            src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
                                             layout='fill'
                                             objectFit='contain'
                                             quality={100}

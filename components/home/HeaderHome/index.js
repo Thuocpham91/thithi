@@ -9,7 +9,7 @@ import { setNotification } from '../../../Store/actions'
 
 
 const loadImg = ({ src, width }) => {
-  return `https://ktcshop.top/${src}?w=${width}}`
+  return `http://202.92.6.221:3000/${src}?w=${width}}`
 }
 const HeaderHome = () => {
   const dispatch = useDispatch();

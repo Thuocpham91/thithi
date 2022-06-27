@@ -129,7 +129,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-
+const loadImg = ({ src, width }) => {
+  return `http://202.92.6.221:3000/${src}?w=${width}}`
+}
 
 const Category = () => {
 
@@ -272,8 +274,9 @@ const Category = () => {
                 <TableCell  >
                   {row.url && <>
                     <Image
+                      loader={loadImg}
                       alt={row.name}
-                      src={row.url?row.url:'/images/list-cate/Marlboro.png'}
+                      src={row.url?row.url:'/images/default.jpg'}
                       width="50px"
                       height="50px"
                       quality={100}
