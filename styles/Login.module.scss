@@ -1,6 +1,6 @@
 .mainLogin{
     max-width: 500px !important;
-    margin: auto !important;
+    margin: 0px auto !important;
     .titleLogin{
         padding: 0 20px !important;
         text-align: center !important;
@@ -22,9 +22,7 @@
     color: #005BE0 !important;
 }
 .rules{
-    max-width: 500px !important;
-    margin: auto !important;
-    margin-top: 17vh !important;
+    margin: 0 auto 20px !important;
     display: flex !important;
     align-items: center !important;
 }
@@ -70,10 +68,6 @@
 
 @media only screen and (max-width: 768px)  {
     .rules {
-        margin: auto !important;
-        margin-top: 8vh !important;
-        display: flex !important;
-        align-items: center !important;
         font-size: 14px !important;
     }
     .rulesContent {
