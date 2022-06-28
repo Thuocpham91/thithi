@@ -294,7 +294,7 @@ const MainHome = () => {
                                 </div>
                                 <div className='product-item--title'>
                                     <h3>{d.product_name}</h3>
-                                    <p>Cây</p>
+                                    <p>Cây (10 Gói)</p>
                                 </div>
                                 {d.total_quantity == 0 && <>
                                     <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
@@ -324,7 +324,7 @@ const MainHome = () => {
                                 </div>
                                 <div className='product-item--title'>
                                     <h3>{d.product_name}</h3>
-                                    <p>Thùng</p>
+                                    <p>Thùng (500 Gói)</p>
                                 </div>
                                 {d.total_quantity == 0 && <>
                                     <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
