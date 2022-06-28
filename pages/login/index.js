@@ -116,7 +116,7 @@ const Login = (props) => {
                 <meta property="og:description" content="Conng ty Khatoco" />
                 <meta property="og:site_name" content="Khatoco" />
             </Head>
-            <div className='main-body'>
+            <div className='main-body body-login'>
                 <div className={styles.mainLogin}>
                     <div className={styles.titleLogin}>
                         <h3 className='mb-2 text-2xl'>Xin kính chào Quý đại lý!</h3>
@@ -198,18 +198,6 @@ const Login = (props) => {
                                             type="submit"
                                             style={{ background: '#23432E', borderRadius: 8, padding: 15 }}
                                             className='w-full login-page--button' variant="contained"  ><span className=' text-base font-semibold'>ĐĂNG NHẬP</span>
-                                        </Button>
-                                        <Divider className='my-5' style={{ marginTop: '1.25rem !important', marginBottom: '1.25rem !important' }} />
-                                        <Button className={styles.butonZalo} onClick={e => clickHandleZalo()}>
-                                            <span className="mr-2" style={{ height: 34 }}>
-                                                <Image
-                                                    alt="Zalo Login"
-                                                    src="/images/zalo-icon.png"
-                                                    width={36}
-                                                    height={34}
-                                                />
-                                            </span>
-                                            Đăng nhập bằng Zalo
                                         </Button>
                                     </div>
                                 </Form>

@@ -49,7 +49,7 @@ import { productService } from '../../../services/product.service';
 
 
 const loadImg = ({ src , width }) => {
-  return `https://ktcshop.top/${src}?w=${width}}`
+  return `http://202.92.6.221:3000/${src}?w=${width}}`
 }
 
 

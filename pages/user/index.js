@@ -32,7 +32,7 @@ const Root = styled('div')(({ theme }) => ({
 
 
 const loadImg = ({ src }) => {
-  return `https://ktcshop.top${src}`
+  return `http://202.92.6.221:3000${src}`
 }
 
 function showToast(pos, message) {
@@ -100,6 +100,7 @@ const User = (props) => {
     if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Quý Đại lý chưa đủ điểm")
     showToast('top-center', "Đổi điểm thành công")
   }
+  
 
   return (<>
     <Head>
@@ -122,9 +123,8 @@ const User = (props) => {
             <p><span>Tên đại lý:</span> <i>{init.name}</i></p>
             <p><span>Mã ID đại lý:</span> <i>{init.id_khataco}</i></p>
             <p><span>Số điện thoại:</span> <i>{init.phone}</i></p>
-
-
             <p><span>Địa chỉ giao hàng:</span> <i>{init.address}</i></p>
+            <p><span>Điểm tích lũy:</span> <i>{init.score ? init.score.toLocaleString() : 0} điểm</i></p>
           </div>
         </div>
         <div className='text-center m-4'>
@@ -158,13 +158,13 @@ const User = (props) => {
           }}
         >
           <div className='user-promotion' style={{ height: '100% !important' }}>
-            <div className="coupon-form--title">Tích điểm đổi quà <CloseIcon onClick={toggleDrawer(false)} /></div>
+            <div className="coupon-form--title">Tích điểm <CloseIcon onClick={toggleDrawer(false)} /></div>
             <div className="coupon-form--content body-f2f2f2">
               <div className='main-user text-center'  >
                 <div>
-                  <h5><i>Kính chào</i>{init.name}</h5>
+                  <h5><i>Kính chào </i>{init.name}</h5>
                   <p>Điểm tích lũy:</p>
-                  <p><h2>{init.score ? init.score : 0}</h2> điểm</p>
+                  <p><strong>{init.score ? init.score.toLocaleString() : 0}</strong> điểm</p>
                 </div>
               </div>
               <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4 w-full'>
@@ -181,7 +181,7 @@ const User = (props) => {
                           quality={100}
                         />
                       </span>
-                      <h3>{d.score} điểm</h3>
+                      <h3>{d.score.toLocaleString()} điểm</h3>
                       <p>{d.name}</p>
                       <Button onClick={e => checkChagePoin(d)} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Đổi điểm</Button>
                     </div>
