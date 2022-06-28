@@ -89,7 +89,7 @@ const EditUser = (userChoose) => {
                 maxWidth="sm"
             >
                 <DialogContent className='text-center'>
-                    <div className="header-title-popup p-4 font-bold">Sửa thông tin thành viên</div>
+                    <div className="header-title-popup p-4 font-bold">Thêm thông tin đặt hàng</div>
                     <div className='form-editUser'>
                         {valueEditUser && <>
                             <Grid container spacing={2}>
@@ -129,7 +129,6 @@ const EditUser = (userChoose) => {
                                         renderInput={(params) => (
                                             <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
                                         )}
-                                    // sx={{ width: '500px' }}
                                     />
 
                                 </Grid>
@@ -156,7 +155,6 @@ const EditUser = (userChoose) => {
                                         renderInput={(params) => (
                                             <TextField fullWidth {...params} label="Quận huyện" placeholder="Chọn khu vực" />
                                         )}
-                                    // sx={{ width: '500px' }}
                                     />
 
                                 </Grid>
@@ -176,9 +174,11 @@ const EditUser = (userChoose) => {
                                         renderInput={(params) => (
                                             <TextField fullWidth {...params} label="Khu vực" placeholder="Chọn khu vực" />
                                         )}
-                                    // sx={{ width: '500px' }}
                                     />
 
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Mô tả" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, description: e.target.value })} value={valueEditUser.description} />
@@ -187,7 +187,9 @@ const EditUser = (userChoose) => {
                         </>}
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                        <Button className='mr-2' onClick={(e) => handleEditUser()} variant="contained" style={{ background: "#EE0232" }}>Lưu thay đổi</Button>
+                        <div className='mr-2'>
+                            <Button onClick={(e) => handleEditUser()} variant="contained" style={{ background: "#EE0232" }}>Lưu thay đổi</Button>
+                        </div> 
                         <Button onClick={handleCloseEditUser} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>

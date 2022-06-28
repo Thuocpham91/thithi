@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { userService } from '../../../services/user.service';
 
 import AdminLayout from "../../../layouts/Admin";
-import AddUser from "../../../components/uerAdmin/AddUser";
-import DeleteUser from "../../../components/uerAdmin/DeleteUser";
-import ChangePass from "../../../components/uerAdmin/ChangePass";
-import EditUser from "../../../components/uerAdmin/EditUser";
-import ImportPoint from "../../../components/uerAdmin/ImportPoint";
+
 
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
@@ -111,7 +107,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-const User = () => {
+const membersExchangePoints = () => {
   const [rowUser, setRowUser] = useState([]);
 
  
@@ -155,50 +151,12 @@ const User = () => {
   };
 
 
-// changePass
-  const {renderChangePass, setOpenChangePass} = ChangePass(userChoose);
-
-  const handleClickOpenChangePass = () => {
-    handleCloseMenu();
-    setOpenChangePass(true);
-  };
-
-
-
-  // deleteUser
-  const {renderDeleteUser, setOpenDeleteUser} = DeleteUser(userChoose);
-
-  const handleOpenDelte = () =>{
-    setOpenDeleteUser(true);
-    handleCloseMenu();
-  }
-
-
-  // addUser
-  const {renderAddUser, setOpenAddUser} = AddUser();
-  
-  // editUser
-
-  const {renderEditUser, setOpenEditUser} = EditUser(userChoose);
-
-  const handleOpenEditUser = () =>{
-    setOpenEditUser(true);
-    handleCloseMenu();
-  }
-
-   // ImportPoint
-   const {renderImport, setOpenImport} = ImportPoint();
-   console.log('rowUser',rowUser.length)
 
 
   return (<>
     <div className='body-user bg-white rounded-lg'>
       <div className='header-user flex justify-between px-4 py-5 items-center'>
-        <h3>Quản lý thành viên</h3>
-        <div>
-          <Button onClick={e=> setOpenImport(true)} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}} className="mr-4" startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
-          <Button className='mr-2' onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button>
-        </div> 
+        <h3>Quản lý thành viên đổi điểm</h3>
       </div> 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
@@ -291,48 +249,32 @@ const User = () => {
         'aria-labelledby': 'basic-button',
       }}
     >
-      <MenuItem onClick={handleClickOpenChangePass}>
+      <MenuItem >
         <ListItemIcon>
             <ManageAccountsIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Đổi mật khẩu</ListItemText>
       </MenuItem>
-      <MenuItem onClick={handleOpenEditUser}>
+      <MenuItem >
         <ListItemIcon>
             <EditIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Thay đổi thông tin</ListItemText>
       </MenuItem>
       
-      <MenuItem onClick={handleOpenDelte}>
+      <MenuItem >
         <ListItemIcon>
             <DeleteIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Xóa</ListItemText>
       </MenuItem>
     </Menu>
-
-    {/* change password */}
-    {renderChangePass}
-
-    {/* delete user */}
-    {renderDeleteUser}
-
-    {/* add user */}
-    {renderAddUser}
-
-    {/* Edit User */}
-    {renderEditUser}
-
-    {/* import point */}
-    {renderImport}
-
   </>)
 }
 
-export default User
+export default membersExchangePoints
 
-User.getLayout = function getLayout(page) {
+membersExchangePoints.getLayout = function getLayout(page) {
     return <AdminLayout>{page}</AdminLayout>;
   };
   

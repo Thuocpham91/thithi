@@ -229,7 +229,7 @@ const callback=()=>{
                   {row.name}
                 </TableCell>
                 <TableCell >
-                  {row.score}
+                  {row.score.toLocaleString()}
                 </TableCell>
                 <TableCell  >
                   {row.url && <>
