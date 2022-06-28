@@ -18,6 +18,7 @@ const SideBarAdmin = () => {
       {name:"Thông báo",link:'/admin/notification',icon:<NotificationsActiveIcon />},
       {name:"Khuyến mại",link:'/admin/promotion',icon:<CardGiftcardIcon />},
       {name:"Đổi điểm",link:'/admin/exchangePoints',icon:<ControlPointDuplicateIcon />},
+      {name:"Thành viên đổi điểm",link:'/admin/membersExchangePoints',icon:<ControlPointDuplicateIcon />},
   ]
 
   const handleActive = (link) =>{

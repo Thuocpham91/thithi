@@ -52,9 +52,8 @@ export default function HeaderAdmin() {
       });
       router.push('/');
     }
-
   }, [])
-
+  
 
 
   return (<div className='header-admin flex justify-end'>
@@ -68,9 +67,9 @@ export default function HeaderAdmin() {
           aria-controls={open ? 'account-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
-        >
-          {init.account}{"  "}
-          <Avatar sx={{ width: 32, height: 32 }}>P</Avatar>
+        >{init.name &&<>
+          <Avatar sx={{ width: 32, height: 32 }}> {init.name.substring(0, 1)}</Avatar>
+        </>}
 
         </IconButton>
       </Tooltip>
@@ -111,7 +110,7 @@ export default function HeaderAdmin() {
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
       <MenuItem>
-        <Avatar />{init.account}
+        <Avatar /> {init.account}
       </MenuItem>
       <Divider />
 

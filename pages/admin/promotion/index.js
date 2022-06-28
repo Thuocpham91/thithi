@@ -187,13 +187,13 @@ const Promotion = () => {
                                     {row.product}
                                 </TableCell>
                                 <TableCell className='text-right'>
-                                    {row.numberOfUses}
+                                    {row.numberOfUses.toLocaleString()}
                                 </TableCell>
                                 <TableCell className='text-right'>
-                                    {row.quantityPurchased}
+                                    {row.quantityPurchased.toLocaleString()}
                                 </TableCell>
                                 <TableCell className='text-right'>
-                                    {row.promotionalQuantity}
+                                    {row.promotionalQuantity.toLocaleString()}
                                 </TableCell>
                                 <TableCell style={{ width: 200 }}>
                                     <div className='area-list'>

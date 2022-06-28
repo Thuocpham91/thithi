@@ -163,6 +163,10 @@ const EditUser = (userChoose) => {
                                 // sx={{ width: '500px' }}
                                 />
 
+
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
                             </Grid>
                                 <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Mô tả" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, description: e.target.value })} value={valueEditUser.description} />

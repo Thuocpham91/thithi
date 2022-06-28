@@ -158,7 +158,7 @@ const User = (props) => {
           }}
         >
           <div className='user-promotion' style={{ height: '100% !important' }}>
-            <div className="coupon-form--title">Tích điểm <CloseIcon onClick={toggleDrawer(false)} /></div>
+            <div className="coupon-form--title"><CloseIcon onClick={toggleDrawer(false)} /> Tích điểm </div>
             <div className="coupon-form--content body-f2f2f2">
               <div className='main-user text-center'  >
                 <div>
