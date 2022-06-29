@@ -23,16 +23,18 @@ const EditUser = (userChoose) => {
     const [valueEditUser, setValueEditUser] = useState(null);
     const [city, setCIty] = useState([]);
 
+    const [listStore, setListStore] = useState([]);
 
     const [listdisStrict, setListDisStrict] = useState([]);
     const [listWards, setLisWards] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
-            let data = await userService.getCitiDistrict({key:"city"});
+            let data = await userService.getCitiDistrict({ key: "city" });
             if (data.status != 200) return;
 
             setCIty(data.city);
+            setListStore(data.store.stores)
             // setDisStrict(data.district)
 
         }
@@ -46,14 +48,17 @@ const EditUser = (userChoose) => {
     };
 
 
-    const handleEditUser = async() => {
-        const data=await userService.updateUser(valueEditUser);
-        if(data.status==200)  {
+    const handleEditUser = async () => {
+
+        if(valueEditUser.name=="")return  toast.error("chưa nhập họ và tên");
+        if(valueEditUser.password=="")return  toast.error("chưa nhập  mật khẩu");
+        const data = await userService.updateUser(valueEditUser);
+        if (data.status == 200) {
             toast.success("Sửa thành công");
             setOpenEditUser(false);
-         }else {
+        } else {
             toast.error("Sửa thất bại!");
-         }
+        }
     };
 
     useEffect(() => {
@@ -80,16 +85,16 @@ const EditUser = (userChoose) => {
                                     <TextField className='mb-1' fullWidth label="Họ và tên" variant="outlined"
                                         onChange={(e) => setValueEditUser({ ...valueEditUser, name: e.target.value })}
                                         value={valueEditUser.name}
-                                        />
+                                    />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, phone: e.target.value })} disabled defaultValue={valueEditUser.phone} />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, idUser: e.target.value })}  defaultValue={valueEditUser.id_khataco} />
+                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, idUser: e.target.value })} defaultValue={valueEditUser.id_khataco} />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, score: e.target.value })} defaultValue ={valueEditUser.score} />
+                                    <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, score: e.target.value })} defaultValue={valueEditUser.score} />
                                 </Grid>
 
                                 <Grid item xs={6}>
@@ -99,11 +104,11 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        defaultValue={ userChoose?{name:userChoose.name_cityVT}:null}
-                                        onChange={async(item, value) => {
-                                            if (!value)return;
-                                            setValueEditUser({ ...valueEditUser, city: value.name,city_code:value.id,id_cityVT:value.id,code_cityVT:value.vtp_id,name_cityVT:value.name });
-                                            let data = await userService.getCitiDistrict( {key:"district",id:value.id});
+                                        defaultValue={userChoose ? { name: userChoose.name_cityVT } : null}
+                                        onChange={async (item, value) => {
+                                            if (!value) return;
+                                            setValueEditUser({ ...valueEditUser, city: value.name, city_code: value.id, id_cityVT: value.id, code_cityVT: value.vtp_id, name_cityVT: value.name });
+                                            let data = await userService.getCitiDistrict({ key: "district", id: value.id });
                                             if (data.status != 200) return;
                                             // const ds = disStrict.filter(item => { return value.matp == item.matp });
                                             setListDisStrict(data.city.districts);
@@ -124,12 +129,12 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        defaultValue={ userChoose?{name:userChoose.name_districtVT}:null}
-                                        onChange={async(item, value) => {
-                                          
-                                            if (!value)return;
-                                            setValueEditUser({ ...valueEditUser, district: value.name,district_code:value.id,id_districtVT:value.id,code_districtVT:value.vtp_id,name_districtVT:value.name });
-                                            let data = await userService.getCitiDistrict( {key:"wards",id:value.id});
+                                        defaultValue={userChoose ? { name: userChoose.name_districtVT } : null}
+                                        onChange={async (item, value) => {
+
+                                            if (!value) return;
+                                            setValueEditUser({ ...valueEditUser, district: value.name, district_code: value.id, id_districtVT: value.id, code_districtVT: value.vtp_id, name_districtVT: value.name });
+                                            let data = await userService.getCitiDistrict({ key: "wards", id: value.id });
                                             if (data.status != 200) return;
                                             // const ds = disStrict.filter(item => { return value.matp == item.matp });
                                             setLisWards(data.city.wards);
@@ -145,27 +150,48 @@ const EditUser = (userChoose) => {
 
                                 </Grid>
                                 <Grid item xs={6}>
-                                <Autocomplete
-                                    fullWidth
-                                    limitTags={2}
-                                    defaultValue={ userChoose?{name:userChoose.name_wardsVT}:null}
-                                    id="multiple-limit-tags"
-                                    onChange={async(item, value) => {
-                                        if (!value)return;
-                                        setValueEditUser({ ...valueEditUser, id_wardsVT:value.id,code_wardsVT:value.vtp_id,name_wardsVT:value.name });
-                                      
-                                    }}
-                                    options={listWards}
-                                    getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => (
-                                        <TextField fullWidth {...params} label="Khu vực" placeholder="Chọn khu vực" />
-                                    )}
-                                // sx={{ width: '500px' }}
-                                />
+                                    <Autocomplete
+                                        fullWidth
+                                        limitTags={2}
+                                        defaultValue={userChoose ? { name: userChoose.name_wardsVT } : null}
+                                        id="multiple-limit-tags"
+                                        onChange={async (item, value) => {
+                                            if (!value) return;
+                                            setValueEditUser({ ...valueEditUser, id_wardsVT: value.id, code_wardsVT: value.vtp_id, name_wardsVT: value.name });
+
+                                        }}
+                                        options={listWards}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => (
+                                            <TextField fullWidth {...params} label="Khu vực" placeholder="Chọn khu vực" />
+                                        )}
+                                    // sx={{ width: '500px' }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={6}>
+
+                                    <Autocomplete
+                                        fullWidth
+                                        limitTags={2}
+                                        defaultValue={userChoose.name_store ? { name: userChoose.name_store } : null}
+                                        id="multiple-limit-tags"
+                                        onChange={async (item, value) => {
+                                            if (!value) return;
+                                            setValueEditUser({ ...valueAddUser, id_store: value.id, code_: value.code, name_store: value.name });
+
+                                        }}
+                                        options={listStore}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => (
+                                            <TextField fullWidth {...params} label="Chọn kho hàng" placeholder="Kho hàng" />
+                                        )}
+                                    // sx={{ width: '500px' }}
+                                    />
 
 
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -185,6 +211,6 @@ const EditUser = (userChoose) => {
         </>
         )
     }
-}   
+}
 
 export default EditUser

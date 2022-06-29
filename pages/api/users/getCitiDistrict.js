@@ -24,27 +24,32 @@ function handler(req, res) {
             let data = [];
             const { key, id } = req.body;
             // console.log(req.query);
+            const loginVT = await apiViettel.logInViettel();
+            const rp2 = await apiViettel.getTokenchanel(loginVT.access_token);
+
 
             if (key == "city") {
-                const loginVT = await apiViettel.logInViettel();
                 const cityVT = await apiViettel.getCity(loginVT.access_token);
-
                 data = cityVT.cities;
-
             } else if (key == "district") {
-                const loginVT = await apiViettel.logInViettel();
                 const cityVT = await apiViettel.getDistrict(loginVT.access_token, id);
-
                 data = cityVT;
             } else if (key == "wards") {
-                const loginVT = await apiViettel.logInViettel();
                 const cityVT = await apiViettel.getWards(loginVT.access_token, id);
                 data = cityVT;
-
             }
+
+            const store = await apiViettel.getStore(rp2.access_token);
+
+
+
+
+
             return res.status(200).json({
                 status: 200,
                 city: data,
+                store
+
                 // district,
             });
 

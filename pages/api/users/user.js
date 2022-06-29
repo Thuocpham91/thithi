@@ -51,11 +51,11 @@ function handler(req, res) {
 
           const {name,password,idUser,desc,phoneNumber,city,city_code,district,district_code,address}=req.body;
 
-          const {id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT}=req.body;
+          const {id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT,id_store,name_store}=req.body;
 
           const hash = bcrypt.hashSync(password, 10);
 
-          const djj= await User.insert_User(phoneNumber,hash,0,idUser,"","",0,2,phoneNumber,desc,city_code,district_code,name,address,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT);
+          const djj= await User.insert_User(phoneNumber,hash,0,idUser,"","",0,2,phoneNumber,desc,city_code,district_code,name,address,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT,id_store,name_store);
 
             return res.status(200).json({
                 status: 200,

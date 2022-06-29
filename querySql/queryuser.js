@@ -21,12 +21,12 @@ export const User = {
 
 async function insert_User(account,password,status,id_khataco,token,token_refresh,score
     ,id_role,phone,description,city_id,district_id,name,address
-    ,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT) {
+    ,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT,id_store,name_store) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO user(account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name,address,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-            values: [account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name,address,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT],
+            query: 'INSERT INTO user(account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name,address,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT,id_store,name_store) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            values: [account,password,status,id_khataco,token,token_refresh,score,id_role,phone,description,city_id,district_id,name,address,id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT,id_store,name_store],
         });
         return result;
     } catch (error) {
@@ -38,11 +38,10 @@ async function insert_User(account,password,status,id_khataco,token,token_refres
 
 
 async function update(user) {
-    console.log(user)
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  user SET token=?,token_refresh=?,account=?,status= ? ,id_khataco= ?,score= ?,id_role= ?,phone= ? ,description= ? ,city_id= ? ,district_id= ?,name= ? ,id_cityVT=?,code_cityVT=?,name_cityVT=?,id_districtVT=?,code_districtVT=?,name_districtVT=?,id_wardsVT=?,code_wardsVT=?,name_wardsVT=?   where id= ?',
-            values: [user.token,user.token_refresh,user.phone, user.status, user.id_khataco,user.score, user.id_role,  user.phone,user.description,user.city_id,user.district_id,user.name,user.id_cityVT,user.code_cityVT,user.name_cityVT,user.id_districtVT,user.code_districtVT,user.name_districtVT,user.id_wardsVT,user.code_wardsVT,user.name_wardsVT ,user.id ],
+            query: 'UPDATE  user SET token=?,token_refresh=?,account=?,status= ? ,id_khataco= ?,score= ?,id_role= ?,phone= ? ,description= ? ,city_id= ? ,district_id= ?,name= ? ,id_cityVT=?,code_cityVT=?,name_cityVT=?,id_districtVT=?,code_districtVT=?,name_districtVT=?,id_wardsVT=?,code_wardsVT=?,name_wardsVT=? ,id_store=?,name_store=?  where id= ?',
+            values: [user.token,user.token_refresh,user.phone, user.status, user.id_khataco,user.score, user.id_role,  user.phone,user.description,user.city_id,user.district_id,user.name,user.id_cityVT,user.code_cityVT,user.name_cityVT,user.id_districtVT,user.code_districtVT,user.name_districtVT,user.id_wardsVT,user.code_wardsVT,user.name_wardsVT ,user.id_store,user.name_store,user.id ],
         });
         return result;
     } catch (error) {

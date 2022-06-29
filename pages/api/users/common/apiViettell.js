@@ -10,6 +10,7 @@ export const apiViettel = {
     getCity,
     getDistrict,
     getWards,
+    getStore,
 
 
 };
@@ -103,13 +104,11 @@ async function getTokenchanel(token) {
 
 async function createOder(token, data) {
     try {
-        console.log(token)
         const url = "https://partner.viettelsale.com/product/v2.0/api/order/tmdt";
         var config = {
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
             responseType: 'json'
         };
-
         const rp = await axios.post(url, data, config);
         console.log("rp",rp)
         return rp.data.data ? rp.data : rp.data;
@@ -181,8 +180,6 @@ async function getDistrict(token,id_city) {
 
 
 async function getWards(token,id_dis) {
-
-
     try {
         const url = "https://partner.viettelsale.com/product/v2.0/api/location/district/"+id_dis+"/wards";
         var config = {
@@ -196,10 +193,30 @@ async function getWards(token,id_dis) {
         return [];
 
     }
-
-
-
 }
+
+
+
+async function getStore(token) {
+    try {
+        const url = "https://partner.viettelsale.com/product/v2.0/api/stores?page=1&limit=20";
+        var config = {
+            headers: { 'Content-Type': 'application/json', 'Authorization': token },
+            responseType: 'json'
+        };
+
+        const rp = await axios.get(url, config);
+        return rp.data.data ? rp.data.data : rp.data;
+    } catch (ero) {
+        return [];
+
+    }
+}
+
+
+
+
+
 
 
 

@@ -85,7 +85,7 @@ export default function FooterCart(props) {
 
     if (!dataUser) return setLoading(false);
 
-    if (dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null || dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT == "" || dataUser.data.id_wardsVT == "") {
+    if (dataUser.data.id_store == null||dataUser.data.id_store == ""||dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null || dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT == "" || dataUser.data.id_wardsVT == "") {
       setOpenEditUser(true);
       setLoading(false);
       return;
@@ -115,17 +115,17 @@ export default function FooterCart(props) {
       "products": dataBuy,
       "total": 0,
       "transport": {
-        "id": "47110",
+        "id": "49801",
         "title": "string",
         "delivery_time": "string",
         "payer_type": 1
       },
-      "transport_type": 1,
+      "transport_type": 2,
       "staff_note": codeapp.title ? codeapp.title : "",
       "total_weight": 1,
       "total_money_product": 20000,
       "total_ship": 32400,
-      "store_id": 142575,
+      "store_id": Number(dataUser.data.id_store),
       "payment_method": 1,
       "source": "TMĐT",
       "total_discount": 0,
@@ -145,7 +145,7 @@ export default function FooterCart(props) {
     const datarp = await productService.postOder(order);
     console.log(datarp)
     setLoading(false);
-    if (datarp.status != 200) return showToastEro('top-center', "gửi đợn thất thất bại!");
+    if (datarp.status != 200) return showToastEro('top-center', "Gửi đơn lỗi!");
     if (!datarp.data) return;
     if (datarp.data.status == 1) {
       // let me = "Gửi đơn  hàng thành công id: " + datarp.data.data.order_vtsale_id;

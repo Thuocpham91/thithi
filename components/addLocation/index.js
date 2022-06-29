@@ -31,6 +31,7 @@ const EditUser = (userChoose) => {
     const [listdisStrict, setListDisStrict] = useState([]);
     const [listWards, setLisWards] = useState([]);
 
+    const [listStore, setListStore] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -39,6 +40,7 @@ const EditUser = (userChoose) => {
 
             setCIty(data.city);
             // setDisStrict(data.district)
+            setListStore(data.store.stores)
 
         }
         fetchData();
@@ -58,9 +60,9 @@ const EditUser = (userChoose) => {
         if (data.status == 200) {
 
             let dataUser = JSON.parse(localStorage.getItem('user'));
-            dataUser.data=valueEditUser;
+            dataUser.data = valueEditUser;
 
-            localStorage.setItem('user',JSON.stringify(dataUser));
+            localStorage.setItem('user', JSON.stringify(dataUser));
             setLoading(false);
             toast.success("Sửa thành công");
             setOpenEditUser(false);
@@ -162,7 +164,7 @@ const EditUser = (userChoose) => {
                                     <Autocomplete
                                         fullWidth
                                         limitTags={2}
-                                        defaultValue={valueEditUser.name_wardsVT ? { name: valueEditUser.name_wardsVT } : null }
+                                        defaultValue={valueEditUser.name_wardsVT ? { name: valueEditUser.name_wardsVT } : null}
                                         id="multiple-limit-tags"
                                         onChange={async (item, value) => {
                                             if (!value) return;
@@ -178,6 +180,28 @@ const EditUser = (userChoose) => {
 
                                 </Grid>
                                 <Grid item xs={6}>
+
+                                    <Autocomplete
+                                        fullWidth
+                                        limitTags={2}
+                                        defaultValue={valueEditUser.name_store ? { name: valueEditUser.name_store } : null}
+                                        id="multiple-limit-tags"
+                                        onChange={async (item, value) => {
+                                            if (!value) return;
+                                            setValueEditUser({ ...valueEditUser, id_store: value.id, code_: value.code, name_store: value.name });
+
+                                        }}
+                                        options={listStore}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => (
+                                            <TextField fullWidth {...params} label="Chọn kho hàng" placeholder="Kho hàng" />
+                                        )}
+                                    // sx={{ width: '500px' }}
+                                    />
+
+
+                                </Grid>
+                                <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -189,20 +213,20 @@ const EditUser = (userChoose) => {
                     <div className='flex justify-center mt-8 mb-3'>
                         <div className='mr-4'>
                             <Button onClick={(e) => handleEditUser()} variant="contained" style={{ background: "#EE0232" }}>Lưu thay đổi</Button>
-                        </div> 
+                        </div>
                         <Button onClick={handleCloseEditUser} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>
             </Dialog>
 
 
-            
-                <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open={loading}
-                >
-                    <CircularProgress color="inherit" />
-                </Backdrop>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
         )
     }
