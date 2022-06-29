@@ -148,8 +148,9 @@ export default function FooterCart(props) {
     if (datarp.status != 200) return showToastEro('top-center', "gửi đợn thất thất bại!");
     if (!datarp.data) return;
     if (datarp.data.status == 1) {
-      let me = "Gửi đơn  hàng thành công id: " + datarp.data.data.order_vtsale_id;
-      showToast('top-center', me);
+      // let me = "Gửi đơn  hàng thành công id: " + datarp.data.data.order_vtsale_id;
+      // showToast('top-center', me);
+      props.openSuccessOrder(true);
 
       const datadefal = localStorage.getItem('listVariants');
       localStorage.setItem('listProduct', datadefal);
