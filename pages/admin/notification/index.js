@@ -139,8 +139,10 @@ const Notification = () => {
                     </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                    <Button className='mr-2' onClick={e=>handleNoti()} variant="contained" style={{background:"#EE0232"}}>Thêm mới</Button>
-                    <Button onClick={handleCloseNoti} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy bỏ</Button>
+                        <div className='mr-4'>
+                            <Button onClick={e=>handleNoti()} variant="contained" style={{background:"#EE0232"}}>Thêm mới</Button>
+                        </div>
+                        <Button onClick={handleCloseNoti} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>
             </Dialog>

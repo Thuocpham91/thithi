@@ -207,3 +207,14 @@ $key-color : #EE0232;
         font-size: 26px;
     }
 }
+@media screen and (max-width:767px) {
+    .main-admin--left{
+        .side-bar{
+            width: 300px;
+        }
+    }
+    .main-admin{
+        width: auto;
+        overflow: auto;
+    }
+}

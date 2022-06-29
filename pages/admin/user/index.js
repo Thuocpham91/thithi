@@ -195,9 +195,11 @@ const User = () => {
     <div className='body-user bg-white rounded-lg'>
       <div className='header-user flex justify-between px-4 py-5 items-center'>
         <h3>Quản lý thành viên</h3>
-        <div>
-          <Button onClick={e=> setOpenImport(true)} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}} className="mr-4" startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
-          <Button className='mr-2' onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button>
+        <div className='flex'>
+          <div className='mr-4'>
+            <Button onClick={e=> setOpenImport(true)} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}  startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
+          </div>
+          <Button onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button>
         </div> 
       </div> 
       <TableContainer component={Paper}>

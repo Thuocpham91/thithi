@@ -164,10 +164,10 @@ const EditUser = (userChoose) => {
                                 />
 
 
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
-                            </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
+                                </Grid>
                                 <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Mô tả" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, description: e.target.value })} value={valueEditUser.description} />
                                 </Grid>
@@ -175,7 +175,9 @@ const EditUser = (userChoose) => {
                         </>}
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                        <Button className='mr-2' onClick={(e) => handleEditUser()} variant="contained" style={{ background: "#EE0232" }}>Lưu thay đổi</Button>
+                        <div className='mr-4'>
+                            <Button className='mr-2' onClick={(e) => handleEditUser()} variant="contained" style={{ background: "#EE0232" }}>Lưu thay đổi</Button>
+                        </div>
                         <Button onClick={handleCloseEditUser} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>
@@ -183,6 +185,6 @@ const EditUser = (userChoose) => {
         </>
         )
     }
-}
+}   
 
 export default EditUser

@@ -63,8 +63,10 @@ const DeleteExchangePoints = (chooseItem) => {
                     <div className="mb-5">Bạn có chắc chắn muốn xoá chiến dịch <strong>{chooseItem.name}</strong> ?</div>
                     </>}
                     <div className='flex justify-center mt-8 mb-3'>
-                    <Button className='mr-2' onClick={e=>handleClickExchangePoints()} variant="contained" style={{background:"#EE0232"}}>Đồng ý</Button>
-                    <Button onClick={handleClickCloseDeleteExchangePoints} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
+                        <div className='mr-4'>
+                            <Button onClick={e=>handleClickExchangePoints()} variant="contained" style={{background:"#EE0232"}}>Đồng ý</Button>
+                        </div>
+                        <Button onClick={handleClickCloseDeleteExchangePoints} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
                     </div>
                 </DialogContent>
                 </Dialog>

@@ -142,8 +142,10 @@ const ChangePass = (value) => {
                 </FormControl>
                 
                 </DialogContent>
-                <DialogActions className='mb-3'>
-                <Button onClick={(e)=>handleChangePass()} variant="contained" style={{background:"#EE0232"}}>Thay đổi</Button>
+                <DialogActions className='flex justify-center mb-3'>
+                <div className='mr-4'>
+                  <Button onClick={(e)=>handleChangePass()} variant="contained" style={{background:"#EE0232"}}>Thay đổi</Button>
+                </div>
                 <Button onClick={handleCloseChangePass} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
                 </DialogActions>
             </Dialog>
