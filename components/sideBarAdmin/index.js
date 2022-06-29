@@ -8,6 +8,8 @@ import ImageAspectRatioIcon from '@mui/icons-material/ImageAspectRatio';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
 const SideBarAdmin = () => {
   const router = useRouter();
@@ -18,7 +20,8 @@ const SideBarAdmin = () => {
       {name:"Thông báo",link:'/admin/notification',icon:<NotificationsActiveIcon />},
       {name:"Khuyến mại",link:'/admin/promotion',icon:<CardGiftcardIcon />},
       {name:"Đổi điểm",link:'/admin/exchangePoints',icon:<ControlPointDuplicateIcon />},
-      {name:"Thành viên đổi điểm",link:'/admin/membersExchangePoints',icon:<ControlPointDuplicateIcon />},
+      {name:"Thành viên đổi điểm",link:'/admin/membersExchangePoints',icon:<InsertEmoticonIcon />},
+      {name:"Quay lại",link:'/',icon:<ArrowBackIcon />},
   ]
 
   const handleActive = (link) =>{

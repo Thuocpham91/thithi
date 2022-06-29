@@ -213,7 +213,9 @@ const EditExchangePoints = (chooseItem) => {
                         </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                        <Button className='mr-2' onClick={e => handleEditExchangePoints()} variant="contained" style={{ background: "#EE0232" }}>Sửa</Button>
+                        <div className='mr-4'>
+                            <Button onClick={e => handleEditExchangePoints()} variant="contained" style={{ background: "#EE0232" }}>Sửa</Button>
+                        </div>
                         <Button onClick={handleCloseEditExchangePoints} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>

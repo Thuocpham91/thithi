@@ -187,7 +187,7 @@ const EditUser = (userChoose) => {
                         </>}
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
-                        <div className='mr-2'>
+                        <div className='mr-4'>
                             <Button onClick={(e) => handleEditUser()} variant="contained" style={{ background: "#EE0232" }}>Lưu thay đổi</Button>
                         </div> 
                         <Button onClick={handleCloseEditUser} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
