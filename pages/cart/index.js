@@ -6,8 +6,8 @@ import Link from 'next/link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Head from 'next/head'
 import { compareAsc, format } from 'date-fns'
-
-
+import Button from '@mui/material/Button';
+import Router from 'next/router'
 
 const Cart = (props) => {
 
@@ -142,7 +142,12 @@ const Cart = (props) => {
     setListProduct(newArray);
   }
 
+  const [successOdder,setSuccessOrder] =  useState(false);
+  const endSuccessOdder = () => {
+    setSuccessOrder(false);
+    Router.push('/')
 
+  }
 
 
   return (<>
@@ -156,7 +161,7 @@ const Cart = (props) => {
       <meta property="og:site_name" content="Khatoco" />
     </Head>
     <div className='main-body body-f2f2f2'>
-      <div className='title-page'>
+      <div id="ctdh" className='title-page'>
         <Link href="/"><a><ArrowBackIcon /></a></Link>
         Chi tiết đơn hàng
       </div>
@@ -263,7 +268,21 @@ const Cart = (props) => {
         })
         }
       </div>
-      <FooterCart />
+      <div className={successOdder? 'success-form active' : 'success-form'}>
+        <div className='success-form--body text-center'>
+          <Image
+            unoptimized
+            src="/images/success-icon.svg"
+            width="60"
+            height="60"
+            objectFit='contain'
+            quality={100}
+          />
+          <h2 className='mt-1 mb-4'>Đặt hàng thành công</h2>
+          <Button onClick={endSuccessOdder} variant="outlined" style={{ color: "#23432E", border: "1px solid #23432E" }}>Đóng</Button>  
+        </div>
+      </div> 
+      <FooterCart openSuccessOrder={setSuccessOrder} />
     </div>
   </>)
 }
