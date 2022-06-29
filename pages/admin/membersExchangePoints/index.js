@@ -107,7 +107,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-const membersExchangePoints = () => {
+const MembersExchangePoints = () => {
   const [rowUser, setRowUser] = useState([]);
 
  
@@ -272,9 +272,9 @@ const membersExchangePoints = () => {
   </>)
 }
 
-export default membersExchangePoints
+export default MembersExchangePoints
 
-membersExchangePoints.getLayout = function getLayout(page) {
+MembersExchangePoints.getLayout = function getLayout(page) {
     return <AdminLayout>{page}</AdminLayout>;
   };
   
