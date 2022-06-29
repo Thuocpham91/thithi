@@ -206,11 +206,6 @@ export default function FooterCart(props) {
     fetchData();
   }, [count]);
 
-
-
-
-
-
   return (
 
     <Box className='w-full footer footer-cart'>

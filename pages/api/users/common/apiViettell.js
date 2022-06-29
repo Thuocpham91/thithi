@@ -103,6 +103,7 @@ async function getTokenchanel(token) {
 
 async function createOder(token, data) {
     try {
+        console.log(token)
         const url = "https://partner.viettelsale.com/product/v2.0/api/order/tmdt";
         var config = {
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
@@ -110,6 +111,7 @@ async function createOder(token, data) {
         };
 
         const rp = await axios.post(url, data, config);
+        console.log("rp",rp)
         return rp.data.data ? rp.data : rp.data;
     } catch (ero) {
         return null;
@@ -117,6 +119,24 @@ async function createOder(token, data) {
     }
 
 }
+
+// async function createOder(token, data) {
+//     try {
+//         const url = "https://partner.viettelsale.com/product/v2.0/api/order/tmdt";
+//         var config = {
+//             headers: { 'Content-Type': 'application/json', 'Authorization': token },
+//             responseType: 'json'
+//         };
+
+//         const rp = await axios.post(url, data, config);
+//         return rp.data.data ? rp.data : rp.data;
+//     } catch (ero) {
+//         return null;
+
+//     }
+
+// }
+
 
 
 async function getCity(token) {
