@@ -22,6 +22,10 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { productService } from '../../services/product.service';
 import toast from 'react-hot-toast';
 
+import Promotion from "../../components/user/Promotion";
+
+
+
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
   height: '100%',
@@ -82,8 +86,9 @@ const User = (props) => {
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
-  const checkChagePoin = (d) => {
 
+
+  const checkChangePoint = (d) => {
     const data = JSON.parse(localStorage.getItem('user'));
 
     const poin = data.data.score ? data.data.score : 0;
@@ -91,6 +96,15 @@ const User = (props) => {
     if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Quý Đại lý chưa đủ điểm")
     showToast('top-center', "Đổi điểm thành công")
   }
+
+const [dChoose, setDChoose] = useState({});
+  const {setOpenPromotion, renderPromotion} = Promotion( checkChangePoint={checkChangePoint}, dChoose={dChoose});
+
+  const handlePromotion = (d) =>{
+    setOpenPromotion(true);
+    setDChoose(d);
+  }
+
   
 
   return (<>
@@ -155,7 +169,7 @@ const User = (props) => {
                 <div>
                   <h5><i>Kính chào </i>{init.name}</h5>
                   <p>Điểm tích lũy:</p>
-                  <p><strong>{init.score ? init.score.toLocaleString() : 0}</strong> điểm</p>
+                  <p><strong>{init.score ? init.score.toLocaleString() : 0} </strong>&nbsp;điểm</p>
                 </div>
               </div>
               <div className='list-gift grid  grid-cols-2 md:grid-cols-3 gap-4 w-full'>
@@ -174,7 +188,8 @@ const User = (props) => {
                       </span>
                       <h3>{d.score.toLocaleString()} điểm</h3>
                       <p>{d.name}</p>
-                      <Button onClick={e => checkChagePoin(d)} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Đổi điểm</Button>
+                      {/* <Button onClick={e => checkChagePoin(d)} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Đổi điểm</Button> */}
+                      <Button onClick={e => handlePromotion(d)} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Đổi điểm</Button>
                     </div>
                   )
                 })}
@@ -184,8 +199,7 @@ const User = (props) => {
 
         </SwipeableDrawer>
       </div>
-
-
+      {renderPromotion}
     </Root>
   </>)
 }
