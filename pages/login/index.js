@@ -131,7 +131,6 @@ const Login = (props) => {
                                 console.log("check", check)
                                 setLoading(true);
                                 if (tickdk) {
-
                                     return userService.login(initValue)
                                         .then((response) => {
                                             console.log(response)
@@ -144,7 +143,6 @@ const Login = (props) => {
                                             } else {
                                                 showToastEro('bottom-right', "Quý Đại lý chưa đúng thông tin")
                                             }
-
                                         })
                                         .catch(error => {
                                             console.log(error);
@@ -152,12 +150,8 @@ const Login = (props) => {
 
                                             showToastEro('bottom-right', "Quý Đại lý chưa đúng thông tin")
                                         });
-
-
                                 } else {
-
                                     showToastEro('bottom-right', "Quý Đại lý chưa chấp nhận điều khoản")
-
                                 }
                                 setLoading(false)
 
@@ -165,7 +159,7 @@ const Login = (props) => {
                         >
                             {({ errors, touched }) => (
                                 <Form className='mt-10'>
-                                    <div className="mb-4">
+                                    <div className="mb-6">
                                         <label className="block text-black text-sm mb-2" htmlFor="username">
                                             Tài khoản
                                         </label>
@@ -178,7 +172,7 @@ const Login = (props) => {
                                             placeholder="Nhập số điện thoại" />
                                         {errors.email && touched.email ? <div>{errors.email}</div> : null}
                                     </div>
-                                    <div className="mb-4">
+                                    <div className="mb-6">
                                         <label className="block text-black text-sm mb-2" htmlFor="password">
                                             Mật khẩu
                                         </label>

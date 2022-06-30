@@ -1,68 +1,70 @@
-import React,{useState} from 'react'
-import Link from 'next/link'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Image from 'next/image'
+import React, {useState} from 'react'
+
+
 import Button from '@mui/material/Button';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 
 import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
-import Grid from '@mui/material/Grid';
-import DialogContent from '@mui/material/DialogContent';
+
+
+
+
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Promotion = () => {
-  const listGift = [
-    {id:1,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
-    {id:2,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
-    {id:3,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
-    {id:4,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
-    {id:5,name:'Nồi cơm điện Mutosi MR-16R',poit:200000,image:'/images/gift-1.png'},
-    {id:6,name:'Lò vi sóng Sharp R-G225VN-BK',poit:300000,image:'/images/gift-2.png'},
-  ]
+const Promotion = (checkChangePoint,dChoose) => {
 
+    const [openPromotion, setOpenPromotion] = useState(false);
 
-  const [openPromotion, setOpenPromotion] = useState(false);
+    const handleClickClosePromotion = () => {
+      setOpenPromotion(false);
+    };
 
-
-
-  const handleClosePromotion = () => {
-    setOpenPromotion(false);
-  };
-
-
-
-
-
+    const handlAgree = () => {
+      setOpenPromotion(false);
+      checkChangePoint.checkChangePoint(dChoose);
+    };
   
-  return {
-  setOpenPromotion,
-  renderPromotion:(<>
-          <Dialog
-          fullScreen
-          open={openPromotion}
-          onClose={handleClose}
-          TransitionComponent={Transition}
-        >
-         121212
-        </Dialog>
-      </>
-      )
-  }
+    console.log('111');
+
+    return {
+        setOpenPromotion,
+        renderPromotion:(<>
+            <Dialog
+                open={openPromotion}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClickClosePromotion}
+                fullWidth
+                maxWidth="sm"
+                >
+                <DialogContent className='text-center'>
+                    <div className="modal-delete--warning"><div className="modal-delete--warning__content">!</div></div>
+                    <div><h2 className="text-warning mb-2">Bạn có chắc chắn?</h2></div>
+                    <div className="mb-5">Bạn có chắc chắn muốn đổi điểm ?</div>
+                    <div className='flex justify-center mt-8 mb-3'>
+                        <div className='mr-4'>
+                            <Button onClick={handlAgree} variant="contained" style={{background:"#EE0232"}}>Đồng ý</Button>
+                        </div>
+                        <Button onClick={handleClickClosePromotion} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
+                    </div>
+                    
+                </DialogContent>
+
+                </Dialog>
+                
+        </>)
+    }
 }
 
 export default Promotion
