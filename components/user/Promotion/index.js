@@ -34,8 +34,6 @@ const Promotion = (checkChangePoint,dChoose) => {
       setOpenPromotion(false);
       checkChangePoint.checkChangePoint(dChoose);
     };
-  
-    console.log('111');
 
     return {
         setOpenPromotion,

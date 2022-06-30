@@ -115,7 +115,11 @@ const User = () => {
   const [rowUser, setRowUser] = useState([]);
 
   const count = useSelector((state) => state.counter);
-  console.log(count)
+  const fetchDataLoad = async () =>{
+    let data = await userService.getAll();
+    if (data.status != 200) return;
+    setRowUser(data.data);
+  } 
 
   useEffect(() => {
     async function fetchData() {
@@ -177,7 +181,7 @@ const User = () => {
 
 
   // addUser
-  const { renderAddUser, setOpenAddUser } = AddUser();
+  const { renderAddUser, setOpenAddUser } = AddUser(fetchDataLoad={fetchDataLoad});
 
   // editUser
 
