@@ -218,7 +218,7 @@ export default function FooterCart(props) {
             Mã áp dụng {": "} 
           </strong>
         </div>
-        <p className={'color-C5A153'}>  {codeapp ? codeapp.title : 'Chọn hoặc nhập mã'} <ChevronRightIcon /></p>
+        <p className={'color-C5A153'}>  {codeapp ? codeapp.code : 'Chọn hoặc nhập mã'} <ChevronRightIcon /></p>
       </div>
 
       {orderList ? <div className='mb-4'>
@@ -256,7 +256,7 @@ export default function FooterCart(props) {
           <div className={styles.rulesMain}>
             <div className="coupon-form--title">Mã áp dụng <CloseIcon onClick={e => setOpenRules(false)} /></div>
             <div className='coupon-form flex'>
-              <input type="text" value={codeapp.title} onChange={e => { settextSearch(e.target.value) }} placeholder='Nhập mã' />
+              <input type="text" value={codeapp.code} onChange={e => { settextSearch(e.target.value) }} placeholder='Nhập mã' />
               <Button onClick={e => toggleDrawer()} variant="contained">Áp dụng</Button>
             </div>
             <div className="coupon-form--content">
