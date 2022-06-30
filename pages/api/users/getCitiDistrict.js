@@ -6,6 +6,13 @@ import { apiHandler } from '../../../helpers/api';
 import { queryCenter } from '../../../querySql/queryCenter';
 
 
+import { City } from '../../../querySql/queryCity';
+import { Districts } from '../../../querySql/queryDistrict';
+import { Wards } from '../../../querySql/queryWards';
+
+import { Store } from '../../../querySql/queryStore';
+
+
 export default apiHandler(handler);
 
 function handler(req, res) {
@@ -29,21 +36,19 @@ function handler(req, res) {
 
 
             if (key == "city") {
-                const cityVT = await apiViettel.getCity(loginVT.access_token);
-                data = cityVT.cities;
+                const cityVT = await City.SelectAll();
+
+
+                data = cityVT;
             } else if (key == "district") {
-                const cityVT = await apiViettel.getDistrict(loginVT.access_token, id);
-                data = cityVT;
+                const cityVT = await Districts.finbyidcity(id);
+                data =  {districts:cityVT};
             } else if (key == "wards") {
-                const cityVT = await apiViettel.getWards(loginVT.access_token, id);
-                data = cityVT;
+                const cityVT = await Wards.finByidDistrict(id);
+                data =  {wards:cityVT};
             }
 
-            const store = await apiViettel.getStore(rp2.access_token);
-
-
-
-
+            const store = await Store.SelectAll();
 
             return res.status(200).json({
                 status: 200,

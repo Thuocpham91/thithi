@@ -12,7 +12,6 @@ export default apiHandler(handler);
 
 const createCatogory = async (item) => {
     const data = await Catogory.Select(item.code);
-
     if (data.length == 0) await Catogory.insert(item.name, item.code, item.status, "");
 
 }

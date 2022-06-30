@@ -37,7 +37,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
 
 import Slide from '@mui/material/Slide';
-
+import { useSelector, useDispatch } from 'react-redux'
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -114,7 +114,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const User = () => {
   const [rowUser, setRowUser] = useState([]);
 
- 
+  const count = useSelector((state) => state.counter);
+  console.log(count)
+
   useEffect(() => {
     async function fetchData() {
       let data = await userService.getAll();
@@ -155,8 +157,8 @@ const User = () => {
   };
 
 
-// changePass
-  const {renderChangePass, setOpenChangePass} = ChangePass(userChoose);
+  // changePass
+  const { renderChangePass, setOpenChangePass } = ChangePass(userChoose);
 
   const handleClickOpenChangePass = () => {
     handleCloseMenu();
@@ -166,29 +168,29 @@ const User = () => {
 
 
   // deleteUser
-  const {renderDeleteUser, setOpenDeleteUser} = DeleteUser(userChoose);
+  const { renderDeleteUser, setOpenDeleteUser } = DeleteUser(userChoose);
 
-  const handleOpenDelte = () =>{
+  const handleOpenDelte = () => {
     setOpenDeleteUser(true);
     handleCloseMenu();
   }
 
 
   // addUser
-  const {renderAddUser, setOpenAddUser} = AddUser();
-  
+  const { renderAddUser, setOpenAddUser } = AddUser();
+
   // editUser
 
-  const {renderEditUser, setOpenEditUser} = EditUser(userChoose);
+  const { renderEditUser, setOpenEditUser } = EditUser(userChoose);
 
-  const handleOpenEditUser = () =>{
+  const handleOpenEditUser = () => {
     setOpenEditUser(true);
     handleCloseMenu();
   }
 
-   // ImportPoint
-   const {renderImport, setOpenImport} = ImportPoint();
-   console.log('rowUser',rowUser.length)
+  // ImportPoint
+  const { renderImport, setOpenImport } = ImportPoint();
+  console.log('rowUser', rowUser.length)
 
 
   return (<>
@@ -197,11 +199,11 @@ const User = () => {
         <h3>Quản lý thành viên</h3>
         <div className='flex'>
           <div className='mr-4'>
-            <Button onClick={e=> setOpenImport(true)} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}  startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
+            <Button onClick={e => setOpenImport(true)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
           </div>
-          <Button onClick={e =>setOpenAddUser(true)} variant="contained" style={{background:"#EE0232"}} startIcon={<AddIcon />} >Thêm thành viên</Button>
-        </div> 
-      </div> 
+          <Button onClick={e => setOpenAddUser(true)} variant="contained" style={{ background: "#EE0232" }} startIcon={<AddIcon />} >Thêm thành viên</Button>
+        </div>
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
@@ -230,13 +232,13 @@ const User = () => {
                 <TableCell>
                   {row.name}
                 </TableCell>
-                <TableCell  align="right">
+                <TableCell align="right">
                   {row.account}
                 </TableCell>
-                <TableCell  align="right">
+                <TableCell align="right">
                   {row.score}
                 </TableCell>
-                <TableCell  align="right">
+                <TableCell align="right">
                   {row.description}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
@@ -244,15 +246,15 @@ const User = () => {
                     aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
                     aria-haspopup="true"
                     aria-expanded={openMenu ? 'true' : undefined}
-                    onClick={ e => handleOpenMenu(e, row)}
-                    style={{color:"#EE0232"}}
+                    onClick={e => handleOpenMenu(e, row)}
+                    style={{ color: "#EE0232" }}
                   >
                     <MoreHorizIcon />
                   </Button>
                 </TableCell>
-                
+
               </TableRow>
-             ))}
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -267,7 +269,7 @@ const User = () => {
                 count={rowUser.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                labelRowsPerPage = "Hàng trên bảng"
+                labelRowsPerPage="Hàng trên bảng"
                 SelectProps={{
                   inputProps: {
                     'aria-label': 'Hàng trên bảng',
@@ -282,7 +284,7 @@ const User = () => {
           </TableFooter>
         </Table>
       </TableContainer>
-    </div> 
+    </div>
 
     <Menu
       id="basic-menu"
@@ -295,20 +297,20 @@ const User = () => {
     >
       <MenuItem onClick={handleClickOpenChangePass}>
         <ListItemIcon>
-            <ManageAccountsIcon fontSize="small" />
+          <ManageAccountsIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Đổi mật khẩu</ListItemText>
       </MenuItem>
       <MenuItem onClick={handleOpenEditUser}>
         <ListItemIcon>
-            <EditIcon fontSize="small" />
+          <EditIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Thay đổi thông tin</ListItemText>
       </MenuItem>
-      
-      <MenuItem onClick={handleOpenDelte}>
+
+      <MenuItem onClick={e => handleOpenDelte()}>
         <ListItemIcon>
-            <DeleteIcon fontSize="small" />
+          <DeleteIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Xóa</ListItemText>
       </MenuItem>
@@ -335,6 +337,5 @@ const User = () => {
 export default User
 
 User.getLayout = function getLayout(page) {
-    return <AdminLayout>{page}</AdminLayout>;
-  };
-  
+  return <AdminLayout>{page}</AdminLayout>;
+};

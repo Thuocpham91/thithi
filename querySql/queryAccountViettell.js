@@ -4,7 +4,7 @@ export async function insert_Acountvietteel(account, token, pass, access_token_e
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO account_viettel(account,token,passs,access_token_expired_at) VALUES(?,?,?,?)',
+            query: 'INSERT INTO account_viettel(account,token,password,access_token_expired_at) VALUES(?,?,?,?)',
             values: [account, token, pass, access_token_expired_at],
         });
     } catch (error) {

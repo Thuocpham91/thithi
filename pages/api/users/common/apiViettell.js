@@ -15,10 +15,7 @@ export const apiViettel = {
 
 };
 
-
-
-async function logInViettel() {
-
+async function getlogInViettel() {
     try {
         const url = "https://partner.viettelsale.com/viettelsale/login";
         var config = {
@@ -30,22 +27,41 @@ async function logInViettel() {
             "Password": process.env.PASSWORD_VIETTEL,
         }
         const rp = await axios.post(url, data, config);
-
-        const dt = await select_Acountvietteel(1);
-        if (dt.length == 0) {
-            insert_Acountvietteel("0982288550", rp.data.data.access_token, "no pass", rp.data.data.access_token_expired_at);
-        } else {
-            update_Acountvietteel(rp.data.data.access_token, rp.data.data.access_token_expired_at);
-        }
         return rp.data.data ? rp.data.data : rp.data;
-
-
     } catch (orro) {
-        console.log(orro)
         return null
 
     }
 
+
+
+}
+
+async function logInViettel() {
+
+    try {
+        const dt = await select_Acountvietteel(1);
+
+        if (dt.length == 0) {
+            const data = await getlogInViettel();
+            insert_Acountvietteel("0982288550", data.access_token, "no pass", data.access_token_expired_at);
+            return data;
+        } else {
+            const date = new Date();
+            if (date.getTime() > parseFloat(dt[0].access_token_expired_at)) {
+                const data = await getlogInViettel();
+                insert_Acountvietteel("0982288550", data.access_token, "no pass", data.access_token_expired_at);
+                return data;
+            } else {
+                const rt = { access_token: dt[0].token };
+                return rt;
+
+            }
+        }
+    } catch (orro) {
+        console.log(orro)
+        return null
+    }
 
 }
 
@@ -110,7 +126,7 @@ async function createOder(token, data) {
             responseType: 'json'
         };
         const rp = await axios.post(url, data, config);
-        console.log("rp",rp)
+        console.log("rp", rp)
         return rp.data.data ? rp.data : rp.data;
     } catch (ero) {
         return null;
@@ -139,10 +155,29 @@ async function createOder(token, data) {
 
 
 async function getCity(token) {
+    try {
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city";
+        var config = {
+            headers: { 'Content-Type': 'application/json', 'Authorization': token },
+            responseType: 'json'
+        };
 
+        const rp = await axios.get(url, config);
+        return rp.data.data ? rp.data.data : rp.data;
+        
+    } catch (ero) {
+        return [];
+
+    }
+
+
+}
+
+
+async function getDistrict(token, id_city) {
 
     try {
-        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city"; 
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city/" + id_city + "/districts";
         var config = {
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
             responseType: 'json'
@@ -159,29 +194,9 @@ async function getCity(token) {
 }
 
 
-async function getDistrict(token,id_city) {
-
+async function getWards(token, id_dis) {
     try {
-        const url = "https://partner.viettelsale.com/product/v2.0/api/location/city/"+id_city+"/districts";
-        var config = {
-            headers: { 'Content-Type': 'application/json', 'Authorization': token },
-            responseType: 'json'
-        };
-
-        const rp = await axios.get(url, config);
-        return rp.data.data ? rp.data.data : rp.data;
-    } catch (ero) {
-        return [];
-
-    }
-
-
-}
-
-
-async function getWards(token,id_dis) {
-    try {
-        const url = "https://partner.viettelsale.com/product/v2.0/api/location/district/"+id_dis+"/wards";
+        const url = "https://partner.viettelsale.com/product/v2.0/api/location/district/" + id_dis + "/wards";
         var config = {
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
             responseType: 'json'
@@ -261,7 +276,7 @@ async function sentOder(data) {
         //     }
         // };
 
-        const oder = await createOder(rp2.access_token,data);
+        const oder = await createOder(rp2.access_token, data);
         console.log(oder)
         return oder;
     } catch (ero) {

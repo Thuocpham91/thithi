@@ -176,6 +176,7 @@ const AddUser = () => {
                                         if (!value) return;
                                         setValueAddUser({ ...valueAddUser, city: value.name, city_code: value.id, id_cityVT: value.id, code_cityVT: value.vtp_id, name_cityVT: value.name });
                                         let data = await userService.getCitiDistrict({ key: "district", id: value.id });
+                                        console.log(data)
                                         if (data.status != 200) return;
                                         // const ds = disStrict.filter(item => { return value.matp == item.matp });
                                         setListDisStrict(data.city.districts);

@@ -65,20 +65,13 @@ const User = (props) => {
   }, [])
 
   useEffect(() => {
-
     async function fetchData() {
       let data = await productService.getGift();
       if (data.status != 200) return;
-      setListGif(data.data)
-
+      setListGif(data.data);
     }
     fetchData();
-
-
   }, [])
-
-
-
 
   const { window } = props;
   const [openRules, setOpenRules] = useState(false);
@@ -89,8 +82,6 @@ const User = (props) => {
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
-
-
   const checkChagePoin = (d) => {
 
     const data = JSON.parse(localStorage.getItem('user'));

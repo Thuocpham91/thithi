@@ -26,6 +26,7 @@ export const userService = {
     getCountNotification,
     checkLoginZalo,
     updateUserCustom,
+    deleteUser,
 };
 
 function login(form) {
@@ -113,3 +114,7 @@ function  updateUserCustom(data){
     return fetchWrapper.post(`${baseUrl}/updateUserCustom`,data);
 }
 
+
+function  deleteUser(data){
+    return fetchWrapper.post(`${baseUrl}/deleteALL`,data);
+}

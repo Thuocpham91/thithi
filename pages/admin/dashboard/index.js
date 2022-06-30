@@ -7,6 +7,7 @@ import * as XLSX from "xlsx";
 
 import { productService } from '../../../services/product.service';
 
+import Button from '@mui/material/Button';
 
 import {
   Chart as ChartJS,
@@ -37,13 +38,6 @@ export default function Dashboard() {
     user: 150,
     order: 30,
   });
-
-
-
-
-
-
-
 
   const [labels, setlabels] = useState(["06-06-2022", "07-06-2022", "08-06-2022", "09-06-2022", "10-06-2022", "11-06-2022", "12-06-2022"]);
   const [dataChart, setdataChart] = useState([12, 19, 3, 5, 2, 3]);
@@ -82,6 +76,19 @@ export default function Dashboard() {
     reader.readAsBinaryString(file);
   }
 
+
+  const checkChagePoin =async (e) => {
+    const data=await productService.updateDataVT({key:"city",id:281});
+    console.log(data);
+
+
+
+    
+  }
+
+
+
+
   return (<>
 
     <div className='home-top mb-10 grid grid-cols-2 gap-8'>
@@ -106,7 +113,11 @@ export default function Dashboard() {
         <div className='home-chart--main'><Bar options={options} data={data} /></div>
       </div>
     </div>
-    <input type="file" onChange={onChange} />
+    {/* <input type="file" onChange={onChange} /> */}
+
+
+    <Button onClick={e => checkChagePoin()} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Update Dữ liệu VietTel</Button>
+
 
 
   </>)
