@@ -23,7 +23,7 @@ import toast from "react-hot-toast";
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-const AddUser = () => {
+const AddUser = (props) => {
     const [openAddUser, setOpenAddUser] = useState(false);
     const [valueAddUser, setValueAddUser] = React.useState({
         name: '',
@@ -92,6 +92,7 @@ const AddUser = () => {
         if (datah.status == 200) {
             toast.success("Thêm thành viên thành công");
             setOpenAddUser(false);
+            props.fetchData();
         } else {
             toast.error("Có lỗi ở đây!");
         }
