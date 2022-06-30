@@ -59,6 +59,8 @@ const Cart = (props) => {
 
   const plusNumber = (data, type) => {
     const newArray = plusFunc(listProduct, data, type);
+    
+
     setListProduct(newArray);
     updateArray(newArray);
   }
@@ -100,7 +102,7 @@ const Cart = (props) => {
     const newArray = [];
     array.map(function (item, idx) {
       let it = item;
-      if (item.id === data.id) {
+      if (item.product_id === data.product_id) {
         if (type == "package") {
           let count = item.numberPackage || 0;
           count = Number(count) + 1;

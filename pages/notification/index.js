@@ -38,6 +38,7 @@ const Notification = () => {
           return (
             < div key={idx} className='noti-item' >
               <div className='text-right noti-item__header'>
+                <span> {item.status==0?"Chưa xem":"Đã xem"}  </span>
                 {format(parseISO(item.created_at), 'dd-MM-yyyy')}
                 </div>
               <div className='noti-item__body'>

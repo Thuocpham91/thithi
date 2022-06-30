@@ -2,19 +2,19 @@ import excuteQuery from '../config/db';
 
 
 
-export const Wards = {
+export const UserChangeGift = {
     insert,
     SelectAll,
     Delete,
-    finByidDistrict,
+    finByidUser,
 };
 
-async function insert(city_id, district_id, fullname, id, name, vtp_id) {
+async function insert(id_user, id_gift, status) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO wards(city_id,district_id,fullname,id,name,vtp_id) VALUES(?,?,?,?,?,?)',
-            values: [city_id, district_id, fullname, id, name, vtp_id],
+            query: 'INSERT INTO userr_change_gift(id_user, id_gift, status) VALUES(?,?,?)',
+            values: [id_user, id_gift, status],
         });
         return result;
     } catch (error) {
@@ -27,7 +27,7 @@ async function insert(city_id, district_id, fullname, id, name, vtp_id) {
 async function SelectAll() {
     try {
         const result = await excuteQuery({
-            query: 'select * from wards',
+            query: 'select * from userr_change_gift',
             values: [code],
         });
         return result;
@@ -37,10 +37,10 @@ async function SelectAll() {
 
 }
 
-async function finByidDistrict(id) {
+async function finByidUser(id) {
     try {
         const result = await excuteQuery({
-            query: 'select * from wards where district_id=?',
+            query: 'select * from userr_change_gift where id_user=?',
             values: [id],
         });
         return result;

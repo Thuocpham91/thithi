@@ -28,14 +28,14 @@ function handler(req, res) {
             const { newPassword, reNewPassword, id } = req.body;
 
             const user = await checlogin.checkLogin(req, res);
-            const checkl = user.role.find(item => { return item.key_role == "admin" });
+            const checkl = user.id_role==1?true:false;
             if (!checkl) return res.status(200).json({
                 status: 194,
                 message: "Bạn ko có quền"
             });
 
             // const user_chage = await User.findBId(id);
-            // var bcrypt = require('bcrypt');
+            var bcrypt = require('bcrypt');
 
             // if (!bcrypt.compareSync(reNewPassword, user_chage.password)) return res.status(200).json({
             //     status: 181,

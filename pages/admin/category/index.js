@@ -68,12 +68,14 @@ function TablePaginationActions(props) {
       if (data.status != 200) return;
       // setListProduct(data.data.variants);
       const dt = data.data.variants;
+      console.log(dt);
       dt.map(iten => {
         const ob = finterData.find(kk => { return kk.code == iten.variants[0].category.code });
         if (!ob) finterData.push(iten.variants[0].category);
 
       })
       const respont = await productService.updateCatogory({ data: finterData });
+      console.log(respont)
     }
     fetchData();
 

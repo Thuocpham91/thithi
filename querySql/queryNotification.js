@@ -32,7 +32,7 @@ async function SelectById_user(id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification where id_user = ?  order by created_at  DESC ',
+            query: 'select * from notification where id_user = ?   order by status  ASC,created_at DESC  ',
             values: [id_user],
         });
         return result;
@@ -73,7 +73,7 @@ async function update(ca) {
 async function updateStatus(status,id) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  notification SET status=?  where id_user= ?',
+            query: 'UPDATE  notification SET status= ?  where id_user= ?',
             values: [status,id],
         });
         return result;

@@ -20,6 +20,7 @@ export const productService = {
     updateGift,
     updatePromotion,
     updateDataVT,
+    changePoin,
 };
 
 function getProduct() {
@@ -114,6 +115,13 @@ function updateDataVT(data) {
         });
 }
 
+
+function changePoin(data) {
+    return fetchWrapper.post(`${baseUrl}/changePoin `, data)
+        .then(user => {
+            return user;
+        });
+}
 
 
 

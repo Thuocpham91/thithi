@@ -61,28 +61,19 @@ export default function FooterCart(props) {
 
 
   const toggleDrawer = () => {
-
     // if (textSearch == "") return setListCoupon(listGoCoupon);
     // const data = listCoupon.filter(item => { return item.code == textSearch });
     // setListCoupon(data)
-
-
   };
 
 
   const handleAcept = async () => {
-
     setLoading(true);
-
     let lst = localStorage.getItem('listProduct');
     if (!lst) return;
     lst = JSON.parse(lst);
 
-
-
-
     const dataUser = JSON.parse(localStorage.getItem('user'));
-
     if (!dataUser) return setLoading(false);
 
     if (dataUser.data.id_store == null||dataUser.data.id_store == ""||dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null || dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT == "" || dataUser.data.id_wardsVT == "") {
@@ -99,8 +90,7 @@ export default function FooterCart(props) {
       const numberTobacco = item.numberTobacco ? item.numberTobacco : 0;
       const numberBarrel = item.numberBarrel ? item.numberBarrel : 0;
       const total = Number(numberPackage) + Number(numberTobacco) * 10 + Number(numberBarrel) * 500;
-
-
+      
       let im = {
         id: item.variants[0].id,
         quantity: total,
@@ -143,7 +133,6 @@ export default function FooterCart(props) {
 
 
     const datarp = await productService.postOder(order);
-    console.log(datarp)
     setLoading(false);
     if (datarp.status != 200) return showToastEro('top-center', "Gửi đơn lỗi!");
     if (!datarp.data) return;

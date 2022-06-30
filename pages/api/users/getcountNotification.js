@@ -43,7 +43,6 @@ function handler(req, res) {
 
             const user = await checlogin.checkLogin(req, res);
            
-
             const data= await Notification.count(user.id);
             return res.status(200).json({
                 status: 200,

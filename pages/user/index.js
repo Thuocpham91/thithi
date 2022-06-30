@@ -24,6 +24,8 @@ import toast from 'react-hot-toast';
 
 import Promotion from "../../components/user/Promotion";
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 
 const drawerBleeding = 0;
@@ -86,26 +88,41 @@ const User = (props) => {
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
+  const [loading, setLoading] = useState(false);
 
 
-  const checkChangePoint = (d) => {
-    const data = JSON.parse(localStorage.getItem('user'));
-
+  const checkChangePoint = async (d) => {
+    let data = JSON.parse(localStorage.getItem('user'));
     const poin = data.data.score ? data.data.score : 0;
+
     const scoreU = d.score ? d.score : 0;
-    if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Quý Đại lý chưa đủ điểm")
-    showToast('top-center', "Đổi điểm thành công")
+    if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Quý Đại lý chưa đủ điểm");
+
+    setLoading(true);
+    const doks = await productService.changePoin(d);
+    setLoading(false);
+    if (doks.status == 200) {
+      showToast('top-center', "Đổi điểm thành công")
+      data.data.score=doks.user.score;
+      localStorage.setItem('user',JSON.stringify(data));
+      setInit(data.data);
+
+    } else {
+      toast.error("Có lỗi ở đây!");
+    }
+
+
   }
 
-const [dChoose, setDChoose] = useState({});
-  const {setOpenPromotion, renderPromotion} = Promotion( checkChangePoint={checkChangePoint}, dChoose={dChoose});
+  const [dChoose, setDChoose] = useState({});
+  const { setOpenPromotion, renderPromotion } = Promotion(checkChangePoint = { checkChangePoint }, dChoose = { dChoose });
 
-  const handlePromotion = (d) =>{
+  const handlePromotion = (d) => {
     setOpenPromotion(true);
     setDChoose(d);
   }
 
-  
+
 
   return (<>
     <Head>
@@ -200,6 +217,13 @@ const [dChoose, setDChoose] = useState({});
         </SwipeableDrawer>
       </div>
       {renderPromotion}
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Root>
   </>)
 }

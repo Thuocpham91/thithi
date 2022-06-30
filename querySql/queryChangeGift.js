@@ -4,18 +4,18 @@ import excuteQuery from '../config/db';
 
 export const changeGift = {
     insert,
-    Select,
+    Selectbyid,
     update,
     SelectAll,
-    
+
 };
 
-async function insert(name,score,url,status,users,area) {
+async function insert(name, score, url, status, users, area) {
 
     try {
         const result = await excuteQuery({
             query: 'INSERT INTO change_gift(name,score,url,status,users,area) VALUES(?,?,?,?,?,?)',
-            values: [name,score,url,status,users,area],
+            values: [name, score, url, status, users, area],
         });
         return result;
     } catch (error) {
@@ -25,17 +25,16 @@ async function insert(name,score,url,status,users,area) {
 }
 
 
-async function Select(code) {
-
-
+async function Selectbyid(code) {
     try {
         const result = await excuteQuery({
-            query: 'select * from change_gift where code = ?',
+            query: 'select * from change_gift where id = ?',
             values: [code],
         });
-        return result;
+        return result[0];
     } catch (error) {
-      return [];
+
+        return null;
     }
 
 }
@@ -49,18 +48,18 @@ async function SelectAll() {
         });
         return result;
     } catch (error) {
-      return [];
+        return [];
     }
 
 }
 
 
 
-async function update(name,score,url,status,users,id) {
+async function update(name, score, url, status, users, id) {
     try {
         const result = await excuteQuery({
             query: 'UPDATE  change_gift SET name=?,score= ? ,url= ?,status= ? ,users=?  where id= ? ',
-            values: [name,score,url,status,users,id],
+            values: [name, score, url, status, users, id],
         });
         return result;
     } catch (error) {
