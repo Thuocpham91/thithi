@@ -12,45 +12,25 @@ export default apiHandler(handler);
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
-            return addPromotion();
+            return get();
         case 'GET':
-            return getPromotion();
+            return res.status(200).end(`Method ${req.method} Not Allowed`)
         default:
             return res.status(200).end(`Method ${req.method} Not Allowed`)
     }
 
 
-
-    async function addPromotion() {
+    
+    async function get() {
         try {
 
-            const user = await checlogin.checkLogin(req, res);
-            const checkl = user.id_role == 1 ? true : false;
-            if (!checkl) return res.status(200).json({
-                status: 194,
-                message: "Bạn ko có quền"
-            });
-
-            const { title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product, area, users } = req.body;
-
-            const users_id = users.map(item => {
-                return item.id
-            });
-
-            const area_id = area.map(item => {
-                return item.id
-            });
-            const product_id = product.map(item => {
-                return item.product_id
-            });
-
-
-            const data = await Promotion.insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, JSON.stringify(product_id),JSON.stringify(product), JSON.stringify(area), 0,JSON.stringify(users),JSON.stringify(users_id),JSON.stringify(area_id));
+            const { id_user, date } = req.body;
+            const data =await  Promotion.SelectByid(id_user, date);
 
             return res.status(200).json({
                 status: 200,
                 message: "Thành công",
-                data: data   
+                data: data
             });
 
 
@@ -79,7 +59,6 @@ function handler(req, res) {
 
 
         } catch (erro) {
-            console.log(erro)
             return res.status(200).json({
                 status: 199,
                 message: erro

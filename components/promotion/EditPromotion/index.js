@@ -17,7 +17,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 const EditPromotion = (promotionChoose) => {
-    console.log("EditPromotion")
     const [openEditPromotion, setOpenEditPromotion] = useState(false);
     const [valueEditPromotion, setValueEditPromotion] = useState({});
 

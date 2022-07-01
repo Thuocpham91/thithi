@@ -30,7 +30,6 @@ function handler(req, res) {
         try {
             let data = [];
             const { key, id } = req.body;
-            // console.log(req.query);
             const loginVT = await apiViettel.logInViettel();
             const rp2 = await apiViettel.getTokenchanel(loginVT.access_token);
 
@@ -62,7 +61,6 @@ function handler(req, res) {
 
 
         } catch (erro) {
-            console.log(erro)
             return res.status(200).json({
                 status: 199,
                 message: erro

@@ -62,7 +62,6 @@ const AddUser = (props) => {
         async function fetchData() {
             let data = await userService.getCitiDistrict({ key: "city" });
             if (data.status != 200) return;
-            console.log(data)
 
             setCIty(data.city);
             // setDisStrict(data.district)
@@ -157,7 +156,7 @@ const AddUser = (props) => {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, phoneNumber: e.target.value }) }} value={valueAddUser.phoneNumber} />
+                                <TextField  type="number" className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, phoneNumber: e.target.value }) }} value={valueAddUser.phoneNumber} />
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, idUser: e.target.value }) }} value={valueAddUser.idUser} />
@@ -177,7 +176,6 @@ const AddUser = (props) => {
                                         if (!value) return;
                                         setValueAddUser({ ...valueAddUser, city: value.name, city_code: value.id, id_cityVT: value.id, code_cityVT: value.vtp_id, name_cityVT: value.name });
                                         let data = await userService.getCitiDistrict({ key: "district", id: value.id });
-                                        console.log(data)
                                         if (data.status != 200) return;
                                         // const ds = disStrict.filter(item => { return value.matp == item.matp });
                                         setListDisStrict(data.city.districts);

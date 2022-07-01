@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { userService } from '../../../services/user.service';
+import { productService } from '../../../services/product.service';
 
 import AdminLayout from "../../../layouts/Admin";
 
@@ -30,13 +30,11 @@ import Button from '@mui/material/Button';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
 
 import Slide from '@mui/material/Slide';
 
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -110,10 +108,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const MembersExchangePoints = () => {
   const [rowUser, setRowUser] = useState([]);
 
- 
+
   useEffect(() => {
     async function fetchData() {
-      let data = await userService.getAll();
+      let data = await productService.getDataUserchangGift();
       if (data.status != 200) return;
       setRowUser(data.data);
     }
@@ -152,23 +150,21 @@ const MembersExchangePoints = () => {
 
 
 
-
   return (<>
     <div className='body-user bg-white rounded-lg'>
       <div className='header-user flex justify-between px-4 py-5 items-center'>
         <h3>Quản lý thành viên đổi điểm</h3>
-      </div> 
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell >Mã thành viên</TableCell>
-              <TableCell >Họ tên</TableCell>
-              <TableCell align="right">Số điện thoại</TableCell>
-              <TableCell align="right">Điểm thưởng</TableCell>
-              <TableCell align="right">Mô tả</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell>Số điện thoại</TableCell>
+              <TableCell >Name</TableCell>
+              <TableCell >Tên quà</TableCell>
+              <TableCell align="right">Điểm đổi</TableCell>
+              
+              {/* <TableCell align="right"></TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -178,37 +174,32 @@ const MembersExchangePoints = () => {
             ).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.id}
+                  {row.phone}
                 </TableCell>
                 <TableCell style={{ width: 160 }}>
-                  {row.id_khataco}
+                  {row.name_user}
                 </TableCell>
                 <TableCell>
                   {row.name}
                 </TableCell>
-                <TableCell  align="right">
-                  {row.account}
-                </TableCell>
-                <TableCell  align="right">
+                <TableCell align="right">
                   {row.score}
                 </TableCell>
-                <TableCell  align="right">
-                  {row.description}
-                </TableCell>
-                <TableCell style={{ width: 100 }} align="right">
+             
+                {/* <TableCell style={{ width: 100 }} align="right">
                   <Button
                     aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
                     aria-haspopup="true"
                     aria-expanded={openMenu ? 'true' : undefined}
-                    onClick={ e => handleOpenMenu(e, row)}
-                    style={{color:"#EE0232"}}
+                    onClick={e => handleOpenMenu(e, row)}
+                    style={{ color: "#EE0232" }}
                   >
                     <MoreHorizIcon />
                   </Button>
-                </TableCell>
-                
+                </TableCell> */}
+
               </TableRow>
-             ))}
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -223,7 +214,7 @@ const MembersExchangePoints = () => {
                 count={rowUser.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                labelRowsPerPage = "Hàng trên bảng"
+                labelRowsPerPage="Hàng trên bảng"
                 SelectProps={{
                   inputProps: {
                     'aria-label': 'Hàng trên bảng',
@@ -238,7 +229,7 @@ const MembersExchangePoints = () => {
           </TableFooter>
         </Table>
       </TableContainer>
-    </div> 
+    </div>
 
     <Menu
       id="basic-menu"
@@ -251,20 +242,20 @@ const MembersExchangePoints = () => {
     >
       <MenuItem >
         <ListItemIcon>
-            <ManageAccountsIcon fontSize="small" />
+          <ManageAccountsIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Đổi mật khẩu</ListItemText>
       </MenuItem>
       <MenuItem >
         <ListItemIcon>
-            <EditIcon fontSize="small" />
+          <EditIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Thay đổi thông tin</ListItemText>
       </MenuItem>
-      
+
       <MenuItem >
         <ListItemIcon>
-            <DeleteIcon fontSize="small" />
+          <DeleteIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Xóa</ListItemText>
       </MenuItem>
@@ -275,6 +266,5 @@ const MembersExchangePoints = () => {
 export default MembersExchangePoints
 
 MembersExchangePoints.getLayout = function getLayout(page) {
-    return <AdminLayout>{page}</AdminLayout>;
-  };
-  
+  return <AdminLayout>{page}</AdminLayout>;
+};

@@ -76,7 +76,7 @@ export default function FooterCart(props) {
     const dataUser = JSON.parse(localStorage.getItem('user'));
     if (!dataUser) return setLoading(false);
 
-    if (dataUser.data.id_store == null||dataUser.data.id_store == ""||dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null || dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT == "" || dataUser.data.id_wardsVT == "") {
+    if (dataUser.data.id_store == null || dataUser.data.id_store == "" || dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null || dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT == "" || dataUser.data.id_wardsVT == "") {
       setOpenEditUser(true);
       setLoading(false);
       return;
@@ -90,7 +90,7 @@ export default function FooterCart(props) {
       const numberTobacco = item.numberTobacco ? item.numberTobacco : 0;
       const numberBarrel = item.numberBarrel ? item.numberBarrel : 0;
       const total = Number(numberPackage) + Number(numberTobacco) * 10 + Number(numberBarrel) * 500;
-      
+
       let im = {
         id: item.variants[0].id,
         quantity: total,
@@ -100,6 +100,8 @@ export default function FooterCart(props) {
       dataBuy.push(im);
     });
 
+    const stringprodcut = obToStringProduct(codeapp.product_name);
+    const kkk = codeapp.code + " " + stringprodcut + ":" + codeapp.title;
 
     const order = {
       "products": dataBuy,
@@ -111,7 +113,7 @@ export default function FooterCart(props) {
         "payer_type": 1
       },
       "transport_type": 2,
-      "staff_note": codeapp.title ? codeapp.title : "",
+      "staff_note": kkk?kkk:"String",
       "total_weight": 1,
       "total_money_product": 20000,
       "total_ship": 32400,
@@ -155,19 +157,20 @@ export default function FooterCart(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
 
-  const [listCoupon, setListCoupon] = useState([
-    // { id: 1, key: 'NN6', name: 'Ngựa nhỏ', title: '3c - 5g', expiry: '18.04 - hết 30.04', timesOfUse: 5, timesUsed: 3, active: 1 },
-    // { id: 2, key: 'NN7', name: 'Ngựa Lớn', title: '1c - 6g', expiry: '18.05 - hết 30.05', timesOfUse: 8, timesUsed: 1, active: 2 },
-    // { id: 3, key: 'NN8', name: 'Ngựa nhỏ 2', title: '12c - 8g', expiry: '18.03 - hết 30.05', timesOfUse: 5, timesUsed: 3, active: 3 },
-    // { id: 4, key: 'NN9', name: 'Ngựa nhỏ 2', title: '12c - 8g', expiry: '18.03 - hết 30.05', timesOfUse: 5, timesUsed: 3, active: 1 }
-  ]);
+  const [listCoupon, setListCoupon] = useState([]);
 
 
   useEffect(() => {
     async function fetchData() {
-      let data = await productService.getPromotion();
-      if (data.status != 200) return;
+      const date = new Date();
 
+      let stringdate = format(date, 'yyyy-MM-dd HH:mm:ss');
+
+      let dataUser = JSON.parse(localStorage.getItem('user'));
+
+
+      let data = await productService.getPromotionUser({ id_user: dataUser.data.id, date: stringdate });
+      if (data.status != 200) return;
 
       setListCoupon(data.data)
 
@@ -196,6 +199,76 @@ export default function FooterCart(props) {
     fetchData();
   }, [count]);
 
+  const objectToStringProduct = (d) => {
+    let s = "";
+    if (d) {
+      const l = JSON.parse(d).map(item => {
+        return item.product_name;
+      })
+      s = l.join()
+    }
+
+    return (
+
+      <>
+        {s}
+      </>
+    )
+  }
+
+  const obToStringProduct = (d) => {
+    let s = "";
+    if (d) {
+      const l = JSON.parse(d).map(item => {
+        return item.product_name;
+      })
+      s = l.join()
+    }
+
+    return s;
+
+  }
+
+  const checkdieukien = (d) => {
+
+    if (d.number_use >= d.numberOfUses3) return 3;
+
+    let dkm = [];
+    let dataad = localStorage.getItem('listProduct');
+    dkm = JSON.parse(dataad);
+
+    const check = dkm.filter(item => {
+      return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel;
+
+    });
+
+    let checkdk = 2;
+
+
+    if (d.product_name) {
+      const l = JSON.parse(d.product_name).map(item => {
+        // return item.product_name;
+        check.map(ik => {
+          if (ik.product_id == item.product_id) {
+            const tong = Number(ik.numberPackage ? ik.numberPackage : 0) + Number(ik.numberTobacco ? ik.numberTobacco : 0) * 10 + Number(ik.numberBarrel ? ik.numberBarrel : 0) * 500;
+            if (Number(d.numberOfUses) <= tong) {
+              checkdk = 1;
+
+            }
+          }
+        })
+      })
+    }
+
+    return checkdk;
+
+
+    // if(d.number_use>=d.numberOfUses3)return 3;
+
+
+
+  }
+
   return (
 
     <Box className='w-full footer footer-cart'>
@@ -204,7 +277,7 @@ export default function FooterCart(props) {
           <strong className='flex items-center'><svg className='mr-2' width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 0H1C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1V5H0.893C1.889 5 2.813 5.681 2.973 6.664C3.02174 6.95104 3.00726 7.24525 2.93056 7.52612C2.85387 7.80698 2.71681 8.06772 2.52894 8.29015C2.34108 8.51258 2.10694 8.69133 1.84287 8.81393C1.57879 8.93654 1.29115 9.00004 1 9H0V13C0 13.2652 0.105357 13.5196 0.292893 13.7071C0.48043 13.8946 0.734784 14 1 14H19C19.2652 14 19.5196 13.8946 19.7071 13.7071C19.8946 13.5196 20 13.2652 20 13V9H19C18.7089 9.00004 18.4212 8.93654 18.1571 8.81393C17.8931 8.69133 17.6589 8.51258 17.4711 8.29015C17.2832 8.06772 17.1461 7.80698 17.0694 7.52612C16.9927 7.24525 16.9783 6.95104 17.027 6.664C17.187 5.681 18.111 5 19.107 5H20V1C20 0.734784 19.8946 0.48043 19.7071 0.292893C19.5196 0.105357 19.2652 0 19 0ZM9 12H7V10H9V12ZM9 8H7V6H9V8ZM9 4H7V2H9V4Z" fill="#C5A153" />
           </svg>
-            Mã áp dụng {": "} 
+            Mã áp dụng {": "}
           </strong>
         </div>
         <p className={'color-C5A153'}>  {codeapp ? codeapp.code : 'Chọn hoặc nhập mã'} <ChevronRightIcon /></p>
@@ -253,12 +326,14 @@ export default function FooterCart(props) {
                 return (
                   // <div key={idx}>
 
-                  <button key={idx} className={'btn-coupon'} onClick={e => { handleClickItem(d) }} >
+                  <button key={idx} className={checkdieukien(d) != 1 ? 'btn-coupon chddk' : 'btn-coupon'} onClick={e => { handleClickItem(d) }} disabled={checkdieukien(d) == 1 ? '' : 'disabled'} >
+
+                    {/* <button key={idx} className={'btn-coupon'} onClick={e => { handleClickItem(d) }} > */}
                     <div className='btn-coupon--body'>
                       <div>
                         <div className='btn-coupon-left'>
                           <h3>{d.code}</h3>
-                          <p>{d.product_name}</p>
+                          <p> {objectToStringProduct(d.product_name)}</p>
                         </div>
                         <div className='btn-coupon-center'>
                           <h3>{d.title}</h3>
@@ -267,19 +342,18 @@ export default function FooterCart(props) {
                           <span>    {format(parseISO(d.startDate), 'dd-mm')} / {format(parseISO(d.endDate), 'dd-mm')}</span>
                         </div>
                         <div className='btn-coupon-right'>
-                          {/* {d.active == 1 && <> */}
-                          <>
-                            <p>Đã dùng</p>
-                            <p><strong>{7}/{10}</strong> lần</p>
-                          </>
-
-                          {/* </>} */}
-                          {/* {d.active == 2 && <>
-                                <div className='btn-coupon-right--noti-bot red'>Chưa đủ điều kiện</div>
-                              </>}
-                              {d.active == 3 && <>
-                                <div className='btn-coupon-right--noti-bot'>Hết lần sử dụng</div>
-                              </>} */}
+                          {checkdieukien(d) == 1 && <>
+                            <>
+                              <p>Đã dùng</p>
+                              <p><strong>{d.number_use}/{d.numberOfUses}</strong> lần</p>
+                            </>
+                          </>}
+                          {checkdieukien(d) == 2 && <>
+                            <div className='btn-coupon-right--noti-bot red'>Chưa đủ điều kiện</div>
+                          </>}
+                          {checkdieukien(d) == 3 && <>
+                            <div className='btn-coupon-right--noti-bot'>Hết lần sử dụng</div>
+                          </>}
                         </div>
                       </div>
                     </div>

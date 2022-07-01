@@ -21,7 +21,8 @@ import Checkbox from '@mui/material/Checkbox';
 
 import toast from "react-hot-toast";
 
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -45,27 +46,27 @@ const AddPromotion = () => {
         setOpenAddPromotion(false);
     };
 
+    const [loading, setLoading] = useState(false);
 
-    
+
     const handleAddPromotion = async () => {
+        setLoading(true)
 
         const data = await productService.addPromotion(valueAddPromotion);
-        console.log(data)
+        setLoading(false)
         if (data.status != 200) return;
 
-        if(data.status==200)  {
+        if (data.status == 200) {
             toast.success("Thêm  khuyến mại thành công");
             setOpenAddPromotion(false);
-         }else {
+        } else {
             toast.error("Có lỗi ở đây!");
-         }
+        }
     };
 
 
 
     const [city, setCIty] = useState([]);
-
-
 
     const [rowUser, setRowUser] = useState([]);
 
@@ -86,27 +87,18 @@ const AddPromotion = () => {
         fetchData();
     }, []);
 
-
-
     const [productItems, setproductItems] = useState([]);
 
     useEffect(() => {
-
 
         const fda = JSON.parse(localStorage.getItem('listVariants'));
         if (fda == null) return;
 
         setproductItems(fda);
 
-
     }, [])
 
     const [byID, setById] = useState(false);
-
-    const handleChangeById = () => {
-        setById(!byID);
-        if(byID)setValueAddPromotion({...valueAddPromotion, area: []})
-    };
 
 
 
@@ -140,11 +132,9 @@ const AddPromotion = () => {
                                         label="Thời gian bắt đầu"
                                         value={valueAddPromotion.startDate}
                                         onChange={(newValue) => {
-                                            // console.log(newValue)
                                             if (newValue == "Invalid Date") return;
                                             const date = new Date(newValue);
                                             const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
-                                            // console.log(date.getTime())
                                             setValueAddPromotion({ ...valueAddPromotion, startDate: dj })
                                         }}
                                         renderInput={(params) => <TextField {...params} />}
@@ -163,7 +153,6 @@ const AddPromotion = () => {
 
                                             if (newValue == "Invalid Date") return;
 
-                                            console.log(newValue)
 
                                             const date = new Date(newValue);
                                             const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
@@ -174,11 +163,16 @@ const AddPromotion = () => {
                                 </LocalizationProvider>
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })} value={valueAddPromotion.numberOfUses} />
+                                <TextField className='mb-1' fullWidth label="Lần dùng"
+                                    variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })}
+                                    type="number"
+                                    value={valueAddPromotion.numberOfUses} />
                             </Grid>
                             <Grid item xs={6}>
                                 <Autocomplete
                                     disablePortal
+                                    multiple
+                                    fullWidth
                                     id="combo-box-demo"
                                     onChange={(e, newValue) => {
                                         setValueAddPromotion({ ...valueAddPromotion, product: newValue })
@@ -189,68 +183,68 @@ const AddPromotion = () => {
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion.quantityPurchased} />
+                                <TextField   type="number" className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion.quantityPurchased} />
                             </Grid>
-                            <Grid item xs={6}>
+                            {/* <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion.promotionalQuantity} />
-                            </Grid>
-                            {!byID && <>
-                                <Grid item xs={12}>
-                                    <Autocomplete
-                                        value={valueAddPromotion.area}
-                                        onChange={(e, newValue) => {
-                                            setValueAddPromotion({ ...valueAddPromotion, area: newValue })
-                                        }}
-                                        multiple
-                                        fullWidth
-                                        limitTags={2}
-                                        id="multiple-limit-tags"
-                                        options={city}
-                                        getOptionLabel={(option) => option.name}
-                                        renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
-                                        )}
-                                    />
+                            </Grid> */}
 
-                                </Grid>
-                            </>}
                             <Grid item xs={12}>
-                                <FormGroup>
-                                    <FormControlLabel control={<Checkbox onChange={handleChangeById} />} label="Nhập theo danh sách id" />
-                                </FormGroup>
+                                <Autocomplete
+                                    value={valueAddPromotion.area}
+                                    onChange={(e, newValue) => {
+                                        setValueAddPromotion({ ...valueAddPromotion, area: newValue })
+                                    }}
+                                    multiple
+                                    fullWidth
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={city}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                    )}
+                                />
+
                             </Grid>
-                            {byID && <>
-                                <Grid item xs={12}>
 
 
-                                    <Autocomplete
-                                        multiple
-                                        fullWidth
-                                        limitTags={2}
-                                        id="multiple-limit-tags"
-                                        options={rowUser}
-                                        onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
-                                        getOptionLabel={(option) => option.id_khataco}
-                                        renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
-                                        )}
-                                        sx={{ width: '500px' }}
-                                    />
-                                 
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    multiple
+                                    fullWidth
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={rowUser}
+                                    onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
+                                    getOptionLabel={(option) => option.id_khataco}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
+                                    )}
+                                    sx={{ width: '500px' }}
+                                />
 
-                                </Grid>
-                            </>}
+
+                            </Grid>
+
 
                         </Grid>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
                         <div className='mr-4'>
-                            <Button onClick={e=>handleAddPromotion()} variant="contained" style={{ background: "#EE0232" }}>Thêm mới</Button>
+                            <Button onClick={e => handleAddPromotion()} variant="contained" style={{ background: "#EE0232" }}>Thêm mới</Button>
                         </div>
                         <Button onClick={handleCloseAddPromotion} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>
             </Dialog>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 100000000000 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
         )
     }

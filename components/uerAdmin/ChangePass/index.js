@@ -72,7 +72,6 @@ const ChangePass = (value) => {
 
 
     const data = await userService.changePassAdmin(valuesChangePass);
-    console.log(data)
     setLoading(false);
 
 

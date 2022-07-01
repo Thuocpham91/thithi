@@ -250,7 +250,6 @@ const MainHome = () => {
                         <div key={idx} className="product-main grid grid-cols-3 gap-4">
                             <div className="product-item">
                                 <div className='product-item--img'>
-                                    {/* console.log(data.data.variants[0].variants[0].photo[0].url) */}
                                     <span>
                                         <Image
                                             unoptimized

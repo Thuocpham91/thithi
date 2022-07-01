@@ -93,7 +93,6 @@ function handler(req, res) {
 
         try {
             const rp = await logInViettel();
-            console.log(rp.access_token);
             const rp2 = await getTokenchanel(rp.access_token);
 
             const respon = {

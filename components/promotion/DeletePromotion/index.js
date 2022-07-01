@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 
 import Button from '@mui/material/Button';
@@ -16,6 +16,8 @@ import { compareAsc, format } from 'date-fns'
 
 
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -26,37 +28,40 @@ const DeletePromotion = (promotionChoose) => {
     const [openDeletePromotion, setOpenDeletePromotion] = useState(false);
 
     const handleClickOpenDeletePromotion = () => {
-      setOpenDeletePromotion(true);
-      handleCloseMenu();
+        setOpenDeletePromotion(true);
+        handleCloseMenu();
     };
-  
-    const handleClickCloseDeletePromotion = () => {
-      setOpenDeletePromotion(false);
-    };
-  
-    const handleClickDeletePromotion = async() => {
 
-        let item=promotionChoose;
+    const handleClickCloseDeletePromotion = () => {
+        setOpenDeletePromotion(false);
+    };
+    const [loading, setLoading] = useState(false);
+
+    const handleClickDeletePromotion = async () => {
+
+        let item = promotionChoose;
 
         item.endDate = format(parseISO(item.endDate), 'yyyy-MM-dd HH:mm:ss');
         item.startDate = format(parseISO(item.startDate), 'yyyy-MM-dd HH:mm:ss');
-        item.status=1;
+        item.status = 1;
+        setLoading(true);
 
         const data = await productService.updatePromotion(item);
+        setLoading(false);
         if (data.status == 200) {
             toast.success("Xóa thành công");
             setOpenDeletePromotion(false);
         } else {
             toast.error("Có lỗi ở đây!");
         }
-   
-      };
-    
+
+    };
+
 
 
     return {
         setOpenDeletePromotion,
-        renderDeletePromotion:(<>
+        renderDeletePromotion: (<>
             <Dialog
                 open={openDeletePromotion}
                 TransitionComponent={Transition}
@@ -64,26 +69,33 @@ const DeletePromotion = (promotionChoose) => {
                 onClose={handleClickCloseDeletePromotion}
                 fullWidth
                 maxWidth="sm"
-                >
+            >
                 <DialogContent className='text-center'>
 
 
                     <div className="modal-delete--warning"><div className="modal-delete--warning__content">!</div></div>
                     <div><h2 className="text-warning mb-2">Bạn có chắc chắn?</h2></div>
-                    {promotionChoose&& <>
-                    <div className="mb-5">Bạn có chắc chắn muốn xoá khuyến mại <strong>{promotionChoose.code}</strong> ?</div>
+                    {promotionChoose && <>
+                        <div className="mb-5">Bạn có chắc chắn muốn xoá khuyến mại <strong>{promotionChoose.code}</strong> ?</div>
                     </>}
                     <div className='flex justify-center mt-8 mb-3'>
                         <div className='mr-4'>
-                            <Button onClick={e=>handleClickDeletePromotion()} variant="contained" style={{background:"#EE0232"}}>Đồng ý</Button>
+                            <Button onClick={e => handleClickDeletePromotion()} variant="contained" style={{ background: "#EE0232" }}>Đồng ý</Button>
                         </div>
-                        <Button onClick={e=>handleClickCloseDeletePromotion()} variant="outlined" style={{color:"#EE0232",border:"1px solid #EE0232"}}>Hủy</Button>
+                        <Button onClick={e => handleClickCloseDeletePromotion()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy</Button>
                     </div>
-                    
+
                 </DialogContent>
 
-                </Dialog>
-                
+            </Dialog>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+
         </>)
     }
 }

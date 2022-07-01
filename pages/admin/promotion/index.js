@@ -111,7 +111,6 @@ const Promotion = () => {
     const openMenu = Boolean(anchorEl);
     const handleOpenMenu = (event, row) => {
         setPromotionChose(row)
-        console.log(row)
         setAnchorEl(event.currentTarget);
         setOpenEdit(true)
     };
@@ -198,11 +197,11 @@ const Promotion = () => {
                                 <TableCell style={{ width: 200 }}>
                                     <div className='area-list'>
                                         {
-                                            JSON.parse(row.city_id).map(function (d, idx) {
+                                         row.area?   JSON.parse(row.area).map(function (d, idx) {
                                                 return (
                                                     <span key={idx}>{d.name}<i>, </i></span>
                                                 )
-                                            })
+                                            }):""
                                         }
                                     </div>
                                 </TableCell>

@@ -41,7 +41,6 @@ async function checkLoginZalo(code) {
         queryString.append('code_verifier', verifile);
      
         const rp = await axios.post(url, queryString, config);
-        console.log(rp.data)
 
 
         return null;

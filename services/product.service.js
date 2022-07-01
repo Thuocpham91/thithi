@@ -21,6 +21,8 @@ export const productService = {
     updatePromotion,
     updateDataVT,
     changePoin,
+    getDataUserchangGift,
+    getPromotionUser,
 };
 
 function getProduct() {
@@ -73,7 +75,7 @@ function postOder(data) {
         });
 }
 
-function upaloadFile(data) {
+async function upaloadFile(data) {
     return fetchWrapper.postLile(`${baseUrl}/uploadFile`, data)
         .then(user => {
             return user;
@@ -81,34 +83,34 @@ function upaloadFile(data) {
 }
 
 
-function changeGift(data) {
+async function changeGift(data) {
     return fetchWrapper.post(`${baseUrl}/changeGift`, data)
         .then(user => {
             return user;
         });
 }
 
-function getGift(data) {
+async function getGift(data) {
     return fetchWrapper.get(`${baseUrl}/changeGift`, data)
         .then(user => {
             return user;
         });
 }
 
-function updateGift(data) {
+async function updateGift(data) {
     return fetchWrapper.post(`${baseUrl}/updateGift`, data)
         .then(user => {
             return user;
         });
 }
-function updatePromotion(data) {
+async function updatePromotion(data) {
     return fetchWrapper.post(`${baseUrl}/updatepromotion `, data)
         .then(user => {
             return user;
         });
 }
 
-function updateDataVT(data) {
+async function updateDataVT(data) {
     return fetchWrapper.post(`${baseUrl}/updateDataVT `, data)
         .then(user => {
             return user;
@@ -116,13 +118,20 @@ function updateDataVT(data) {
 }
 
 
-function changePoin(data) {
-    return fetchWrapper.post(`${baseUrl}/changePoin `, data)
-        .then(user => {
-            return user;
-        });
+async function changePoin(data) {
+    const user = await fetchWrapper.post(`${baseUrl}/changePoin `, data);
+    return user;
+}
+
+async function getDataUserchangGift(data) {
+    const user = await fetchWrapper.get(`${baseUrl}/getUserchangeGift `, data);
+    return user;
 }
 
 
 
+async function getPromotionUser(data) {
+    const user = await fetchWrapper.post(`${baseUrl}/promotionUser `, data);
+    return user;
+}
 

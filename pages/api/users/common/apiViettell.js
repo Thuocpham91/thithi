@@ -126,7 +126,6 @@ async function createOder(token, data) {
             responseType: 'json'
         };
         const rp = await axios.post(url, data, config);
-        console.log("rp", rp)
         return rp.data.data ? rp.data : rp.data;
     } catch (ero) {
         return null;

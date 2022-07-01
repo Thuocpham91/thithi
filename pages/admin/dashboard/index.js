@@ -71,7 +71,6 @@ export default function Dashboard() {
       const ws = wb.Sheets[wsname];
       // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
       const json = XLSX.utils.sheet_to_json(ws);
-      console.log(json);
     };
     reader.readAsBinaryString(file);
   }
@@ -79,14 +78,8 @@ export default function Dashboard() {
 
   const checkChagePoin =async (e) => {
     const data=await productService.updateDataVT({key:"city",id:281});
-    console.log(data);
 
-
-
-    
   }
-
-
 
 
   return (<>

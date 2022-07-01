@@ -41,6 +41,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+
+import * as XLSX from "xlsx";
+
+import * as FileSaver from 'file-saver';
+
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -115,17 +122,23 @@ const User = () => {
   const [rowUser, setRowUser] = useState([]);
 
   const count = useSelector((state) => state.counter);
-  const fetchDataLoad = async () =>{
+
+
+  const fetchDataLoad = async () => {
     let data = await userService.getAll();
     if (data.status != 200) return;
     setRowUser(data.data);
-  } 
+  }
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       let data = await userService.getAll();
+      setLoading(false);
       if (data.status != 200) return;
       setRowUser(data.data);
+
     }
     fetchData();
   }, []);
@@ -181,7 +194,7 @@ const User = () => {
 
 
   // addUser
-  const { renderAddUser, setOpenAddUser } = AddUser(fetchDataLoad={fetchDataLoad});
+  const { renderAddUser, setOpenAddUser } = AddUser(fetchDataLoad = { fetchDataLoad });
 
   // editUser
 
@@ -194,7 +207,37 @@ const User = () => {
 
   // ImportPoint
   const { renderImport, setOpenImport } = ImportPoint();
-  console.log('rowUser', rowUser.length)
+
+  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const fileExtension = '.xlsx';
+
+
+
+  const onChange = (e) => {
+    const [file] = e.target.files;
+    const reader = new FileReader();
+
+    reader.onload = (evt) => {
+      const bstr = evt.target.result;
+      const wb = XLSX.read(bstr, { type: "binary" });
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+      const json = XLSX.utils.sheet_to_json(ws);
+    };
+    reader.readAsBinaryString(file);
+  }
+
+
+
+  
+    const exportToCSV = (csvData, fileName) => {
+      const ws = XLSX.utils.json_to_sheet(csvData);
+      const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+      const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+      const data = new Blob([excelBuffer], {type: fileType});
+      FileSaver.saveAs(data, fileName + fileExtension);
+  }
 
 
   return (<>
@@ -334,6 +377,13 @@ const User = () => {
 
     {/* import point */}
     {renderImport}
+
+    <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={loading}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
 
   </>)
 }

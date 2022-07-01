@@ -192,7 +192,6 @@ const ExchangePoints = () => {
 
 
 const callback=()=>{
-  console.log("callback")
 
 
 }

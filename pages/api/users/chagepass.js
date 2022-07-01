@@ -55,7 +55,6 @@ function handler(req, res) {
 
 
         } catch (erro) {
-            console.log(erro)
             return res.status(200).json({
                 status: 199,
                 message: erro

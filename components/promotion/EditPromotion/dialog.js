@@ -64,7 +64,6 @@ const EditPromotionD = (props) => {
         users: [],
     });
 
-    console.log(valueAddPromotion)
 
     useEffect(() => {
 
@@ -153,11 +152,9 @@ const EditPromotionD = (props) => {
                                     label="Thời gian bắt đầu"
                                     value={valueAddPromotion.startDate}
                                     onChange={(newValue) => {
-                                        // console.log(newValue)
                                         if (newValue == "Invalid Date") return;
                                         const date = new Date(newValue);
                                         const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
-                                        // console.log(date.getTime())
                                         setValueAddPromotion({ ...valueAddPromotion, startDate: dj })
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
