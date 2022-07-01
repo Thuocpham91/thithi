@@ -29,7 +29,7 @@ function handler(req, res) {
             const checkl = userl.id_role==1?true:false;
             if (!checkl) return res.status(200).json({
                 status: 194,
-                message: "Bạn ko có quền"
+                message: "Quý đại lý ko có quyền"
             });
 
 
@@ -39,7 +39,7 @@ function handler(req, res) {
 
             if (!bcrypt.compareSync(reNewPassword, user.password)) return res.status(200).json({
                 status: 181,
-                message: "mật khẩu không đúng",
+                message: "Mật khẩu không đúng",
             });
 
             const hash = bcrypt.hashSync(newPassword, 10);
@@ -49,7 +49,7 @@ function handler(req, res) {
 
             return res.status(200).json({
                 status: 200,
-                message:"thay đổi thành công"
+                message:"Thay đổi thành công"
 
             });
 

@@ -31,7 +31,7 @@ function handler(req, res) {
 
         return res.status(200).json({
             status: 200,
-            message: "Thành công s",
+            message: "Thành công",
             data: data
         });
 
@@ -45,7 +45,7 @@ function handler(req, res) {
 
         return res.status(200).json({
             status: 200,
-            message: "Thành công s",
+            message: "Thành công",
             data: data
         });
 

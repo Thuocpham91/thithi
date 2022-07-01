@@ -41,7 +41,7 @@ function handler(req, res) {
             const gif = await changeGift.Selectbyid(req.body.dChoose.id);
             if (!gif) return res.status(200).json({
                 status: 198,
-                message: "ko có quà đổi",
+                message: "Không có quà đổi!",
                 gif
             });
             if (Number(user.score) < Number(gif.score)) return res.status(200).json({

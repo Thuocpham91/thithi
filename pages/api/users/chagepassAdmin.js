@@ -31,7 +31,7 @@ function handler(req, res) {
             const checkl = user.id_role==1?true:false;
             if (!checkl) return res.status(200).json({
                 status: 194,
-                message: "Bạn ko có quền"
+                message: "Quý đại lý ko có quền"
             });
 
             // const user_chage = await User.findBId(id);
@@ -49,7 +49,7 @@ function handler(req, res) {
 
             return res.status(200).json({
                 status: 200,
-                message: "thay đổi thành công",
+                message: "Thay đổi thành công",
 
 
             });

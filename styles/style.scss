@@ -752,7 +752,12 @@
     }
 }
 
-
+.chua-xem{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00ff58;
+}
 
 @media screen and (max-width:767px) {
     .cate-item .cate-item__img span {
