@@ -186,8 +186,11 @@ const EditPromotionD = (props) => {
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
-                                value={checkJson(valueAddPromotion.product_name) ? { product_name: valueAddPromotion.product_name } : null}
+                                multiple
+                                value={checkJson(valueAddPromotion.product_name) ? JSON.parse(valueAddPromotion.product_name):  []}
                                 onChange={(e, newValue) => {
+
+                                    if(!newValue)return;
                                     setValueAddPromotion({ ...valueAddPromotion, product_id: newValue.product_id, product_name: newValue.product_name })
                                 }}
                                 options={productItems}

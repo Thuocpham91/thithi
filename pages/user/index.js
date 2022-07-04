@@ -98,13 +98,13 @@ const User = (props) => {
     const doks = await productService.changePoin(d);
     setLoading(false);
     if (doks.status == 200) {
-      showToast("Đổi điểm thành công")
+      showToast('top-center',"Đổi điểm thành công")
       data.data.score=doks.user.score;
       localStorage.setItem('user',JSON.stringify(data));
       setInit(data.data);
 
     } else {
-      toast.error("Quý đại lý không đủ điểm!");
+      toast.error('top-center',"Quý đại lý không đủ điểm!");
     }
 
 

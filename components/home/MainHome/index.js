@@ -19,28 +19,33 @@ const MainHome = () => {
     const [orderList, setOrderList] = useState(false);
 
     const count = useSelector((state) => state.counter);
+    const searchProduct = useSelector((state) => state.showProduct);
+    console.log(searchProduct)
+
     const dispatch = useDispatch();
 
 
     useEffect(() => {
 
         async function fetchData() {
-            console.log("fetchData:",count)
+            console.log("fetchData:", count)
             let dkm = [];
-            if (count != -1) {
+            if (count != -1|| searchProduct!=-1) {
                 let dataad = localStorage.getItem('listProduct');
                 dkm = JSON.parse(dataad);
 
-                // const lK = dkm.filter(item => {
-                //     return item.variants[0].category.code == count.code;
-                // })
-                // dkm = lK;
+                if (searchProduct != -1) {
+                    dkm = dkm.filter(item => {
+                        return item.variants[0].category.code == searchProduct.code;
+                    })
+                }
+
             } else {
                 let dataTotal = localStorage.getItem('listVariants');
-                if(dataTotal){
-                    dkm=JSON.parse(dataTotal);
+                if (dataTotal) {
+                    dkm = JSON.parse(dataTotal);
 
-                }else{
+                } else {
                     let data = await productService.getProduct();
                     if (data.status != 200) return;
                     dkm = data.data.variants;
@@ -53,13 +58,13 @@ const MainHome = () => {
             setListProduct(dkm);
 
             const check = dkm.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
-            if(check)setOrderList(true);
-            if(!check)setOrderList(false);
+            if (check) setOrderList(true);
+            if (!check) setOrderList(false);
             // setOrderList(dkm);
 
         }
         fetchData();
-    }, [count]);
+    }, [count, searchProduct]);
 
 
     const updateArray = (listOder) => {
@@ -75,8 +80,8 @@ const MainHome = () => {
         localStorage.setItem('listProduct', JSON.stringify(kFix));
 
         const cont = kFix.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
-        if(cont)setOrderList(true);
-        if(!cont)setOrderList(false);
+        if (cont) setOrderList(true);
+        if (!cont) setOrderList(false);
 
     }
 
@@ -265,7 +270,7 @@ const MainHome = () => {
                 })}
             </div>
         </div>
-        {orderList  && <>
+        {orderList && <>
             <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
         </>}
     </>

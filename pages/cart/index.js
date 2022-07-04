@@ -9,7 +9,7 @@ import { compareAsc, format } from 'date-fns'
 import Button from '@mui/material/Button';
 import Router from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import { incrementCount } from '../../Store/actions'
+import { incrementCount,showXND } from '../../Store/actions';
 
 
 const Cart = (props) => {
@@ -50,6 +50,12 @@ const Cart = (props) => {
         if (kmm) im = kmm;
         return im;
     });
+
+    const check = kFix.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
+    if (check)dispatch(showXND(true));
+    if (!check) dispatch(showXND(false));
+
+
     localStorage.setItem('listProduct', JSON.stringify(kFix));
 
 
@@ -64,8 +70,7 @@ const Cart = (props) => {
 
   const plusNumber = (data, type) => {
     const newArray = plusFunc(listProduct, data, type);
-    
-
+  
     setListProduct(newArray);
     updateArray(newArray);
   }
@@ -133,7 +138,7 @@ const Cart = (props) => {
     const newArray = [];
     listProduct.map(function (item, idx) {
       let it = item;
-      if (item.id === id) {
+      if (item.product_id == id) {
         if (type == "package") {
           it = { ...it, numberPackage: 0 };
         }
@@ -147,6 +152,7 @@ const Cart = (props) => {
       newArray.push(it)
     })
     setListProduct(newArray);
+    updateArray(newArray);
   }
 
   const [successOdder,setSuccessOrder] =  useState(false);
@@ -199,7 +205,7 @@ const Cart = (props) => {
                     </div>
                   </div>
                   <div className='product-item--number flex justify-center items-center'>
-                    <div className='product-item--number__delete'><CloseIcon onClick={e => delteItem(d.id, 'package')} /></div>
+                    <div className='product-item--number__delete'><CloseIcon onClick={e => delteItem(d.product_id, 'package')} /></div>
                     <button onClick={e => minusNumber(d, 'package')}>-</button>
                     <div className={d.numberPackage > 0 ? 'red' : ''}>
                       {d.numberPackage || 0}
@@ -229,7 +235,7 @@ const Cart = (props) => {
                     </div>
                   </div>
                   <div className='product-item--number flex justify-center items-center'>
-                    <div className='product-item--number__delete'><CloseIcon onClick={e => delteItem(d.id, 'tobacco')} /></div>
+                    <div className='product-item--number__delete'><CloseIcon onClick={e => delteItem(d.product_id, 'tobacco')} /></div>
                     <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
                     <div className={d.numberTobacco > 0 ? 'red' : ''}>
                       {d.numberTobacco || 0}
@@ -260,7 +266,7 @@ const Cart = (props) => {
                     </div>
                   </div>
                   <div className='product-item--number flex justify-center items-center'>
-                    <div className='product-item--number__delete'><CloseIcon onClick={e => delteItem(d.id, 'barrel')} /></div>
+                    <div className='product-item--number__delete'><CloseIcon onClick={e => delteItem(d.product_id, 'barrel')} /></div>
                     <button onClick={e => minusNumber(d, 'barrel')}>-</button>
                     <div className={d.numberBarrel > 0 ? 'red' : ''}>
                       {d.numberBarrel || 0}

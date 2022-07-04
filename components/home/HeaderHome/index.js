@@ -5,7 +5,7 @@ import { productService } from '../../../services/product.service';
 
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setNotification } from '../../../Store/actions'
+import { setNotification,searchProduct } from '../../../Store/actions'
 
 
 const loadImg = ({ src, width }) => {
@@ -20,10 +20,10 @@ const HeaderHome = () => {
 
   const handleChangeActiveCate = (d) => {
     if (d.id == activeCate) {
-      dispatch(setNotification(-1));
+      dispatch(searchProduct(-1));
       setActiveCate(0);
     } else {
-      dispatch(setNotification(d));
+      dispatch(searchProduct(d));
       setActiveCate(d.id);
 
     }

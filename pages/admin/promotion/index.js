@@ -52,6 +52,18 @@ TablePaginationActions.propTypes = {
 
 
 
+const checkJson = (string) => {
+    let rp;
+    try {
+        if (string == null) return false;
+        rp = JSON.parse(string);
+        return true;
+    } catch (erro) {
+        return false;
+    }
+
+};
+
 
 const Promotion = () => {
 
@@ -183,7 +195,7 @@ const Promotion = () => {
                                     {row.code}
                                 </TableCell>
                                 <TableCell  >
-                                    {row.product}
+                                    {checkJson(row.product_name) ? JSON.parse(row.product_name).map(item=>  {return item.product_name}).join():  ""}
                                 </TableCell>
                                 <TableCell className='text-right'>
                                     {row.numberOfUses.toLocaleString()}

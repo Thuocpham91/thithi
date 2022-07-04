@@ -20,7 +20,7 @@ const counterReducer = (state = -1, { type, value }) => {
   }
 }
 
-const updateList = (listUser = -1, { type, value }) => {
+const updateList = (listUser = -1,{ type, value }) => {
   switch (type) {
     case types.UPDATE_LIST_USER:
       return listUser + 1
@@ -28,12 +28,35 @@ const updateList = (listUser = -1, { type, value }) => {
       return listUser - 1
     case types.RESET:
       return 0
-  
+
 
     default:
       return listUser
   }
 }
+const showXND = ( showXND = false, { type, value }) => {
+  switch (type) {
+ 
+    case types.SHOW_XND: {
+      showXND = value;
+      return showXND
+    }
+    default:
+      return showXND
+  }
+}
+const showProduct = ( showXND = -1, { type, value }) => {
+  switch (type) {
+ 
+    case types.SEARCH_PRODUCT: {
+      showXND = value;
+      return showXND
+    }
+    default:
+      return showXND
+  }
+}
+
 
 // INITIAL TIMER STATE
 const initialTimerState = {
@@ -58,7 +81,9 @@ const timerReducer = (state = initialTimerState, { type, payload }) => {
 const reducers = {
   counter: counterReducer,
   timer: timerReducer,
-  updateList:updateList,
+  updateList: updateList,
+  showXND:showXND,
+  showProduct,
 }
 
 export default combineReducers(reducers)

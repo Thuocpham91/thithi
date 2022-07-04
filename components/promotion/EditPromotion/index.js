@@ -115,8 +115,11 @@ const EditPromotion = (promotionChoose) => {
                         <Grid item xs={6}>
                             <Autocomplete
                                 disablePortal
-                                id="combo-box-demo"
+                                limitTags={2}
+                                id="multiple-limit-tags"
                                 options={productItems}
+                                getOptionLabel={(option) => option.product_name}
+
                                 renderInput={(params) => <TextField {...params} label="Sản phẩm" />}
                             />
                         </Grid>

@@ -22,6 +22,8 @@ import addLocation from "../addLocation";
 import toast from "react-hot-toast";
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import { showXND } from '../../Store/actions'
+
 
 const drawerBleeding = 0;
 const Root = styled('div')(({ theme }) => ({
@@ -47,7 +49,7 @@ function showToastEro(pos, message) {
 
 export default function FooterCart(props) {
 
-
+  const dispatch = useDispatch();
 
   const { window } = props;
   const [openRules, setOpenRules] = useState(false);
@@ -83,6 +85,9 @@ export default function FooterCart(props) {
     }
 
     const mns = lst.filter(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
+   
+    if (!mns) return showToastEro('top-center', "Bạn chưa chọn hàng!");
+   
 
     let dataBuy = [];
     const dataO = mns.map(item => {
@@ -113,7 +118,7 @@ export default function FooterCart(props) {
         "payer_type": 1
       },
       "transport_type": 2,
-      "staff_note": kkk?kkk:"String",
+      "staff_note": kkk ? kkk : "String",
       "total_weight": 1,
       "total_money_product": 20000,
       "total_ship": 32400,
@@ -179,9 +184,11 @@ export default function FooterCart(props) {
   }, []);
 
 
-  const [orderList, setOrderList] = useState(false);
 
   const count = useSelector((state) => state.counter);
+
+  const showXNDK = useSelector((state) => state.showXND);
+
 
   useEffect(() => {
 
@@ -191,8 +198,8 @@ export default function FooterCart(props) {
       dkm = JSON.parse(dataad);
 
       const check = dkm.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
-      if (check) setOrderList(true);
-      if (!check) setOrderList(false);
+      if (check) dispatch(showXND(true));
+      if (!check) dispatch(showXND(false));
       // setOrderList(dkm);
 
     }
@@ -283,7 +290,7 @@ export default function FooterCart(props) {
         <p className={'color-C5A153'}>  {codeapp ? codeapp.code : 'Chọn hoặc nhập mã'} <ChevronRightIcon /></p>
       </div>
 
-      {orderList ? <div className='mb-4'>
+      {showXNDK ? <div className='mb-4'>
         <Button style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }}
 
           onClick={e => { handleAcept() }}
