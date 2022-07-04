@@ -92,19 +92,19 @@ const User = (props) => {
     const poin = data.data.score ? data.data.score : 0;
 
     const scoreU = d.score ? d.score : 0;
-    if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Quý Đại lý chưa đủ điểm");
+    if (Number(scoreU) > Number(poin)) return showToastEro('bottom-center', "Quý Đại lý chưa đủ điểm");
 
     setLoading(true);
     const doks = await productService.changePoin(d);
     setLoading(false);
     if (doks.status == 200) {
-      showToast('top-center',"Đổi điểm thành công")
+      showToast('bottom-center',"Đổi điểm thành công")
       data.data.score=doks.user.score;
       localStorage.setItem('user',JSON.stringify(data));
       setInit(data.data);
 
     } else {
-      toast.error('top-center',"Quý đại lý không đủ điểm!");
+      toast.error("Quý đại lý không đủ điểm!");
     }
 
 
