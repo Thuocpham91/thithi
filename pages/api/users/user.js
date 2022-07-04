@@ -29,7 +29,7 @@ function handler(req, res) {
 
             if (id) {
                 danhsachuser = await User.searchUser(id);
-                count = await User.countUser();
+                count = await User.searchUserCount(id);
             } else {
                 count = await User.countUser();
                 danhsachuser = await User.selectALL();

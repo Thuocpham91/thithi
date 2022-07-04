@@ -4,7 +4,9 @@ import Button from '@mui/material/Button';
 import { useRouter } from 'next/router'
 import { productService } from '../../../services/product.service';
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementCount } from '../../../Store/actions'
+
 
 
 
@@ -17,19 +19,22 @@ const MainHome = () => {
     const [orderList, setOrderList] = useState(false);
 
     const count = useSelector((state) => state.counter);
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
 
         async function fetchData() {
+            console.log("fetchData:",count)
             let dkm = [];
             if (count != -1) {
                 let dataad = localStorage.getItem('listProduct');
                 dkm = JSON.parse(dataad);
 
-                const lK = dkm.filter(item => {
-                    return item.variants[0].category.code == count.code;
-                })
-                dkm = lK;
+                // const lK = dkm.filter(item => {
+                //     return item.variants[0].category.code == count.code;
+                // })
+                // dkm = lK;
             } else {
                 let dataTotal = localStorage.getItem('listVariants');
                 if(dataTotal){
@@ -79,7 +84,7 @@ const MainHome = () => {
     const minusNumber = (data, type) => {
         const newArray = minusFunc(listProduct, data, type);
         setListProduct(newArray);
-        updateArray(newArray)
+        updateArray(newArray);
     }
 
     const plusNumber = (data, type) => {
@@ -120,47 +125,7 @@ const MainHome = () => {
         return newArray
     }
 
-    const filterTotal = (data) => {
-        let dataPackage = data.numberPackage || 0;
-        let dataTobacco = data.numberTobacco || 0;
-        let dataBarrel = data.numberBarrel || 0;
-        if ((Number(dataPackage) + Number(dataTobacco) + Number(dataBarrel)) > 0) return data;
 
-    }
-
-    const minusFuncOrder = (array, data, type) => {
-        const newArray = [];
-        array.map(function (item, idx) {
-            let it = item;
-            if (item.product_id === data.product_id) {
-                if (type == "package") {
-                    let count = item.numberPackage || 0;
-                    if (count > 0) {
-                        count = Number(count) - 1;
-                        it = { ...it, numberPackage: count };
-                    }
-                }
-                if (type == "tobacco") {
-                    let count = item.numberTobacco || 0;
-                    if (count > 0) {
-                        count = Number(count) - 1;
-                        it = { ...it, numberTobacco: count };
-                    }
-                }
-                if (type == "barrel") {
-                    let count = item.numberBarrel || 0;
-                    if (count > 0) {
-                        count = Number(count) - 1;
-                        it = { ...it, numberBarrel: count };
-                    }
-                }
-            }
-
-            newArray.push(it)
-        })
-        let dataFuncOrder = newArray.filter(filterTotal)
-        return dataFuncOrder
-    }
 
     const plusFunc = (array, data, type) => {
         const newArray = [];
@@ -188,57 +153,12 @@ const MainHome = () => {
         return newArray
     }
 
-    const plusFuncOrder = (array, data, type) => {
-        let check = false;
-        const newArray = [];
-        array.map(function (item, idx) {
-            let it = item;
-            it.type = type;
-            if (item.product_id === data.product_id) {
-                check = true;
-                if (type == "package") {
-                    let count = item.numberPackage || 0;
-                    count = Number(count) + 1;
-                    it = { ...it, numberPackage: count };
-                }
-                if (type == "tobacco") {
-                    let count = item.numberTobacco || 0;
-                    count = Number(count) + 1;
-                    it = { ...it, numberTobacco: count };
-                }
-                if (type == "barrel") {
-                    let count = item.numberBarrel || 0;
-                    count = Number(count) + 1;
-                    it = { ...it, numberBarrel: count };
-                }
-            }
-            newArray.push(it)
-        })
-        if (!check) {
-            let fgfg = data;
-            if (type == "package") {
-                let count = fgfg.numberPackage || 0;
-                count = Number(count) + 1;
-                fgfg = { ...fgfg, numberPackage: count };
-            }
-            if (type == "tobacco") {
-                let count = fgfg.numberTobacco || 0;
-                count = Number(count) + 1;
-                fgfg = { ...fgfg, numberTobacco: count };
-            }
-            if (type == "barrel") {
-                let count = fgfg.numberBarrel || 0;
-                count = Number(count) + 1;
-                fgfg = { ...fgfg, numberBarrel: count };
-            }
-            newArray.push(fgfg)
-        }
-        return newArray
-    }
+
     const router = useRouter();
     const handleLink = (link) => {
         // const mns=listProduct.filter(item=>{return item.numberPackage>0 ||  item.numberTobacco>0||  item.numberBarrel>0})
         // localStorage.setItem('listProduct', JSON.stringify(listProduct));
+        dispatch(incrementCount());
         router.push({ pathname: link });
     }
 

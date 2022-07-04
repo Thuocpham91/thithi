@@ -4,7 +4,7 @@ import * as types from './types'
 // COUNTER REDUCER
 const counterReducer = (state = -1, { type, value }) => {
   switch (type) {
-    case types.UPDATE_LIST_USER:
+    case types.INCREMENT:
       return state + 1
     case types.DECREMENT:
       return state - 1

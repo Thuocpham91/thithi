@@ -187,7 +187,7 @@ const ChangePass = (value) => {
 
 
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 100000 }}
         open={loading}
       >
         <CircularProgress color="inherit" />

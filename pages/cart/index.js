@@ -7,9 +7,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Head from 'next/head'
 import { compareAsc, format } from 'date-fns'
 import Button from '@mui/material/Button';
-import Router from 'next/router'
+import Router from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementCount } from '../../Store/actions'
+
 
 const Cart = (props) => {
+  const dispatch = useDispatch();
+
 
   const today = new Date();
   const [listProduct, setListProduct] = useState([

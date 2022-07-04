@@ -16,6 +16,7 @@ export const User = {
     findCityVTCode,
     searchUser,
     
+    searchUserCount,
 
 
 };
@@ -103,12 +104,32 @@ async function selectALL() {
     }
 }
 
+
+
 async function searchUser(id) {
     try {
         let   query= 'SELECT ur.id,ur.account,ur.status,ur.id_role,ur.id_khataco,ur.city_id,';
         query=query+ 'ur.district_id,ur.name,ur.phone ,ur.score,ur.phone,ur.description ,us.name ';
         query=query+ 'as name_role ,us.key_role,ur.created_at, ur.id_cityVT,ur.code_cityVT,ur.name_cityVT,ur.id_districtVT,';
         query=query+ 'ur.code_districtVT,ur.name_districtVT,ur.id_wardsVT,ur.code_wardsVT,ur.name_wardsVT FROM user ur ' ;
+        query=query+ "LEFT JOIN `role` us ON  us.id = ur.id_role    ";
+        query=query+ " where  id_cityVT = ?  ";
+        query=query+ "   order by created_at  DESC ";
+
+        const result = await excuteQuery({
+            query:query,
+            values: [id],
+           
+        });
+        return result;
+    } catch (error) {
+        return [];
+    }
+}
+
+async function searchUserCount(id) {
+    try {
+        let   query= 'SELECT COUNT(id) AS numberUser FROM user ur ' ;
         query=query+ "LEFT JOIN `role` us ON  us.id = ur.id_role    ";
         query=query+ " where  id_cityVT = ?  ";
         query=query+ "   order by created_at  DESC ";

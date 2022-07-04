@@ -197,11 +197,11 @@ const Promotion = () => {
                                 <TableCell style={{ width: 200 }}>
                                     <div className='area-list'>
                                         {
-                                         row.area?   JSON.parse(row.area).map(function (d, idx) {
+                                         row?JSON.parse(row.area)?JSON.parse(row.area).map(function (d, idx) {
                                                 return (
                                                     <span key={idx}>{d.name}<i>, </i></span>
                                                 )
-                                            }):""
+                                            }):"":""
                                         }
                                     </div>
                                 </TableCell>
@@ -252,9 +252,9 @@ const Promotion = () => {
                                     },
                                     native: true,
                                 }}
-                                onPageChange={e => handleChangePage}
-                                onRowsPerPageChange={e => handleChangeRowsPerPage}
-                                ActionsComponent={e => TablePaginationActions}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
                             />
                         </TableRow>
                     </TableFooter>

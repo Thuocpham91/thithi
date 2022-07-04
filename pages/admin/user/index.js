@@ -279,17 +279,18 @@ const User = () => {
           limitTags={2}
           id="multiple-limit-tags"
           onChange={async (item, value) => {
+            let data;
+            if (!value) data = await userService.getAll();
+            if (value) data = await userService.getAll(value);
 
-            if (!value) return;
-
-            let data = await userService.getAll(value);
+            if (data.status != 200) return;
 
             setRowUser(data.data);
           }}
           options={city}
           getOptionLabel={(option) => option.name}
           renderInput={(params) => (
-            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+            <TextField fullWidth {...params} label="Tỉnh thành" autoFocus placeholder="Chọn khu vực" />
           )}
           sx={{ width: '200px' }}
         />
