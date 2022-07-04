@@ -121,11 +121,16 @@ const ExchangePoints = () => {
 
   // table
 
+  
+  const [listGif, setListGif] = useState([]);
+
+
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listCate.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listGif.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -137,16 +142,6 @@ const ExchangePoints = () => {
   };
   // end table
 
-
-
-  const [listGif, setListGif] = useState([
-    // { id: 1, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    // { id: 2, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-    // { id: 3, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    // { id: 4, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-    // { id: 5, name: 'Nồi cơm điện Mutosi MR-16R', poit: 200000, image: '/images/gift-1.png' },
-    // { id: 6, name: 'Lò vi sóng Sharp R-G225VN-BK', poit: 300000, image: '/images/gift-2.png' },
-  ]);
 
 
   const [anchorEl, setAnchorEl] = useState(null);

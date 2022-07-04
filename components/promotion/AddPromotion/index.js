@@ -149,6 +149,7 @@ const AddPromotion = () => {
                                         fullWidth
                                         label="Thời gian kết thúc"
                                         value={valueAddPromotion.endDate}
+                                        minDateTime={new Date(valueAddPromotion.startDate)}
                                         onChange={(newValue) => {
 
                                             if (newValue == "Invalid Date") return;

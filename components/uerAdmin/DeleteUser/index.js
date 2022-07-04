@@ -23,7 +23,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DeleteUser = (userChoose) => {
+const DeleteUser = (userChoose,fetchDataLoad) => {
     const dispatch = useDispatch();
 
 
@@ -35,8 +35,6 @@ const DeleteUser = (userChoose) => {
     };
 
     const handleClickCloseDeleteUser = () => {
-
-
         setOpenDeleteUser(false);
     };
 
@@ -45,9 +43,10 @@ const DeleteUser = (userChoose) => {
 
         const data = await userService.deleteUser({ id: userChoose.id, code: 1 });
         if (data.status == 200) {
-            toast.success("Thêm thành viên thành công");
+            toast.success("Xóa thành viên thành công");
             dispatch(loadListUser(34));
-            setOpenAddUser(false);
+            setOpenDeleteUser(false);
+            fetchDataLoad.fetchDataLoad();
         } else {
             toast.error("Có lỗi ở đây!");
         }

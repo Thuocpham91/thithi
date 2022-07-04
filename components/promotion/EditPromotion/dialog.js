@@ -135,7 +135,7 @@ const EditPromotionD = (props) => {
             maxWidth="sm"
         >
             <DialogContent className='text-center'>
-                <div className="header-title-popup p-4 font-bold">Thêm khuyến mại</div>
+                <div className="header-title-popup p-4 font-bold">Chỉnh sửa khuyến mại</div>
                 <div className='form-AddPromotion'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -168,6 +168,7 @@ const EditPromotionD = (props) => {
                                     style={{ width: "100%" }}
                                     fullWidth
                                     label="Thời gian kết thúc"
+                                    minDateTime={new Date(valueAddPromotion.startDate)}
                                     value={valueAddPromotion.endDate}
                                     onChange={(newValue) => {
                                         if (newValue == "Invalid Date") return;
@@ -222,32 +223,23 @@ const EditPromotionD = (props) => {
                             </Grid>
                         </>}
                         <Grid item xs={12}>
-                            <FormGroup>
-                                <FormControlLabel control={<Checkbox onChange={handleChangeById} />} label="Nhập theo danh sách id" />
-                            </FormGroup>
+                            <Autocomplete
+                                multiple
+                                fullWidth
+                                limitTags={2}
+                                id="multiple-limit-tags"
+                                value={checkJson(valueAddPromotion.users) ? JSON.parse(valueAddPromotion.users) : []}
+                                options={rowUser}
+                                onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
+                                getOptionLabel={(option) => option.id_khataco}
+                                renderInput={(params) => (
+                                    <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
+                                )}
+                                sx={{ width: '500px' }}
+                            />
+
+
                         </Grid>
-                        {byID && <>
-                            <Grid item xs={12}>
-
-
-                                <Autocomplete
-                                    multiple
-                                    fullWidth
-                                    limitTags={2}
-                                    id="multiple-limit-tags"
-                                    value={checkJson(valueAddPromotion.users) ? JSON.parse(valueAddPromotion.users) : []}
-                                    options={rowUser}
-                                    onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
-                                    getOptionLabel={(option) => option.id_khataco}
-                                    renderInput={(params) => (
-                                        <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
-                                    )}
-                                    sx={{ width: '500px' }}
-                                />
-
-
-                            </Grid>
-                        </>}
 
                     </Grid>
                 </div>
