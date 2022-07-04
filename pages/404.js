@@ -8,12 +8,7 @@ const NotFound = () => {
             <div>Không  có trang </div>
             <p>Trở về trang chủ:</p>
             <Link href="/">Home page</Link>
-
-
         </>
-
-
-
     )
 }
 export default NotFound;
