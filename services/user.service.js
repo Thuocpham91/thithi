@@ -27,6 +27,7 @@ export const userService = {
     checkLoginZalo,
     updateUserCustom,
     deleteUser,
+    importUser,
 };
 
 function login(form) {
@@ -72,8 +73,8 @@ function logout() {
     Router.push('/login');
 }
 
-function getAll() {
-    return fetchWrapper.get(`${baseUrl}/user`);
+function getAll(data) {
+    return fetchWrapper.put(`${baseUrl}/user`,data);
 }
 
 
@@ -117,4 +118,8 @@ function  updateUserCustom(data){
 
 function  deleteUser(data){
     return fetchWrapper.post(`${baseUrl}/deleteALL`,data);
+}
+
+function  importUser(data){
+    return fetchWrapper.post(`${baseUrl}/updateScore`,data);
 }

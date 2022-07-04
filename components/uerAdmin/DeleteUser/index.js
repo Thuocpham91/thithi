@@ -15,6 +15,8 @@ import toast from "react-hot-toast";
 
 
 import { userService } from '../../../services/user.service';
+import { useSelector, useDispatch } from 'react-redux'
+import { loadListUser } from '../../../Store/actions'
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -22,6 +24,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const DeleteUser = (userChoose) => {
+    const dispatch = useDispatch();
+
 
     const [openDeleteUser, setOpenDeleteUser] = useState(false);
 
@@ -40,8 +44,9 @@ const DeleteUser = (userChoose) => {
     const handleDeleteUser = async () => {
 
         const data = await userService.deleteUser({ id: userChoose.id, code: 1 });
-        if (datah.status == 200) {
+        if (data.status == 200) {
             toast.success("Thêm thành viên thành công");
+            dispatch(loadListUser(34));
             setOpenAddUser(false);
         } else {
             toast.error("Có lỗi ở đây!");

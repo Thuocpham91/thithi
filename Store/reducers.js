@@ -4,7 +4,7 @@ import * as types from './types'
 // COUNTER REDUCER
 const counterReducer = (state = -1, { type, value }) => {
   switch (type) {
-    case types.INCREMENT:
+    case types.UPDATE_LIST_USER:
       return state + 1
     case types.DECREMENT:
       return state - 1
@@ -17,6 +17,21 @@ const counterReducer = (state = -1, { type, value }) => {
 
     default:
       return state
+  }
+}
+
+const updateList = (listUser = -1, { type, value }) => {
+  switch (type) {
+    case types.UPDATE_LIST_USER:
+      return listUser + 1
+    case types.DECREMENT:
+      return listUser - 1
+    case types.RESET:
+      return 0
+  
+
+    default:
+      return listUser
   }
 }
 
@@ -43,6 +58,7 @@ const timerReducer = (state = initialTimerState, { type, payload }) => {
 const reducers = {
   counter: counterReducer,
   timer: timerReducer,
+  updateList:updateList,
 }
 
 export default combineReducers(reducers)

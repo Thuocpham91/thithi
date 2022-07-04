@@ -30,8 +30,8 @@ function handler(req, res) {
         try {
             let data = [];
             const { key, id } = req.body;
-            const loginVT = await apiViettel.logInViettel();
-            const rp2 = await apiViettel.getTokenchanel(loginVT.access_token);
+            // const loginVT = await apiViettel.logInViettel();
+            // const rp2 = await apiViettel.getTokenchanel(loginVT.access_token);
 
 
             if (key == "city") {

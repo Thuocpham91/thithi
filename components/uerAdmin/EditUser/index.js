@@ -12,6 +12,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { userService } from '../../../services/user.service';
 
 import toast from "react-hot-toast";
+import { useSelector, useDispatch } from 'react-redux'
+import { loadListUser } from '../../../Store/actions'
+
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -46,6 +49,7 @@ const EditUser = (userChoose) => {
     const handleCloseEditUser = () => {
         setOpenEditUser(false);
     };
+    const dispatch = useDispatch();
 
 
     const handleEditUser = async () => {
@@ -55,6 +59,8 @@ const EditUser = (userChoose) => {
         const data = await userService.updateUser(valueEditUser);
         if (data.status == 200) {
             toast.success("Sửa thành công");
+            dispatch(loadListUser(34));
+
             setOpenEditUser(false);
         } else {
             toast.error("Sửa thất bại!");

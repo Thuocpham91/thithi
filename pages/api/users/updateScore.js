@@ -11,6 +11,18 @@ import { checlogin } from './common/checkLogin';
 
 export default apiHandler(handler);
 
+
+const updateScoreUser=async(id,score)=>{
+
+    if(typeof score != 'number') return;
+
+    const user_chage = await User.findBId(id);
+    user_chage.score=score;
+    User.update(user_chage);
+    
+
+}
+
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
@@ -27,7 +39,7 @@ function handler(req, res) {
 
     async function changePass(req, res) {
         try {
-            const { newPassword, reNewPassword, id } = req.body;
+            const { listUser } = req.body;
 
             const user = await checlogin.checkLogin(req, res);
             const checkl = user.id_role==1?true:false;
@@ -36,24 +48,19 @@ function handler(req, res) {
                 message: "Bạn ko có quền"
             });
 
-            // const user_chage = await User.findBId(id);
-            var bcrypt = require('bcrypt');
+            listUser.map(item=>{
+                updateScoreUser(item.id,item.score);
+            })
+
+            // var bcrypt = require('bcrypt');
 
             // if (!bcrypt.compareSync(reNewPassword, user_chage.password)) return res.status(200).json({
             //     status: 181,
             //     message: "mật khẩu không đúng",
             // });
-
-            const hash = bcrypt.hashSync(newPassword, 10);
-
-            User.updatePass(hash, id);
-
-
             return res.status(200).json({
                 status: 200,
                 message: "thay đổi thành công",
-
-
             });
 
 

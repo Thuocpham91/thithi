@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../../components/footer'
-import Link from 'next/link'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 import Image from 'next/image'
 import Button from '@mui/material/Button';
 import Head from 'next/head'
 
-import { useRouter } from 'next/router'
-import Box from '@mui/material/Box';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import styles from '../../styles/Login.module.scss'
+
 import CloseIcon from '@mui/icons-material/Close';
 
 import PropTypes from 'prop-types';

@@ -44,14 +44,23 @@ import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 
+
+import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Autocomplete from '@mui/material/Autocomplete';
+import { compareAsc, format } from 'date-fns'
 import * as XLSX from "xlsx";
 
 import * as FileSaver from 'file-saver';
 
 
+
+
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
+  ;
 
   const handleFirstPageButtonClick = (event) => {
     onPageChange(event, 0);
@@ -121,7 +130,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const User = () => {
   const [rowUser, setRowUser] = useState([]);
 
-  const count = useSelector((state) => state.counter);
+  const count = useSelector((state) => state.updateList);
+  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const fileExtension = '.xlsx';
+  console.log(count)
 
 
   const fetchDataLoad = async () => {
@@ -138,6 +150,22 @@ const User = () => {
       setLoading(false);
       if (data.status != 200) return;
       setRowUser(data.data);
+
+    }
+    fetchData();
+  }, [count]);
+
+
+  const [city, setCIty] = useState([]);
+
+  useEffect(() => {
+
+    async function fetchData() {
+      let data = await userService.getCitiDistrict({ key: "city" });
+      if (data.status != 200) return;
+
+      setCIty(data.city);
+      // setDisStrict(data.district)
 
     }
     fetchData();
@@ -206,38 +234,25 @@ const User = () => {
   }
 
   // ImportPoint
-  const { renderImport, setOpenImport } = ImportPoint();
+  const { renderImport, setOpenImport } = ImportPoint(rowUser);
 
-  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileExtension = '.xlsx';
+  const handleExportFile = () => {
 
+    const date = new Date();
+    let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
+    dj = dj + "user";
+    exportToCSV(rowUser, dj);
+  }
 
-
-  const onChange = (e) => {
-    const [file] = e.target.files;
-    const reader = new FileReader();
-
-    reader.onload = (evt) => {
-      const bstr = evt.target.result;
-      const wb = XLSX.read(bstr, { type: "binary" });
-      const wsname = wb.SheetNames[0];
-      const ws = wb.Sheets[wsname];
-      // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-      const json = XLSX.utils.sheet_to_json(ws);
-    };
-    reader.readAsBinaryString(file);
+  const exportToCSV = (csvData, fileName) => {
+    const ws = XLSX.utils.json_to_sheet(csvData);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
   }
 
 
-
-  
-    const exportToCSV = (csvData, fileName) => {
-      const ws = XLSX.utils.json_to_sheet(csvData);
-      const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-      const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-      const data = new Blob([excelBuffer], {type: fileType});
-      FileSaver.saveAs(data, fileName + fileExtension);
-  }
 
 
   return (<>
@@ -248,9 +263,41 @@ const User = () => {
           <div className='mr-4'>
             <Button onClick={e => setOpenImport(true)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
           </div>
+          <div className='mr-4'>
+            <Button onClick={e => handleExportFile()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Export Users</Button>
+          </div>
           <Button onClick={e => setOpenAddUser(true)} variant="contained" style={{ background: "#EE0232" }} startIcon={<AddIcon />} >Thêm thành viên</Button>
         </div>
+
+
       </div>
+
+      <div>
+        <Autocomplete
+          disablePortal
+
+          limitTags={2}
+          id="multiple-limit-tags"
+          onChange={async (item, value) => {
+
+            if (!value) return;
+
+            let data = await userService.getAll(value);
+
+            setRowUser(data.data);
+          }}
+          options={city}
+          getOptionLabel={(option) => option.name}
+          renderInput={(params) => (
+            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+          )}
+          sx={{ width: '200px' }}
+        />
+
+
+      </div>
+
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>

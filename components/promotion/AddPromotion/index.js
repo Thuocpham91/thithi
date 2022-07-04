@@ -134,7 +134,7 @@ const AddPromotion = () => {
                                         onChange={(newValue) => {
                                             if (newValue == "Invalid Date") return;
                                             const date = new Date(newValue);
-                                            const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
+                                            const dj = format(date, 'yyyy-MM-dd HH:MM:ss');
                                             setValueAddPromotion({ ...valueAddPromotion, startDate: dj })
                                         }}
                                         renderInput={(params) => <TextField {...params} />}

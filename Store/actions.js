@@ -1,4 +1,4 @@
-import * as types from './types'
+ import * as types from './types'
 
 // INITIALIZES CLOCK ON SERVER
 export const serverRenderClock = () => (dispatch) =>
@@ -22,4 +22,6 @@ export const decrementCount = () => ({ type: types.DECREMENT })
 // RESET COUNTER
 export const resetCount = () => ({ type: types.RESET })
 
-export const setNotification = (value) => ({ type: types.SETNOTIFICATION,value:value })
+export const setNotification = (value) => ({ type: types.SETNOTIFICATION,value:value });
+export const loadListUser = (value) => ({ type: types.UPDATE_LIST_USER,value:value })
+

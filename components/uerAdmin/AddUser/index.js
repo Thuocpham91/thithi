@@ -20,10 +20,18 @@ import { userService } from '../../../services/user.service';
 import toast from "react-hot-toast";
 
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+import { loadListUser } from '../../../Store/actions'
+import { useSelector, useDispatch } from 'react-redux'
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 const AddUser = (props) => {
+    const [loading, setLoading] = useState(false);
+
     const [openAddUser, setOpenAddUser] = useState(false);
     const [valueAddUser, setValueAddUser] = React.useState({
         name: '',
@@ -50,6 +58,7 @@ const AddUser = (props) => {
         name_store: "",
 
     });
+    const dispatch = useDispatch();
 
     const [city, setCIty] = useState([]);
 
@@ -82,19 +91,23 @@ const AddUser = (props) => {
     };
 
     const handleClickAddUser = async () => {
+        setLoading(true);
 
         const datah = await userService.addUser(valueAddUser);
 
-        if(valueAddUser.name=="")return  toast.error("chưa nhập họ và tên");
-        if(valueAddUser.password=="")return  toast.error("chưa nhập  mật khẩu");
+        if (valueAddUser.name == "") return toast.error("chưa nhập họ và tên");
+        if (valueAddUser.password == "") return toast.error("chưa nhập  mật khẩu");
 
         if (datah.status == 200) {
             toast.success("Thêm thành viên thành công");
+            dispatch(loadListUser(34));
+
             setOpenAddUser(false);
-            props.fetchData();
+            // props.fetchData();
         } else {
             toast.error("Có lỗi ở đây!");
         }
+        setLoading(false);
     };
 
 
@@ -126,9 +139,9 @@ const AddUser = (props) => {
                     <div className='form-adduser'>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Họ và tên" 
-                                  required={true}
-                                variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, name: e.target.value }) }} value={valueAddUser.name} />
+                                <TextField className='mb-1' fullWidth label="Họ và tên"
+                                    required={true}
+                                    variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, name: e.target.value }) }} value={valueAddUser.name} />
                             </Grid>
                             <Grid item xs={6}>
                                 <FormControl className='mb-1' sx={{ width: '100%' }} variant="outlined">
@@ -156,7 +169,7 @@ const AddUser = (props) => {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField  type="number" className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, phoneNumber: e.target.value }) }} value={valueAddUser.phoneNumber} />
+                                <TextField type="number" className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, phoneNumber: e.target.value }) }} value={valueAddUser.phoneNumber} />
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={e => { setValueAddUser({ ...valueAddUser, idUser: e.target.value }) }} value={valueAddUser.idUser} />
@@ -275,6 +288,13 @@ const AddUser = (props) => {
                     </div>
                 </DialogContent>
             </Dialog>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1000 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
         )
     }

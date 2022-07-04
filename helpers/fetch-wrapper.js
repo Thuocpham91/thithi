@@ -18,7 +18,7 @@ function get(url,data) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader(url),
-        query:data,
+        query:JSON.stringify(data),
     };
     try {
         return fetch(url, requestOptions).then(handleResponse);
