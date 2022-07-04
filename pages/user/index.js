@@ -93,7 +93,7 @@ const User = (props) => {
     const poin = data.data.score ? data.data.score : 0;
 
     const scoreU = d.score ? d.score : 0;
-    if (Number(scoreU) > Number(poin)) return showToastEro('top-center', "Quý Đại lý chưa đủ điểm");
+    if (Number(scoreU) > Number(poin)) return showToastEro('bottom-center', "Quý Đại lý chưa đủ điểm");
 
     setLoading(true);
     const doks = await productService.changePoin(d);
