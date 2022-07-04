@@ -55,6 +55,13 @@ const EditUser = (userChoose) => {
 
     const handleEditUser = async () => {
 
+        if (!valueEditUser.id_store) return toast.success("Chưa chọn kho hàng");
+        if (!valueEditUser.city_code) return toast.success("Chưa Thành phố");
+        if (!valueEditUser.district_code) return toast.success("Chưa chọn quận huyện");
+
+        if (!valueEditUser.code_wardsVT) return toast.success("Chưa chọn khu vực");
+
+
         setLoading(true)
         const data = await userService.updateUserCustom(valueEditUser);
         if (data.status == 200) {
@@ -179,7 +186,12 @@ const EditUser = (userChoose) => {
                                     />
 
                                 </Grid>
-                                <Grid item xs={6}>
+
+
+
+
+
+                                {valueEditUser.id_store ? <Grid item xs={6}>
 
                                     <Autocomplete
                                         fullWidth
@@ -200,7 +212,8 @@ const EditUser = (userChoose) => {
                                     />
 
 
-                                </Grid>
+                                </Grid> : ""}
+
                                 <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
                                 </Grid>

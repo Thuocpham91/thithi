@@ -63,7 +63,7 @@ const EditUser = (userChoose) => {
 
             setOpenEditUser(false);
         } else {
-            toast.error("Sửa thất bại!");
+            toast.error(data.message);
         }
     };
 
@@ -97,7 +97,7 @@ const EditUser = (userChoose) => {
                                     <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, phone: e.target.value })} disabled defaultValue={valueEditUser.phone} />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, idUser: e.target.value })} defaultValue={valueEditUser.id_khataco} />
+                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, id_khataco: e.target.value })} defaultValue={valueEditUser.id_khataco} />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, score: e.target.value })} defaultValue={valueEditUser.score} />

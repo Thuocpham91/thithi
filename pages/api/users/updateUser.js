@@ -34,6 +34,14 @@ function handler(req, res) {
             const {id, phone, name,district_id,city_id,id_khataco,id_role,status,score,description } = req.body;
             const {id_cityVT,code_cityVT,name_cityVT,id_districtVT,code_districtVT,name_districtVT,id_wardsVT,code_wardsVT,name_wardsVT ,id_store,name_store} = req.body;
          
+
+
+            const u_s=await User.searchUserIdkhataco(id_khataco);
+            if(u_s)  return res.status(200).json({
+                status: 199,
+                message: "Đã có người dùng dùng ID khataco",
+            });
+
             const user_change = await User.findBId(id);
             if(!user_change) return;
             if(id_role)user_change.id_role=id_role;

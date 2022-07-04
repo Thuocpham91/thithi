@@ -105,7 +105,7 @@ const AddUser = (props) => {
             setOpenAddUser(false);
             // props.fetchData();
         } else {
-            toast.error("Có lỗi ở đây!");
+            toast.error(datah.message);
         }
         setLoading(false);
     };

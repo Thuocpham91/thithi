@@ -58,12 +58,15 @@ function handler(req, res) {
                 findUser(title, content, item.matp);
             })
 
+            console.log(city);
+            console.log(users);
+
              
             if (city.length == 0 && users.length== 0) {
                 const datauser = await User.selectALL();
                 datauser.map(ik => {
                     Notification.insert(ik.id, content, 0, title);
-                })
+                });
 
             }
 

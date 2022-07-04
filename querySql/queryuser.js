@@ -15,7 +15,7 @@ export const User = {
     findCityCode,
     findCityVTCode,
     searchUser,
-    
+    searchUserIdkhataco,
     searchUserCount,
 
 
@@ -179,6 +179,20 @@ async function findBId(account) {
         return null;
     }
 }
+
+
+async function searchUserIdkhataco(id) {
+    try {
+        const result = await excuteQuery({
+            query: 'select * from user where id_khataco= ? ',
+            values: [id],
+        });
+        return result[0];
+    } catch (error) {
+        return null;
+    }
+}
+
 
 async function findCityCode(city_id) {
     try {

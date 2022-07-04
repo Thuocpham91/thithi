@@ -64,6 +64,13 @@ function handler(req, res) {
 
             const { id_cityVT, code_cityVT, name_cityVT, id_districtVT, code_districtVT, name_districtVT, id_wardsVT, code_wardsVT, name_wardsVT, id_store, name_store } = req.body;
 
+
+            const u_s=await User.searchUserIdkhataco(idUser);
+            if(u_s)  return res.status(200).json({
+                status: 199,
+                message: "Đã có người dùng dùng ID khataco",
+            });
+
             const hash = bcrypt.hashSync(password, 10);
 
             const djj = await User.insert_User(phoneNumber, hash, 0, idUser, "", "", 0, 2, phoneNumber, desc, city_code, district_code, name, address, id_cityVT, code_cityVT, name_cityVT, id_districtVT, code_districtVT, name_districtVT, id_wardsVT, code_wardsVT, name_wardsVT, id_store, name_store);
