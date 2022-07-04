@@ -59,10 +59,9 @@ function handler(req, res) {
             })
 
              
-            if (city.length == 0 && users.length> 0) {
+            if (city.length == 0 && users.length== 0) {
                 const datauser = await User.selectALL();
                 datauser.map(ik => {
-
                     Notification.insert(ik.id, content, 0, title);
                 })
 
