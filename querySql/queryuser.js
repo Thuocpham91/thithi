@@ -70,6 +70,7 @@ async function updatePass(pass,id) {
             query: 'UPDATE  user SET password= ?  where id= ?',
             values: [pass,id],
         });
+        return result;
     } catch (error) {
         console.log(error);
     }

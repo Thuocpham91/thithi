@@ -28,7 +28,7 @@ function handler(req, res) {
             const { newPassword, reNewPassword, id } = req.body;
 
             const user = await checlogin.checkLogin(req, res);
-            const checkl = user.id_role==1?true:false;
+            const checkl = user.id_role == 1 ? true : false;
             if (!checkl) return res.status(200).json({
                 status: 194,
                 message: "Quý đại lý ko có quền"
@@ -44,7 +44,7 @@ function handler(req, res) {
 
             const hash = bcrypt.hashSync(newPassword, 10);
 
-            User.updatePass(hash, id);
+            await User.updatePass(hash, id);
 
 
             return res.status(200).json({
