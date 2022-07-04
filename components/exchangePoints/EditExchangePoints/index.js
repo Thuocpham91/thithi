@@ -74,7 +74,9 @@ const EditExchangePoints = (chooseItem) => {
         body.append("file", image);
 
         if (image != null) {
+            console.log("sdsd")
             const sdsd = await productService.upaloadFile(body);
+            console.log(sdsd)
             value.url = sdsd.url;
         }
 

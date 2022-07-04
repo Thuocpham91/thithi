@@ -273,7 +273,7 @@ const Category = () => {
                 <TableCell  >
                   {row.url && <>
                     <Image
-                      loader={loadImg}
+                      // loader={row.url}
                       alt={row.name}
                       src={row.url?row.url:'/images/default.jpg'}
                       width="50px"

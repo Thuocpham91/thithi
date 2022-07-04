@@ -54,6 +54,7 @@ const EditUser = (userChoose) => {
 
 
     const handleEditUser = async () => {
+        console.log(valueEditUser)
 
         if (!valueEditUser.id_store) return toast.success("Chưa chọn kho hàng");
         if (!valueEditUser.city_code) return toast.success("Chưa Thành phố");
@@ -191,7 +192,7 @@ const EditUser = (userChoose) => {
 
 
 
-                                {valueEditUser.id_store ? <Grid item xs={6}>
+                                {!valueEditUser.id_store ? <Grid item xs={6}>
 
                                     <Autocomplete
                                         fullWidth

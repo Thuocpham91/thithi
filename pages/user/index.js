@@ -191,9 +191,11 @@ const User = (props) => {
                     <div key={idx} className="item-gift">
                       <span>
                         <Image
-                          loader={loadImg}
+                          // loader={loadImg}
                           alt={d.title}
-                          src={d.url}
+                          src={d.url ? d.url : '/images/list-cate/Marlboro.png'}
+
+                          
                           layout='fill'
                           objectFit='contain'
                           quality={100}
