@@ -69,6 +69,7 @@ const User = (props) => {
   useEffect(() => {
     async function fetchData() {
       let data = await productService.getGift();
+      console.log(data)
       if (data.status != 200) return;
       setListGif(data.data);
     }
@@ -98,13 +99,13 @@ const User = (props) => {
     const doks = await productService.changePoin(d);
     setLoading(false);
     if (doks.status == 200) {
-      showToast('top-center',"Đổi điểm thành công")
+      showToast('top-center',"Đổi điểm thành công");
       data.data.score=doks.user.score;
       localStorage.setItem('user',JSON.stringify(data));
       setInit(data.data);
 
     } else {
-      toast.error('top-center',"Quý đại lý không đủ điểm!");
+      showToastEro('top-center', doks.message);
     }
 
 

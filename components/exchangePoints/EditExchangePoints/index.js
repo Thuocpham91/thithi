@@ -60,7 +60,6 @@ const EditExchangePoints = (chooseItem) => {
             if (data.status != 200) return;
             setCIty(data.city);
 
-
             let data_user = await userService.getAll();
             if (data_user.status != 200) return;
             setRowUser(data_user.data);
@@ -74,14 +73,10 @@ const EditExchangePoints = (chooseItem) => {
         body.append("file", image);
 
         if (image != null) {
-            console.log("sdsd")
             const sdsd = await productService.upaloadFile(body);
-            console.log(sdsd)
             value.url = sdsd.url;
         }
 
-        if(byID)value.area=[];
-        if(!byID)value.users=[];
 
 
         const sdsdkkj = await productService.updateGift(value);
@@ -106,13 +101,8 @@ const EditExchangePoints = (chooseItem) => {
         }
 
     }
-    const [byID, setById] = useState(false);
 
-    const handleChangeById = () => {
-        setById(!byID);
-      
-    };
-
+console.log(value)
     const checkJson = (string) => {
         let rp;
         try {
@@ -138,7 +128,7 @@ const EditExchangePoints = (chooseItem) => {
                 maxWidth="sm"
             >
                 <DialogContent className='text-center'>
-                    <div className="header-title-popup p-4 font-bold">Thêm đổi điểm</div>
+                    <div className="header-title-popup p-4 font-bold">Sửa đổi điểm</div>
                     <div className='form-EditExchangePoints'>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
@@ -148,53 +138,46 @@ const EditExchangePoints = (chooseItem) => {
                                 <TextField className='mb-1' fullWidth label="Điểm cần đạt" variant="outlined" onChange={e => { setValue({ ...value, score: e.target.value }) }} value={value.score} />
                             </Grid>
 
-                            {!byID && <>
-                                <Grid item xs={12}>
-                                    <Autocomplete
-                                        value={checkJson(value.area)?JSON.parse(value.area): [] }
-                                        onChange={(e, newValue) => {
-                                            setValue({ ...value, area: newValue })
-                                        }}
-                                        multiple
-                                        fullWidth
-                                        limitTags={2}
-                                        id="multiple-limit-tags"
-                                        options={city}
-                                        getOptionLabel={(option) => option.name}
-                                        renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
-                                        )}
-                                    />
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    value={checkJson(value.area) ? JSON.parse(value.area) : []}
+                                    onChange={(e, newValue) => {
+                                        setValue({ ...value, area: newValue })
+                                    }}
+                                    multiple
+                                    fullWidth
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={city}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                    )}
+                                />
 
-                                </Grid>
-                            </>}
+                            </Grid>
+
 
                             <Grid item xs={12}>
-                                <FormGroup>
-                                    <FormControlLabel control={<Checkbox onChange={handleChangeById} />} label="Nhập theo danh sách id" />
-                                </FormGroup>
+
+                                <Autocomplete
+                                    multiple
+                                    fullWidth
+                                    defaultValue={checkJson(value.id_khataco) ? JSON.parse(value.id_khataco) : []}
+
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={rowUser}
+                                    onChange={(event, value) => setValue({ ...value, users: value })}
+                                    getOptionLabel={(option) => option.id_khataco}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
+                                    )}
+                                    sx={{ width: '500px' }}
+                                />
+
+
                             </Grid>
-                            {byID && <>
-                                <Grid item xs={12}>
-
-                                    <Autocomplete
-                                        multiple
-                                        fullWidth
-                                        value={value.users}
-                                        limitTags={2}
-                                        id="multiple-limit-tags"
-                                        options={rowUser}
-                                        onChange={(event, value) => setValue({ ...value, users: value })}
-                                        getOptionLabel={(option) => option.id_khataco}
-                                        renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
-                                        )}
-                                        sx={{ width: '500px' }}
-                                    />
-
-
-                                </Grid>
-                            </>}
                             <Grid item xs={12}>
                                 <div className='form-file'>
                                     <div className='form-file__icon'><CloudUploadIcon sx={{ fontSize: 40 }} /><span>Upload hình ảnh</span></div>

@@ -122,7 +122,18 @@ const Promotion = () => {
     const [promotionChose, setPromotionChose] = useState({});
     const openMenu = Boolean(anchorEl);
     const handleOpenMenu = (event, row) => {
-        setPromotionChose(row)
+        if(!row)return;
+
+        const dataa={...row,area:  checkJson(row.area) ? JSON.parse(row.area) : [],
+            users:checkJson(row.users) ? JSON.parse(row.users) : [],
+        
+            citys_id:checkJson(row.citys_id) ? JSON.parse(row.citys_id) : [],
+            product_name:checkJson(row.product_name) ? JSON.parse(row.product_name) : [],
+            users_Id:checkJson(row.users_Id) ? JSON.parse(row.users_Id) : []
+        };
+        console.log(dataa)
+
+        setPromotionChose(dataa)
         setAnchorEl(event.currentTarget);
         setOpenEdit(true)
     };

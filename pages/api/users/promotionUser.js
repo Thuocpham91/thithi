@@ -24,8 +24,13 @@ function handler(req, res) {
     async function get() {
         try {
 
-            const { id_user, date } = req.body;
-            const data =await  Promotion.SelectByid(id_user, date);
+            const { id_user, date ,id_city} = req.body;
+            console.log(id_user)
+            console.log(date)
+
+            console.log(id_city)
+
+            const data =await  Promotion.SelectByid(Number(id_user), date,Number(id_city));
 
             return res.status(200).json({
                 status: 200,

@@ -55,8 +55,6 @@ const AddExchangePoints = () => {
         valueAddExchangePoints.url = sdsd.url;
 
 
-        if (!byID) valueAddExchangePoints.users= [];
-        if (byID) valueAddExchangePoints.area= [];
 
 
         const sdsdj = await productService.changeGift(valueAddExchangePoints);
@@ -97,12 +95,7 @@ const AddExchangePoints = () => {
         fetchData();
     }, []);
 
-    const [byID, setById] = useState(false);
 
-    const handleChangeById = () => {
-        setById(!byID);
-      
-    };
 
     return {
         setOpenAddExchangePoints,
@@ -120,55 +113,47 @@ const AddExchangePoints = () => {
                     <div className='form-AddExchangePoints'>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Tên chiến dịch" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, name: e.target.value }) }}  />
+                                <TextField className='mb-1' fullWidth label="Tên chiến dịch" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, name: e.target.value }) }} />
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' type="number" fullWidth label="Điểm cần đạt" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, score: e.target.value }) }}  />
+                                <TextField className='mb-1' type="number" fullWidth label="Điểm cần đạt" variant="outlined" onChange={e => { setValueAddExchangePoints({ ...valueAddExchangePoints, score: e.target.value }) }} />
                             </Grid>
-                            {!byID && <>
-                                <Grid item xs={12}>
-                                    <Autocomplete
-                                        onChange={(e, newValue) => {
-                                            setValueAddExchangePoints({ ...valueAddExchangePoints, area: newValue })
-                                        }}
-                                        multiple
-                                        fullWidth
-                                        limitTags={2}
-                                        id="multiple-limit-tags"
-                                        options={city}
-                                        getOptionLabel={(option) => option.name}
-                                        renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
-                                        )}
-                                    />
-
-                                </Grid>
-                            </>}
                             <Grid item xs={12}>
-                                <FormGroup>
-                                    <FormControlLabel control={<Checkbox onChange={handleChangeById} />} label="Nhập theo danh sách id" />
-                                </FormGroup>
+                                <Autocomplete
+                                    onChange={(e, newValue) => {
+                                        setValueAddExchangePoints({ ...valueAddExchangePoints, area: newValue })
+                                    }}
+                                    multiple
+                                    fullWidth
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={city}
+                                    getOptionLabel={(option) => option.name}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                    )}
+                                />
+
                             </Grid>
-                            {byID && <>
-                                <Grid item xs={12}>
 
-                                    <Autocomplete
-                                        multiple
-                                        fullWidth
-                                        limitTags={2}
-                                        id="multiple-limit-tags"
-                                        options={rowUser}
-                                        onChange={(event, value) => setValueAddExchangePoints({ ...valueAddExchangePoints, users: value })}
-                                        getOptionLabel={(option) => option.id_khataco}
-                                        renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
-                                        )}
-                                        sx={{ width: '500px' }}
-                                    />
+                            <Grid item xs={12}>
+
+                                <Autocomplete
+                                    multiple
+                                    fullWidth
+                                    limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={rowUser}
+                                    onChange={(event, value) => setValueAddExchangePoints({ ...valueAddExchangePoints, users: value })}
+                                    getOptionLabel={(option) => option.id_khataco}
+                                    renderInput={(params) => (
+                                        <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
+                                    )}
+                                    sx={{ width: '500px' }}
+                                />
 
 
-                                </Grid>
-                            </>}
+                            </Grid>
 
                             <Grid item xs={12}>
                                 <div className='form-file'>

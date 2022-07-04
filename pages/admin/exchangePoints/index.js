@@ -41,15 +41,82 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 import AddExchangePoints from "../../../components/exchangePoints/AddExchangePoints";
-import EditExchangePoints from "../../../components/exchangePoints/EditExchangePoints";
+import EditExchangePointsDia from "../../../components/exchangePoints/EditExchangePoints/dialog";
 import DeleteExchangePoints from "../../../components/exchangePoints/DeleteExchangePoints";
 
 
 import { productService } from '../../../services/product.service';
 
 
-const loadImg = ({ src , width }) => {
+const loadImg = ({ src, width }) => {
   return `http://202.92.6.221:3000/${src}?w=${width}}`
+}
+
+const checkJson = (string) => {
+  let rp;
+  try {
+      if (string == null) return false;
+      rp = JSON.parse(string);
+      return true;
+  } catch (erro) {
+      return false;
+  }
+
+};
+
+const ViewMenu = ({ openEdit, openDelete ,row}) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = (e) => {
+    setAnchorEl(null);
+  };
+
+
+  return (
+    <>
+
+      <Button
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        style={{ color: "#EE0232" }}
+      >
+        <MoreHorizIcon onClick={handleClick} />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+
+        <MenuItem onClick={e => openEdit(true,row)}>
+          <ListItemIcon>
+            <EditIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Chỉnh sửa</ListItemText>
+        </MenuItem>
+
+        <MenuItem onClick={e => openDelete(true,row)}>
+          <ListItemIcon>
+            <DeleteIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Xóa</ListItemText>
+        </MenuItem>
+      </Menu>
+
+    </>
+
+  );
+
 }
 
 
@@ -121,7 +188,7 @@ const ExchangePoints = () => {
 
   // table
 
-  
+
   const [listGif, setListGif] = useState([]);
 
 
@@ -144,13 +211,12 @@ const ExchangePoints = () => {
 
 
 
-  const [anchorEl, setAnchorEl] = useState(null);
 
 
   useEffect(() => {
 
     async function fetchData() {
-      let data = await productService.getGift();
+      let data = await productService.getAllGift();
       if (data.status != 200) return;
 
       setListGif(data.data)
@@ -162,14 +228,7 @@ const ExchangePoints = () => {
   }, [])
 
 
-  const openMenu = Boolean(anchorEl);
-  const handleOpenMenu = (event, row) => {
-    setChooseItem(row);
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
+
 
   const [chooseItem, setChooseItem] = useState(null);
 
@@ -179,17 +238,40 @@ const ExchangePoints = () => {
 
 
   // Edit  
-  const { renderEditExchangePoints, setOpenEditExchangePoints } = EditExchangePoints(chooseItem);
+  const [renderEditExchangePoints, setOpenEditExchangePoints] = useState(false);
 
   // Delete  EditExchangePoints
-  const { renderDeleteExchangePoints, setOpenDeleteExchangePoints } = DeleteExchangePoints(chooseItem,callback);
+  const { renderDeleteExchangePoints, setOpenDeleteExchangePoints } = DeleteExchangePoints(chooseItem, callback);
+
+  const handleOpenEdit = (check,value) => {
+
+
+    if(!value)return;
+  
+    const dataa={...value,area:  checkJson(value.area) ? JSON.parse(value.area) : [],users:checkJson(value.users) ? JSON.parse(value.users) : []};
+    setChooseItem(dataa);
+
+    setOpenEditExchangePoints(check);
+  }
+  
+  const handleDelete = (check,value) => {
+    
+    if(!value)return;
+
+    const dataa={...value,area:  checkJson(value.area) ? JSON.parse(value.area) : [],users:checkJson(value.users) ? JSON.parse(value.users) : []};
+    setChooseItem(dataa);
+
+    setOpenDeleteExchangePoints(check);
+
+
+  }
 
 
 
-const callback=()=>{
+  const callback = () => {
 
 
-}
+  }
 
   return (
     <div className='body-user bg-white rounded-lg'>
@@ -227,7 +309,7 @@ const callback=()=>{
                 </TableCell>
                 <TableCell  >
                   {row.url && <>
-                    <Image 
+                    <Image
                       // loader={row.url}
                       alt={row.name}
                       src={row.url ? row.url : '/images/list-cate/Marlboro.png'}
@@ -238,15 +320,14 @@ const callback=()=>{
                   </>}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
-                  <Button
-                    aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={openMenu ? 'true' : undefined}
-                    onClick={e => handleOpenMenu(e, row)}
-                    style={{ color: "#EE0232" }}
-                  >
-                    <MoreHorizIcon />
-                  </Button>
+                  {/* // menu */}
+
+                  <ViewMenu
+                    openDelete={handleDelete}
+                    openEdit={handleOpenEdit}
+                    row={row}
+                  />
+
 
                 </TableCell>
 
@@ -273,7 +354,7 @@ const callback=()=>{
                   },
                   native: true,
                 }}
-                labelRowsPerPage = "Hàng trên bảng"
+                labelRowsPerPage="Hàng trên bảng"
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
@@ -283,36 +364,21 @@ const callback=()=>{
         </Table>
       </TableContainer>
 
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={openMenu}
-        onClose={handleCloseMenu}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
 
-        <MenuItem onClick={e => setOpenEditExchangePoints(true)}>
-          <ListItemIcon>
-            <EditIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Chỉnh sửa</ListItemText>
-        </MenuItem>
-
-        <MenuItem onClick={e => setOpenDeleteExchangePoints(true)}>
-          <ListItemIcon>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Xóa</ListItemText>
-        </MenuItem>
-      </Menu>
 
       {/* add */}
       {renderAddExchangePoints}
 
       {/* edit */}
-      {renderEditExchangePoints}
+
+
+      <EditExchangePointsDia
+        open={renderEditExchangePoints}
+        closeDialog={setOpenEditExchangePoints}
+        data={chooseItem}
+
+
+      ></EditExchangePointsDia>
 
       {/* Delete */}
       {renderDeleteExchangePoints}

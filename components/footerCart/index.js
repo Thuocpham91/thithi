@@ -174,7 +174,9 @@ export default function FooterCart(props) {
       let dataUser = JSON.parse(localStorage.getItem('user'));
 
 
-      let data = await productService.getPromotionUser({ id_user: dataUser.data.id, date: stringdate });
+      let data = await productService.getPromotionUser({ id_user: dataUser.data.id,id_city:dataUser.data.id_cityVT, date: stringdate });
+      console.log(data)
+   
       if (data.status != 200) return;
 
       setListCoupon(data.data)
@@ -196,6 +198,8 @@ export default function FooterCart(props) {
       let dkm = [];
       let dataad = localStorage.getItem('listProduct');
       dkm = JSON.parse(dataad);
+      console.log(dkm)
+      if(dkm== null) return;
 
       const check = dkm.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
       if (check) dispatch(showXND(true));

@@ -17,6 +17,7 @@ export const productService = {
     upaloadFile,
     changeGift,
     getGift,
+    getAllGift,
     updateGift,
     updatePromotion,
     updateDataVT,
@@ -92,6 +93,12 @@ async function changeGift(data) {
 
 async function getGift(data) {
     return fetchWrapper.get(`${baseUrl}/changeGift`, data)
+        .then(user => {
+            return user;
+        });
+}
+async function getAllGift(data) {
+    return fetchWrapper.put(`${baseUrl}/changeGift`, data)
         .then(user => {
             return user;
         });

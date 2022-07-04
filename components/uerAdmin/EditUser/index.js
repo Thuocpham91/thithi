@@ -122,7 +122,7 @@ const EditUser = (userChoose) => {
                                         options={city}
                                         getOptionLabel={(option) => option.name}
                                         renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                            <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn Tỉnh thành phố" />
                                         )}
                                     // sx={{ width: '500px' }}
                                     />
@@ -149,7 +149,7 @@ const EditUser = (userChoose) => {
                                         options={listdisStrict}
                                         getOptionLabel={(option) => option.name}
                                         renderInput={(params) => (
-                                            <TextField fullWidth {...params} label="Quận huyện" placeholder="Chọn khu vực" />
+                                            <TextField fullWidth {...params} label="Quận huyện" placeholder="Chọn quận huyện" />
                                         )}
                                     // sx={{ width: '500px' }}
                                     />
@@ -180,11 +180,11 @@ const EditUser = (userChoose) => {
                                     <Autocomplete
                                         fullWidth
                                         limitTags={2}
-                                        defaultValue={userChoose.name_store ? { name: userChoose.name_store } : null}
+                                        value={userChoose.name_store ? { name: userChoose.name_store } : null}
                                         id="multiple-limit-tags"
                                         onChange={async (item, value) => {
                                             if (!value) return;
-                                            setValueEditUser({ ...valueAddUser, id_store: value.id, code_: value.code, name_store: value.name });
+                                            setValueEditUser({ ...valueEditUser, id_store: value.id, code_: value.code, name_store: value.name });
 
                                         }}
                                         options={listStore}

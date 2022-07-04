@@ -26,7 +26,7 @@ function handler(req, res) {
 
     async function setOder() {
 
-        const { name, score, url, status, id, key,users } = req.body;
+        const { name, score, url, status, id, key,users,area } = req.body;
         const user = await checlogin.checkLogin(req, res);
         const checkl = user.id_role==1?true:false;
         if (!checkl) return res.status(200).json({
@@ -37,7 +37,10 @@ function handler(req, res) {
         // name,score,url,status
         let data;
 
-        data = await changeGift.update(name, score, url, status,JSON.stringify(users), id);
+        const id_citys=area.map(item=>{return item.id  });
+        const id_users=users.map(item=>{return item.id  });
+
+        data = await changeGift.update(name, score, url, status,JSON.stringify(users),JSON.stringify(area),JSON.stringify(id_users),JSON.stringify(id_citys),id);
 
 
         return res.status(200).json({

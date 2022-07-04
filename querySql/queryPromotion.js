@@ -8,6 +8,7 @@ export const Promotion = {
     update,
     SelectAll,
     SelectByid,
+    SelectByidNotDate,
 
 
 };
@@ -53,18 +54,32 @@ async function SelectAll(code) {
     }
 
 }
-async function SelectByid(id, date) {
+async function SelectByid(id, date,id_city) {
     try {
         let query = 'SELECT * FROM promotion p '
-        query = query + "WHERE ( users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' ) and endDate >= ? and  status=0";
+        query = query + "WHERE ( users_Id  LIKE  '%[?]%' or users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' or citys_id  LIKE  '%,?]%' or citys_id  LIKE  '%[?,%' or citys_id  LIKE  '%[?]%' or citys_id  LIKE  '%,?,%' ) and endDate >= ? and  status=0";
 
         const result = await excuteQuery({
             query: query,
-            values: [id, id, id, date],
+            values: [id, id, id,id, id_city,id_city,id_city,id_city,date],
         });
-        console.log(id)
-        console.log(date)
+    
+        return result;
+    } catch (error) {
+        return [];
+    }
 
+}
+
+async function SelectByidNotDate(id) {
+    try {
+        let query = 'SELECT * FROM promotion p '
+        query = query + "WHERE ( users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' )  and  status=0";
+
+        const result = await excuteQuery({
+            query: query,
+            values: [id, id, id],
+        });
         return result;
     } catch (error) {
         return [];
@@ -74,11 +89,11 @@ async function SelectByid(id, date) {
 
 
 
-async function update(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id, product_name, area, status, users, id) {
+async function update(value) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  promotion SET title=?,code= ? ,numberOfUses= ?,quantityPurchased= ? ,promotionalQuantity=? ,startDate=? ,endDate=? ,product_id=? ,product_name=? ,area=? ,status=? ,users=?      where id= ?',
-            values: [title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id, product_name, area, status, users, id],
+            query: 'UPDATE  promotion SET title = ? ,code = ?,numberOfUses = ?,quantityPurchased = ?,promotionalQuantity = ?,startDate = ?,endDate = ?,product_id = ?,product_name = ?,area = ?,status = ?,users = ?,users_Id = ?,citys_id = ?,number_use = ?      where id= ?',
+            values: [value.title,value.code,value.numberOfUses,value.quantityPurchased,value.promotionalQuantity,value.startDate,value.endDate,value.product_id,value.product_name,value.area,value.status,value.users,value.users_Id,value.citys_id,value.number_use, value.id],
         });
         return result;
     } catch (error) {

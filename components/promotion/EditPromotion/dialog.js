@@ -42,6 +42,7 @@ const EditPromotionD = (props) => {
         valueAddPromotion.startDate = format(parseISO(valueAddPromotion.startDate), 'yyyy-MM-dd HH:mm:ss ');
 
         const data = await productService.updatePromotion(valueAddPromotion);
+        console.log(data)
         if (data.status == 200) {
             toast.success("sửa thành công");
             props.setOpen(false);
@@ -50,19 +51,7 @@ const EditPromotionD = (props) => {
         }
     };
 
-    const [valueAddPromotion, setValueAddPromotion] = useState({
-        title: '',
-        code: '',
-        numberOfUses: '',
-        quantityPurchased: '',
-        promotionalQuantity: '',
-        startDate: null,
-        endDate: null,
-        product: '',
-        listId: [],
-        area: [],
-        users: [],
-    });
+    const [valueAddPromotion, setValueAddPromotion] = useState();
 
 
     useEffect(() => {
@@ -99,13 +88,7 @@ const EditPromotionD = (props) => {
         setproductItems(fda);
     }, [])
 
-    const [byID, setById] = useState(false);
 
-    const handleChangeById = () => {
-        setById(!byID);
-        if (byID) setValueAddPromotion({ ...valueAddPromotion, area: [] })
-        if (!byID) setValueAddPromotion({ ...valueAddPromotion, users: [] })
-    };
 
 
     const checkJson = (string) => {
@@ -139,10 +122,10 @@ const EditPromotionD = (props) => {
                 <div className='form-AddPromotion'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion.title} />
+                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion?valueAddPromotion.title:""} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion.code} />
+                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion?valueAddPromotion.code:""} />
                         </Grid>
                         <Grid item xs={6}>
                             <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>
@@ -150,7 +133,7 @@ const EditPromotionD = (props) => {
                                     fullWidth
                                     className="w-full"
                                     label="Thời gian bắt đầu"
-                                    value={valueAddPromotion.startDate}
+                                    value={valueAddPromotion?valueAddPromotion.startDate:null}
                                     onChange={(newValue) => {
                                         if (newValue == "Invalid Date") return;
                                         const date = new Date(newValue);
@@ -168,8 +151,8 @@ const EditPromotionD = (props) => {
                                     style={{ width: "100%" }}
                                     fullWidth
                                     label="Thời gian kết thúc"
-                                    minDateTime={new Date(valueAddPromotion.startDate)}
-                                    value={valueAddPromotion.endDate}
+                                    minDateTime={new Date(valueAddPromotion?valueAddPromotion.startDate:null)}
+                                    value={valueAddPromotion?valueAddPromotion.endDate:null}
                                     onChange={(newValue) => {
                                         if (newValue == "Invalid Date") return;
                                         const date = new Date(newValue);
@@ -181,18 +164,19 @@ const EditPromotionD = (props) => {
                             </LocalizationProvider>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })} value={valueAddPromotion.numberOfUses} />
+                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })} value={valueAddPromotion?valueAddPromotion.numberOfUses:null} />
                         </Grid>
                         <Grid item xs={6}>
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 multiple
-                                value={checkJson(valueAddPromotion.product_name) ? JSON.parse(valueAddPromotion.product_name):  []}
+                                value={valueAddPromotion?valueAddPromotion.product_name? valueAddPromotion.product_name:  []:  []}
                                 onChange={(e, newValue) => {
+                                   
 
                                     if(!newValue)return;
-                                    setValueAddPromotion({ ...valueAddPromotion, product_id: newValue.product_id, product_name: newValue.product_name })
+                                    setValueAddPromotion({ ...valueAddPromotion, product_name: newValue})
                                 }}
                                 options={productItems}
                                 getOptionLabel={(option) => option.product_name}
@@ -200,12 +184,11 @@ const EditPromotionD = (props) => {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion.quantityPurchased} />
+                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion?valueAddPromotion.quantityPurchased:""} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion.promotionalQuantity} />
+                            <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion?valueAddPromotion.promotionalQuantity:""} />
                         </Grid>
-                        {!byID && <>
                             <Grid item xs={12}>
                                 <Autocomplete
                                     onChange={(e, newValue) => {
@@ -213,7 +196,7 @@ const EditPromotionD = (props) => {
                                     }}
                                     multiple
                                     fullWidth
-                                    value={checkJson(valueAddPromotion.city_id) ? JSON.parse(valueAddPromotion.city_id) : []}
+                                    value={valueAddPromotion?valueAddPromotion.area ?valueAddPromotion.area  : [] : []}
                                     limitTags={2}
                                     id="multiple-limit-tags"
                                     options={city}
@@ -224,14 +207,13 @@ const EditPromotionD = (props) => {
                                 />
 
                             </Grid>
-                        </>}
                         <Grid item xs={12}>
                             <Autocomplete
                                 multiple
                                 fullWidth
                                 limitTags={2}
                                 id="multiple-limit-tags"
-                                value={checkJson(valueAddPromotion.users) ? JSON.parse(valueAddPromotion.users) : []}
+                                value={valueAddPromotion?valueAddPromotion.users? valueAddPromotion.users : []: []}
                                 options={rowUser}
                                 onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
                                 getOptionLabel={(option) => option.id_khataco}

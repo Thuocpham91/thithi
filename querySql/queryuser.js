@@ -42,8 +42,8 @@ async function insert_User(account,password,status,id_khataco,token,token_refres
 async function update(user) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  user SET token=?,token_refresh=?,account=?,status= ? ,id_khataco= ?,score= ?,id_role= ?,phone= ? ,description= ? ,city_id= ? ,district_id= ?,name= ? ,id_cityVT=?,code_cityVT=?,name_cityVT=?,id_districtVT=?,code_districtVT=?,name_districtVT=?,id_wardsVT=?,code_wardsVT=?,name_wardsVT=? ,id_store=?,name_store=?  where id= ?',
-            values: [user.token,user.token_refresh,user.phone, user.status, user.id_khataco,user.score, user.id_role,  user.phone,user.description,user.city_id,user.district_id,user.name,user.id_cityVT,user.code_cityVT,user.name_cityVT,user.id_districtVT,user.code_districtVT,user.name_districtVT,user.id_wardsVT,user.code_wardsVT,user.name_wardsVT ,user.id_store,user.name_store,user.id ],
+            query: 'UPDATE  user SET token=?,token_refresh=?,account=?,status= ? ,id_khataco= ?,score= ?,id_role= ?,phone= ? ,description= ? ,city_id= ? ,district_id= ?,name= ? ,id_cityVT=?,code_cityVT=?,name_cityVT=?,id_districtVT=?,code_districtVT=?,name_districtVT=?,id_wardsVT=?,code_wardsVT=?,name_wardsVT=? ,id_store=?,name_store=? ,address = ? where id= ?',
+            values: [user.token,user.token_refresh,user.phone, user.status, user.id_khataco,user.score, user.id_role,  user.phone,user.description,user.city_id,user.district_id,user.name,user.id_cityVT,user.code_cityVT,user.name_cityVT,user.id_districtVT,user.code_districtVT,user.name_districtVT,user.id_wardsVT,user.code_wardsVT,user.name_wardsVT ,user.id_store,user.name_store,user.address,user.id ],
         });
         return result;
     } catch (error) {
@@ -94,10 +94,19 @@ async function deleteUser(id) {
 
 async function selectALL() {
     try {
+
+        let   query= "SELECT ur.id,ur.account,ur.status,ur.id_role,ur.id_khataco,ur.city_id,";
+        query=query+ " ur.district_id,ur.name,ur.phone ,ur.score,ur.phone,ur.description ,us.name as name_role ,";
+        query=query+ "   us.key_role,ur.created_at, ur.id_cityVT,ur.code_cityVT,ur.name_cityVT,";
+        query=query+ "   ur.name_store,ur.id_store,ur.address,";
+
+        query=query+ "   ur.id_districtVT,ur.code_districtVT,ur.name_districtVT,ur.id_wardsVT,ur.code_wardsVT,ur.name_wardsVT FROM user ur   LEFT JOIN `role` us ON  us.id = ur.id_role    order by created_at  DESC ";
+
         const result = await excuteQuery({
-            query: 'SELECT ur.id,ur.account,ur.status,ur.id_role,ur.id_khataco,ur.city_id,ur.district_id,ur.name,ur.phone ,ur.score,ur.phone,ur.description ,us.name as name_role ,us.key_role,ur.created_at, ur.id_cityVT,ur.code_cityVT,ur.name_cityVT,ur.id_districtVT,ur.code_districtVT,ur.name_districtVT,ur.id_wardsVT,ur.code_wardsVT,ur.name_wardsVT FROM user ur   LEFT JOIN `role` us ON  us.id = ur.id_role    order by created_at  DESC ',
+            query: query,
            
         });
+        console.log(result)
         return result;
     } catch (error) {
         return [];

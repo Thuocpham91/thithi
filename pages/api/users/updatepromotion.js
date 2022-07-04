@@ -32,8 +32,42 @@ function handler(req, res) {
             });
 
 
-            const { title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id, product_name,city_id,users,status,id } = req.body;
-            const data = await Promotion.update(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_id,product_name, JSON.stringify(city_id), status,JSON.stringify(users),id);
+            const {title,code,numberOfUses,quantityPurchased,promotionalQuantity,startDate,endDate,product_name,area,status,users,users_Id,citys_id,number_use,id } = req.body;
+
+
+            const users_id = users.map(item => {
+                return item.id
+            });
+
+            const area_id = area.map(item => {
+                return item.id
+            });
+            const product_id = product_name.map(item => {
+                return item.product_id
+            });
+
+            const pPP=await Promotion.SelectByidNotDate(id);
+            pPP.title=title;
+            pPP.code=code;
+            pPP.numberOfUses=numberOfUses;
+            pPP.quantityPurchased=quantityPurchased;
+            pPP.promotionalQuantity=promotionalQuantity;
+            pPP.startDate=startDate;
+            pPP.endDate=endDate;
+            pPP.product_name=JSON.stringify(product_name);
+            pPP.area=JSON.stringify(area);
+            pPP.status=status;
+            pPP.users=JSON.stringify(users);
+            pPP.number_use=number_use;
+            pPP.product_id=JSON.stringify(product_id);
+            pPP.area_id=JSON.stringify(area_id);
+            pPP.users_Id=JSON.stringify(users_id);
+            pPP.citys_id=JSON.stringify(area_id);
+            pPP.id=JSON.stringify(id);
+            console.log(pPP)
+
+
+            const data = await Promotion.update(pPP);
 
             return res.status(200).json({
                 status: 200,
