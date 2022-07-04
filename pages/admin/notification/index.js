@@ -106,7 +106,7 @@ const Notification = () => {
                         <Grid item xs={12}>
                             <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e =>setValueNoti({...valueNoti,content:e.target.value}) } value={valueNoti.content}/>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                         <Autocomplete
                             multiple
                             fullWidth
