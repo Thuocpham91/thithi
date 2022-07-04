@@ -213,7 +213,7 @@ const User = () => {
 
 
   // deleteUser
-  const { renderDeleteUser, setOpenDeleteUser } = DeleteUser(userChoose);
+  const { renderDeleteUser, setOpenDeleteUser } = DeleteUser(userChoose,fetchDataLoad = { fetchDataLoad });
 
   const handleOpenDelte = () => {
     setOpenDeleteUser(true);
