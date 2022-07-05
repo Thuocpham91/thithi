@@ -218,7 +218,7 @@ const ExchangePoints = () => {
     async function fetchData() {
       let data = await productService.getAllGift();
       if (data.status != 200) return;
-
+console.log(data)
       setListGif(data.data)
 
     }
