@@ -34,7 +34,7 @@ function handler(req, res) {
         var randomString = '';
         for (var i = 0; i < len; i++) {
             var randomPoz = Math.floor(Math.random() * charSet.length);
-            randomString += charSet.substring(randomPoz,randomPoz+1);
+            randomString += charSet.substring(randomPoz, randomPoz + 1);
         }
         return randomString;
     }
@@ -42,25 +42,45 @@ function handler(req, res) {
 
     async function setOder() {
 
-        const data = await new Promise((resolve, reject) => {
-            const form = new IncomingForm()
+        try {
 
-            form.parse(req, (err, fields, files) => {
-                if (err) return reject(err)
+            const data = await new Promise((resolve, reject) => {
+                const form = new IncomingForm()
 
-               var str= randomString(6);
-               str=str+files.file.originalFilename;
-           
-                var oldPath = files.file.filepath;
-                var newPath = `./public/images/uploads/${str}`;
+                form.parse(req, (err, fields, files) => {
+                    if (err) return reject(err)
 
-                mv(oldPath, newPath, function (err) {
-                });
-                str=`/images/uploads/${str}`;
+                    var str = randomString(6);
+                    str = str + files.file.originalFilename;
 
-                res.status(200).json({ status:200, url:str })
-            })
-        })
+                    var oldPath = files.file.filepath;
+                    var newPath = `./public/images/uploads/${str}`;
+
+                    mv(oldPath, newPath, function (err) {
+
+                        return reject(err)
+                    });
+                    str = `/images/uploads/${str}`;
+
+                    return resolve({ status: 200, url: str });
+
+                    // res.status(200).json({ status:200, url:str })
+                })
+
+
+            });
+
+            res.status(200).json({ status: 200,  data,url: data.url});
+
+
+        } catch (erro) {
+            console.log(erro);
+
+            res.status(200).json({ status: 199,message:"cõ lỗi sảy ra", data: erro });
+
+
+        }
+
 
 
 

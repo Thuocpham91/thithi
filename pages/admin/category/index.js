@@ -136,22 +136,7 @@ const loadImg = ({ src, width }) => {
 const Category = () => {
 
   const [listCate, seListCate] = useState([
-    // { id: 1, name: 'White horse', image: '', },
-    // { id: 2, name: 'CAMEL', image: '/images/list-cate/CAMEL.png' },
-    // { id: 3, name: 'CRAVEN', image: '/images/list-cate/CRAVEN.png' },
-    // { id: 4, name: 'Marlboro', image: '/images/list-cate/Marlboro.png' },
-    // { id: 5, name: 'White horse', image: '' },
-    // { id: 6, name: 'CAMEL', image: '/images/list-cate/CAMEL.png' },
-    // { id: 7, name: 'CRAVEN', image: '/images/list-cate/CRAVEN.png' },
-    // { id: 8, name: 'Marlboro', image: '/images/list-cate/Marlboro.png' },
-    // { id: 9, name: 'White horse', image: '' },
-    // { id: 10, name: 'CAMEL', image: '/images/list-cate/CAMEL.png' },
-    // { id: 11, name: 'CRAVEN', image: '/images/list-cate/CRAVEN.png' },
-    // { id: 12, name: 'Marlboro', image: '/images/list-cate/Marlboro.png' },
-    // { id: 13, name: 'White horse', image: '' },
-    // { id: 14, name: 'CAMEL', image: '/images/list-cate/CAMEL.png' },
-    // { id: 15, name: 'CRAVEN', image: '/images/list-cate/CRAVEN.png' },
-    // { id: 16, name: 'Marlboro', image: '/images/list-cate/Marlboro.png' },
+   
   ]);
 
 

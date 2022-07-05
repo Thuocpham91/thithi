@@ -78,7 +78,9 @@ console.log(data)
 
         if (image != null) {
             const sdsd = await productService.upaloadFile(body);
-            value.url = sdsd.url;
+            console.log(sdsd)
+            if(sdsd.status==200)  value.url = sdsd.url;
+          
         }
 
 
