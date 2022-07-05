@@ -56,11 +56,11 @@ function handler(req, res) {
             let file_n=randomString(12)+imageFile.originalFilename;
 
         
-            const pathToWriteImage = `public/images/${file_n}`; // include name and .extention, you can get the name from data.files.image object
+            const pathToWriteImage = `public/${file_n}`; // include name and .extention, you can get the name from data.files.image object
             const image = await fs.readFile(imagePath);
             await fs.writeFile(pathToWriteImage, image);
 
-            let part=`/images/${file_n}`
+            let part=`/${file_n}`
 
 
 
