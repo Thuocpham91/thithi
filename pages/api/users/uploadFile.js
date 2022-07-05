@@ -62,7 +62,7 @@ function handler(req, res) {
                     });
                    let  strl = `/images/uploads/${str}`;
 
-                    return resolve({ status: 200, url: strl,file: url});
+                    return resolve({ status: 200, url: str,file: strl});
 
                     // res.status(200).json({ status:200, url:str })
                 })

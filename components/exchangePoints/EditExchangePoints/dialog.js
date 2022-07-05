@@ -86,6 +86,7 @@ console.log(data)
 
 
         const sdsdkkj = await productService.updateGift(value);
+        console.log(sdsdkkj)
 
         if (sdsdkkj.status == 200) {
             toast.success("Sửa thành công");
