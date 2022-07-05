@@ -9,6 +9,7 @@ export const Promotion = {
     SelectAll,
     SelectByid,
     SelectByidNotDate,
+    SelectById_promotion,
 
 
 };
@@ -28,15 +29,15 @@ async function insert(title, code, numberOfUses, quantityPurchased, promotionalQ
 }
 
 
-async function SelectById_user(id_user) {
+async function SelectById_promotion(id_user) {
 
 
     try {
         const result = await excuteQuery({
-            query: 'select * from promotion where id_user = ? and status=0',
+            query: 'select * from promotion where id = ? and status=0',
             values: [id_user],
         });
-        return result;
+        return result [0];
     } catch (error) {
         return [];
     }

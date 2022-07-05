@@ -108,7 +108,10 @@ export default function FooterCart(props) {
     const stringprodcut = obToStringProduct(codeapp.product_name);
     const kkk = codeapp.code + " " + stringprodcut + ":" + codeapp.title;
 
+    console.log(codeapp)
+
     const order = {
+      "id_code": codeapp.id,
       "products": dataBuy,
       "total": 0,
       "transport": {

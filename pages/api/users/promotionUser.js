@@ -25,10 +25,7 @@ function handler(req, res) {
         try {
 
             const { id_user, date ,id_city} = req.body;
-            console.log(id_user)
-            console.log(date)
-
-            console.log(id_city)
+           
 
             const data =await  Promotion.SelectByid(Number(id_user), date,Number(id_city));
 
