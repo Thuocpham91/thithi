@@ -30,6 +30,9 @@ const EditUser = (userChoose) => {
 
     const [listdisStrict, setListDisStrict] = useState([]);
     const [listWards, setLisWards] = useState([]);
+    console.log(userChoose);
+    console.log(valueEditUser)
+
 
     useEffect(() => {
         async function fetchData() {
@@ -94,13 +97,13 @@ const EditUser = (userChoose) => {
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, phone: e.target.value })} disabled defaultValue={valueEditUser.phone} />
+                                    <TextField className='mb-1' fullWidth label="Số điện thoại" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, phone: e.target.value })} disabled value={valueEditUser.phone} />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, id_khataco: e.target.value })} defaultValue={valueEditUser.id_khataco} />
+                                    <TextField className='mb-1' fullWidth label="Id thành viên" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, id_khataco: e.target.value })} value={valueEditUser.id_khataco} />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, score: e.target.value })} defaultValue={valueEditUser.score} />
+                                    <TextField className='mb-1' fullWidth label="Điểm thưởng" variant="outlined" onChange={(e) => setValueEditUser({ ...valueEditUser, score: e.target.value })} value={valueEditUser.score} />
                                 </Grid>
 
                                 <Grid item xs={6}>
@@ -110,7 +113,7 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        defaultValue={userChoose ? { name: userChoose.name_cityVT } : null}
+                                        value={userChoose ? { name: userChoose.name_cityVT } : null}
                                         onChange={async (item, value) => {
                                             if (!value) return;
                                             setValueEditUser({ ...valueEditUser, city: value.name, city_code: value.id, id_cityVT: value.id, code_cityVT: value.vtp_id, name_cityVT: value.name });
@@ -135,7 +138,7 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        defaultValue={userChoose ? { name: userChoose.name_districtVT } : null}
+                                        value={userChoose ? { name: userChoose.name_districtVT } : null}
                                         onChange={async (item, value) => {
 
                                             if (!value) return;
@@ -159,7 +162,7 @@ const EditUser = (userChoose) => {
                                     <Autocomplete
                                         fullWidth
                                         limitTags={2}
-                                        defaultValue={userChoose ? { name: userChoose.name_wardsVT } : null}
+                                        value={userChoose ? { name: userChoose.name_wardsVT } : null}
                                         id="multiple-limit-tags"
                                         onChange={async (item, value) => {
                                             if (!value) return;
