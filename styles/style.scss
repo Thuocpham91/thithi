@@ -350,6 +350,7 @@
     margin-bottom: 2%;
     display: flex;
     flex-wrap: wrap;
+    align-items: start;
     .btn-coupon{
         -webkit-box-flex: 0;
         -ms-flex: 0 0 50%;
@@ -494,6 +495,20 @@
                 }
                 &::after{
                     border: 1px solid rgba(255, 0, 0, 0.2);
+                }
+            }
+        }
+        &[data=active]{
+            .btn-coupon--body{
+                &>div{
+                    border: 1px solid #00C644;
+                }
+                &::before{
+                    content: '';
+                    border: 1px solid #00C644;
+                }
+                &::after{
+                    border: 1px solid #00C644;
                 }
             }
         }
