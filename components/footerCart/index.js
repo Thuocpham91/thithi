@@ -112,7 +112,7 @@ export default function FooterCart(props) {
     console.log(codeapp)
 
     const order = {
-      "id_code": codeapp.id,
+      "id_code": codeapp.id?codeapp.id:"",
       "products": dataBuy,
       "total": 0,
       "transport": {
