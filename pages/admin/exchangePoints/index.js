@@ -212,6 +212,11 @@ const ExchangePoints = () => {
 
 
 
+  const setDataGift = async () => {
+    let data = await productService.getGift();
+    if (data.status != 200) return;
+    setListGif(data.data)
+  }
 
   useEffect(() => {
 
@@ -220,7 +225,6 @@ const ExchangePoints = () => {
       if (data.status != 200) return;
 console.log(data)
       setListGif(data.data)
-
     }
     fetchData();
 
@@ -233,8 +237,8 @@ console.log(data)
   const [chooseItem, setChooseItem] = useState(null);
 
 
-  // add  DeleteExchangePoints
-  const { renderAddExchangePoints, setOpenAddExchangePoints } = AddExchangePoints();
+  // add 
+  const { renderAddExchangePoints, setOpenAddExchangePoints } = AddExchangePoints(setDataGift = { setDataGift });
 
 
   // Edit  
