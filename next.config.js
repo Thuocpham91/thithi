@@ -24,8 +24,11 @@ const nextConfig = {
 const path = require('path')
 
 module.exports = {
+  reactStrictMode: true,
+
   images: {
-    domains: ['cdn.viettelsale.com','http://202.92.6.221:3000/'],
+    domains: ['cdn.viettelsale.com','202.92.6.221:3000'],
+    formats: ["image/webp"],
   },
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname

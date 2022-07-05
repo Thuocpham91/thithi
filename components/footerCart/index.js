@@ -69,6 +69,18 @@ export default function FooterCart(props) {
   };
 
 
+  const checkJson = (string) => {
+    let rp;
+    try {
+        if (string == null) return false;
+        rp = JSON.parse(string);
+        return true;
+    } catch (erro) {
+        return false;
+    }
+
+};
+
   const handleAcept = async () => {
     setLoading(true);
     let lst = localStorage.getItem('listProduct');
@@ -246,10 +258,13 @@ export default function FooterCart(props) {
 
   const checkdieukien = (d) => {
 
-    if (d.number_use >= d.numberOfUses3) return 3;
+    if (d.number_use >= d.numberOfUses) return 3;
 
     let dkm = [];
+
     let dataad = localStorage.getItem('listProduct');
+    if(!checkJson(dataad)) return ;
+
     dkm = JSON.parse(dataad);
 
     const check = dkm.filter(item => {
@@ -259,6 +274,7 @@ export default function FooterCart(props) {
 
     let checkdk = 2;
 
+    if(!checkJson(d.product_name)) return checkdk;
 
     if (d.product_name) {
       const l = JSON.parse(d.product_name).map(item => {
