@@ -60,9 +60,9 @@ function handler(req, res) {
 
                         return reject(err)
                     });
-                    str = `/images/uploads/${str}`;
+                   let  strl = `/images/uploads/${str}`;
 
-                    return resolve({ status: 200, url: str });
+                    return resolve({ status: 200, url: strl,file: url});
 
                     // res.status(200).json({ status:200, url:str })
                 })
