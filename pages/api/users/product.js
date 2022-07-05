@@ -3,6 +3,9 @@ import { apiViettel } from './common/apiViettell';
 
 import { apiHandler } from '../../../helpers/api';
 
+import { Product } from '../../../querySql/queryProduct';
+
+
 export default apiHandler(handler);
 
 function handler(req, res) {
@@ -26,9 +29,10 @@ function handler(req, res) {
                 data: datavietel
             });
             const rp2 = await apiViettel.getTokenchanel(datavietel.access_token);
-            let listproduct = await apiViettel.getListproduct(rp2.access_token);
+            // let listproduct = await apiViettel.getListproduct(rp2.access_token);
+            let listpr = await Product.SelectAll();
 
-            listproduct = JSON.parse(listproduct);
+            let listproduct = JSON.parse(listpr.listproduct);
 
             return res.status(200).json({
                 status: 200,

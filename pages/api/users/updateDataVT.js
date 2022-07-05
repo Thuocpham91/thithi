@@ -10,6 +10,7 @@ import { Districts } from '../../../querySql/queryDistrict';
 import { Wards } from '../../../querySql/queryWards';
 import { Store } from '../../../querySql/queryStore';
 
+import { Product } from '../../../querySql/queryProduct';
 
 
 
@@ -43,9 +44,9 @@ const insertdataWards = async (item) => {
 }
 
 const insertdataStore = async (item) => {
-   
 
-    await Store.insert( item.id, item.name, item.address, item.code, item.caption,item.channel_id,item.phone);
+
+    await Store.insert(item.id, item.name, item.address, item.code, item.caption, item.channel_id, item.phone);
 }
 
 
@@ -71,26 +72,25 @@ function handler(req, res) {
             const loginVT = await apiViettel.logInViettel();
             const rp2 = await apiViettel.getTokenchanel(loginVT.access_token);
 
-            // if (key == "city") {
-            //     const cityVT = await apiViettel.getCity(loginVT.access_token);
-            //     console.log("cityVT");
-            //     data = cityVT.cities;
 
-            //    await  City.Delete(); 
-            //    await  Districts.Delete();
-            //    await  Wards.Delete();
-            //     data.map(item => {
-            //         insertdatacity(item, loginVT.access_token);
-            //     });
-            // } else if (key == "district") {
-            //     const cityVT = await apiViettel.getDistrict(loginVT.access_token, id);
-            //     data = cityVT;
-            // } else if (key == "wards") {
-            //     const cityVT = await apiViettel.getWards(loginVT.access_token, id);
-            //     data = cityVT;
-            // }
+            let listproduct = await apiViettel.getListproduct(rp2.access_token);
+            await Product.Delete();
 
-           await  Store.Delete();
+            await Product.insert(120, JSON.stringify(listproduct))
+
+
+
+            const cityVT = await apiViettel.getCity(loginVT.access_token);
+            data = cityVT.cities;
+
+            await City.Delete();
+            await Districts.Delete();
+            await Wards.Delete();
+            data.map(item => {
+                insertdatacity(item, loginVT.access_token);
+            });
+
+            await Store.Delete();
 
             const storeg = await apiViettel.getStore(rp2.access_token);
             storeg.stores.map(item => {

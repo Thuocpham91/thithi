@@ -28,7 +28,6 @@ const MainHome = () => {
     useEffect(() => {
 
         async function fetchData() {
-            console.log("fetchData:", count)
             let dkm = [];
             if (count != -1|| searchProduct!=-1) {
                 let dataad = localStorage.getItem('listProduct');
@@ -41,18 +40,25 @@ const MainHome = () => {
                 }
 
             } else {
-                let dataTotal = localStorage.getItem('listVariants');
-                if (dataTotal) {
-                    dkm = JSON.parse(dataTotal);
-
-                } else {
+               
                     let data = await productService.getProduct();
                     if (data.status != 200) return;
-                    dkm = data.data.variants;
-                }
+                    data=JSON.parse(data.data);
 
-                localStorage.setItem('listProduct', JSON.stringify(dkm));
-                localStorage.setItem('listVariants', JSON.stringify(dkm));
+                    dkm = data.variants;
+                    let data_user = JSON.parse(localStorage.getItem('user'));
+
+                    let idstore=data_user.data.id_store;
+
+                    let listfintell=dkm.filter(item=>{
+                        let kmj=item.variants[0].inventories;
+                        const check=kmj.find(item => {return item.store_id==idstore});
+                        if(check)return item;
+                     });
+                     dkm=listfintell;
+
+                localStorage.setItem('listProduct', JSON.stringify(listfintell));
+                localStorage.setItem('listVariants', JSON.stringify(listfintell));
 
             }
             setListProduct(dkm);

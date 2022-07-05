@@ -34,7 +34,7 @@ async function SelectById_promotion(id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from promotion where id = ? and status=0',
+            query: 'select * from promotion where id = ? and status=0 order by created_at  DESC' ,
             values: [id_user],
         });
         return result [0];
@@ -46,7 +46,7 @@ async function SelectById_promotion(id_user) {
 async function SelectAll(code) {
     try {
         const result = await excuteQuery({
-            query: 'select * from promotion where status=0',
+            query: 'select * from promotion where status=0 order by created_at  DESC',
             values: [code],
         });
         return result;
@@ -58,7 +58,7 @@ async function SelectAll(code) {
 async function SelectByid(id, date,id_city) {
     try {
         let query = 'SELECT * FROM promotion p '
-        query = query + "WHERE ( users_Id  LIKE  '%[?]%' or users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' or citys_id  LIKE  '%,?]%' or citys_id  LIKE  '%[?,%' or citys_id  LIKE  '%[?]%' or citys_id  LIKE  '%,?,%' ) and endDate >= ? and  status=0";
+        query = query + "WHERE ( users_Id  LIKE  '%[?]%' or users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' or citys_id  LIKE  '%,?]%' or citys_id  LIKE  '%[?,%' or citys_id  LIKE  '%[?]%' or citys_id  LIKE  '%,?,%' ) and endDate >= ? and  status=0 order by created_at  DESC";
 
         const result = await excuteQuery({
             query: query,
@@ -75,7 +75,7 @@ async function SelectByid(id, date,id_city) {
 async function SelectByidNotDate(id) {
     try {
         let query = 'SELECT * FROM promotion p '
-        query = query + "WHERE ( users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' )  and  status=0";
+        query = query + "WHERE ( users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' )  and  status=0 order by created_at  DESC";
 
         const result = await excuteQuery({
             query: query,
@@ -107,7 +107,7 @@ async function update(value) {
 async function count(id_user) {
     try {
         const result = await excuteQuery({
-            query: 'SELECT COUNT(id) AS number FROM promotion where status=0',
+            query: 'SELECT COUNT(id) AS number FROM promotion where status=0 order by created_at  DESC',
             values: [],
         });
         return result;

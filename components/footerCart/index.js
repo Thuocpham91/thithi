@@ -78,6 +78,7 @@ export default function FooterCart(props) {
     const dataUser = JSON.parse(localStorage.getItem('user'));
     if (!dataUser) return setLoading(false);
 
+
     if (dataUser.data.id_store == null || dataUser.data.id_store == "" || dataUser.data.id_cityVT == null || dataUser.data.id_districtVT == null || dataUser.data.id_wardsVT == null || dataUser.data.id_cityVT == "" || dataUser.data.id_districtVT == "" || dataUser.data.id_wardsVT == "") {
       setOpenEditUser(true);
       setLoading(false);
@@ -85,9 +86,9 @@ export default function FooterCart(props) {
     }
 
     const mns = lst.filter(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
-   
+
     if (!mns) return showToastEro('top-center', "Bạn chưa chọn hàng!");
-   
+
 
     let dataBuy = [];
     const dataO = mns.map(item => {
@@ -177,9 +178,9 @@ export default function FooterCart(props) {
       let dataUser = JSON.parse(localStorage.getItem('user'));
 
 
-      let data = await productService.getPromotionUser({ id_user: dataUser.data.id,id_city:dataUser.data.id_cityVT, date: stringdate });
+      let data = await productService.getPromotionUser({ id_user: dataUser.data.id, id_city: dataUser.data.id_cityVT, date: stringdate });
       console.log(data)
-   
+
       if (data.status != 200) return;
 
       setListCoupon(data.data)
@@ -202,7 +203,7 @@ export default function FooterCart(props) {
       let dataad = localStorage.getItem('listProduct');
       dkm = JSON.parse(dataad);
       console.log(dkm)
-      if(dkm== null) return;
+      if (dkm == null) return;
 
       const check = dkm.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });
       if (check) dispatch(showXND(true));

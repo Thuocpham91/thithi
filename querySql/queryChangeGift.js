@@ -29,7 +29,7 @@ async function insert(name, score, url, status, users, area,id_users,id_citys) {
 async function Selectbyid(code) {
     try {
         const result = await excuteQuery({
-            query: 'select * from change_gift where id = ?',
+            query: 'select * from change_gift where id = ? order by created_at  DESC ',
             values: [code],
         });
         return result[0];
@@ -44,7 +44,7 @@ async function SelectAll() {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from change_gift where status=0',
+            query: 'select * from change_gift where status=0 order by created_at  DESC',
             values: [],
         });
         return result;
@@ -60,7 +60,7 @@ async function SelectAllBuyIdIDcity(id,id_cityVT) {
 
     try {
         const result = await excuteQuery({
-            query: "select * from change_gift   WHERE ( id_users  LIKE  '%[?]%' or  id_users  LIKE  '%,?]%' or id_users  LIKE  '%[?,%' or id_users  LIKE  '%,?,%' or id_citys  LIKE  '%,?]%' or id_citys  LIKE  '%[?,%'  or id_citys  LIKE  '%[?]%' or id_citys  LIKE  '%,?,%' ) and status=0",
+            query: "select * from change_gift   WHERE ( id_users  LIKE  '%[?]%' or  id_users  LIKE  '%,?]%' or id_users  LIKE  '%[?,%' or id_users  LIKE  '%,?,%' or id_citys  LIKE  '%,?]%' or id_citys  LIKE  '%[?,%'  or id_citys  LIKE  '%[?]%' or id_citys  LIKE  '%,?,%' ) and status=0 order by created_at  DESC",
             values: [id,id,id,id,id_cityVT,id_cityVT,id_cityVT,id_cityVT],
         });
         return result;

@@ -20,7 +20,7 @@ import Backdrop from '@mui/material/Backdrop';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-const EditUser = (userChoose) => {
+const EditUser = (dataUser, CallBack) => {
     const [openEditUser, setOpenEditUser] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -57,10 +57,10 @@ const EditUser = (userChoose) => {
         console.log(valueEditUser)
 
         if (!valueEditUser.id_store) return toast.success("Chưa chọn kho hàng");
-        if (!valueEditUser.city_code) return toast.success("Chưa Thành phố");
-        if (!valueEditUser.district_code) return toast.success("Chưa chọn quận huyện");
+        if (!valueEditUser.code_cityVT) return toast.success("Chưa Thành phố");
+        if (!valueEditUser.id_districtVT) return toast.success("Chưa chọn quận huyện");
 
-        if (!valueEditUser.code_wardsVT) return toast.success("Chưa chọn khu vực");
+        if (!valueEditUser.id_wardsVT) return toast.success("Chưa chọn khu vực");
 
 
         setLoading(true)
@@ -74,6 +74,7 @@ const EditUser = (userChoose) => {
             setLoading(false);
             toast.success("Sửa thành công");
             setOpenEditUser(false);
+            CallBack.CallBack();
         } else {
             setLoading(false)
             toast.error("Sửa thất bại!");
@@ -84,8 +85,9 @@ const EditUser = (userChoose) => {
 
 
         const dataUser = JSON.parse(localStorage.getItem('user'));
-        setValueEditUser(dataUser.data);
-    }, [])
+        if (dataUser) setValueEditUser(dataUser.data);
+
+    }, [dataUser])
 
     return {
         setOpenEditUser,
@@ -192,7 +194,7 @@ const EditUser = (userChoose) => {
 
 
 
-                                {!valueEditUser.id_store ? <Grid item xs={6}>
+                                <Grid item xs={6}>
 
                                     <Autocomplete
                                         fullWidth
@@ -213,7 +215,7 @@ const EditUser = (userChoose) => {
                                     />
 
 
-                                </Grid> : ""}
+                                </Grid>
 
                                 <Grid item xs={12}>
                                     <TextField className='mb-1' fullWidth label="Địa chỉ giao hàng" variant="outlined" onChange={e => { setValueEditUser({ ...valueEditUser, address: e.target.value }) }} value={valueEditUser.address} />
