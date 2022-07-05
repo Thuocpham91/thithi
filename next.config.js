@@ -9,10 +9,10 @@ const nextConfig = {
   },
   accountViettel: {
     account: '0982288550',
-    pass:'Pthp123@'
+    pass: 'Pthp123@'
   },
   publicRuntimeConfig: {
-    apiUrl: process.env.NODE_ENV_API 
+    apiUrl: process.env.NODE_ENV_API
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -25,7 +25,10 @@ const path = require('path')
 
 module.exports = {
   images: {
-    domains: ['cdn.viettelsale.com'],
+    domains: ['cdn.viettelsale.com','http://202.92.6.221:3000/'],
+  },
+  serverRuntimeConfig: {
+    PROJECT_ROOT: __dirname
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
