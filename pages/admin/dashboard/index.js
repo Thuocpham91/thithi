@@ -4,7 +4,7 @@ import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import Link from 'next/link'
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import * as XLSX from "xlsx";
-
+import toast from "react-hot-toast";
 import { productService } from '../../../services/product.service';
 
 import Button from '@mui/material/Button';
@@ -77,8 +77,8 @@ export default function Dashboard() {
 
 
   const checkChagePoin =async (e) => {
+    toast.success("Cật nhật dứ liệu thành công");
     const data=await productService.updateDataVT({key:"city",id:281});
-
   }
 
 
@@ -105,11 +105,13 @@ export default function Dashboard() {
         <div className='home-chart--header'>Lượt đặt hàng từ 06-06-2022 đến 12-06-2022</div>
         <div className='home-chart--main'><Bar options={options} data={data} /></div>
       </div>
+      <div className="col-span-2">
+        <Button onClick={e => checkChagePoin()} variant="outlined" style={{color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update Dữ liệu VietTel</Button>
+      </div>
     </div>
     {/* <input type="file" onChange={onChange} /> */}
 
 
-    <Button onClick={e => checkChagePoin()} variant="outlined" style={{ border: '1px solid', color: '#23432E', textTransform: 'initial', fontWeight: 'bold' }} >Update Dữ liệu VietTel</Button>
 
 
 

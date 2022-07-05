@@ -22,7 +22,7 @@ import toast from "react-hot-toast";
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-const AddExchangePoints = () => {
+const AddExchangePoints = (props) => {
 
     const [openAddExchangePoints, setOpenAddExchangePoints] = useState(false);
     const [valueAddExchangePoints, setValueAddExchangePoints] = useState({
@@ -62,6 +62,7 @@ const AddExchangePoints = () => {
         if (sdsdj.status == 200) {
             toast.success("Thêm đổi quà thành công");
             setOpenAddExchangePoints(false);
+            props.setDataGift();
         } else {
             toast.error("Có lỗi ở đây!");
         }

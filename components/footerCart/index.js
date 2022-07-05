@@ -341,7 +341,12 @@ export default function FooterCart(props) {
                 return (
                   // <div key={idx}>
 
-                  <button key={idx} className={checkdieukien(d) != 1 ? 'btn-coupon chddk' : 'btn-coupon'} onClick={e => { handleClickItem(d) }} disabled={checkdieukien(d) == 1 ? '' : 'disabled'} >
+                  <button 
+                    key={idx} 
+                    className={checkdieukien(d) != 1 ? 'btn-coupon chddk' : 'btn-coupon'} 
+                    data={codeapp.code == d.code ? 'active' : ''} 
+                    onClick={e => { handleClickItem(d) }} disabled={checkdieukien(d) == 1 ? '' : 'disabled'} 
+                  >
 
                     {/* <button key={idx} className={'btn-coupon'} onClick={e => { handleClickItem(d) }} > */}
                     <div className='btn-coupon--body'>
