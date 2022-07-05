@@ -310,7 +310,7 @@ console.log(data)
                 <TableCell  >
                   {row.url && <>
                     <Image
-                      // loader={row.url}
+                      loader={loadImg}
                       alt={row.name}
                       src={row.url ? row.url : '/images/list-cate/Marlboro.png'}
                       width={50}
