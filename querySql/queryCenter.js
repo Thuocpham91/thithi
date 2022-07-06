@@ -26,7 +26,7 @@ async function getCiti() {
 async function getDistrict() {
     try {
         const result = await excuteQuery({
-            query: 'select * from  district ',
+            query: 'select  from  district ',
            
         });
         return result;

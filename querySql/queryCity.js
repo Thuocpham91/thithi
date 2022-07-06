@@ -40,7 +40,7 @@ async function SelectAll() {
 async function Delete() {
     try {
         const result = await excuteQuery({
-            query: 'delete * from city',
+            query: 'delete from city',
             values: [code],
         });
         return result;

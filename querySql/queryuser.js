@@ -106,7 +106,6 @@ async function selectALL() {
             query: query,
            
         });
-        console.log(result)
         return result;
     } catch (error) {
         return [];
@@ -206,7 +205,7 @@ async function searchUserIdkhataco(id) {
 async function findCityCode(city_id) {
     try {
         const result = await excuteQuery({
-            query: 'select * from user where city_id= ? ',
+            query: 'select * from user where id_cityVT= ? ',
             values: [city_id],
         });
         return result;

@@ -13,10 +13,12 @@ import { productService } from '../../../services/product.service';
 
 import Autocomplete from '@mui/material/Autocomplete';
 import { userService } from '../../../services/user.service';
+
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import toast from "react-hot-toast";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -33,7 +35,7 @@ const checkJson = (string) => {
 
 };
 
-const EditExchangePointsDia = ({ open, closeDialog,data }) => {
+const EditExchangePointsDia = ({ open, closeDialog, data }) => {
 
     const [imagesUpload, setImagesUpload] = useState(null);
 
@@ -45,15 +47,15 @@ const EditExchangePointsDia = ({ open, closeDialog,data }) => {
         closeDialog(false);
     };
 
-   
-console.log(data)
+
+    console.log(data)
 
     const [city, setCIty] = useState([]);
     const [rowUser, setRowUser] = useState([]);
     useEffect(() => {
         async function fetchData() {
             setValue(data);
-  
+
         }
         fetchData();
     }, [data]);
@@ -72,21 +74,18 @@ console.log(data)
     }, []);
     const handleEditExchangePoints = async () => {
 
-
         const body = new FormData();
         body.append("file", image);
+        body.append("key", "mabimatidsoadjoassd");
+
 
         if (image != null) {
-            const sdsd = await productService.upaloadFile(body);
-            console.log(sdsd)
-            if(sdsd.status==200)  value.url = sdsd.url;
-          
+            const dataurl = await productService.upaloadFile(body);
+            if (dataurl.status == 200) value.url = dataurl.url;
         }
 
-
-
+        
         const sdsdkkj = await productService.updateGift(value);
-        console.log(sdsdkkj)
 
         if (sdsdkkj.status == 200) {
             toast.success("Sửa thành công");
@@ -163,7 +162,7 @@ console.log(data)
                                 limitTags={2}
                                 id="multiple-limit-tags"
                                 options={rowUser}
-                                onChange={(event, newvalue) =>  {setValue({ ...value, users: newvalue })}}
+                                onChange={(event, newvalue) => { setValue({ ...value, users: newvalue }) }}
                                 getOptionLabel={(option) => option.id_khataco}
                                 renderInput={(params) => (
                                     <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />

@@ -35,6 +35,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { productService } from '../../../services/product.service';
+import toast from "react-hot-toast";
+
+const link_Image = "http://202.92.6.221:7005";
 
 
 function TablePaginationActions(props) {
@@ -67,13 +70,16 @@ function TablePaginationActions(props) {
       let data = await productService.getProduct();
       if (data.status != 200) return;
       // setListProduct(data.data.variants);
-      const dt = data.data.variants;
+      console.log(data);
+      const lk=JSON.parse(data.data);
+      const dt = lk.variants;
       dt.map(iten => {
         const ob = finterData.find(kk => { return kk.code == iten.variants[0].category.code });
         if (!ob) finterData.push(iten.variants[0].category);
 
       })
       const respont = await productService.updateCatogory({ data: finterData });
+      
     }
     fetchData();
 
@@ -136,15 +142,15 @@ const loadImg = ({ src, width }) => {
 const Category = () => {
 
   const [listCate, seListCate] = useState([
-   
+
   ]);
 
 
 
 
-  
+
   useEffect(() => {
-   
+
     ////
     async function getCategory() {
       let data = await productService.getCategory();
@@ -190,17 +196,27 @@ const Category = () => {
     setOpenEditCate(false);
   };
 
-  const handleEditCate =async () => {
+  const handleEditCate = async () => {
+
     const body = new FormData();
     body.append("file", image);
-   
-
-    const sdsd = await productService.upaloadFile(body);
-    cateChoose.url=sdsd.url;
-    const upda= await productService.updateCatogory({...cateChoose,key:3});
+    body.append("key", "mabimatidsoadjoassd");
 
 
-    setOpenEditCate(false);
+    if (image != null) {
+      const dataurl = await productService.upaloadFile(body);
+      if (dataurl.status == 200) cateChoose.url = dataurl.url;
+    }
+
+    const upda = await productService.updateCatogory({ ...cateChoose, key: 3 });
+
+    if (upda.status == 200) {
+      toast.success("Sửa thành công");
+      setOpenEditCate(false);
+    } else {
+      toast.error("Có lỗi ở đây!");
+    }
+
   };
 
 
@@ -221,7 +237,7 @@ const Category = () => {
     }
 
 
-    
+
   }
 
   return (<>
@@ -259,8 +275,11 @@ const Category = () => {
                   {row.url && <>
                     <Image
                       // loader={row.url}
+                      unoptimized
+                      loader={loadImg}
                       alt={row.name}
-                      src={row.url?row.url:'/images/default.jpg'}
+                      src={row.url ? (link_Image + row.url) : '/images/list-cate/Marlboro.png'}
+              
                       width="50px"
                       height="50px"
                       quality={100}
@@ -308,7 +327,7 @@ const Category = () => {
                   },
                   native: true,
                 }}
-                labelRowsPerPage = "Hàng trên bảng"
+                labelRowsPerPage="Hàng trên bảng"
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
@@ -324,7 +343,7 @@ const Category = () => {
       open={openEditCate}
       TransitionComponent={Transition}
       keepMounted
-      onClose={e=>handleCloseEditCate()}
+      onClose={e => handleCloseEditCate()}
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogContent className='text-center'>
@@ -345,9 +364,9 @@ const Category = () => {
         </div>
         <div className='flex justify-center mt-8 mb-3'>
           <div className='mr-4'>
-            <Button onClick={e=>handleEditCate()} variant="contained" style={{ background: "#EE0232" }}>Lưu lại</Button>
+            <Button onClick={e => handleEditCate()} variant="contained" style={{ background: "#EE0232" }}>Lưu lại</Button>
           </div>
-          <Button onClick={e=>handleCloseEditCate()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
+          <Button onClick={e => handleCloseEditCate()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
         </div>
       </DialogContent>
     </Dialog>

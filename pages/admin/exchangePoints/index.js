@@ -35,36 +35,30 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
-
-
-
-
 import AddExchangePoints from "../../../components/exchangePoints/AddExchangePoints";
 import EditExchangePointsDia from "../../../components/exchangePoints/EditExchangePoints/dialog";
 import DeleteExchangePoints from "../../../components/exchangePoints/DeleteExchangePoints";
-
 
 import { productService } from '../../../services/product.service';
 
 
 const loadImg = ({ src, width }) => {
-  return `http://202.92.6.221:3000/${src}?w=${width}}`
+  return `http://202.92.6.221:7005/${src}?w=${width}}`
 }
-
+const link_Image = "http://202.92.6.221:7005"
 const checkJson = (string) => {
   let rp;
   try {
-      if (string == null) return false;
-      rp = JSON.parse(string);
-      return true;
+    if (string == null) return false;
+    rp = JSON.parse(string);
+    return true;
   } catch (erro) {
-      return false;
+    return false;
   }
 
 };
 
-const ViewMenu = ({ openEdit, openDelete ,row}) => {
+const ViewMenu = ({ openEdit, openDelete, row }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -98,14 +92,14 @@ const ViewMenu = ({ openEdit, openDelete ,row}) => {
         }}
       >
 
-        <MenuItem onClick={e => openEdit(true,row)}>
+        <MenuItem onClick={e => openEdit(true, row)}>
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Chỉnh sửa</ListItemText>
         </MenuItem>
 
-        <MenuItem onClick={e => openDelete(true,row)}>
+        <MenuItem onClick={e => openDelete(true, row)}>
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
@@ -223,7 +217,7 @@ const ExchangePoints = () => {
     async function fetchData() {
       let data = await productService.getAllGift();
       if (data.status != 200) return;
-console.log(data)
+      console.log(data)
       setListGif(data.data)
     }
     fetchData();
@@ -247,22 +241,22 @@ console.log(data)
   // Delete  EditExchangePoints
   const { renderDeleteExchangePoints, setOpenDeleteExchangePoints } = DeleteExchangePoints(chooseItem, callback);
 
-  const handleOpenEdit = (check,value) => {
+  const handleOpenEdit = (check, value) => {
 
 
-    if(!value)return;
-  
-    const dataa={...value,area:  checkJson(value.area) ? JSON.parse(value.area) : [],users:checkJson(value.users) ? JSON.parse(value.users) : []};
+    if (!value) return;
+
+    const dataa = { ...value, area: checkJson(value.area) ? JSON.parse(value.area) : [], users: checkJson(value.users) ? JSON.parse(value.users) : [] };
     setChooseItem(dataa);
 
     setOpenEditExchangePoints(check);
   }
-  
-  const handleDelete = (check,value) => {
-    
-    if(!value)return;
 
-    const dataa={...value,area:  checkJson(value.area) ? JSON.parse(value.area) : [],users:checkJson(value.users) ? JSON.parse(value.users) : []};
+  const handleDelete = (check, value) => {
+
+    if (!value) return;
+
+    const dataa = { ...value, area: checkJson(value.area) ? JSON.parse(value.area) : [], users: checkJson(value.users) ? JSON.parse(value.users) : [] };
     setChooseItem(dataa);
 
     setOpenDeleteExchangePoints(check);
@@ -314,9 +308,10 @@ console.log(data)
                 <TableCell  >
                   {row.url && <>
                     <Image
+                      unoptimized
                       loader={loadImg}
                       alt={row.name}
-                      src={row.url ? row.url : '/images/list-cate/Marlboro.png'}
+                      src={row.url ? (link_Image + row.url) : '/images/list-cate/Marlboro.png'}
                       width={50}
                       height="50px"
                       quality={100}

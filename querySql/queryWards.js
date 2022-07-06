@@ -53,7 +53,7 @@ async function finByidDistrict(id) {
 async function Delete() {
     try {
         const result = await excuteQuery({
-            query: 'delete * from wards',
+            query: 'delete  from wards',
             values: [code],
         });
         return result;

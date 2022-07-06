@@ -45,8 +45,7 @@ function MyApp({ Component, pageProps }) {
 
     if (!publicPaths.includes(path)) {
       const check_login = await userService.getLogin();
-
-
+   
       if (check_login.status != 200) {
         userSubject.next(null);
         setAuthorized(false);
@@ -56,7 +55,9 @@ function MyApp({ Component, pageProps }) {
         });
 
       }else {
-
+        let data_user = JSON.parse(localStorage.getItem('user'));
+        data_user.data=check_login.user;
+        localStorage.setItem('user',JSON.stringify(data_user));
         setAuthorized(true);
       }
 

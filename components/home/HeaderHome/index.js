@@ -7,9 +7,10 @@ import { productService } from '../../../services/product.service';
 import { useSelector, useDispatch } from 'react-redux'
 import { setNotification,searchProduct } from '../../../Store/actions'
 
+const link_Image = "http://202.92.6.221:7005";
 
 const loadImg = ({ src, width }) => {
-  return `http://202.92.6.221:3000/${src}?w=${width}}`
+  return `http://202.92.6.221:7005/${src}?w=${width}}`
 }
 const HeaderHome = () => {
   const dispatch = useDispatch();
@@ -57,9 +58,11 @@ const HeaderHome = () => {
             <div className='cate-item__img'>
               <span>
                 <Image
+                  unoptimized
                   loader={loadImg}
                   alt={d.title}
-                  src={d.url ? d.url : '/images/list-cate/Marlboro.png'}
+                  src={d.url ? (link_Image + d.url) : '/images/list-cate/Marlboro.png'}
+              
                   layout='fill'
                   objectFit='contain'
                   quality={100}

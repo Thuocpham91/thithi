@@ -62,6 +62,7 @@ function handler(req, res) {
             return res.status(200).json({
                 status: 200,
                 message: "check ok",
+                user:user_
             });
 
         } catch (erro) {

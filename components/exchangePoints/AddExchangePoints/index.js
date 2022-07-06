@@ -48,11 +48,18 @@ const AddExchangePoints = (props) => {
 
     const handleAddExchangePoints = async () => {
 
+        
+
         const body = new FormData();
         body.append("file", image);
+        body.append("key", "mabimatidsoadjoassd");
 
-        const sdsd = await productService.upaloadFile(body);
-        valueAddExchangePoints.url = sdsd.url;
+
+        if (image != null) {
+            const dataurl = await productService.upaloadFile(body);
+            if (dataurl.status == 200) valueAddExchangePoints.url = dataurl.url;
+        }
+
 
 
 

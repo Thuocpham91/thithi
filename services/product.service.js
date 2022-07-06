@@ -1,6 +1,8 @@
 import getConfig from 'next/config';
 
 import { fetchWrapper } from '../helpers';
+import axios from 'axios';
+
 
 const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
@@ -24,6 +26,7 @@ export const productService = {
     changePoin,
     getDataUserchangGift,
     getPromotionUser,
+    uploadfile,
 };
 
 function getProduct() {
@@ -77,10 +80,26 @@ function postOder(data) {
 }
 
 async function upaloadFile(data) {
-    return fetchWrapper.postLile(`${baseUrl}/uploadFile`, data)
-        .then(user => {
-            return user;
-        });
+    // return fetchWrapper.postLile(`${baseUrl}/uploadFile`, data)
+    //     .then(user => {
+    //         return user;
+    //     });
+    const url = "http://202.92.6.221:7005/upload";
+
+    try {
+        var config = {
+            headers: { 'Content-Type': 'multipart/form-data' },
+            responseType: 'json'
+        };
+        const rp = await axios.post(url, data, config);
+        if(rp.data.status==200)return rp.data;;
+        if(!rp.data.status==200)return null;
+        
+    } catch (orro) {
+        return null;
+      
+
+    }
 }
 
 
@@ -139,6 +158,11 @@ async function getDataUserchangGift(data) {
 
 async function getPromotionUser(data) {
     const user = await fetchWrapper.post(`${baseUrl}/promotionUser `, data);
+    return user;
+}
+
+async function uploadfile(data) {
+    const user = await fetchWrapper.postLile(`http://202.92.6.221:7006/upload`, data);
     return user;
 }
 

@@ -36,6 +36,7 @@ const Root = styled('div')(({ theme }) => ({
 const loadImg = ({ src }) => {
   return `http://202.92.6.221:3000${src}`
 }
+const link_Image = "http://202.92.6.221:7005";
 
 function showToast(pos, message) {
   toast.success(message, {
@@ -99,9 +100,9 @@ const User = (props) => {
     const doks = await productService.changePoin(d);
     setLoading(false);
     if (doks.status == 200) {
-      showToast('top-center',"Đổi điểm thành công");
-      data.data.score=doks.user.score;
-      localStorage.setItem('user',JSON.stringify(data));
+      showToast('top-center', "Đổi điểm thành công");
+      data.data.score = doks.user.score;
+      localStorage.setItem('user', JSON.stringify(data));
       setInit(data.data);
 
     } else {
@@ -192,11 +193,12 @@ const User = (props) => {
                     <div key={idx} className="item-gift">
                       <span>
                         <Image
-                          // loader={loadImg}
+                          // loader={loadImg
+                          unoptimized
+                          loader={loadImg}
                           alt={d.title}
-                          src={d.url ? d.url : '/images/list-cate/Marlboro.png'}
+                          src={d.url ? (link_Image + d.url) : '/images/list-cate/Marlboro.png'}
 
-                          
                           layout='fill'
                           objectFit='contain'
                           quality={100}

@@ -3,12 +3,32 @@ import { promises as fs } from 'fs'
 
 
 
+import axios from 'axios';
+
 export const config = {
     api: {
         bodyParser: false,
     }
 };
 
+async function uploadfile(data) {
+    try {
+        const url = "http://localhost:7005/upload";
+
+
+        const response = await axios.request({
+            url: url,
+            method: 'POST',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            data: data,
+        });
+
+        return response;
+    } catch (orro) {
+        return null
+
+    }
+}
 
 function handler(req, res) {
     switch (req.method) {
@@ -22,23 +42,8 @@ function handler(req, res) {
             return res.status(405).end(`Method ${req.method} Not Allowed`)
     }
 
-
-
-    function randomString(len, charSet) {
-        charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var randomString = '';
-        for (var i = 0; i < len; i++) {
-            var randomPoz = Math.floor(Math.random() * charSet.length);
-            randomString += charSet.substring(randomPoz, randomPoz + 1);
-        }
-        return randomString;
-    }
-
-
     async function setOder() {
-
         try {
-
             const data = await new Promise((resolve, reject) => {
                 const form = new IncomingForm();
                 form.parse(req, (err, fields, files) => {
@@ -47,41 +52,25 @@ function handler(req, res) {
                 });
             });
 
+            const dald = {
+                "key": "mabimatidsoadjoassd",
+                "file": data.files.file
+            };
+            console.log(data);
+            var FormData = require('form-data');
+            var bodyFormData = new FormData();
+             bodyFormData.append('file', data.files.file);
 
-
-
-
-            const imageFile = data.files.file; // .image because I named it in client side by that name: // pictureData.append('image', pictureFile);
-            const imagePath = imageFile.filepath;
-            let file_n=randomString(12)+imageFile.originalFilename;
-
-        
-            const pathToWriteImage = `public/${file_n}`; // include name and .extention, you can get the name from data.files.image object
-            const image = await fs.readFile(imagePath);
-            await fs.writeFile(pathToWriteImage, image);
-
-            let part=`/${file_n}`
-
-
-
-            res.status(200).json({ status: 200,url:part });
-
-
+            const rps = await uploadfile(bodyFormData);
+            console.log(rps)
+            res.status(200).json({ status: 200, url: "rps" });
         } catch (erro) {
             console.log(erro);
-
             res.status(200).json({ status: 199, message: "cõ lỗi sảy ra", data: erro });
-
 
         }
 
-
-
-
-
     }
-
-
 
 
 

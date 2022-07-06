@@ -54,7 +54,7 @@ async function finbyidcity(id) {
 async function Delete() {
     try {
         const result = await excuteQuery({
-            query: 'delete * from districts',
+            query: 'delete  from districts',
             values: [code],
         });
         return result;

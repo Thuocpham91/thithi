@@ -27,8 +27,7 @@ module.exports = {
   reactStrictMode: true,
 
   images: {
-    domains: ['cdn.viettelsale.com','202.92.6.221:3000'],
-    formats: ["image/webp"],
+    domains: ['cdn.viettelsale.com','202.92.6.221:7005'],
   },
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname

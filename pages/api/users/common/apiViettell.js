@@ -32,9 +32,6 @@ async function getlogInViettel() {
         return null
 
     }
-
-
-
 }
 
 async function logInViettel() {
@@ -239,41 +236,7 @@ async function sentOder(data) {
     try {
         const acount = await logInViettel();
         const rp2 = await getTokenchanel(acount.access_token);
-        // const datap = {
-        //     "products": [
-        //         {
-        //             "id": 1231231231,
-        //             "quantity": 42,
-        //             "price": 26
-        //         }
-        //     ],
-        //     "total": 1132,
-        //     "transport": {
-        //         "id": "211232",
-        //         "title": "thuoc gui",
-        //         "delivery_time": "string",
-        //         "payer_type": 1
-        //     },
-        //     "transport_type": 1,
-        //     "staff_note": "string",
-        //     "total_weight":2,
-        //     "total_money_product":1999,
-        //     "total_ship": 0,
-        //     "store_id": 0,
-        //     "payment_method": 1,
-        //     "source": "TMĐT",
-        //     "total_discount": 0,
-        //     "total_money_cod": 0,
-        //     "customer": {
-        //         "phone": "0978095248",
-        //         "fullName": "phamvutuoc",
-        //         "province_id": 0,
-        //         "ward_id": 0,
-        //         "district_id": 1,
-        //         "address": "hop hoa tam duong vinh phuc",
-        //         "location_type": "VIETTELPOST"
-        //     }
-        // };
+     
 
         const oder = await createOder(rp2.access_token, data);
         console.log(oder)
