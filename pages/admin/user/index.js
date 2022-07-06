@@ -275,23 +275,18 @@ const User = () => {
 
       <div className='mb-5'>
         <Autocomplete
-          disablePortal
-
-          limitTags={2}
           id="multiple-limit-tags"
           onChange={async (item, value) => {
             let data;
             if (!value) data = await userService.getAll();
             if (value) data = await userService.getAll(value);
-
             if (data.status != 200) return;
-
             setRowUser(data.data);
           }}
           options={city}
           getOptionLabel={(option) => option.name}
           renderInput={(params) => (
-            <TextField fullWidth {...params} label="Tỉnh thành" autoFocus placeholder="Chọn khu vực" />
+            <TextField fullWidth {...params} label="Tỉnh thành" autoFocus={true} aria-autocomplete="off" autoComplete='off' placeholder="Chọn khu vực" />
           )}
           sx={{ width: '200px' }}
         />
@@ -309,6 +304,7 @@ const User = () => {
               <TableCell >Họ tên</TableCell>
               <TableCell align="right">Số điện thoại</TableCell>
               <TableCell align="right">Điểm thưởng</TableCell>
+              <TableCell>Khu vực</TableCell>
               <TableCell align="right">Mô tả</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
@@ -333,6 +329,9 @@ const User = () => {
                 </TableCell>
                 <TableCell align="right">
                   {row.score}
+                </TableCell>
+                <TableCell>
+                  {row.name_cityVT}
                 </TableCell>
                 <TableCell align="right">
                   {row.description}
