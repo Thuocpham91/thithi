@@ -114,8 +114,9 @@ const ImportPoint = (dataUser) => {
 
 
                     <div className='flex justify-center mt-8 mb-3'>
-
-                        <Button className='mr-2' onClick={e => HandleImport(e)} variant="contained" style={{ background: "#EE0232" }}>Import</Button>
+                        <div className='mr-4'>
+                            <Button  onClick={e => HandleImport(e)} variant="contained" style={{ background: "#EE0232" }}>Import</Button>
+                        </div>
                         <Button onClick={handleCloseImport} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
                 </DialogContent>
