@@ -104,11 +104,12 @@ function handler(req, res) {
                     insertdataStore(item);
                 });
 
+                await Product.Delete();
+                await Product.insert(120, JSON.stringify(listproduct));
+
             } else {
 
-                await Product.Delete();
-
-                await Product.insert(120, JSON.stringify(listproduct))
+             
                 const cityVT = await apiViettel.getCity(loginVT.access_token);
                 data = cityVT.cities;
 
