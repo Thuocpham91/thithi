@@ -34,7 +34,7 @@ const insertDistrict = async (item, access_token) => {
     await Districts.insert(item.id, item.city_id, item.name, item.fullname, item.vtp_id);
     const cityVT = await apiViettel.getWards(access_token, item.id);
     cityVT.wards.map(item => {
-        insertdataWards(item)
+        insertdataWards(item);
     })
 
 }
@@ -51,28 +51,19 @@ const updateCatogory = async (item) => {
 
     }
 
-
-
-
-
-
 }
 
 const insertdataWards = async (item) => {
-
     await Wards.insert(item.city_id, item.district_id, item.fullname, item.id, item.name, item.vtp_id);
 }
 
 const insertdataStore = async (item) => {
-
-
     await Store.insert(item.id, item.name, item.address, item.code, item.caption, item.channel_id, item.phone);
 }
 
 
 
 export default apiHandler(handler);
-
 
 function handler(req, res) {
     switch (req.method) {
@@ -93,54 +84,49 @@ function handler(req, res) {
             const loginVT = await apiViettel.logInViettel();
             const rp2 = await apiViettel.getTokenchanel(loginVT.access_token);
 
+            if (key == 1) {
+                let listproduct = await apiViettel.getListproduct(rp2.access_token);
+                let dt = JSON.parse(listproduct);
+                let arayprodcut = dt.variants;
+                // dt = dt.variants;
+                const finterData = [];
+                arayprodcut.map(iten => {
+                    const ob = finterData.find(kk => { return kk.code == iten.variants[0].category.code });
+                    if (!ob) finterData.push(iten.variants[0].category);
+                });
+                finterData.map(iem => {
+                    updateCatogory(iem)
+                });
 
-            let listproduct = await apiViettel.getListproduct(rp2.access_token);
+                await Store.Delete();
+                const storeg = await apiViettel.getStore(rp2.access_token);
+                storeg.stores.map(item => {
+                    insertdataStore(item);
+                });
 
-            let dt = JSON.parse(listproduct);
-            let arayprodcut = dt.variants;
+            } else {
+
+                await Product.Delete();
+
+                await Product.insert(120, JSON.stringify(listproduct))
+                const cityVT = await apiViettel.getCity(loginVT.access_token);
+                data = cityVT.cities;
+
+                await City.Delete();
+                await Districts.Delete();
+                await Wards.Delete();
+                data.map(item => {
+                    insertdatacity(item, loginVT.access_token);
+                });
 
 
-            // dt = dt.variants;
 
-            const finterData = [];
-
-            arayprodcut.map(iten => {
-                const ob = finterData.find(kk => { return kk.code == iten.variants[0].category.code });
-                if (!ob) finterData.push(iten.variants[0].category);
-
-            });
-
-
-            finterData.map(iem => {
-                updateCatogory(iem)
-            });
-
-            await Product.Delete();
-
-            await Product.insert(120, JSON.stringify(listproduct))
-            const cityVT = await apiViettel.getCity(loginVT.access_token);
-            data = cityVT.cities;
-
-            await City.Delete();
-            await Districts.Delete();
-            await Wards.Delete();
-            data.map(item => {
-                insertdatacity(item, loginVT.access_token);
-            });
-
-            await Store.Delete();
-            const storeg = await apiViettel.getStore(rp2.access_token);
-            storeg.stores.map(item => {
-                insertdataStore(item);
-            });
+            }
 
             return res.status(200).json({
                 status: 200,
-                city: data,
-                storeg,
-                listproduct: JSON.parse(listproduct),
-                arayprodcut,
-                finterData
+                message: "Update thành công"
+
             });
 
 

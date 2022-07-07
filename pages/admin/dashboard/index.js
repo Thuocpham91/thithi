@@ -81,10 +81,9 @@ export default function Dashboard() {
 
   const [loading, setLoading] = useState(false);
 
-  const checkChagePoin = async (e) => {
+  const checkChagePoin = async (value) => {
     setLoading(true);
-    const data = await productService.updateDataVT({ key: "city", id: 281 });
-    console.log(data)
+    const data = await productService.updateDataVT({ key: value, id: 281 });
 
     if (data.status == 200) {
       toast.success("Cật nhật dứ liệu thành công");
@@ -120,7 +119,10 @@ export default function Dashboard() {
         <div className='home-chart--main'><Bar options={options} data={data} /></div>
       </div>
       <div className="col-span-2">
-        <Button onClick={e => checkChagePoin()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update dữ liệu Viettel</Button>
+        <Button onClick={e => checkChagePoin(1)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update Category</Button>
+      </div>
+      <div className="col-span-2">
+        <Button onClick={e => checkChagePoin(2)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update dữ liệu Tỉnh thành</Button>
       </div>
     </div>
     {/* <input type="file" onChange={onChange} /> */}

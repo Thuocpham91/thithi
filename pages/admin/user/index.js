@@ -292,6 +292,7 @@ const User = () => {
 
       <div className='mb-5'>
         <Autocomplete
+          disablePortal
           id="multiple-limit-tags"
           onChange={async (item, value) => {
             let data;
