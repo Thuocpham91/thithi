@@ -39,7 +39,7 @@ const insertDistrict = async (item, access_token) => {
 
 const updateCatogory = async (item) => {
 
-    let d = Catogory.SelectCode(item.code);
+    let d =await Catogory.Selected(item.code);
     if (d) {
         d.name = item.name;
         await Catogory.updateCode(d)
@@ -90,8 +90,8 @@ function handler(req, res) {
                     const ob = finterData.find(kk => { return kk.code == iten.variants[0].category.code });
                     if (!ob) finterData.push(iten.variants[0].category);
                 });
-                finterData.map(iem => {
-                    updateCatogory(iem)
+                finterData.map(async iem => {
+                   await updateCatogory(iem)
                 });
 
                 await Store.Delete();
@@ -107,6 +107,7 @@ function handler(req, res) {
                     status: 200,
                     message: "Update thành công",
                     data:JSON.parse(listproduct),
+                    finterData
     
                 });
     
