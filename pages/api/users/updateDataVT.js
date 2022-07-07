@@ -39,7 +39,7 @@ const insertDistrict = async (item, access_token) => {
 
 const updateCatogory = async (item) => {
 
-    let d = Catogory.Selected(item.code);
+    let d = Catogory.SelectCode(item.code);
     if (d) {
         d.name = item.name;
         await Catogory.updateCode(d)
