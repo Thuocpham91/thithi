@@ -120,10 +120,11 @@ export default function Dashboard() {
       </div>
       <div className="col-span-2">
         <Button onClick={e => checkChagePoin(1)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update Category</Button>
-      </div>
-      <div className="col-span-2">
+  
         <Button onClick={e => checkChagePoin(2)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update dữ liệu Tỉnh thành</Button>
+
       </div>
+
     </div>
     {/* <input type="file" onChange={onChange} /> */}
 
