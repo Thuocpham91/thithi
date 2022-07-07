@@ -38,6 +38,15 @@ const EditPromotionD = (props) => {
 
     const handleEditPromotion = async () => {
 
+
+        
+        if (!valueAddPromotion.startDate) return toast.error("Bạn chưa nhập Thời gian  bắt đầu");
+        if (!valueAddPromotion.endDate) return toast.error("Bạn chưa nhập Thời gian kết thúc");
+        if (isNaN(Number(valueAddPromotion.numberOfUses))) return toast.error("nhập sai số");
+        if (isNaN(Number(valueAddPromotion.quantityPurchased)) ) return toast.error("nhập sai số lượng mua");
+        if (valueAddPromotion.product !="") return toast.error("Bạn chưa chọn product");
+        
+
         valueAddPromotion.endDate = format(parseISO(valueAddPromotion.endDate), 'yyyy-MM-dd HH:mm:ss');
         valueAddPromotion.startDate = format(parseISO(valueAddPromotion.startDate), 'yyyy-MM-dd HH:mm:ss ');
 

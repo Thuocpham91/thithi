@@ -41,7 +41,6 @@ async function Delete() {
     try {
         const result = await excuteQuery({
             query: 'delete from product',
-            values: [code],
         });
         return result;
     } catch (error) {

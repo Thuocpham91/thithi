@@ -57,7 +57,9 @@ async function SelectAll(code) {
 }
 async function SelectByid(id, date,id_city) {
     try {
-        let query = 'SELECT * FROM promotion p '
+        let query = ' SELECT p.* , u.number_uses as Number_user FROM promotion p   ';
+        query = query + 'LEFT JOIN `number_user_promontion` u ';
+        query = query + 'ON   p.id  = u.id_promotion  ';
         query = query + "WHERE ( users_Id  LIKE  '%[?]%' or users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' or citys_id  LIKE  '%,?]%' or citys_id  LIKE  '%[?,%' or citys_id  LIKE  '%[?]%' or citys_id  LIKE  '%,?,%' ) and endDate >= ? and  status=0 and startDate <= ? order by created_at  DESC";
 
         const result = await excuteQuery({

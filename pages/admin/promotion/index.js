@@ -122,14 +122,15 @@ const Promotion = () => {
     const [promotionChose, setPromotionChose] = useState({});
     const openMenu = Boolean(anchorEl);
     const handleOpenMenu = (event, row) => {
-        if(!row)return;
+        if (!row) return;
 
-        const dataa={...row,area:  checkJson(row.area) ? JSON.parse(row.area) : [],
-            users:checkJson(row.users) ? JSON.parse(row.users) : [],
-        
-            citys_id:checkJson(row.citys_id) ? JSON.parse(row.citys_id) : [],
-            product_name:checkJson(row.product_name) ? JSON.parse(row.product_name) : [],
-            users_Id:checkJson(row.users_Id) ? JSON.parse(row.users_Id) : []
+        const dataa = {
+            ...row, area: checkJson(row.area) ? JSON.parse(row.area) : [],
+            users: checkJson(row.users) ? JSON.parse(row.users) : [],
+
+            citys_id: checkJson(row.citys_id) ? JSON.parse(row.citys_id) : [],
+            product_name: checkJson(row.product_name) ? JSON.parse(row.product_name) : [],
+            users_Id: checkJson(row.users_Id) ? JSON.parse(row.users_Id) : []
         };
         console.log(dataa)
 
@@ -149,7 +150,7 @@ const Promotion = () => {
 
     const { renderDeletePromotion, setOpenDeletePromotion } = DeletePromotion(promotionChose);
 
-    
+
 
 
     const handleOpenEditPromotion = () => {
@@ -206,7 +207,7 @@ const Promotion = () => {
                                     {row.code}
                                 </TableCell>
                                 <TableCell  >
-                                    {checkJson(row.product_name) ? JSON.parse(row.product_name).map(item=>  {return item.product_name}).join():  ""}
+                                    {checkJson(row.product_name) ? JSON.parse(row.product_name).map(item => { return item.product_name }).join() : ""}
                                 </TableCell>
                                 <TableCell className='text-right'>
                                     {row.numberOfUses.toLocaleString()}
@@ -220,21 +221,23 @@ const Promotion = () => {
                                 <TableCell style={{ width: 200 }}>
                                     <div className='area-list'>
                                         {
-                                         row?JSON.parse(row.area)?JSON.parse(row.area).map(function (d, idx) {
+                                            row ? JSON.parse(row.area) ? JSON.parse(row.area).map(function (d, idx) {
                                                 return (
                                                     <span key={idx}>{d.name}<i>, </i></span>
                                                 )
-                                            }):"":""
+                                            }) : "" : ""
                                         }
                                     </div>
                                 </TableCell>
                                 <TableCell  >
-                                    {format(parseISO(row.startDate), 'yyyy-MM-dd HH:mm')}
+
+                                    {row.startDate ? format(parseISO(row.startDate), 'yyyy-MM-dd HH:mm') : ""}
 
                                 </TableCell>
                                 <TableCell  >
 
-                                    {format(parseISO(row.endDate), 'yyyy-MM-dd  HH:mm')}
+
+                                    {row.endDate ? format(parseISO(row.endDate), 'yyyy-MM-dd  HH:mm') : ""}
 
 
                                 </TableCell>
@@ -268,7 +271,7 @@ const Promotion = () => {
                                 count={listPromotion.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
-                                labelRowsPerPage = "Hàng trên bảng"
+                                labelRowsPerPage="Hàng trên bảng"
                                 SelectProps={{
                                     inputProps: {
                                         'aria-label': 'Hàng trên bảng',

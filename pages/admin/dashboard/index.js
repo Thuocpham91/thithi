@@ -9,6 +9,10 @@ import { productService } from '../../../services/product.service';
 
 import Button from '@mui/material/Button';
 
+
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -75,10 +79,20 @@ export default function Dashboard() {
     reader.readAsBinaryString(file);
   }
 
+  const [loading, setLoading] = useState(false);
 
-  const checkChagePoin =async (e) => {
-    toast.success("Cật nhật dứ liệu thành công");
-    const data=await productService.updateDataVT({key:"city",id:281});
+  const checkChagePoin = async (e) => {
+    setLoading(true);
+    const data = await productService.updateDataVT({ key: "city", id: 281 });
+    console.log(data)
+
+    if (data.status == 200) {
+      toast.success("Cật nhật dứ liệu thành công");
+    } else {
+      toast.success("Cật nhật dứ liệu thất bại");
+    }
+
+    setLoading(false)
   }
 
 
@@ -106,13 +120,18 @@ export default function Dashboard() {
         <div className='home-chart--main'><Bar options={options} data={data} /></div>
       </div>
       <div className="col-span-2">
-        <Button onClick={e => checkChagePoin()} variant="outlined" style={{color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update Dữ liệu VietTel</Button>
+        <Button onClick={e => checkChagePoin()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update dữ liệu Viettel</Button>
       </div>
     </div>
     {/* <input type="file" onChange={onChange} /> */}
 
 
-
+    <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={loading}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
 
 
   </>)

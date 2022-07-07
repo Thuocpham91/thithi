@@ -64,27 +64,30 @@ function TablePaginationActions(props) {
 
 
 
-  useEffect(() => {
-    async function fetchData() {
-      const finterData = [];
-      let data = await productService.getProduct();
-      if (data.status != 200) return;
-      // setListProduct(data.data.variants);
-      console.log(data);
-      const lk=JSON.parse(data.data);
-      const dt = lk.variants;
-      dt.map(iten => {
-        const ob = finterData.find(kk => { return kk.code == iten.variants[0].category.code });
-        if (!ob) finterData.push(iten.variants[0].category);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const finterData = [];
+  //     let data = await productService.getProduct();
+  //     if (data.status != 200) return;
+  //     // setListProduct(data.data.variants);
+  //     const lk = JSON.parse(data.data);
 
-      })
-      const respont = await productService.updateCatogory({ data: finterData });
-      
-    }
-    fetchData();
+  //     const dt = lk.variants;
+  //     console.log(dt);
+
+  //     dt.map(iten => {
+  //       const ob = finterData.find(kk => { return kk.code == iten.variants[0].category.code });
+  //       if (!ob) finterData.push(iten.variants[0].category);
+
+  //     })
+  //     const respont = await productService.updateCatogory({ data: finterData });
+  //     console.log(respont);
+
+  //   }
+  //   fetchData();
 
 
-  }, []);
+  // }, []);
 
 
 
@@ -279,7 +282,7 @@ const Category = () => {
                       loader={loadImg}
                       alt={row.name}
                       src={row.url ? (link_Image + row.url) : '/images/list-cate/Marlboro.png'}
-              
+
                       width="50px"
                       height="50px"
                       quality={100}

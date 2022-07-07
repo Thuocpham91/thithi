@@ -55,7 +55,6 @@ async function Delete() {
     try {
         const result = await excuteQuery({
             query: 'delete  from districts',
-            values: [code],
         });
         return result;
     } catch (error) {

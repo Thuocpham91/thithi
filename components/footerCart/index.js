@@ -72,14 +72,14 @@ export default function FooterCart(props) {
   const checkJson = (string) => {
     let rp;
     try {
-        if (string == null) return false;
-        rp = JSON.parse(string);
-        return true;
+      if (string == null) return false;
+      rp = JSON.parse(string);
+      return true;
     } catch (erro) {
-        return false;
+      return false;
     }
 
-};
+  };
 
   const handleAcept = async () => {
     setLoading(true);
@@ -124,7 +124,7 @@ export default function FooterCart(props) {
     console.log(codeapp)
 
     const order = {
-      "id_code": codeapp.id?codeapp.id:"",
+      "id_code": codeapp.id ? codeapp.id : "",
       "products": dataBuy,
       "total": 0,
       "transport": {
@@ -191,7 +191,6 @@ export default function FooterCart(props) {
 
 
       let data = await productService.getPromotionUser({ id_user: dataUser.data.id, id_city: dataUser.data.id_cityVT, date: stringdate });
-      console.log(data)
 
       if (data.status != 200) return;
 
@@ -257,13 +256,25 @@ export default function FooterCart(props) {
   }
 
   const checkdieukien = (d) => {
+    // const dataUser = JSON.parse(localStorage.getItem('user'));
 
-    if (d.number_use >= d.numberOfUses) return 3;
+    if(Number(d.Number_user)>= Number(d.numberOfUses)) return 3;
+    // let check_numberuser = false;
+
+    // if (d.number_users) {
+    //   if (checkJson(d.number_users)) {
+    //     const m = JSON.parse(d.number_users);
+    //     m.map(item => {
+    //       if (item.id == dataUser.data.id && Number(item.number_use) >= Number(d.numberOfUses)) check_numberuser = true;
+    //     })
+    //   }
+    // }
+    // if(check_numberuser)return 3;
 
     let dkm = [];
 
     let dataad = localStorage.getItem('listProduct');
-    if(!checkJson(dataad)) return ;
+    if (!checkJson(dataad)) return;
 
     dkm = JSON.parse(dataad);
 
@@ -274,7 +285,7 @@ export default function FooterCart(props) {
 
     let checkdk = 2;
 
-    if(!checkJson(d.product_name)) return checkdk;
+    if (!checkJson(d.product_name)) return checkdk;
 
     if (d.product_name) {
       const l = JSON.parse(d.product_name).map(item => {
@@ -282,7 +293,7 @@ export default function FooterCart(props) {
         check.map(ik => {
           if (ik.product_id == item.product_id) {
             const tong = Number(ik.numberPackage ? ik.numberPackage : 0) + Number(ik.numberTobacco ? ik.numberTobacco : 0) * 10 + Number(ik.numberBarrel ? ik.numberBarrel : 0) * 500;
-            if (Number(d.numberOfUses) <= tong) {
+            if (Number(d.quantityPurchased) <= tong) {
               checkdk = 1;
 
             }
@@ -357,11 +368,11 @@ export default function FooterCart(props) {
                 return (
                   // <div key={idx}>
 
-                  <button 
-                    key={idx} 
-                    className={checkdieukien(d) != 1 ? 'btn-coupon chddk' : 'btn-coupon'} 
-                    data={codeapp.code == d.code ? 'active' : ''} 
-                    onClick={e => { handleClickItem(d) }} disabled={checkdieukien(d) == 1 ? '' : 'disabled'} 
+                  <button
+                    key={idx}
+                    className={checkdieukien(d) != 1 ? 'btn-coupon chddk' : 'btn-coupon'}
+                    data={codeapp.code == d.code ? 'active' : ''}
+                    onClick={e => { handleClickItem(d) }} disabled={checkdieukien(d) == 1 ? '' : 'disabled'}
                   >
 
                     {/* <button key={idx} className={'btn-coupon'} onClick={e => { handleClickItem(d) }} > */}
@@ -373,22 +384,22 @@ export default function FooterCart(props) {
                         </div>
                         <div className='btn-coupon-center'>
                           <h3>{d.title}</h3>
-                          <p>Dùng được {d.numberOfUses} lần</p>
+                          <p>Dùng được {d.numberOfUses} combo</p>
 
-                          <span>    {format(parseISO(d.startDate), 'dd-mm')} / {format(parseISO(d.endDate), 'dd-mm')}</span>
+                          <span>    {"Hết hạn ngày: "}  {format(parseISO(d.endDate), 'dd-mm')}</span>
                         </div>
                         <div className='btn-coupon-right'>
                           {checkdieukien(d) == 1 && <>
                             <>
                               <p>Đã dùng</p>
-                              <p><strong>{d.number_use}/{d.numberOfUses}</strong> lần</p>
+                              <p><strong>{d.Number_user}/{d.numberOfUses}</strong> combo</p>
                             </>
                           </>}
                           {checkdieukien(d) == 2 && <>
                             <div className='btn-coupon-right--noti-bot red'>Chưa đủ điều kiện</div>
                           </>}
                           {checkdieukien(d) == 3 && <>
-                            <div className='btn-coupon-right--noti-bot'>Hết lần sử dụng</div>
+                            <div className='btn-coupon-right--noti-bot'>Đã sử dụng hết</div>
                           </>}
                         </div>
                       </div>

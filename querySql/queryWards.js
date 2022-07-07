@@ -28,7 +28,6 @@ async function SelectAll() {
     try {
         const result = await excuteQuery({
             query: 'select * from wards',
-            values: [code],
         });
         return result;
     } catch (error) {
@@ -54,7 +53,6 @@ async function Delete() {
     try {
         const result = await excuteQuery({
             query: 'delete  from wards',
-            values: [code],
         });
         return result;
     } catch (error) {

@@ -7,6 +7,8 @@ export const Catogory = {
     Select,
     update,
     SelectAll,
+    updateCode,
+    Selected,
     
 };
 
@@ -36,6 +38,20 @@ async function Select(code) {
         return result;
     } catch (error) {
       return [];
+    }
+
+}
+async function Selected(code) {
+
+
+    try {
+        const result = await excuteQuery({
+            query: 'select * from category where code = ?',
+            values: [code],
+        });
+        return result[0];
+    } catch (error) {
+      return null;
     }
 
 }
@@ -69,3 +85,16 @@ async function update(name, code, status,url,id) {
 
 }
 
+
+async function updateCode(value) {
+    try {
+        const result = await excuteQuery({
+            query: 'UPDATE  category SET name=? ,status= ?,url= ?   where code= ?',
+            values: [value.name, value.status,value.url,value.code],
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+
+}

@@ -50,6 +50,14 @@ const AddPromotion = () => {
 
 
     const handleAddPromotion = async () => {
+
+        if (!valueAddPromotion.startDate) return toast.error("Bạn chưa nhập Thời gian  bắt đầu");
+        if (!valueAddPromotion.endDate) return toast.error("Bạn chưa nhập Thời gian kết thúc");
+        if (isNaN(Number(valueAddPromotion.numberOfUses))) return toast.error("nhập sai số");
+        if (isNaN(Number(valueAddPromotion.quantityPurchased)) ) return toast.error("nhập sai số lượng mua");
+        if (valueAddPromotion.product !="") return toast.error("Bạn chưa chọn product");
+        
+
         setLoading(true)
 
         const data = await productService.addPromotion(valueAddPromotion);
@@ -184,7 +192,7 @@ const AddPromotion = () => {
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField   type="number" className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion.quantityPurchased} />
+                                <TextField type="number" className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion.quantityPurchased} />
                             </Grid>
                             {/* <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion.promotionalQuantity} />

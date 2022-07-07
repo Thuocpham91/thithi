@@ -74,7 +74,7 @@ const ImportPoint = (dataUser) => {
                 const ws = wb.Sheets[wsname];
                 // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
                 const json = XLSX.utils.sheet_to_json(ws);
-                const data_import = json.map(item => { return { id: item.id, score: item.score } });
+                const data_import = json.map(item => { return { id: item.id_user, score: item.score } });
                 setDataImport(data_import);
             };
             reader.readAsBinaryString(file);

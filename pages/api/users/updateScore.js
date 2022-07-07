@@ -15,10 +15,10 @@ export default apiHandler(handler);
 const updateScoreUser=async(id,score)=>{
 
     if(typeof score != 'number') return;
-
     const user_chage = await User.findBId(id);
+    if(!user_chage)return;
     user_chage.score=score;
-    User.update(user_chage);
+    await User.update(user_chage);
     
 
 }
@@ -52,12 +52,7 @@ function handler(req, res) {
                 updateScoreUser(item.id,item.score);
             })
 
-            // var bcrypt = require('bcrypt');
-
-            // if (!bcrypt.compareSync(reNewPassword, user_chage.password)) return res.status(200).json({
-            //     status: 181,
-            //     message: "mật khẩu không đúng",
-            // });
+   
             return res.status(200).json({
                 status: 200,
                 message: "thay đổi thành công",
