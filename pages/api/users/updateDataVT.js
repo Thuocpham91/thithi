@@ -22,8 +22,8 @@ const insertdatacity = async (item, access_token) => {
     await City.insert(item.id, item.vts_id, item.name, item.zip_code, item.vtp_id);
 
     const cityVT = await apiViettel.getDistrict(access_token, item.id);
-    cityVT.districts.map(item => {
-        insertDistrict(item, access_token)
+    cityVT.districts.map(async item => {
+        await insertDistrict(item, access_token)
     })
 }
 
@@ -33,8 +33,8 @@ const insertDistrict = async (item, access_token) => {
 
     await Districts.insert(item.id, item.city_id, item.name, item.fullname, item.vtp_id);
     const cityVT = await apiViettel.getWards(access_token, item.id);
-    cityVT.wards.map(item => {
-        insertdataWards(item);
+    cityVT.wards.map(async item => {
+        await insertdataWards(item);
     })
 
 }
@@ -109,15 +109,15 @@ function handler(req, res) {
 
             } else {
 
-             
+
                 const cityVT = await apiViettel.getCity(loginVT.access_token);
                 data = cityVT.cities;
 
                 await City.Delete();
                 await Districts.Delete();
                 await Wards.Delete();
-                data.map(item => {
-                    insertdatacity(item, loginVT.access_token);
+                data.forEach(async item => {
+                    await insertdatacity(item, loginVT.access_token);
                 });
 
 

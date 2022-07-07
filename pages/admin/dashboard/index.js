@@ -86,9 +86,9 @@ export default function Dashboard() {
     const data = await productService.updateDataVT({ key: value, id: 281 });
 
     if (data.status == 200) {
-      toast.success("Cật nhật dứ liệu thành công");
+      toast.success("Cật nhật dữ liệu thành công");
     } else {
-      toast.success("Cật nhật dứ liệu thất bại");
+      toast.success("Cật nhật dữ liệu thất bại");
     }
 
     setLoading(false)
