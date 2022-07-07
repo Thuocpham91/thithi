@@ -84,6 +84,7 @@ export default function Dashboard() {
   const checkChagePoin = async (value) => {
     setLoading(true);
     const data = await productService.updateDataVT({ key: value, id: 281 });
+    console.log(data);
 
     if (data.status == 200) {
       toast.success("Cật nhật dữ liệu thành công");
@@ -119,9 +120,9 @@ export default function Dashboard() {
         <div className='home-chart--main'><Bar options={options} data={data} /></div>
       </div>
       <div className="col-span-2">
-        <Button onClick={e => checkChagePoin(1)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Update Category</Button>
+        <Button onClick={e => checkChagePoin(1)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Cập nhật dữ liệu danh mục và sản phẩm </Button>
   
-        <Button onClick={e => checkChagePoin(2)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold',marginLeft:20 }} >Update dữ liệu tỉnh thành</Button>
+        <Button onClick={e => checkChagePoin(2)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold',marginLeft:20 }} >Cập nhật dữ liệu tỉnh thành</Button>
 
       </div>
 

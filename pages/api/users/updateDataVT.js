@@ -29,8 +29,6 @@ const insertdatacity = async (item, access_token) => {
 
 
 const insertDistrict = async (item, access_token) => {
-
-
     await Districts.insert(item.id, item.city_id, item.name, item.fullname, item.vtp_id);
     const cityVT = await apiViettel.getWards(access_token, item.id);
     cityVT.wards.map(async item => {
@@ -45,10 +43,8 @@ const updateCatogory = async (item) => {
     if (d) {
         d.name = item.name;
         await Catogory.updateCode(d)
-
     } else {
         await Catogory.insert(item.name, item.code, 2, null);
-
     }
 
 }
@@ -107,12 +103,19 @@ function handler(req, res) {
                 await Product.Delete();
                 await Product.insert(120, JSON.stringify(listproduct));
 
+                return res.status(200).json({
+                    status: 200,
+                    message: "Update thành công",
+                    data:JSON.parse(listproduct),
+    
+                });
+    
+
             } else {
 
 
                 const cityVT = await apiViettel.getCity(loginVT.access_token);
                 data = cityVT.cities;
-
                 await City.Delete();
                 await Districts.Delete();
                 await Wards.Delete();
@@ -120,15 +123,17 @@ function handler(req, res) {
                     await insertdatacity(item, loginVT.access_token);
                 });
 
+                return res.status(200).json({
+                    status: 200,
+                    message: "Update thành công"
+
+                });
+
+
 
 
             }
 
-            return res.status(200).json({
-                status: 200,
-                message: "Update thành công"
-
-            });
 
 
 
