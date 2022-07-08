@@ -245,7 +245,7 @@ const User = () => {
     const dataexport = rowUser.map(item => {
 
       return {
-        'ID Điểm bán': item.id_store,
+        'ID Điểm bán': item.id_khataco,
         'Tên': item.name,
         'Số điện thoại': item.phone,
         'Địa chỉ giao hàng': item.address,

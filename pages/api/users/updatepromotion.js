@@ -48,7 +48,6 @@ function handler(req, res) {
 
             const pPP=await Promotion.SelectByidNotDate(id);
             pPP.title=title;
-            pPP.code=code;
             pPP.numberOfUses=numberOfUses;
             pPP.quantityPurchased=quantityPurchased;
             pPP.promotionalQuantity=promotionalQuantity;
@@ -64,7 +63,6 @@ function handler(req, res) {
             pPP.users_Id=JSON.stringify(users_id);
             pPP.citys_id=JSON.stringify(area_id);
             pPP.id=JSON.stringify(id);
-            console.log(pPP)
 
 
             const data = await Promotion.update(pPP);

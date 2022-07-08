@@ -167,6 +167,7 @@ async function uploadfile(data) {
     return user;
 }
 
-function  deleteAll(data){
-    return fetchWrapper.post(`${baseUrl}/deleteALL`,data);
+async function  deleteAll(data){
+    const user =  await fetchWrapper.post(`${baseUrl}/deleteALL`,data);
+    return user;
 }

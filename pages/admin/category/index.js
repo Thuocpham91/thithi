@@ -164,18 +164,18 @@ const Category = () => {
   ]);
 
 
-
+  async function getCategory() {
+    let data = await productService.getCategory();
+    if (data.status != 200) return;
+    // setListProduct(data.data.variants);
+    seListCate(data.data);
+  }
 
 
   useEffect(() => {
 
     ////
-    async function getCategory() {
-      let data = await productService.getCategory();
-      if (data.status != 200) return;
-      // setListProduct(data.data.variants);
-      seListCate(data.data);
-    }
+  
 
     getCategory();
 
@@ -271,8 +271,10 @@ const Category = () => {
     const data = await productService.deleteAll({ id: id, code: 2 });
     if (data.status == 200) {
       setLoading(false);
-      toast.success("Sửa thành công");
+      toast.success("xóa thành công");
       setOpenEditCate(false);
+      handleCloseDeleteCate(false);
+      getCategory();
     } else {
       setLoading(false);
       toast.error("Có lỗi ở đây!");
@@ -445,7 +447,7 @@ const Category = () => {
           </>}
           <div className='flex justify-center mt-8 mb-3'>
               <div className='mr-4'>
-                  <Button onClick={handleDeleteCate} variant="contained" style={{ background: "#EE0232" }}>Đồng ý</Button>
+                  <Button onClick={e=>handleDeleteCate(cateChoose.id)} variant="contained" style={{ background: "#EE0232" }}>Đồng ý</Button>
               </div>
               <Button onClick={handleCloseDeleteCate} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy</Button>
           </div>

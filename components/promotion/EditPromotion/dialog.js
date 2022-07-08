@@ -44,14 +44,14 @@ const EditPromotionD = (props) => {
         if (!valueAddPromotion.endDate) return toast.error("Bạn chưa nhập Thời gian kết thúc");
         if (isNaN(Number(valueAddPromotion.numberOfUses))) return toast.error("nhập sai số");
         if (isNaN(Number(valueAddPromotion.quantityPurchased)) ) return toast.error("nhập sai số lượng mua");
-        if (valueAddPromotion.product !="") return toast.error("Bạn chưa chọn product");
+        if (valueAddPromotion.product =="") return toast.error("Bạn chưa chọn product");
         
 
         valueAddPromotion.endDate = format(parseISO(valueAddPromotion.endDate), 'yyyy-MM-dd HH:mm:ss');
         valueAddPromotion.startDate = format(parseISO(valueAddPromotion.startDate), 'yyyy-MM-dd HH:mm:ss ');
 
         const data = await productService.updatePromotion(valueAddPromotion);
-        console.log(data)
+        console.log(data);
         if (data.status == 200) {
             toast.success("sửa thành công");
             props.setOpen(false);
@@ -134,7 +134,7 @@ const EditPromotionD = (props) => {
                             <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion?valueAddPromotion.title:""} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion?valueAddPromotion.code:""} />
+                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" disabled onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion?valueAddPromotion.code:""} />
                         </Grid>
                         <Grid item xs={6}>
                             <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>

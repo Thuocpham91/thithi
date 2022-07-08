@@ -87,9 +87,9 @@ export default function Dashboard() {
     console.log(data);
 
     if (data.status == 200) {
-      toast.success("Cật nhật dữ liệu thành công");
+      toast.success("Cập nhật dữ liệu thành công");
     } else {
-      toast.success("Cật nhật dữ liệu thất bại");
+      toast.success("Cập nhật dữ liệu thất bại");
     }
 
     setLoading(false)

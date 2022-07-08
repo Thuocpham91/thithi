@@ -55,7 +55,7 @@ const AddPromotion = () => {
         if (!valueAddPromotion.endDate) return toast.error("Bạn chưa nhập Thời gian kết thúc");
         if (isNaN(Number(valueAddPromotion.numberOfUses))) return toast.error("nhập sai số");
         if (isNaN(Number(valueAddPromotion.quantityPurchased)) ) return toast.error("nhập sai số lượng mua");
-        if (valueAddPromotion.product !="") return toast.error("Bạn chưa chọn product");
+        if (valueAddPromotion.product =="") return toast.error("Bạn chưa chọn product");
         
 
         setLoading(true)
@@ -68,7 +68,7 @@ const AddPromotion = () => {
             toast.success("Thêm  khuyến mại thành công");
             setOpenAddPromotion(false);
         } else {
-            toast.error("Có lỗi ở đây!");
+            toast.error(data?data.message:"có lỗi sảnh ra ở đây");
         }
     };
 

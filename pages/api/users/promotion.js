@@ -44,13 +44,21 @@ function handler(req, res) {
                 return item.product_id
             });
 
+            const klk = await Promotion.SelectByCode(code);
+            if (klk) return res.status(200).json({
+                status: 188,
+                message: "Đã có mã code",
+                data: klk
+            });
 
-            const data = await Promotion.insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, JSON.stringify(product_id),JSON.stringify(product), JSON.stringify(area), 0,JSON.stringify(users),JSON.stringify(users_id),JSON.stringify(area_id));
+
+
+            const data = await Promotion.insert(title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, JSON.stringify(product_id), JSON.stringify(product), JSON.stringify(area), 0, JSON.stringify(users), JSON.stringify(users_id), JSON.stringify(area_id));
 
             return res.status(200).json({
                 status: 200,
                 message: "Thành công",
-                data: data   
+                data: data
             });
 
 

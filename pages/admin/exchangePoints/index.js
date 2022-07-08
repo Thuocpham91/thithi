@@ -40,7 +40,9 @@ import EditExchangePointsDia from "../../../components/exchangePoints/EditExchan
 import DeleteExchangePoints from "../../../components/exchangePoints/DeleteExchangePoints";
 
 import { productService } from '../../../services/product.service';
+import * as XLSX from "xlsx";
 
+import * as FileSaver from 'file-saver';
 
 const loadImg = ({ src, width }) => {
   return `http://202.92.6.221:7005/${src}?w=${width}}`
@@ -264,6 +266,37 @@ const ExchangePoints = () => {
 
   }
 
+
+  const handleExportFile = () => {
+
+    const date = new Date();
+    let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
+    dj = dj + "user";
+    const dataexport = listGif.map(item => {
+
+      return {
+        'ID Điểm bán': item.id_khataco,
+        'Tên': item.name,
+        'Số điện thoại': item.phone,
+        'Địa chỉ giao hàng': item.address,
+        'Khu vưc': item.name_wardsVT,
+        'Quận huyện': item.name_districtVT,
+        'Tỉnh thành': item.name_cityVT,
+        'Kho hàng': item.name_store,
+        'score': item.score,
+      }
+    }
+    )
+    exportToCSV(dataexport, dj);
+  }
+
+  const exportToCSV = (csvData, fileName) => {
+    const ws = XLSX.utils.json_to_sheet(csvData);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+  }
 
 
   const callback = () => {
