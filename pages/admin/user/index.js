@@ -304,7 +304,7 @@ const User = () => {
           options={city}
           getOptionLabel={(option) => option.name}
           renderInput={(params) => (
-            <TextField fullWidth {...params} label="Tỉnh thành" autoFocus={true} aria-autocomplete="off" autoComplete='off' placeholder="Chọn khu vực" />
+            <TextField fullWidth {...params} label="Tỉnh thành" aria-autocomplete="off" autoComplete='off' placeholder="Chọn khu vực" />
           )}
           sx={{ width: '200px' }}
         />
