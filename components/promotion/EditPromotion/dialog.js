@@ -242,7 +242,9 @@ const EditPromotionD = (props) => {
                     </Grid>
                 </div>
                 <div className='flex justify-center mt-8 mb-3'>
-                    <Button className='mr-2' onClick={e => handleEditPromotion()} variant="contained" style={{ background: "#EE0232" }}>Thay đổi</Button>
+                    <div className='mr-4'>
+                        <Button onClick={e => handleEditPromotion()} variant="contained" style={{ background: "#EE0232" }}>Thay đổi</Button>
+                    </div>
                     <Button onClick={e => handleCloseEditPromotion()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                 </div>
             </DialogContent>

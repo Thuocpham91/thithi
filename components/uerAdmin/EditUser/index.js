@@ -113,7 +113,7 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        value={userChoose ? { name: userChoose.name_cityVT } : null}
+                                        value={valueEditUser ? { name: valueEditUser.name_cityVT } : { name: userChoose.name_cityVT } }
                                         onChange={async (item, value) => {
                                             if (!value) return;
                                             setValueEditUser({ ...valueEditUser, city: value.name, city_code: value.id, id_cityVT: value.id, code_cityVT: value.vtp_id, name_cityVT: value.name });
@@ -138,7 +138,7 @@ const EditUser = (userChoose) => {
                                         fullWidth
                                         limitTags={2}
                                         id="multiple-limit-tags"
-                                        value={userChoose ? { name: userChoose.name_districtVT } : null}
+                                        value={valueEditUser ? { name: valueEditUser.name_districtVT } : { name: userChoose.name_districtVT } }
                                         onChange={async (item, value) => {
 
                                             if (!value) return;
@@ -162,12 +162,11 @@ const EditUser = (userChoose) => {
                                     <Autocomplete
                                         fullWidth
                                         limitTags={2}
-                                        value={userChoose ? { name: userChoose.name_wardsVT } : null}
+                                        value={valueEditUser ? { name: valueEditUser.name_wardsVT } : { name: userChoose.name_wardsVT } }
                                         id="multiple-limit-tags"
                                         onChange={async (item, value) => {
                                             if (!value) return;
                                             setValueEditUser({ ...valueEditUser, id_wardsVT: value.id, code_wardsVT: value.vtp_id, name_wardsVT: value.name });
-
                                         }}
                                         options={listWards}
                                         getOptionLabel={(option) => option.name}
