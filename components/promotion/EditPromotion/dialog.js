@@ -62,9 +62,10 @@ const EditPromotionD = (props) => {
 
     const [valueAddPromotion, setValueAddPromotion] = useState();
 
-
+    
+    
     useEffect(() => {
-
+        
         async function fetchData() {
             setValueAddPromotion(props.item);
         }
