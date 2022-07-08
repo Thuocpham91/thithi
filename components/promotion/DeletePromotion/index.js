@@ -23,7 +23,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DeletePromotion = (promotionChoose) => {
+const DeletePromotion = (promotionChoose, FetchDataLoad) => {
 
     const [openDeletePromotion, setOpenDeletePromotion] = useState(false);
 
@@ -40,19 +40,17 @@ const DeletePromotion = (promotionChoose) => {
     const handleClickDeletePromotion = async () => {
 
         let item = promotionChoose;
-
-        item.endDate = format(parseISO(item.endDate), 'yyyy-MM-dd HH:mm:ss');
-        item.startDate = format(parseISO(item.startDate), 'yyyy-MM-dd HH:mm:ss');
         item.status = 1;
         setLoading(true);
 
-        const data = await productService.updatePromotion(item);
+        const data = await productService.deleteprom(item);
         setLoading(false);
         if (data.status == 200) {
             toast.success("Xóa thành công");
             setOpenDeletePromotion(false);
+            FetchDataLoad();
         } else {
-            toast.error("Có lỗi ở đây!");
+            toast.error(data ? data.message : "có lỗi ở đây");
         }
 
     };
@@ -71,8 +69,6 @@ const DeletePromotion = (promotionChoose) => {
                 maxWidth="sm"
             >
                 <DialogContent className='text-center'>
-
-
                     <div className="modal-delete--warning"><div className="modal-delete--warning__content">!</div></div>
                     <div><h2 className="text-warning mb-2">Bạn có chắc chắn?</h2></div>
                     {promotionChoose && <>
@@ -90,7 +86,7 @@ const DeletePromotion = (promotionChoose) => {
             </Dialog>
 
             <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 10000 }}
                 open={loading}
             >
                 <CircularProgress color="inherit" />

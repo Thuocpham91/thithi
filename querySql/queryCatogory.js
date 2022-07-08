@@ -34,7 +34,7 @@ async function Select(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from category where code = ?',
+            query: 'select * from category where code = ? order by created_at  DESC',
             values: [code],
         });
         return result;
@@ -49,7 +49,7 @@ async function SelectCode(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from category where code = ?',
+            query: 'select * from category where code = ? order by created_at  DESC',
             values: [code],
         });
         return result [0];
@@ -63,7 +63,7 @@ async function Selected(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from category where code = ?',
+            query: 'select * from category where code = ? order by created_at  DESC',
             values: [code],
         });
         return result[0];
@@ -93,7 +93,7 @@ async function SelectAll(code) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from category',
+            query: 'select * from category order by created_at  DESC',
             values: [code],
         });
         return result;

@@ -91,15 +91,15 @@ async function SelectByid(id, date,id_city) {
 async function SelectByidNotDate(id) {
     try {
         let query = 'SELECT * FROM promotion p '
-        query = query + "WHERE ( users_Id  LIKE  '%,?]%' or users_Id  LIKE  '%[?,%' or users_Id  LIKE  '%,?,%' )  and  status=0 order by created_at  DESC";
+        query = query + "WHERE id= ? order by created_at  DESC";
 
         const result = await excuteQuery({
             query: query,
-            values: [id, id, id],
+            values: [id],
         });
-        return result;
+        return result [0];
     } catch (error) {
-        return [];
+        return null;
     }
 
 }

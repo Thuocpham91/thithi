@@ -39,22 +39,22 @@ const EditPromotionD = (props) => {
     const handleEditPromotion = async () => {
 
 
-        
+
         if (!valueAddPromotion.startDate) return toast.error("Bạn chưa nhập Thời gian  bắt đầu");
         if (!valueAddPromotion.endDate) return toast.error("Bạn chưa nhập Thời gian kết thúc");
         if (isNaN(Number(valueAddPromotion.numberOfUses))) return toast.error("nhập sai số");
-        if (isNaN(Number(valueAddPromotion.quantityPurchased)) ) return toast.error("nhập sai số lượng mua");
-        if (valueAddPromotion.product =="") return toast.error("Bạn chưa chọn product");
-        
+        if (isNaN(Number(valueAddPromotion.quantityPurchased))) return toast.error("nhập sai số lượng mua");
+        if (valueAddPromotion.product == "") return toast.error("Bạn chưa chọn product");
+
 
         valueAddPromotion.endDate = format(parseISO(valueAddPromotion.endDate), 'yyyy-MM-dd HH:mm:ss');
         valueAddPromotion.startDate = format(parseISO(valueAddPromotion.startDate), 'yyyy-MM-dd HH:mm:ss ');
 
         const data = await productService.updatePromotion(valueAddPromotion);
-        console.log(data);
         if (data.status == 200) {
             toast.success("sửa thành công");
             props.setOpen(false);
+            props.fetchDataLoad();
         } else {
             toast.error("Có lỗi ở đây!");
         }
@@ -69,7 +69,7 @@ const EditPromotionD = (props) => {
             setValueAddPromotion(props.item);
         }
         fetchData();
-    }, [props.item]);
+    }, [props]);
 
 
 
@@ -131,10 +131,10 @@ const EditPromotionD = (props) => {
                 <div className='form-AddPromotion'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion?valueAddPromotion.title:""} />
+                            <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion ? valueAddPromotion.title : ""} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" disabled onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion?valueAddPromotion.code:""} />
+                            <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" disabled onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion ? valueAddPromotion.code : ""} />
                         </Grid>
                         <Grid item xs={6}>
                             <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>
@@ -142,7 +142,7 @@ const EditPromotionD = (props) => {
                                     fullWidth
                                     className="w-full"
                                     label="Thời gian bắt đầu"
-                                    value={valueAddPromotion?valueAddPromotion.startDate:null}
+                                    value={valueAddPromotion ? valueAddPromotion.startDate : null}
                                     onChange={(newValue) => {
                                         if (newValue == "Invalid Date") return;
                                         const date = new Date(newValue);
@@ -160,8 +160,8 @@ const EditPromotionD = (props) => {
                                     style={{ width: "100%" }}
                                     fullWidth
                                     label="Thời gian kết thúc"
-                                    minDateTime={new Date(valueAddPromotion?valueAddPromotion.startDate:null)}
-                                    value={valueAddPromotion?valueAddPromotion.endDate:null}
+                                    minDateTime={new Date(valueAddPromotion ? valueAddPromotion.startDate : null)}
+                                    value={valueAddPromotion ? valueAddPromotion.endDate : null}
                                     onChange={(newValue) => {
                                         if (newValue == "Invalid Date") return;
                                         const date = new Date(newValue);
@@ -173,19 +173,21 @@ const EditPromotionD = (props) => {
                             </LocalizationProvider>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })} value={valueAddPromotion?valueAddPromotion.numberOfUses:null} />
+                            <TextField className='mb-1' fullWidth label="Lần dùng" variant="outlined"
+                                onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })}
+                                value={valueAddPromotion ? valueAddPromotion.numberOfUses : 0} />
                         </Grid>
                         <Grid item xs={6}>
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 multiple
-                                value={valueAddPromotion?valueAddPromotion.product_name? valueAddPromotion.product_name:  []:  []}
+                                value={valueAddPromotion ? valueAddPromotion.product_name ? valueAddPromotion.product_name : [] : []}
                                 onChange={(e, newValue) => {
-                                   
 
-                                    if(!newValue)return;
-                                    setValueAddPromotion({ ...valueAddPromotion, product_name: newValue})
+
+                                    if (!newValue) return;
+                                    setValueAddPromotion({ ...valueAddPromotion, product_name: newValue })
                                 }}
                                 options={productItems}
                                 getOptionLabel={(option) => option.product_name}
@@ -193,36 +195,38 @@ const EditPromotionD = (props) => {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion?valueAddPromotion.quantityPurchased:""} />
+                            <TextField className='mb-1' fullWidth label="Số lượng mua" variant="outlined" 
+                            onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} 
+                            value={valueAddPromotion ? valueAddPromotion.quantityPurchased : 0} />
                         </Grid>
-                        <Grid item xs={6}>
+                        {/* <Grid item xs={6}>
                             <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion?valueAddPromotion.promotionalQuantity:""} />
-                        </Grid>
-                            <Grid item xs={12}>
-                                <Autocomplete
-                                    onChange={(e, newValue) => {
-                                        setValueAddPromotion({ ...valueAddPromotion, city_id: newValue })
-                                    }}
-                                    multiple
-                                    fullWidth
-                                    value={valueAddPromotion?valueAddPromotion.area ?valueAddPromotion.area  : [] : []}
-                                    limitTags={2}
-                                    id="multiple-limit-tags"
-                                    options={city}
-                                    getOptionLabel={(option) => option.name}
-                                    renderInput={(params) => (
-                                        <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
-                                    )}
-                                />
+                        </Grid> */}
+                        <Grid item xs={12}>
+                            <Autocomplete
+                                onChange={(e, newValue) => {
+                                    setValueAddPromotion({ ...valueAddPromotion, city_id: newValue })
+                                }}
+                                multiple
+                                fullWidth
+                                value={valueAddPromotion ? valueAddPromotion.area ? valueAddPromotion.area : [] : []}
+                                limitTags={2}
+                                id="multiple-limit-tags"
+                                options={city}
+                                getOptionLabel={(option) => option.name}
+                                renderInput={(params) => (
+                                    <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                )}
+                            />
 
-                            </Grid>
+                        </Grid>
                         <Grid item xs={12}>
                             <Autocomplete
                                 multiple
                                 fullWidth
                                 limitTags={2}
                                 id="multiple-limit-tags"
-                                value={valueAddPromotion?valueAddPromotion.users? valueAddPromotion.users : []: []}
+                                value={valueAddPromotion ? valueAddPromotion.users ? valueAddPromotion.users : [] : []}
                                 options={rowUser}
                                 onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
                                 getOptionLabel={(option) => option.id_khataco}

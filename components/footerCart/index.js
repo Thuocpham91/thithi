@@ -389,12 +389,12 @@ export default function FooterCart(props) {
                           <span>    {"Hết hạn ngày: "}  {format(parseISO(d.endDate), 'dd-mm')}</span>
                         </div>
                         <div className='btn-coupon-right'>
-                          {checkdieukien(d) == 1 && <>
+                          {/* {checkdieukien(d) == 1 && <>
                             <>
                               <p>Đã dùng</p>
                               <p><strong>{d.Number_user?d.Number_user:0}/{d.numberOfUses}</strong> combo</p>
                             </>
-                          </>}
+                          </>} */}
                           {checkdieukien(d) == 2 && <>
                             <div className='btn-coupon-right--noti-bot red'>Chưa đủ điều kiện</div>
                           </>}

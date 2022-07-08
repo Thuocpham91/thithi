@@ -9,7 +9,6 @@ const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
 
 export const productService = {
     deleteAll,
-
     getProduct,
     updateCatogory,
     getCategory,
@@ -28,6 +27,7 @@ export const productService = {
     getDataUserchangGift,
     getPromotionUser,
     uploadfile,
+    deleteprom,
 };
 
 function getProduct() {
@@ -137,6 +137,12 @@ async function updatePromotion(data) {
         });
 }
 
+async function deleteprom(data) {
+    return fetchWrapper.put(`${baseUrl}/updatepromotion `, data)
+        .then(user => {
+            return user;
+        });
+}
 async function updateDataVT(data) {
     return fetchWrapper.post(`${baseUrl}/updateDataVT `, data)
         .then(user => {

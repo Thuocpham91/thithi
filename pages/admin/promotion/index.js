@@ -57,6 +57,7 @@ const checkJson = (string) => {
     try {
         if (string == null) return false;
         rp = JSON.parse(string);
+        rp.map(item => { })
         return true;
     } catch (erro) {
         return false;
@@ -80,15 +81,17 @@ const Promotion = () => {
 
 
 
+
+    async function fetchData() {
+        let data = await productService.getPromotion();
+        if (data.status != 200) return;
+
+        seListPromotion(data.data)
+
+    }
     useEffect(() => {
 
-        async function fetchData() {
-            let data = await productService.getPromotion();
-            if (data.status != 200) return;
 
-            seListPromotion(data.data)
-
-        }
         fetchData();
     }, []);
 
@@ -132,7 +135,6 @@ const Promotion = () => {
             product_name: checkJson(row.product_name) ? JSON.parse(row.product_name) : [],
             users_Id: checkJson(row.users_Id) ? JSON.parse(row.users_Id) : []
         };
-        console.log(dataa)
 
         setPromotionChose(dataa)
         setAnchorEl(event.currentTarget);
@@ -144,18 +146,45 @@ const Promotion = () => {
 
 
 
+    const FetchDataLoad = async () => {
+        fetchData();
+    }
+
 
     // add Promotion
-    const { renderAddPromotion, setOpenAddPromotion } = AddPromotion();
+    const { renderAddPromotion, setOpenAddPromotion } = AddPromotion( FetchDataLoad );
 
-    const { renderDeletePromotion, setOpenDeletePromotion } = DeletePromotion(promotionChose);
-
-
+    const { renderDeletePromotion, setOpenDeletePromotion } = DeletePromotion(promotionChose,  FetchDataLoad );
 
 
-    const handleOpenEditPromotion = () => {
-        setOpenEdit(false);
-        setDialogEdit(true);
+
+
+    const handleOpenEditPromotion = (check, row) => {
+        try {
+
+            if (!row) return;
+            const dataa = {
+                ...row, area: checkJson(row.area) ? JSON.parse(row.area) : [],
+                users: checkJson(row.users) ? JSON.parse(row.users) : [],
+
+                citys_id: checkJson(row.citys_id) ? JSON.parse(row.citys_id) : [],
+                product_name: checkJson(row.product_name) ? JSON.parse(row.product_name) : [],
+                users_Id: checkJson(row.users_Id) ? JSON.parse(row.users_Id) : []
+            };
+
+            setPromotionChose(dataa);
+
+            // setOpenEdit(false);
+            setDialogEdit(true);
+
+
+
+
+        } catch (erro) {
+            console.log(erro)
+
+
+        };
 
     };
 
@@ -163,9 +192,27 @@ const Promotion = () => {
 
     // delete Promotion
     // const { renderDeletePromotion, setOpenDeletePromotion } = DeletePromotion(promotionChoose);
-    const handleOpenDeletePromotion = () => {
+    const handleOpenDeletePromotion = (heck, row) => {
+        // const row={...value,status:1 };
+
+        if (!row) return;
+
+        const dataa = {
+            ...row, area: checkJson(row.area) ? JSON.parse(row.area) : [],
+            users: checkJson(row.users) ? JSON.parse(row.users) : [],
+
+            citys_id: checkJson(row.citys_id) ? JSON.parse(row.citys_id) : [],
+            product_name: checkJson(row.product_name) ? JSON.parse(row.product_name) : [],
+            users_Id: checkJson(row.users_Id) ? JSON.parse(row.users_Id) : [],
+            status: 1
+        };
+
+
+        setPromotionChose(dataa);
+
         setOpenEdit(false);
-        setOpenDeletePromotion(true)
+
+        setOpenDeletePromotion(true);
     };
 
 
@@ -187,7 +234,6 @@ const Promotion = () => {
                             <TableCell>Sản phẩm</TableCell>
                             <TableCell className='text-right'>Lần dùng</TableCell>
                             <TableCell className='text-right'>Lượng mua</TableCell>
-                            <TableCell className='text-right'>Lượng khuyến mại</TableCell>
                             <TableCell>Áp dụng </TableCell>
                             <TableCell>Bắt đầu</TableCell>
                             <TableCell>Kết thúc</TableCell>
@@ -215,9 +261,7 @@ const Promotion = () => {
                                 <TableCell className='text-right'>
                                     {row.quantityPurchased.toLocaleString()}
                                 </TableCell>
-                                <TableCell className='text-right'>
-                                    {row.promotionalQuantity.toLocaleString()}
-                                </TableCell>
+                              
                                 <TableCell style={{ width: 200 }}>
                                     <div className='area-list'>
                                         {
@@ -242,15 +286,15 @@ const Promotion = () => {
 
                                 </TableCell>
                                 <TableCell style={{ width: 30 }} align="right">
-                                    <Button
-                                        aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
-                                        aria-haspopup="true"
-                                        aria-expanded={openMenu ? 'true' : undefined}
-                                        onClick={e => handleOpenMenu(e, row)}
-                                        style={{ color: "#EE0232" }}
-                                    >
-                                        <MoreHorizIcon />
-                                    </Button>
+
+
+                                    <MenuView
+                                        openEdit={handleOpenEditPromotion}
+                                        openDelete={handleOpenDeletePromotion}
+                                        row={row}
+
+                                    ></MenuView>
+
 
                                 </TableCell>
 
@@ -302,19 +346,12 @@ const Promotion = () => {
         {renderDeletePromotion}
 
         <EditPromotionD
+            fetchDataLoad={FetchDataLoad}
             open={dialogEdit}
             setOpen={setDialogEdit}
             item={promotionChose}
         ></EditPromotionD>
 
-        <MenuView
-            anchorEl={anchorEl}
-            openMenu={openEdit}
-            handleCloseMenu={handleCloseMenu}
-            edit={handleOpenEditPromotion}
-            delete={handleOpenDeletePromotion}
-
-        ></MenuView>
 
 
     </>)
@@ -378,28 +415,49 @@ function TablePaginationActions(props) {
     );
 }
 
-const MenuView = (props) => {
+const MenuView = ({ openEdit, openDelete, row }) => {
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const openMenu = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = (e) => {
+        setAnchorEl(null);
+    };
+
+
 
     return (<>
+        <Button
+            aria-controls={openMenu ? 'demo-positioned-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={openMenu ? 'true' : undefined}
+            onClick={handleClick}
+            style={{ color: "#EE0232" }}
+        >
+            <MoreHorizIcon />
+        </Button>
 
         <Menu
             id="basic-menu"
-            anchorEl={props.anchorEl}
-            open={props.openMenu}
-            onClose={props.handleCloseMenu}
+            anchorEl={anchorEl}
+            open={openMenu}
+            onClose={handleClose}
             MenuListProps={{
                 'aria-labelledby': 'basic-button',
             }}
         >
 
-            <MenuItem onClick={e => props.edit()} >
+            <MenuItem onClick={e => openEdit(true, row)} >
                 <ListItemIcon>
                     <EditIcon fontSize="small" />
                 </ListItemIcon>
                 <ListItemText>Chỉnh sửa</ListItemText>
             </MenuItem>
 
-            <MenuItem onClick={e => props.delete()} >
+            <MenuItem onClick={e => openDelete(true, row)} >
                 <ListItemIcon>
                     <DeleteIcon fontSize="small" />
                 </ListItemIcon>

@@ -26,7 +26,7 @@ import Backdrop from '@mui/material/Backdrop';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-const AddPromotion = () => {
+const AddPromotion = (FetchDataLoad) => {
     const [openAddPromotion, setOpenAddPromotion] = useState(false);
     const [valueAddPromotion, setValueAddPromotion] = useState({
         title: '',
@@ -54,21 +54,21 @@ const AddPromotion = () => {
         if (!valueAddPromotion.startDate) return toast.error("Bạn chưa nhập Thời gian  bắt đầu");
         if (!valueAddPromotion.endDate) return toast.error("Bạn chưa nhập Thời gian kết thúc");
         if (isNaN(Number(valueAddPromotion.numberOfUses))) return toast.error("nhập sai số");
-        if (isNaN(Number(valueAddPromotion.quantityPurchased)) ) return toast.error("nhập sai số lượng mua");
-        if (valueAddPromotion.product =="") return toast.error("Bạn chưa chọn product");
-        
+        if (isNaN(Number(valueAddPromotion.quantityPurchased))) return toast.error("nhập sai số lượng mua");
+        if (valueAddPromotion.product == "") return toast.error("Bạn chưa chọn product");
+
 
         setLoading(true)
 
         const data = await productService.addPromotion(valueAddPromotion);
         setLoading(false)
-        if (data.status != 200) return;
 
         if (data.status == 200) {
             toast.success("Thêm  khuyến mại thành công");
+            FetchDataLoad();
             setOpenAddPromotion(false);
         } else {
-            toast.error(data?data.message:"có lỗi sảnh ra ở đây");
+            toast.error(data ? data.message : "có lỗi sảnh ra ở đây");
         }
     };
 
