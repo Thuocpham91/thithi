@@ -36,7 +36,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { productService } from '../../../services/product.service';
 import toast from "react-hot-toast";
+import Backdrop from '@mui/material/Backdrop';
 
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import CircularProgress from '@mui/material/CircularProgress';
 const link_Image = "http://202.92.6.221:7005";
 
 
@@ -200,6 +203,7 @@ const Category = () => {
 
   const [cateChoose, setCateChoose] = useState(null);
   const [openEditCate, setOpenEditCate] = useState(false);
+  const [openDeleteCate, setOpenDeleteCate] = useState(false);
 
   const handleOpenEditCate = (cate) => {
     setOpenEditCate(true);
@@ -243,17 +247,40 @@ const Category = () => {
 
   const handleChangeFile = (event) => {
 
-
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
 
       setImage(i);
       setImagesUpload(URL.createObjectURL(i))
     }
-
-
-
   }
+
+  const handleCloseDeleteCate = () => {
+    setOpenDeleteCate(false);
+  };
+
+
+  const handleOpenDeleteCate = (cate) => {
+    setOpenDeleteCate(true);
+    setCateChoose(cate);
+  };
+
+
+  const handleDeleteCate = async (id) => {
+    setLoading(true)
+    const data = await productService.deleteAll({ id: id, code: 2 });
+    if (data.status == 200) {
+      setLoading(false);
+      toast.success("Sửa thành công");
+      setOpenEditCate(false);
+    } else {
+      setLoading(false);
+      toast.error("Có lỗi ở đây!");
+    }
+  }
+
+  const [loading, setLoading] = useState(false);
+
 
   return (<>
     <div className='body-user bg-white rounded-lg'>
@@ -302,20 +329,36 @@ const Category = () => {
                   </>}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
-                  <Tooltip title="Thêm/Sửa hình ảnh">
-                    <IconButton
-                      size="small"
-                      sx={{ ml: 2 }}
-                      aria-controls={open ? 'account-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                    >
-                      <Avatar onClick={e => handleOpenEditCate(row)} sx={{ bgcolor: "#EE0232", width: 30, height: 30, padding: '10px' }}>
-                        <EditIcon sx={{ fontSize: 18 }} />
-                      </Avatar>
+                  <div className='flex'>
+                    <div className='mr-1'>
+                      <Tooltip title="Thêm/Sửa hình ảnh">
+                        <IconButton
+                          size="small"
+                          aria-controls={open ? 'account-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                        >
+                          <Avatar onClick={e => handleOpenEditCate(row)} style={{background: "#fff", color: "#EE0232",border:"1px solid #EE0232", width: 30, height: 30, padding: '10px' }}>
+                            <EditIcon sx={{ fontSize: 18 }} />
+                          </Avatar>
 
-                    </IconButton>
-                  </Tooltip>
+                        </IconButton>
+                      </Tooltip>
+                    </div> 
+                    <Tooltip title="Xóa danh mục">
+                      <IconButton
+                        size="small"
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                      >
+                        <Avatar onClick={e => handleOpenDeleteCate(row)} sx={{ bgcolor: "#EE0232", width: 30, height: 30, padding: '10px' }}>
+                          <DeleteOutlineIcon sx={{ fontSize: 18 }} />
+                        </Avatar>
+
+                      </IconButton>
+                    </Tooltip>
+                  </div>
 
                 </TableCell>
 
@@ -385,6 +428,40 @@ const Category = () => {
         </div>
       </DialogContent>
     </Dialog>
+
+
+    <Dialog
+      open={openDeleteCate}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={handleCloseDeleteCate}
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogContent className='text-center'>
+          <div className="modal-delete--warning"><div className="modal-delete--warning__content">!</div></div>
+          <div><h2 className="text-warning mb-2">Bạn có chắc chắn?</h2></div>
+          {cateChoose && <>
+              <div className="mb-5">Bạn có chắc chắn muốn xoá danh mục <strong>{cateChoose.name}</strong> ?</div>
+          </>}
+          <div className='flex justify-center mt-8 mb-3'>
+              <div className='mr-4'>
+                  <Button onClick={handleDeleteCate} variant="contained" style={{ background: "#EE0232" }}>Đồng ý</Button>
+              </div>
+              <Button onClick={handleCloseDeleteCate} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy</Button>
+          </div>
+
+      </DialogContent>
+
+
+
+    </Dialog>
+    
+    <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+    >
+        <CircularProgress color="inherit" />
+    </Backdrop>
 
 
 

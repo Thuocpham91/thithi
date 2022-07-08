@@ -11,16 +11,11 @@ import { incrementCount } from '../../../Store/actions'
 
 
 const MainHome = () => {
-    const [listProduct, setListProduct] = useState([
-        // {id:1,title:'Ngựa lớn',imagePackage:'/images/default.jpg',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:0},
-        // {id:2,title:'Ngựa nhỏ',imagePackage:'/images/prd4.png',imageTobacco:'/images/prd5.png',imageBarrel:'/images/prd3.png',outOfStock:0},
-        // {id:3,title:'Ngựa lớn 2',imagePackage:'/images/default.jpg',imageTobacco:'/images/prd2.png',imageBarrel:'/images/prd3.png',outOfStock:1},
-    ]);
+    const [listProduct, setListProduct] = useState([]);
     const [orderList, setOrderList] = useState(false);
 
     const count = useSelector((state) => state.counter);
     const searchProduct = useSelector((state) => state.showProduct);
-    console.log(searchProduct)
 
     const dispatch = useDispatch();
 
