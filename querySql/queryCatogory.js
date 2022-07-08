@@ -10,6 +10,7 @@ export const Catogory = {
     updateCode,
     Selected,
     SelectCode,
+    deletefromID,
     
 };
 
@@ -71,6 +72,22 @@ async function Selected(code) {
     }
 
 }
+
+
+async function deletefromID(code) {
+    try {
+        const result = await excuteQuery({
+            query: 'delete  from category where id = ?',
+            values: [code],
+        });
+        return result
+    } catch (error) {
+      return null;
+    }
+
+}
+
+
 async function SelectAll(code) {
 
 

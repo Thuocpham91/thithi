@@ -61,7 +61,19 @@ function TablePaginationActions(props) {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
+  const handleDelete = async (id) => {
 
+
+    const data = await productService.deleteAll({ id: id, code: 2 });
+
+    if (data.status == 200) {
+      toast.success("Sửa thành công");
+      setOpenEditCate(false);
+    } else {
+      toast.error("Có lỗi ở đây!");
+    }
+
+  }
 
 
   // useEffect(() => {

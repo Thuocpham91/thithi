@@ -8,6 +8,7 @@ const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
 
 export const productService = {
+    deleteAll,
 
     getProduct,
     updateCatogory,
@@ -166,3 +167,6 @@ async function uploadfile(data) {
     return user;
 }
 
+function  deleteAll(data){
+    return fetchWrapper.post(`${baseUrl}/deleteALL`,data);
+}

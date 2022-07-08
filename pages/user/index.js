@@ -144,7 +144,7 @@ const User = (props) => {
             <p><span>Mã ID đại lý:</span> <i>{init.id_khataco}</i></p>
             <p><span>Số điện thoại:</span> <i>{init.phone}</i></p>
             <p><span>Địa chỉ giao hàng:</span> <i>{init.address}</i></p>
-            <p><span>Kho hàng:</span> <i>{init.name_store}</i></p>
+            <p><span>Phân phối:</span> <i>{init.name_store}</i></p>
             <p><span>Điểm tích lũy:</span> <i>{init.score ? init.score.toLocaleString() : 0} điểm</i></p>
           </div>
         </div>

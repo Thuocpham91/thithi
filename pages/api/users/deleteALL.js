@@ -6,6 +6,8 @@ import { apiHandler } from '../../../helpers/api';
 import { User } from '../../../querySql/queryuser';
 import { checlogin } from './common/checkLogin';
 
+import { Catogory } from '../../../querySql/queryCatogory';
+
 
 export default apiHandler(handler);
 
@@ -34,11 +36,13 @@ function handler(req, res) {
             let rt;
 
             if(code==1)  rt= await User.deleteUser(id);
+            if(code==2)  rt= await Catogory.deletefromID(id);
+
             
            
             return res.status(200).json({
                 status: 200,
-                message: "thay đổi thành công",
+                message: "Xóa thành công",
                 data:rt
 
             });
