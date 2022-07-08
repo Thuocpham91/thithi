@@ -68,16 +68,7 @@ const checkJson = (string) => {
 
 const Promotion = () => {
 
-    const [listPromotion, seListPromotion] = useState([
-        // { id: 1, title: '3c - 5g', code: 'NN6', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa nhỏ 2', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }] },
-        // { id: 2, title: '12c - 8g', code: 'NN8', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa nhỏ', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }] },
-        // { id: 3, title: '3c - 5g', code: 'NN6', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa lớn', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }] },
-        // { id: 4, title: '3c - 5g', code: 'NN6', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa nhỏ 2', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }] },
-        // { id: 5, title: '12c - 8g', code: 'NN8', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa nhỏ ', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }, { id: '03', name: 'Nghệ an' }] },
-        // { id: 6, title: '3c - 5g', code: 'NN6', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa nhỏ 2', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }] },
-        // { id: 7, title: '12c - 8g', code: 'NN8', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa lớn', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }] },
-        // { id: 8, title: '3c - 5g', code: 'NN6', numberOfUses: 6, startDate: '16-06-2022', endDate: '22-06-2022', product: 'Ngựa nhỏ 2', quantityPurchased: '50', promotionalQuantity: '4', city_id: [{ id: '01', name: 'Hà nội' }, { id: '02', name: 'Hồ chí minh' }] },
-    ]);
+    const [listPromotion, seListPromotion] = useState([]);
 
 
 
