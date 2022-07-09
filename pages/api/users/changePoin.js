@@ -41,7 +41,7 @@ function handler(req, res) {
             const gif = await changeGift.Selectbyid(req.body.dChoose.id);
             if (!gif) return res.status(200).json({
                 status: 198,
-                message: "Không có quà đổi!",
+                message: "Quý Đại lý Không có quà đổi!",
                 gif
             });
             console.log(gif);
@@ -50,7 +50,7 @@ function handler(req, res) {
 
             if (Number(user.score) < Number(gif.score)) return res.status(200).json({
                 status: 198,
-                message: "Bạn không đủ điểm",
+                message: "Quý Đại lý chưa đủ điểm",
             });
             const scored = Number(user.score) - Number(gif.score);
             console.log("scored")
@@ -67,10 +67,7 @@ function handler(req, res) {
             return res.status(200).json({
                 status: 200,
                 user,
-                message:"thanh công",
-
-
-
+                message:"Thành công",
             });
 
 
