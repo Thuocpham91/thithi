@@ -121,10 +121,10 @@ export default function Dashboard() {
       </div>
       <div className="col-span-2">
         <Button className='w-full' onClick={e => checkChagePoin(2)} variant="outlined" style={{background:"#EE0232", color: "#fff", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Cập nhật dữ liệu tỉnh thành</Button>
-        <div>
-          <Button className='w-full mt-4' onClick={e => checkChagePoin(1)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Cập nhật dữ liệu danh mục và sản phẩm </Button>
+        <div className="mt-3">
+          <Button className='w-full' onClick={e => checkChagePoin(1)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232", textTransform: 'initial', fontWeight: 'bold' }} >Cập nhật dữ liệu danh mục và sản phẩm </Button>
         </div>
-  
+
 
       </div>
 

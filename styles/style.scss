@@ -375,31 +375,34 @@
                 .btn-coupon-left{
                     height: 100%;
                     border-right: 2px dashed rgba(102, 102, 102, 0.2);
-                    padding-right: 15px;
+                    padding-right: 10px;
                     margin-right: 10px;
+                    width: 35%;
+                    color: #888;
                     h3{font-size: 20px;}
                     p{font-size: 13px;}
                 }
                 .btn-coupon-center{
                     text-align: left;
-                    margin-right: 28px;
+                    flex: 1;
                     h3{
                         font-weight: 600;
                         font-size: 18px;
                         line-height: 23px;
                         color: #000000;
+                        margin-bottom: 7px;
                     }
                     p{
                         font-style: normal;
-                        font-weight: 500;
+                        font-weight: bold;
                         font-size: 12px;
                         margin-top: 5px;
                         margin-bottom: 5px;
                     }
                     span{
                         font-style: normal;
-                        font-weight: 500;
-                        font-size: 10px;
+                        font-weight: bold;
+                        font-size: 12px;
                         line-height: 12px;
                         color: rgb(0 0 0 / 66%);
                         display: block;

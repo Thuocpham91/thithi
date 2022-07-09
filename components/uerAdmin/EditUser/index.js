@@ -182,7 +182,7 @@ const EditUser = (userChoose) => {
                                     <Autocomplete
                                         fullWidth
                                         limitTags={2}
-                                        value={userChoose.name_store ? { name: userChoose.name_store } : null}
+                                        value={valueEditUser ? { name: valueEditUser.name_store } : { name: userChoose.name_store } }
                                         id="multiple-limit-tags"
                                         onChange={async (item, value) => {
                                             if (!value) return;
