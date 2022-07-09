@@ -17,6 +17,16 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import toast from "react-hot-toast";
+import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
+
+import { compareAsc, format } from 'date-fns'
+import parseISO from 'date-fns/parseISO';
+import * as XLSX from "xlsx";
+
+import * as FileSaver from 'file-saver';
+
+import ImportPoint from "../../notification";
+
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -47,22 +57,13 @@ const AddExchangePoints = (props) => {
     };
 
     const handleAddExchangePoints = async () => {
-
-        
-
         const body = new FormData();
         body.append("file", image);
         body.append("key", "mabimatidsoadjoassd");
-
-
         if (image != null) {
             const dataurl = await productService.upaloadFile(body);
             if (dataurl.status == 200) valueAddExchangePoints.url = dataurl.url;
         }
-
-
-
-
 
         const sdsdj = await productService.changeGift(valueAddExchangePoints);
 
@@ -87,6 +88,45 @@ const AddExchangePoints = (props) => {
 
     const [city, setCIty] = useState([]);
     const [rowUser, setRowUser] = useState([]);
+
+
+
+    const CallBack = (value) => {
+        console.log(value)
+        setValueAddExchangePoints({ ...valueAddExchangePoints, users: value });
+    };
+    const { renderImport, setOpenImport } = ImportPoint(CallBack);
+
+
+    const handleExportFile = () => {
+        console.log(rowUser)
+
+        const date = new Date();
+        let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
+        dj = dj + "user";
+        const dataexport = rowUser.map(item => {
+
+            return {
+                'Tên': item.name,
+                'Số điện thoại': item.phone,
+                'Mô tả': item.description,
+                'id': item.id,
+                'id_khataco':item.id_khataco,
+            }
+        }
+        )
+        exportToCSV(dataexport, dj);
+    }
+    const exportToCSV = (csvData, fileName) => {
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+
+        const ws = XLSX.utils.json_to_sheet(csvData);
+        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, fileName + fileExtension);
+    }
 
 
     useEffect(() => {
@@ -181,6 +221,14 @@ const AddExchangePoints = (props) => {
 
                             </Grid>
                         </Grid>
+                        <div className='flex' style={{ marginTop: 20 }}>
+                            <div className='mr-4'>
+                                <Button onClick={e => setOpenImport(true)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import Users</Button>
+                            </div>
+                            <div className='mr-4'>
+                                <Button onClick={e => handleExportFile()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Export Users</Button>
+                            </div>
+                        </div>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
                         <div className='mr-4'>
@@ -190,6 +238,7 @@ const AddExchangePoints = (props) => {
                     </div>
                 </DialogContent>
             </Dialog>
+            {renderImport}
         </>
         )
     }

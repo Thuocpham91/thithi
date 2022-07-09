@@ -25,7 +25,6 @@ const MainHome = () => {
     useEffect(() => {
 
         async function fetchData() {
-            setLoading(true);
 
             let dkm = [];
             if (count != -1 || searchProduct != -1) {
@@ -66,7 +65,6 @@ const MainHome = () => {
             if (check) setOrderList(true);
             if (!check) setOrderList(false);
             // setOrderList(dkm);
-            setLoading(false);
 
 
         }

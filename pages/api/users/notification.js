@@ -53,7 +53,6 @@ function handler(req, res) {
             });
 
             const { title, content, city,users } = req.body;
-            console.log(city)
 
             city.map(item => {
                 findUser(title, content, item.id);

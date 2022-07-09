@@ -100,15 +100,12 @@ const AddPromotion = (FetchDataLoad) => {
     useEffect(() => {
 
         const fda = JSON.parse(localStorage.getItem('listVariants'));
+        console.log(fda)
         if (fda == null) return;
 
         setproductItems(fda);
 
     }, [])
-
-    const [byID, setById] = useState(false);
-
-
 
 
     return {

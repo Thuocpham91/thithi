@@ -11,22 +11,17 @@ import * as XLSX from "xlsx";
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
-import toast from "react-hot-toast";
-import { userService } from '../../../services/user.service';
 
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
-import { loadListUser } from '../../../Store/actions'
-import { useSelector, useDispatch } from 'react-redux'
 
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-const ImportPoint = (dataUser) => {
-    const dispatch = useDispatch();
+const ImportPoint = (CallBack) => {
 
     const [openImport, setOpenImport] = useState(false);
     const [ishowproces, setIshowproces] = useState(false);
@@ -41,19 +36,9 @@ const ImportPoint = (dataUser) => {
 
     const HandleImport = async () => {
 
-        if (dataImport.length <= 0) return toast.error("Chưa có dữ liệu");
-        setLoading(true);
-        const data = await userService.importUser({listUser:dataImport});
+        CallBack(dataImport);
+        setOpenImport(false);
 
-        if (data.status == 200) {
-            toast.success("Import điểm thành công");
-            dispatch(loadListUser(34));
-            setOpenImport(false);
-            // props.fetchData();
-        } else {
-            toast.error("Có lỗi ở đây!");
-        }
-        setLoading(false);
 
     };
 
@@ -73,7 +58,8 @@ const ImportPoint = (dataUser) => {
                 const ws = wb.Sheets[wsname];
                 // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
                 const json = XLSX.utils.sheet_to_json(ws);
-                const data_import = json.map(item => { return { id: item.id_user, score: item.score } });
+                console.log(json)
+                const data_import = json.map(item => { return { id: item.id ,id_khataco:item.id_khataco} });
                 setDataImport(data_import);
             };
             reader.readAsBinaryString(file);
@@ -83,10 +69,6 @@ const ImportPoint = (dataUser) => {
 
 
     }
-
-
-
-
 
     return {
         setOpenImport,

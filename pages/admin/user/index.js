@@ -133,7 +133,6 @@ const User = () => {
   const count = useSelector((state) => state.updateList);
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const fileExtension = '.xlsx';
-  console.log(count)
 
 
   const fetchDataLoad = async () => {
