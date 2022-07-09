@@ -121,7 +121,6 @@ export default function FooterCart(props) {
     const stringprodcut = obToStringProduct(codeapp.product_name);
     const kkk = codeapp.code + " " + stringprodcut + ":" + codeapp.title;
 
-    console.log(codeapp)
 
     const order = {
       "id_code": codeapp.id ? codeapp.id : "",
@@ -384,7 +383,7 @@ export default function FooterCart(props) {
                         </div>
                         <div className='btn-coupon-center'>
                           <h3>{d.title}</h3>
-                          <p>Dùng được {d.numberOfUses} combo</p>
+                          {/* <p>Dùng được {d.numberOfUses} combo</p> */}
 
                           <span>    {"Hết hạn ngày: "}  {format(parseISO(d.endDate), 'dd-mm')}</span>
                         </div>

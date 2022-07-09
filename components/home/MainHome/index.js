@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { incrementCount } from '../../../Store/actions'
 
 
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 const MainHome = () => {
     const [listProduct, setListProduct] = useState([]);
@@ -18,13 +19,16 @@ const MainHome = () => {
     const searchProduct = useSelector((state) => state.showProduct);
 
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
 
         async function fetchData() {
+            setLoading(true);
+
             let dkm = [];
-            if (count != -1|| searchProduct!=-1) {
+            if (count != -1 || searchProduct != -1) {
                 let dataad = localStorage.getItem('listProduct');
                 dkm = JSON.parse(dataad);
 
@@ -35,22 +39,22 @@ const MainHome = () => {
                 }
 
             } else {
-               
-                    let data = await productService.getProduct();
-                    if (data.status != 200) return;
-                    data=JSON.parse(data.data);
 
-                    dkm = data.variants;
-                    let data_user = JSON.parse(localStorage.getItem('user'));
+                let data = await productService.getProduct();
+                if (data.status != 200) return;
+                data = JSON.parse(data.data);
 
-                    let idstore=data_user.data.id_store;
+                dkm = data.variants;
+                let data_user = JSON.parse(localStorage.getItem('user'));
 
-                    let listfintell=dkm.filter(item=>{
-                        let kmj=item.variants[0].inventories;
-                        const check=kmj.find(item => {return item.store_id==idstore});
-                        if(check)return item;
-                     });
-                     dkm=listfintell.reverse();
+                let idstore = data_user.data.id_store;
+
+                let listfintell = dkm.filter(item => {
+                    let kmj = item.variants[0].inventories;
+                    const check = kmj.find(item => { return item.store_id == idstore });
+                    if (check) return item;
+                });
+                dkm = listfintell.reverse();
 
                 localStorage.setItem('listProduct', JSON.stringify(listfintell));
                 localStorage.setItem('listVariants', JSON.stringify(listfintell));
@@ -62,9 +66,12 @@ const MainHome = () => {
             if (check) setOrderList(true);
             if (!check) setOrderList(false);
             // setOrderList(dkm);
+            setLoading(false);
+
 
         }
         fetchData();
+
     }, [count, searchProduct]);
 
 
@@ -271,6 +278,13 @@ const MainHome = () => {
                 })}
             </div>
         </div>
+
+        <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 10000 }}
+            open={loading}
+        >
+            <CircularProgress color="inherit" />
+        </Backdrop>
         {orderList && <>
             <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
         </>}

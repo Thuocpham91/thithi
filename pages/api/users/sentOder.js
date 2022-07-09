@@ -69,7 +69,7 @@ function handler(req, res) {
                 dll.number_uses = totals;
                  await user_promtion.update(totals,dll.id);
             } else {
-                await user_promtion.insert(user.id, dk.id, 0);
+                await user_promtion.insert(user.id, dk.id, 1);
             }
 
 
