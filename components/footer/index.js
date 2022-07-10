@@ -17,7 +17,6 @@ import { CountMessage } from '../../Store/actions'
 export default function Footer() {
   const router = useRouter();
   const [value, setValue] = useState(0);
-  const [countNoti, setCountNoti] = useState(0);
 
   const count = useSelector((state) => state.countMessage);
   const dispatch = useDispatch();
@@ -73,7 +72,7 @@ export default function Footer() {
         <BottomNavigationAction onClick={e => handleLink('/user')} label="Cá nhân" icon={<PersonIcon />} />
       </BottomNavigation>
 
-      {count == 0 ? "" : <style jsx global>{`
+      {count <= 0 ? "" : <style jsx global>{`
         .footer .MuiBottomNavigation-root button:nth-child(3){
           position: relative;
         }
