@@ -23,6 +23,16 @@ import toast from "react-hot-toast";
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+
+import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
+
+import parseISO from 'date-fns/parseISO';
+import * as XLSX from "xlsx";
+
+import * as FileSaver from 'file-saver';
+
+import ImportPoint from "../../notification";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -77,6 +87,44 @@ const AddPromotion = (FetchDataLoad) => {
     const [city, setCIty] = useState([]);
 
     const [rowUser, setRowUser] = useState([]);
+
+    const CallBack = (value) => {
+        console.log(value)
+        setValueAddPromotion({ ...valueAddPromotion, users: value });
+    };
+    const { renderImport, setOpenImport } = ImportPoint(CallBack);
+
+
+    const handleExportFile = () => {
+        console.log(rowUser)
+
+        const date = new Date();
+        let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
+        dj = dj + "user";
+        const dataexport = rowUser.map(item => {
+
+            return {
+                'Tên': item.name,
+                'Số điện thoại': item.phone,
+                'Mô tả': item.description,
+                'id': item.id,
+                'id_khataco': item.id_khataco,
+            }
+        }
+        )
+        exportToCSV(dataexport, dj);
+    }
+    const exportToCSV = (csvData, fileName) => {
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+
+        const ws = XLSX.utils.json_to_sheet(csvData);
+        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, fileName + fileExtension);
+    }
+
 
 
     useEffect(() => {
@@ -230,11 +278,16 @@ const AddPromotion = (FetchDataLoad) => {
                                     sx={{ width: '500px' }}
                                 />
 
-
                             </Grid>
-
-
                         </Grid>
+                        <div className='flex' style={{ marginTop: 20 }}>
+                            <div className='mr-4'>
+                                <Button onClick={e => setOpenImport(true)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import Users</Button>
+                            </div>
+                            <div className='mr-4'>
+                                <Button onClick={e => handleExportFile()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Export Users</Button>
+                            </div>
+                        </div>
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
                         <div className='mr-4'>
@@ -251,6 +304,8 @@ const AddPromotion = (FetchDataLoad) => {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
+            {renderImport}
+
         </>
         )
     }

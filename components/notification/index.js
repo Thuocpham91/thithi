@@ -82,9 +82,9 @@ const ImportPoint = (CallBack) => {
                 maxWidth="sm"
             >
                 <DialogContent className='text-center'>
-                    <div className="header-title-popup p-4 font-bold">Import điểm thành viên</div>
+                    <div className="header-title-popup p-4 font-bold">Import  thành viên</div>
                     <div className='form-file'>
-                        <div className='form-file__icon'><CloudUploadIcon sx={{ fontSize: 40 }} /><span>Import file điểm thành viên</span></div>
+                        <div className='form-file__icon'><CloudUploadIcon sx={{ fontSize: 40 }} /><span>Import file  thành viên</span></div>
 
                         <input type="file" accept=".xlsx" onChange={e => handleChangeFile(e)} />
                     </div>
