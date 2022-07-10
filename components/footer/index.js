@@ -10,12 +10,19 @@ import PersonIcon from '@mui/icons-material/Person';
 
 import { userService } from '../../services';
 
+import { useSelector, useDispatch } from 'react-redux'
+import { CountMessage } from '../../Store/actions'
+
 
 export default function Footer() {
   const router = useRouter();
   const [value, setValue] = useState(0);
   const [countNoti, setCountNoti] = useState(0);
- 
+
+  const count = useSelector((state) => state.countMessage);
+  const dispatch = useDispatch();
+
+
   const handleLink = (link) => {
     router.push(link);
   }
@@ -41,7 +48,8 @@ export default function Footer() {
     async function getCategory() {
       const data = await userService.getCountNotification();
       if (data.status != 200) return;
-      setCountNoti( data.data[0].number)
+
+      dispatch(CountMessage( data.data[0].number))
     }
 
     getCategory();
@@ -65,12 +73,12 @@ export default function Footer() {
         <BottomNavigationAction onClick={e => handleLink('/user')} label="Cá nhân" icon={<PersonIcon />} />
       </BottomNavigation>
 
-      {countNoti == 0 ? "" : <style jsx global>{`
+      {count == 0 ? "" : <style jsx global>{`
         .footer .MuiBottomNavigation-root button:nth-child(3){
           position: relative;
         }
         .footer .MuiBottomNavigation-root button:nth-child(3):after{
-          content: '${countNoti}';
+          content: '${count}';
           position: absolute;
           padding: 5px;
           background: #EE0232;

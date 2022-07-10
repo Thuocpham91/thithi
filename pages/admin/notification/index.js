@@ -60,6 +60,9 @@ const Notification = () => {
     };
 
     const handleNoti = async () => {
+        if(valueNoti.title=="")return  toast.error("Bạn chưa nhập tiêu đề");
+        if(valueNoti.content=="")return  toast.error("Bạn chưa nhập nội dung");
+
 
         const data = await productService.putNotification(valueNoti);
 
@@ -158,7 +161,7 @@ const Notification = () => {
                             <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueNoti({ ...valueNoti, title: e.target.value })} value={valueNoti.title} />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e => setValueNoti({ ...valueNoti, content: e.target.value })} value={valueNoti.content} />
+                            <TextField multiline className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e => setValueNoti({ ...valueNoti, content: e.target.value })} value={valueNoti.content} />
                         </Grid>
                         <Grid item xs={12}>
                             <Autocomplete

@@ -9,6 +9,7 @@ export const Notification = {
     SelectAll,
     SelectById_user,
     updateStatus,
+    selectByID
     
 };
 
@@ -26,13 +27,25 @@ async function insert(id_user,message,status,tile) {
 
 }
 
-
-async function SelectById_user(id_user) {
-
+async function selectByID(id,id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification where id_user = ?   order by status  ASC,created_at DESC  ',
+            query: 'select * from notification where id = ? and  id_user = ?   ',
+            values: [id,id_user],
+        });
+        return result [0];
+    } catch (error) {
+      return null;
+    }
+
+}
+
+async function SelectById_user(id_user) {
+
+    try {
+        const result = await excuteQuery({
+            query: 'select * from notification where id_user = ?   order by status  ASC,created_at DESC limit 10 ',
             values: [id_user],
         });
         return result;
@@ -59,8 +72,8 @@ async function SelectAll(code) {
 async function update(ca) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  notification SET name=?,code= ? ,status= ?,url= ?   where id= ?',
-            values: [ca.name, ca.code, ca.status,ca.url,ca.id],
+            query: 'UPDATE  notification SET id_user=?,message=?,status=?,tile =?  where id= ?',
+            values: [ca.id_user, ca.message, ca.status,ca.tile,ca.id],
         });
         return result;
     } catch (error) {

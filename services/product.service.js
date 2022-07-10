@@ -28,6 +28,7 @@ export const productService = {
     getPromotionUser,
     uploadfile,
     deleteprom,
+    updateNotifi,
 };
 
 function getProduct() {
@@ -175,5 +176,10 @@ async function uploadfile(data) {
 
 async function  deleteAll(data){
     const user =  await fetchWrapper.post(`${baseUrl}/deleteALL`,data);
+    return user;
+}
+
+async function  updateNotifi(data){
+    const user =  await fetchWrapper.put(`${baseUrl}/notification`,data);
     return user;
 }

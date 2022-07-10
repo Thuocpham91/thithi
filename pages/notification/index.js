@@ -3,20 +3,46 @@ import Head from 'next/head'
 import Footer from '../../components/footer'
 import { compareAsc, format } from 'date-fns'
 
-import { userService } from '../../services';
+import { userService } from '../../services/user.service';
+import { productService } from '../../services/product.service';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { CountMessage } from '../../Store/actions'
+
+
 import parseISO from 'date-fns/parseISO';
 
 const Notification = () => {
+
+  const dispatch = useDispatch();
+
+
   const [dataNotification, setDataNofi] = useState([]);
+  const countMessage = useSelector((state) => state.countMessage);
+
+
+  async function getCategory() {
+    const data = await userService.getNotification();
+    if (data.status != 200) return;
+    setDataNofi(data.data)
+  }
   useEffect(() => {
-    async function getCategory() {
-      const data = await userService.getNotification();
-      if (data.status != 200) return;
-      setDataNofi(data.data)
-    }
+ 
     getCategory();
 
   }, []);
+
+  const handleClickItem = async (item) => {
+    const date = await productService.updateNotifi({ id: item.id });
+    if (date.status != 200) return;
+
+
+    dispatch(CountMessage(countMessage-1))
+
+
+    getCategory();
+
+  }
 
   return (
     <div className='main-body body-f2f2f2'>
@@ -36,14 +62,20 @@ const Notification = () => {
 
         {dataNotification.map((item, idx) => {
           return (
-            < div key={idx} className='noti-item' >
+            < div key={idx} onClick={e => handleClickItem(item)} className='noti-item' >
               <div className='text-right noti-item__header flex justify-between items-center'>
-                <span className={item.status==0?"chua-xem":""} ></span>
+                <span className={item.status == 0 ? "chua-xem" : ""} ></span>
                 {format(parseISO(item.created_at), 'dd-MM-yyyy')}
-                </div>
+              </div>
               <div className='noti-item__body'>
                 <h3>{item.tile}</h3>
-                <p>{item.message}</p>
+                {item.message.split('\n').map(item => {
+                  return (
+                    <>
+                      <p>{item}</p>
+                    </>
+                  )
+                })}
               </div>
             </div>
 

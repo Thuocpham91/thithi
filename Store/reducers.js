@@ -77,6 +77,18 @@ const timerReducer = (state = initialTimerState, { type, payload }) => {
   }
 }
 
+
+const countMessage = ( count = 0, { type, value }) => {
+  switch (type) {
+ 
+    case types.COUNT_MESSAGE: {
+      count = value;
+      return count
+    }
+    default:
+      return count
+  }
+}
 // COMBINED REDUCERS
 const reducers = {
   counter: counterReducer,
@@ -84,6 +96,7 @@ const reducers = {
   updateList: updateList,
   showXND:showXND,
   showProduct,
+  countMessage,
 }
 
 export default combineReducers(reducers)

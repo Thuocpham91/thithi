@@ -37,6 +37,8 @@ function handler(req, res) {
 
         case 'GET':
             return getNotification(req, res);
+        case 'PUT':
+            return updateNotification(req, res);
         default:
             return res.status(200).end(`Method ${req.method} Not Allowed`)
     }
@@ -46,22 +48,22 @@ function handler(req, res) {
         try {
 
             const user = await checlogin.checkLogin(req, res);
-            const checkl = user.id_role==1?true:false;
+            const checkl = user.id_role == 1 ? true : false;
             if (!checkl) return res.status(200).json({
                 status: 194,
                 message: "Bạn ko có quền"
             });
 
-            const { title, content, city,users } = req.body;
+            const { title, content, city, users } = req.body;
 
             city.map(item => {
                 findUser(title, content, item.id);
             })
 
-    
 
-             
-            if (city.length == 0 && users.length== 0) {
+
+
+            if (city.length == 0 && users.length == 0) {
                 const datauser = await User.selectALL();
                 datauser.map(ik => {
                     Notification.insert(ik.id, content, 0, title);
@@ -91,14 +93,48 @@ function handler(req, res) {
     }
 
 
+
+
+    async function updateNotification(req, res) {
+        try {
+
+            const user = await checlogin.checkLogin(req, res);
+            const { id } = req.body;
+
+            const data = await Notification.selectByID(id, user.id);
+            if (!data) return res.status(200).json({
+                status: 199,
+                message: "Bạn không có mesage",
+            });
+            data.status = 1;
+
+            await Notification.update(data);
+
+            return res.status(200).json({
+                status: 200,
+                data: data,
+            });
+
+
+        } catch (erro) {
+            console.log(erro)
+            return res.status(200).json({
+                status: 199,
+                message: erro
+            });
+
+        }
+
+    }
+
     async function getNotification(req, res) {
         try {
 
             const user = await checlogin.checkLogin(req, res);
 
-            const data= await Notification.SelectById_user(user.id);
+            const data = await Notification.SelectById_user(user.id);
 
-            await Notification.updateStatus(1,user.id);
+            // await Notification.updateStatus(1,user.id);
 
             return res.status(200).json({
                 status: 200,

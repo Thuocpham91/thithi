@@ -25,6 +25,8 @@ export const resetCount = () => ({ type: types.RESET })
 export const setNotification = (value) => ({ type: types.SETNOTIFICATION,value:value });
 export const loadListUser = (value) => ({ type: types.UPDATE_LIST_USER,value:value })
 export const showXND = (value) => ({ type: types.SHOW_XND,value:value })
-export const searchProduct = (value) => ({ type: types.SEARCH_PRODUCT,value:value })
+export const searchProduct = (value) => ({ type: types.SEARCH_PRODUCT,value:value });
+export const CountMessage = (value) => ({ type: types.COUNT_MESSAGE,value:value })
+
 
 
