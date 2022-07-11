@@ -193,7 +193,7 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
 
-                    <div style={{fontSize:16, fontWeight:"bold"}}>
+                    <div style={{ fontSize: 16, fontWeight: "bold" }}>
                         {d.product_name}
                     </div>
 
@@ -236,7 +236,7 @@ const MainHome = () => {
                     </span>
                 </div>
                 <div className='product-item--title'>
-                    <div style={{fontSize:16, fontWeight:"bold"}}>
+                    <div style={{ fontSize: 16, fontWeight: "bold" }}>
                         {d.product_name}
                     </div>
                     <p>Cây (10 Gói)</p>
@@ -293,7 +293,7 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
 
-                    <div style={{fontSize:16, fontWeight:"bold"}}>
+                    <div style={{ fontSize: 16, fontWeight: "bold" }}>
                         {d.product_name}
                     </div>
 
@@ -328,11 +328,17 @@ const MainHome = () => {
             <div className='list-product'>
                 {listProduct.map(function (d, idx) {
                     return (
-                        <div key={idx} className="product-main grid grid-cols-3 gap-4">
-                            <ShowGoi d={d}></ShowGoi>
-                            <ShowCay d={d}></ShowCay>
-                            <ShowThung d={d}></ShowThung>
-                        </div>
+                        <>
+                            {idx < 2 ? <div key={idx} className="product-main grid grid-cols-3 gap-4">
+                                <ShowGoi d={d}></ShowGoi>
+                                <ShowCay d={d}></ShowCay>
+                                <ShowThung d={d}></ShowThung>
+                            </div> : ""}
+
+                        </>
+
+
+
                     )
                 })}
 
