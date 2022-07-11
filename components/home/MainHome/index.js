@@ -176,37 +176,39 @@ const MainHome = () => {
 
 
     const ShowGoi = ({ d }) => {
-
-        <div className="product-item">
-            <div className='product-item--img'>
-                <span>
-                    <Image
-                        unoptimized
-                        alt={d.product_name}
-                        src={d.variants[0].photo[0] ? d.variants[0].photo[0].url : "/images/default.jpg"}
-                        layout='fill'
-                        objectFit='contain'
-                        quality={100}
-                    />
-                </span>
-            </div>
-            <div className='product-item--title'>
-                <div className='product-item--title--h3'>{d.product_name}</div>
-                <p>Gói</p>
-            </div>
-            {d.total_quantity == 0 && <>
-                <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-            </>}
-            {d.total_quantity > 0 && <>
-                <div className='product-item--number flex justify-center items-center'>
-                    <button onClick={e => minusNumber(d, 'package')}>-</button>
-                    <div className="text-[#ff0000]">
-                        {d.numberPackage > 0 ? d.numberPackage : ''}
-                    </div>
-                    <button onClick={e => plusNumber(d, 'package')}>+</button>
+        return (<>
+            <div className="product-item">
+                <div className='product-item--img'>
+                    <span>
+                        <Image
+                            unoptimized
+                            alt={d.product_name}
+                            src={d.variants[0].photo[0] ? d.variants[0].photo[0].url : "/images/default.jpg"}
+                            layout='fill'
+                            objectFit='contain'
+                            quality={100}
+                        />
+                    </span>
                 </div>
-            </>}
-        </div>
+                <div className='product-item--title'>
+                    <div className='product-item--title--h3'>{d.product_name}</div>
+                    <p>Gói</p>
+                </div>
+                {d.total_quantity == 0 && <>
+                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                </>}
+                {d.total_quantity > 0 && <>
+                    <div className='product-item--number flex justify-center items-center'>
+                        <button onClick={e => minusNumber(d, 'package')}>-</button>
+                        <div className="text-[#ff0000]">
+                            {d.numberPackage > 0 ? d.numberPackage : ''}
+                        </div>
+                        <button onClick={e => plusNumber(d, 'package')}>+</button>
+                    </div>
+                </>}
+            </div>
+
+            </>)
 
     }
 
@@ -214,38 +216,39 @@ const MainHome = () => {
 
     const ShowCay = ({ d }) => {
 
-
-        <div className="product-item">
-            <div className='product-item--img'>
-                <span>
-                    <Image
-                        unoptimized
-                        alt={d.title}
-                        src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
-                        layout='fill'
-                        objectFit='contain'
-                        quality={100}
-                    />
-                </span>
-            </div>
-            <div className='product-item--title'>
-                <div className='product-item--title--h3'>{d.product_name}</div>
-                <p>Cây (10 Gói)</p>
-            </div>
-            {d.total_quantity == 0 && <>
-                <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-            </>}
-            {d.total_quantity > 0 && <>
-                <div className='product-item--number flex justify-center items-center'>
-                    <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
-                    <div className="text-[#ff0000]">
-                        {d.numberTobacco > 0 ? d.numberTobacco : ''}
-                    </div>
-                    <button onClick={e => plusNumber(d, 'tobacco')}>+</button>
+        return (<>
+            <div className="product-item">
+                <div className='product-item--img'>
+                    <span>
+                        <Image
+                            unoptimized
+                            alt={d.title}
+                            src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
+                            layout='fill'
+                            objectFit='contain'
+                            quality={100}
+                        />
+                    </span>
                 </div>
-            </>}
-        </div>
+                <div className='product-item--title'>
+                    <div className='product-item--title--h3'>{d.product_name}</div>
+                    <p>Cây (10 Gói)</p>
+                </div>
+                {d.total_quantity == 0 && <>
+                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                </>}
+                {d.total_quantity > 0 && <>
+                    <div className='product-item--number flex justify-center items-center'>
+                        <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
+                        <div className="text-[#ff0000]">
+                            {d.numberTobacco > 0 ? d.numberTobacco : ''}
+                        </div>
+                        <button onClick={e => plusNumber(d, 'tobacco')}>+</button>
+                    </div>
+                </>}
+            </div>
 
+            </>)
     }
 
 
@@ -253,43 +256,55 @@ const MainHome = () => {
     const ShowThung = ({ d }) => {
 
 
+        return (<>
 
-        <div className="product-item">
-            <div className='product-item--img'>
-                <span>
-                    <Image
-                        unoptimized
-                        alt={d.product_name}
-                        src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
-                        layout='fill'
-                        objectFit='contain'
-                        quality={100}
-                    />
-                </span>
-            </div>
-            <div className='product-item--title'>
-
-                <div className='product-item--title--h3'>
-
-                    <p>  {d.product_name}</p>
-
+            < div className="product-item" >
+                <div className='product-item--img'>
+                    <span>
+                        <Image
+                            unoptimized
+                            alt={d.product_name}
+                            src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
+                            layout='fill'
+                            objectFit='contain'
+                            quality={100}
+                        />
+                    </span>
                 </div>
-                <p>Thùng (500 Gói)</p>
-            </div>
-            {d.total_quantity == 0 && <>
-                <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-            </>}
-            {d.total_quantity > 0 && <>
-                <div className='product-item--number flex justify-center items-center'>
-                    <button onClick={e => minusNumber(d, 'barrel')}>-</button>
-                    <div className="text-[#ff0000]">
-                        {d.numberBarrel > 0 ? d.numberBarrel : ''}
+                <div className='product-item--title'>
+
+                    <div className='product-item--title--h3'>
+
+                        <p className={{ fontSize: '16px' }}>  {d.product_name}</p>
+
                     </div>
-                    <button onClick={e => plusNumber(d, 'barrel')}>+</button>
+                    <p>Thùng (500 Gói)</p>
                 </div>
-            </>}
+                {
+                    d.total_quantity == 0 && <>
+                        <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                    </>
+                }
+                {
+                    d.total_quantity > 0 && <>
+                        <div className='product-item--number flex justify-center items-center'>
+                            <button onClick={e => minusNumber(d, 'barrel')}>-</button>
+                            <div className="text-[#ff0000]">
+                                {d.numberBarrel > 0 ? d.numberBarrel : ''}
+                            </div>
+                            <button onClick={e => plusNumber(d, 'barrel')}>+</button>
+                        </div>
+                    </>
+                }
 
-        </div>
+            </div >
+
+
+
+        </>)
+
+
+
 
     }
 
