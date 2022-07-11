@@ -286,11 +286,11 @@ const MainHome = () => {
                     </div>
                     <div className='product-item--title'>
 
-                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                        {/* <div style={{ fontSize: 16, fontWeight: "bold" }}>
                             {d.product_name + ""}
                         </div>
 
-                        <p>Thùng (500 Gói)</p>
+                        <p>Thùng (500 Gói)</p> */}
                     </div>
                     {
                         d.total_quantity == 0 && <>
@@ -325,11 +325,11 @@ const MainHome = () => {
                     </div>
                     <div className='product-item--title'>
 
-                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                        {/* <div style={{ fontSize: 16, fontWeight: "bold" }}>
                             {d.product_name + ""}
                         </div>
 
-                        <p>Thùng (500 Gói)</p>
+                        <p>Thùng (500 Gói)</p> */}
                     </div>
                     {
                         d.total_quantity == 0 && <>
@@ -364,11 +364,11 @@ const MainHome = () => {
                     </div>
                     <div className='product-item--title'>
 
-                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                        {/* <div style={{ fontSize: 16, fontWeight: "bold" }}>
                             {d.product_name + ""}
                         </div>
 
-                        <p>Thùng (500 Gói)</p>
+                        <p>Thùng (500 Gói)</p> */}
                     </div>
                     {
                         d.total_quantity == 0 && <>
