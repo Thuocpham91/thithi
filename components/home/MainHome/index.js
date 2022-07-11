@@ -175,25 +175,8 @@ const MainHome = () => {
 
     return (<>
 
-        {listProduct.forEach(function (d, idx) {
-            return (<>
-                <div className='product-item--title'>
-                    <div className='product-item--title--h3'>{d.product_name}</div>
-                    <p>Gói</p>
-                </div>
 
-
-
-            </>)
-
-
-
-        })}
-
-
-
-
-        {/* <div className="main-home">
+        <div>
             <div className='list-product'>
                 {listProduct.map(function (d, idx) {
                     return (
@@ -292,9 +275,9 @@ const MainHome = () => {
 
                         </div>
                     )
-                })} */}
-        {/* </div> */}
-        {/* </div > */}
+                })}
+            </div>
+        </div>
 
         <Backdrop
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 10000 }}
@@ -302,11 +285,9 @@ const MainHome = () => {
         >
             <CircularProgress color="inherit" />
         </Backdrop>
-        {
-            orderList && <>
-                <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
-            </>
-        }
+        {orderList && <>
+            <div className='oder-button'><Button onClick={e => handleLink('/cart')} style={{ background: '#23432E', borderRadius: 8, padding: 15, margin: '0 15px', width: 'calc(100% - 30px)' }} variant="contained"><span className=' text-base font-semibold'>Đặt hàng</span></Button> </div>
+        </>}
     </>
     )
 }
