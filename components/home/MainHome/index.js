@@ -193,7 +193,7 @@ const MainHome = () => {
                                     </span>
                                 </div>
                                 <div className='product-item--title'>
-                                    <h3>{d.product_name}</h3>
+                                    <div className='product-item--title--h3'>{d.product_name}</div>
                                     <p>Gói</p>
                                 </div>
                                 {d.total_quantity == 0 && <>
@@ -223,7 +223,7 @@ const MainHome = () => {
                                     </span>
                                 </div>
                                 <div className='product-item--title'>
-                                    <h3>{d.product_name}</h3>
+                                    <div className='product-item--title--h3'>{d.product_name}</div>
                                     <p>Cây (10 Gói)</p>
                                 </div>
                                 {d.total_quantity == 0 && <>
@@ -253,7 +253,7 @@ const MainHome = () => {
                                     </span>
                                 </div>
                                 <div className='product-item--title'>
-                                    <h3>{d.product_name}</h3>
+                                    <div className='product-item--title--h3'>{d.product_name}</div>
                                     <p>Thùng (500 Gói)</p>
                                 </div>
                                 {d.total_quantity == 0 && <>

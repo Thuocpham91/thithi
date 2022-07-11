@@ -200,7 +200,7 @@ const Cart = (props) => {
                       />
                     </span>
                     <div className='product-item--title'>
-                      <h3>{d.product_name}</h3>
+                      <div className='product-item--title--h3'>{d.product_name}</div>
                       <p>gói</p>
                     </div>
                   </div>
@@ -230,7 +230,7 @@ const Cart = (props) => {
                       />
                     </span>
                     <div className='product-item--title'>
-                      <h3>{d.product_name}</h3>
+                      <div className='product-item--title--h3'>{d.product_name}</div>
                       <p>Cây</p>
                     </div>
                   </div>
@@ -261,7 +261,7 @@ const Cart = (props) => {
                       />
                     </span>
                     <div className='product-item--title'>
-                      <h3>{d.product_name}</h3>
+                      <div className='product-item--title--h3'>{d.product_name}</div>
                       <p>Thùng</p>
                     </div>
                   </div>
