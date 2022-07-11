@@ -266,7 +266,7 @@ const MainHome = () => {
 
     const ShowDiv = ({ d }) => {
 
-
+      if(!d)return "";
 
         return (<>
             <div  className="product-main grid grid-cols-3 gap-4">
