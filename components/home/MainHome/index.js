@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { incrementCount } from '../../../Store/actions'
 
 
+
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 
@@ -176,7 +177,7 @@ const MainHome = () => {
     return (<>
 
 
-        <div >
+        <div className="main-home--home">
             <div className='list-product'>
                 {listProduct.map(function (d, idx) {
                     return (
@@ -184,14 +185,14 @@ const MainHome = () => {
                             <div className="product-item">
                                 <div className='product-item--img'>
                                     <span>
-                                        <Image
+                                        {/* <Image
                                             unoptimized
                                             alt={d.product_name}
                                             src={d.variants[0].photo[0] ? d.variants[0].photo[0].url : "/images/default.jpg"}
                                             layout='fill'
                                             objectFit='contain'
                                             quality={100}
-                                        />
+                                        /> */}
                                     </span>
                                 </div>
                                 <div className='product-item--title'>
@@ -214,14 +215,14 @@ const MainHome = () => {
                             <div className="product-item">
                                 <div className='product-item--img'>
                                     <span>
-                                        <Image
+                                        {/* <Image
                                             unoptimized
                                             alt={d.title}
                                             src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
                                             layout='fill'
                                             objectFit='contain'
                                             quality={100}
-                                        />
+                                        /> */}
                                     </span>
                                 </div>
                                 <div className='product-item--title'>
@@ -244,14 +245,14 @@ const MainHome = () => {
                             <div className="product-item">
                                 <div className='product-item--img'>
                                     <span>
-                                        <Image
+                                        {/* <Image
                                             unoptimized
                                             alt={d.product_name}
                                             src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
                                             layout='fill'
                                             objectFit='contain'
                                             quality={100}
-                                        />
+                                        /> */}
                                     </span>
                                 </div>
                                 <div className='product-item--title'>
