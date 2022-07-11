@@ -26,13 +26,8 @@ const HeaderHome = () => {
     } else {
       dispatch(searchProduct(d));
       setActiveCate(d.id);
-
     }
-
-
   }
-
-
 
 
   useEffect(() => {
@@ -42,7 +37,7 @@ const HeaderHome = () => {
       let data = await productService.getCategory();
       if (data.status != 200) return;
 
-      setListCate(data.data.reverse());
+      setListCate(data.data);
       // setActiveCate(data.data[0]?data.data[0].id:0)
     }
 

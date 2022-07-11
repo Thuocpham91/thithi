@@ -55,7 +55,7 @@ const MainHome = () => {
                     const check = kmj.find(item => { return item.store_id == idstore });
                     if (check) return item;
                 });
-                dkm = listfintell;
+                dkm = listfintell.reverse();
 
                 localStorage.setItem('listProduct', JSON.stringify(listfintell));
                 localStorage.setItem('listVariants', JSON.stringify(listfintell));
