@@ -264,7 +264,7 @@ const MainHome = () => {
 
         return (<>
 
-            <div></div>
+            <div className='fixloishow'></div>
 
 
         </>)
@@ -317,13 +317,7 @@ const MainHome = () => {
                 }
 
             </div >
-
-
-
         </>)
-
-
-
 
     }
 
