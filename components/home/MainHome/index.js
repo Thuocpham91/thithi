@@ -329,7 +329,7 @@ const MainHome = () => {
                 {listProduct.map(function (d, idx) {
                     return (
                         <>
-                            {idx < 2 ? <div key={idx} className="product-main grid grid-cols-3 gap-4">
+                            {idx < 1 ? <div key={idx} className="product-main grid grid-cols-3 gap-4">
                                 <ShowGoi d={d}></ShowGoi>
                                 <ShowCay d={d}></ShowCay>
                                 <ShowThung d={d}></ShowThung>
