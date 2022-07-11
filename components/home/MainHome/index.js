@@ -290,7 +290,7 @@ const MainHome = () => {
                             {d.product_name + ""}
                         </div>
 
-                        {/* <p>Thùng (500 Gói)</p> */}
+                        <p> {"        "}</p>
                     </div>
                 </div >
                 < div className="product-item" >
@@ -312,7 +312,7 @@ const MainHome = () => {
                             {d.product_name + ""}
                         </div>
 
-                        {/* <p>Thùng (500 Gói)</p> */}
+                        <p> {"        "}</p>
                     </div>
 
                 </div >
@@ -335,7 +335,7 @@ const MainHome = () => {
                             {d.product_name + ""}
                         </div>
 
-                        {/* <p>Thùng (500 Gói)</p> */}
+                        <p> {"        "}</p>
                     </div>
 
 
