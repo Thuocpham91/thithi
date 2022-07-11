@@ -194,7 +194,7 @@ const MainHome = () => {
                 <div className='product-item--title'>
 
                     <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                        {d.product_name}
+                        {d.product_name+""}
                     </div>
 
                     <p>Gói</p>
@@ -237,7 +237,7 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
                     <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                        {d.product_name}
+                        {d.product_name+""}
                     </div>
                     <p>Cây (10 Gói)</p>
                 </div>
@@ -268,14 +268,14 @@ const MainHome = () => {
                 <div className="product-item">
                     <div className='product-item--img'>
                         <span>
-                            {/* <Image
+                            <Image
                                 unoptimized
                                 alt={d.title}
                                 src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
                                 layout='fill'
                                 objectFit='contain'
                                 quality={100}
-                            /> */}
+                            />
                         </span>
                     </div>
                     <div className='product-item--title'>
@@ -317,7 +317,7 @@ const MainHome = () => {
                 <div className='product-item--title'>
 
                     <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                        {d.product_name}
+                        {d.product_name+""}
                     </div>
 
                     <p>Thùng (500 Gói)</p>
@@ -365,7 +365,7 @@ const MainHome = () => {
                     )
                 })}
 
-                {listProduct.length < 2 ? <ShowDiv /> : ""}
+                {listProduct.length < 1 ? <ShowDiv  /> : ""}
             </div>
         </div>
 
