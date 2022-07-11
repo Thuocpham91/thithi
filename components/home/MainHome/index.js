@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { incrementCount } from '../../../Store/actions'
 
 
+import Typography from '@mui/material/Typography';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
@@ -316,7 +317,7 @@ const MainHome = () => {
                 {listProduct.map(function (d, idx) {
                     return (
                         <div key={idx} >
-                            <div >
+                            {/* <div >
 
                                 <div >
 
@@ -324,7 +325,11 @@ const MainHome = () => {
 
                                 </div>
                                 <p>Thùng (500 Gói)</p>
-                            </div>
+                            </div> */}
+
+                            <Typography variant="h1" component="div" gutterBottom>
+                            {d.product_name}
+                            </Typography>
 
                             {/* <ShowGoi d={d}></ShowGoi>
                             <ShowCay d={d}></ShowCay>
