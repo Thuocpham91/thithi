@@ -264,7 +264,7 @@ const MainHome = () => {
 
         return (<>
 
-            <div key={idx} className="product-main grid grid-cols-3 gap-4">
+            <div  className="product-main grid grid-cols-3 gap-4">
                 <div className='fixloishow'></div>
             </div>
 
