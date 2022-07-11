@@ -322,7 +322,7 @@ const MainHome = () => {
             <div className='list-product'>
                 {listProduct.map(function (d, idx) {
                     return (
-                        <div key={idx}  classNam="product-main grid grid-cols-3 gap-4">
+                        <div key={idx} className="product-main grid grid-cols-3 gap-4">
                             <ShowGoi d={d}></ShowGoi>
                             <ShowCay d={d}></ShowCay>
                             <ShowThung d={d}></ShowThung>
