@@ -208,7 +208,7 @@ const MainHome = () => {
                 </>}
             </div>
 
-            </>)
+        </>)
 
     }
 
@@ -248,7 +248,7 @@ const MainHome = () => {
                 </>}
             </div>
 
-            </>)
+        </>)
     }
 
 
@@ -275,7 +275,7 @@ const MainHome = () => {
 
                     <div className='product-item--title--h3'>
 
-                        <p className={{ fontSize: '16px' }}>  {d.product_name}</p>
+                        {d.product_name}
 
                     </div>
                     <p>Thùng (500 Gói)</p>
