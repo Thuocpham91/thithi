@@ -104,6 +104,10 @@
         }
     }
     .product-item--title{
+        .MuiTypography-root{
+            font-size: 100% !important;font-weight: bold;
+            margin-bottom: 0;
+        }
         .product-item--title--h3{font-size: 16px !important;font-weight: bold;}
         p{
             font-style: normal;
