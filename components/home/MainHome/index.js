@@ -192,7 +192,11 @@ const MainHome = () => {
                     </span>
                 </div>
                 <div className='product-item--title'>
-                    <div className='product-item--title--h3'>{d.product_name}</div>
+
+                    <Typography variant="h3" component="div" gutterBottom>
+                        {d.product_name}
+                    </Typography>
+                  
                     <p>Gói</p>
                 </div>
                 {d.total_quantity == 0 && <>
@@ -317,23 +321,11 @@ const MainHome = () => {
                 {listProduct.map(function (d, idx) {
                     return (
                         <div key={idx} >
-                            {/* <div >
 
-                                <div >
 
-                                    {d.product_name}
-
-                                </div>
-                                <p>Thùng (500 Gói)</p>
-                            </div> */}
-
-                            <Typography variant="h1" component="div" gutterBottom>
-                            {d.product_name}
-                            </Typography>
-
-                            {/* <ShowGoi d={d}></ShowGoi>
+                            <ShowGoi d={d}></ShowGoi>
                             <ShowCay d={d}></ShowCay>
-                            <ShowThung d={d}></ShowThung> */}
+                            <ShowThung d={d}></ShowThung>
                         </div>
                     )
                 })}
