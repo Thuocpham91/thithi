@@ -16,7 +16,7 @@ import Backdrop from '@mui/material/Backdrop';
 const MainHome = () => {
     const [listProduct, setListProduct] = useState([]);
     const [orderList, setOrderList] = useState(false);
-    
+
     const [listProductK, setListProductK] = useState([]);
 
 
@@ -200,7 +200,7 @@ const MainHome = () => {
                 <div className='product-item--title'>
 
                     <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                        {d.product_name+""}
+                        {d.product_name + ""}
                     </div>
 
                     <p>Gói</p>
@@ -243,7 +243,7 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
                     <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                        {d.product_name+""}
+                        {d.product_name + ""}
                     </div>
                     <p>Cây (10 Gói)</p>
                 </div>
@@ -276,8 +276,8 @@ const MainHome = () => {
                         <span>
                             <Image
                                 unoptimized
-                                alt={d.title}
-                                src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
+                                alt={d ? d.title : "khong co"}
+                                src={d ? d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg" : "/images/default.jpg"}
                                 layout='fill'
                                 objectFit='contain'
                                 quality={100}
@@ -286,13 +286,31 @@ const MainHome = () => {
                     </div>
                     <div className='product-item--title'>
                         <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                            {d.product_name}
+                            {d ? d.product_name : "kgon"}
                         </div>
                         <p>Cây (10 Gói)</p>
                     </div>
-              
+
                 </div>
             </div>
+
+
+            {
+                d && d.total_quantity == 0 && <>
+                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                </>
+            }
+            {
+                d && d.total_quantity > 0 && <>
+                    <div className='product-item--number flex justify-center items-center'>
+                        <button onClick={e => minusNumber(d, 'barrel')}>-</button>
+                        <div className="text-[#ff0000]">
+                            {d.numberBarrel > 0 ? d.numberBarrel : ''}
+                        </div>
+                        <button onClick={e => plusNumber(d, 'barrel')}>+</button>
+                    </div>
+                </>
+            }
             {/* <div  className='fixloishow'></div> */}
 
 
@@ -323,7 +341,7 @@ const MainHome = () => {
                 <div className='product-item--title'>
 
                     <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                        {d.product_name+""}
+                        {d.product_name + ""}
                     </div>
 
                     <p>Thùng (500 Gói)</p>
@@ -371,7 +389,7 @@ const MainHome = () => {
                     )
                 })}
 
-                {listProduct.length < 2 ? <ShowDiv  d={listProductK[0]}  /> : ""}
+                {listProduct.length < 2 ? <ShowDiv d={listProductK[0]} /> : ""}
             </div>
         </div>
 
