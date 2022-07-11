@@ -16,6 +16,9 @@ import Backdrop from '@mui/material/Backdrop';
 const MainHome = () => {
     const [listProduct, setListProduct] = useState([]);
     const [orderList, setOrderList] = useState(false);
+    
+    const [listProductK, setListProductK] = useState([]);
+
 
     const count = useSelector((state) => state.counter);
     const searchProduct = useSelector((state) => state.showProduct);
@@ -32,6 +35,7 @@ const MainHome = () => {
             if (count != -1 || searchProduct != -1) {
                 let dataad = localStorage.getItem('listProduct');
                 dkm = JSON.parse(dataad);
+                setListProductK(dkm);
 
                 if (searchProduct != -1) {
                     dkm = dkm.filter(item => {
@@ -46,6 +50,7 @@ const MainHome = () => {
                 data = JSON.parse(data.data);
 
                 dkm = data.variants;
+                setListProductK(dkm);
                 let data_user = JSON.parse(localStorage.getItem('user'));
 
                 let idstore = data_user.data.id_store;
@@ -270,8 +275,8 @@ const MainHome = () => {
                         <span>
                             <Image
                                 unoptimized
-                                alt={"huo"}
-                                src={ "/images/default.jpg"}
+                                alt={d.title}
+                                src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
                                 layout='fill'
                                 objectFit='contain'
                                 quality={100}
@@ -280,14 +285,14 @@ const MainHome = () => {
                     </div>
                     <div className='product-item--title'>
                         <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                            {/* {d.product_name} */}
+                            {d.product_name}
                         </div>
                         <p>Cây (10 Gói)</p>
                     </div>
               
                 </div>
             </div>
-            <div  className='fixloishow'></div>
+            {/* <div  className='fixloishow'></div> */}
 
 
         </>)
@@ -365,7 +370,7 @@ const MainHome = () => {
                     )
                 })}
 
-                {listProduct.length < 2 ? <ShowDiv  /> : ""}
+                {listProduct.length < 2 ? <ShowDiv  d={listProductK[0]}  /> : ""}
             </div>
         </div>
 
