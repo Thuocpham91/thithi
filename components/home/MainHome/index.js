@@ -176,7 +176,7 @@ const MainHome = () => {
     return (<>
 
 
-        <div>
+        <div className="main-home">
             <div className='list-product'>
                 {listProduct.map(function (d, idx) {
                     return (
