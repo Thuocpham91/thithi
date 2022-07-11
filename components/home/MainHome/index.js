@@ -264,7 +264,9 @@ const MainHome = () => {
 
         return (<>
 
-            <div className='fixloishow'></div>
+            <div key={idx} className="product-main grid grid-cols-3 gap-4">
+                <div className='fixloishow'></div>
+            </div>
 
 
         </>)
@@ -329,11 +331,11 @@ const MainHome = () => {
                 {listProduct.map(function (d, idx) {
                     return (
                         <>
-                            {idx < 1 ? <div key={idx} className="product-main grid grid-cols-3 gap-4">
+                          <div key={idx} className="product-main grid grid-cols-3 gap-4">
                                 <ShowGoi d={d}></ShowGoi>
                                 <ShowCay d={d}></ShowCay>
                                 <ShowThung d={d}></ShowThung>
-                            </div> : ""}
+                            </div> 
 
                         </>
 
