@@ -79,7 +79,7 @@ function handler(req, res) {
 
             return res.status(200).json({
                 status: 200,
-                message: "thay đổi thành công",
+                message: "Thay đổi thành công",
                 data: rt
 
             });

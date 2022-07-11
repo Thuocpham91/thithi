@@ -69,15 +69,12 @@ const EditExchangePointsDia = ({ open, closeDialog, data }) => {
     };
     const { renderImport, setOpenImport } = ImportPoint(CallBack);
 
-
     const handleExportFile = () => {
         console.log(rowUser)
-
         const date = new Date();
         let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
         dj = dj + "user";
         const dataexport = rowUser.map(item => {
-
             return {
                 'Tên': item.name,
                 'Số điện thoại': item.phone,
@@ -92,7 +89,6 @@ const EditExchangePointsDia = ({ open, closeDialog, data }) => {
     const exportToCSV = (csvData, fileName) => {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
-
         const ws = XLSX.utils.json_to_sheet(csvData);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -100,12 +96,9 @@ const EditExchangePointsDia = ({ open, closeDialog, data }) => {
         FileSaver.saveAs(data, fileName + fileExtension);
     }
 
-
-
     useEffect(() => {
         async function fetchData() {
             setValue(data);
-
         }
         fetchData();
     }, [data]);
@@ -123,12 +116,9 @@ const EditExchangePointsDia = ({ open, closeDialog, data }) => {
         fetchData();
     }, []);
     const handleEditExchangePoints = async () => {
-
         const body = new FormData();
         body.append("file", image);
         body.append("key", "mabimatidsoadjoassd");
-
-
         if (image != null) {
             const dataurl = await productService.upaloadFile(body);
             if (dataurl.status == 200) value.url = dataurl.url;
@@ -136,23 +126,18 @@ const EditExchangePointsDia = ({ open, closeDialog, data }) => {
 
 
         const sdsdkkj = await productService.updateGift(value);
-
         if (sdsdkkj.status == 200) {
             toast.success("Sửa thành công");
             closeDialog(false);
         } else {
             toast.error("Có lỗi ở đây!");
         }
-
-
     };
 
     const handleChangeImg = (event) => {
         if (event.target.files && event.target.files[0]) {
             const i = event.target.files[0];
-
             setImage(i);
-
             setImagesUpload(URL.createObjectURL(i))
         }
 
@@ -162,12 +147,7 @@ const EditExchangePointsDia = ({ open, closeDialog, data }) => {
 
     return (
         <>
-
             {renderImport}
-
-
-
-
             <Dialog
                 open={open}
                 TransitionComponent={Transition}

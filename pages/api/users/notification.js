@@ -104,7 +104,7 @@ function handler(req, res) {
             const data = await Notification.selectByID(id, user.id);
             if (!data) return res.status(200).json({
                 status: 199,
-                message: "Bạn không có mesage",
+                message: "Quý đại lý không có mesage",
             });
             data.status = 1;
 

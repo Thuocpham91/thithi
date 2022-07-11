@@ -31,14 +31,14 @@ function handler(req, res) {
             const checkl = user.id_role == 1 ? true : false;
             if (!checkl) return res.status(200).json({
                 status: 194,
-                message: "Bạn ko có quền"
+                message: "Quý đại lý ko có quền"
             });
             const { title, code, numberOfUses, quantityPurchased, promotionalQuantity, startDate, endDate, product_name, area, status, users, users_Id, citys_id, number_use, id } = req.body;
 
             const pPP = await Promotion.SelectByidNotDate(id);
             if (!pPP) return res.status(200).json({
                 status: 188,
-                message: "Không có ma khuyến mại",
+                message: "Không có mã khuyến mại",
 
             });
             pPP.status = status;

@@ -39,7 +39,7 @@ function handler(req, res) {
             const checkl = user.id_role==1?true:false;
             if (!checkl) return res.status(200).json({
                 status: 194,
-                message: "Bạn ko có quền"
+                message: "Quý đại lý ko có quền"
             });
 
 
@@ -61,7 +61,7 @@ function handler(req, res) {
 
             return res.status(200).json({
                 status: 200,
-                message: "thay đổi thành công",
+                message: "Thay đổi thành công",
                 // data:rt
 
             });
@@ -85,7 +85,7 @@ function handler(req, res) {
             const data = await Catogory.SelectAll();
             return res.status(200).json({
                 status: 200,
-                message: "Thuc hien thanh cong",
+                message: "Thực hiện thành công",
                 data: data
 
             });

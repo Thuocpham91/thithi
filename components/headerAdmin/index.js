@@ -46,7 +46,7 @@ export default function HeaderAdmin() {
     setInit(data.data);
     if (data.data.id_role != 1) {
 
-      toast.error("Bạn không có quền truy cập", {
+      toast.error("Quý đại lý không có quền truy cập", {
         position: 'top-center',
         duration: 1000,
       });

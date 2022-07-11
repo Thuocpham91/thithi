@@ -90,9 +90,11 @@ const Notification = () => {
         const dataexport = rowUser.map(item => {
 
             return {
+                'ID khataco': item.id_khataco,
                 'Tên': item.name,
                 'Số điện thoại': item.phone,
                 'Mô tả': item.description,
+
                 'id': item.id
             }
         }
