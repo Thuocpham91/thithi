@@ -65,7 +65,8 @@
 .main-home--home{
     height: calc(100% - 149px);
     overflow-y: auto;
-  
+    margin: 0 -15px;
+    padding: 0 15px;
 }
 .main-home--home::-webkit-scrollbar-track{
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);

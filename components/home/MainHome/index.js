@@ -316,10 +316,19 @@ const MainHome = () => {
                 {listProduct.map(function (d, idx) {
                     return (
                         <div key={idx} className="product-main grid grid-cols-3 gap-4">
+                            <div className='product-item--title'>
 
-                            <ShowGoi d={d}></ShowGoi>
+                                <div className='product-item--title--h3'>
+
+                                    {d.product_name}
+
+                                </div>
+                                <p>Thùng (500 Gói)</p>
+                            </div>
+
+                            {/* <ShowGoi d={d}></ShowGoi>
                             <ShowCay d={d}></ShowCay>
-                            <ShowThung d={d}></ShowThung>
+                            <ShowThung d={d}></ShowThung> */}
                         </div>
                     )
                 })}
