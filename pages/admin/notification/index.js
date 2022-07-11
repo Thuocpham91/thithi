@@ -197,7 +197,7 @@ const Notification = () => {
 
                     </Grid>
 
-                    <div className='flex' style={{marginTop:20}}>
+                    <div className='flex justify-center' style={{marginTop:20}}>
                         <div className='mr-4'>
                             <Button onClick={e => setOpenImport(true)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import Users</Button>
                         </div>
