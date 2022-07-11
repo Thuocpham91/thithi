@@ -365,7 +365,7 @@ const MainHome = () => {
                     )
                 })}
 
-                {listProduct.length < 1 ? <ShowDiv  /> : ""}
+                {listProduct.length < 2 ? <ShowDiv  /> : ""}
             </div>
         </div>
 
