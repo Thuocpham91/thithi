@@ -268,7 +268,12 @@ const MainHome = () => {
                 </span>
             </div>
             <div className='product-item--title'>
-                <div className='product-item--title--h3'>{d.product_name}</div>
+
+                <div className='product-item--title--h3'>
+
+                    <p>  {d.product_name}</p>
+
+                </div>
                 <p>Thùng (500 Gói)</p>
             </div>
             {d.total_quantity == 0 && <>
@@ -300,9 +305,6 @@ const MainHome = () => {
                             <ShowGoi d={d}></ShowGoi>
                             <ShowCay d={d}></ShowCay>
                             <ShowThung d={d}></ShowThung>
-
-
-
                         </div>
                     )
                 })}
