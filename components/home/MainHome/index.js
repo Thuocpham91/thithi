@@ -6,7 +6,9 @@ import { productService } from '../../../services/product.service';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { incrementCount } from '../../../Store/actions'
-
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
@@ -164,6 +166,120 @@ const MainHome = () => {
         return newArray
     }
 
+    const ShowViewGoi = ({ d }) => {
+        return (<>
+
+            <div className="product-item">
+                <div className='product-item--img'>
+                    <span>
+                        <Image
+                            unoptimized
+                            alt={d.product_name}
+                            src={d.variants[0].photo[0] ? d.variants[0].photo[0].url : "/images/default.jpg"}
+                            layout='fill'
+                            objectFit='contain'
+                            quality={100}
+                        />
+                    </span>
+                </div>
+                <div className='product-item--title'>
+                    <div className='product-item--title--h3'>{"d.product_name"}</div>
+                    <p>Gói</p>
+                </div>
+                {d.total_quantity == 0 && <>
+                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                </>}
+                {d.total_quantity > 0 && <>
+                    <div className='product-item--number flex justify-center items-center'>
+                        <button onClick={e => minusNumber(d, 'package')}>-</button>
+                        <div className="text-[#ff0000]">
+                            {d.numberPackage > 0 ? d.numberPackage : ''}
+                        </div>
+                        <button onClick={e => plusNumber(d, 'package')}>+</button>
+                    </div>
+                </>}
+            </div>
+        </>)
+    }
+
+
+
+
+    const ShowViewCay = ({ d }) => {
+        return (<>
+            <div className="product-item">
+                <div className='product-item--img'>
+                    <span>
+                        <Image
+                            unoptimized
+                            alt={d.title}
+                            src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
+                            layout='fill'
+                            objectFit='contain'
+                            quality={100}
+                        />
+                    </span>
+                </div>
+                <div className='product-item--title'>
+                    <div className='product-item--title--h3'>{d.product_name}</div>
+                    <p>Cây (10 Gói)</p>
+                </div>
+                {d.total_quantity == 0 && <>
+                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                </>}
+                {d.total_quantity > 0 && <>
+                    <div className='product-item--number flex justify-center items-center'>
+                        <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
+                        <div className="text-[#ff0000]">
+                            {d.numberTobacco > 0 ? d.numberTobacco : ''}
+                        </div>
+                        <button onClick={e => plusNumber(d, 'tobacco')}>+</button>
+                    </div>
+                </>}
+            </div>
+
+
+        </>)
+    }
+
+
+    const ShowViewThung = ({ d }) => {
+        return (<>
+            <div className="product-item">
+                <div className='product-item--img'>
+                    <span>
+                        <Image
+                            unoptimized
+                            alt={d.product_name}
+                            src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
+                            layout='fill'
+                            objectFit='contain'
+                            quality={100}
+                        />
+                    </span>
+                </div>
+                <div className='product-item--title'>
+                    <div className='product-item--title--h3'>{d.product_name}</div>
+                    <p>Thùng (500 Gói)</p>
+                </div>
+                {d.total_quantity == 0 && <>
+                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                </>}
+                {d.total_quantity > 0 && <>
+                    <div className='product-item--number flex justify-center items-center'>
+                        <button onClick={e => minusNumber(d, 'barrel')}>-</button>
+                        <div className="text-[#ff0000]">
+                            {d.numberBarrel > 0 ? d.numberBarrel : ''}
+                        </div>
+                        <button onClick={e => plusNumber(d, 'barrel')}>+</button>
+                    </div>
+                </>}
+
+            </div>
+
+        </>)
+    }
+
 
     const router = useRouter();
     const handleLink = (link) => {
@@ -173,107 +289,45 @@ const MainHome = () => {
         router.push({ pathname: link });
     }
 
+
+
+    const FormRow = ({ d }) => {
+        return (
+            <React.Fragment>
+                <Grid item xs={4}>
+                    <ShowViewGoi d={d}></ShowViewGoi>
+                </Grid>
+                <Grid item xs={4}>
+                    <ShowViewCay d={d}></ShowViewCay>
+                </Grid>
+                <Grid item xs={4}>
+                    <ShowViewThung d={d}></ShowViewThung>
+                </Grid>
+            </React.Fragment>
+        );
+    }
+
     return (<>
         <div className="main-home">
-            <div className='list-product'>
-                {listProduct.map(function (d, idx) {
-                    return (
-                        <div key={idx} >
-                            <div className="product-item">
-                                <div className='product-item--img'>
-                                    <span>
-                                        <Image
-                                            unoptimized
-                                            alt={d.product_name}
-                                            src={d.variants[0].photo[0] ? d.variants[0].photo[0].url : "/images/default.jpg"}
-                                            layout='fill'
-                                            objectFit='contain'
-                                            quality={100}
-                                        />
-                                    </span>
-                                </div>
-                                <div className='product-item--title'>
-                                    <div className='product-item--title--h3'>{"d.product_name"}</div>
-                                    <p>Gói</p>
-                                </div>
-                                {d.total_quantity == 0 && <>
-                                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-                                </>}
-                                {d.total_quantity > 0 && <>
-                                    <div className='product-item--number flex justify-center items-center'>
-                                        <button onClick={e => minusNumber(d, 'package')}>-</button>
-                                        <div className="text-[#ff0000]">
-                                            {d.numberPackage > 0 ? d.numberPackage : ''}
-                                        </div>
-                                        <button onClick={e => plusNumber(d, 'package')}>+</button>
-                                    </div>
-                                </>}
-                            </div>
-                            <div className="product-item">
-                                <div className='product-item--img'>
-                                    <span>
-                                        <Image
-                                            unoptimized
-                                            alt={d.title}
-                                            src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
-                                            layout='fill'
-                                            objectFit='contain'
-                                            quality={100}
-                                        />
-                                    </span>
-                                </div>
-                                <div className='product-item--title'>
-                                    <div className='product-item--title--h3'>{d.product_name}</div>
-                                    <p>Cây (10 Gói)</p>
-                                </div>
-                                {d.total_quantity == 0 && <>
-                                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-                                </>}
-                                {d.total_quantity > 0 && <>
-                                    <div className='product-item--number flex justify-center items-center'>
-                                        <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
-                                        <div className="text-[#ff0000]">
-                                            {d.numberTobacco > 0 ? d.numberTobacco : ''}
-                                        </div>
-                                        <button onClick={e => plusNumber(d, 'tobacco')}>+</button>
-                                    </div>
-                                </>}
-                            </div>
-                            <div className="product-item">
-                                <div className='product-item--img'>
-                                    <span>
-                                        <Image
-                                            unoptimized
-                                            alt={d.product_name}
-                                            src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
-                                            layout='fill'
-                                            objectFit='contain'
-                                            quality={100}
-                                        />
-                                    </span>
-                                </div>
-                                <div className='product-item--title'>
-                                    <div className='product-item--title--h3'>{d.product_name}</div>
-                                    <p>Thùng (500 Gói)</p>
-                                </div>
-                                {d.total_quantity == 0 && <>
-                                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-                                </>}
-                                {d.total_quantity > 0 && <>
-                                    <div className='product-item--number flex justify-center items-center'>
-                                        <button onClick={e => minusNumber(d, 'barrel')}>-</button>
-                                        <div className="text-[#ff0000]">
-                                            {d.numberBarrel > 0 ? d.numberBarrel : ''}
-                                        </div>
-                                        <button onClick={e => plusNumber(d, 'barrel')}>+</button>
-                                    </div>
-                                </>}
+            <div >
 
-                            </div>
 
-                        </div>
-                    )
-                })}
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={1}>
+                        <Grid container item spacing={3}>
+                            {listProduct.map(function (d, idx) {
+                                return (
+                                    <FormRow d={d} key={idx} />
+                                )
+                            })}
+
+                        </Grid>
+
+                    </Grid>
+                </Box>
+
+
+
             </div>
         </div>
 
