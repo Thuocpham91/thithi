@@ -286,8 +286,11 @@ const MainHome = () => {
                     </div>
                     <div className='product-item--title'>
 
-                   
-                        
+                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                            {d.product_name + ""}
+                        </div>
+
+                        <p>Thùng (500 Gói)</p>
                     </div>
                 </div >
                 < div className="product-item" >
@@ -305,6 +308,11 @@ const MainHome = () => {
                     </div>
                     <div className='product-item--title'>
 
+                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                            {d.product_name + ""}
+                        </div>
+
+                        <p>Thùng (500 Gói)</p>
                     </div>
 
                 </div >
