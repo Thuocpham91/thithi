@@ -269,49 +269,12 @@ const MainHome = () => {
 
 
         return (<>
-
-            <div className="product-main grid grid-cols-3 gap-4">
-                <div className="product-item">
-                    <div className='product-item--img'>
-                        <span>
-                            <Image
-                                unoptimized
-                                alt={d ? d.title : "khong co"}
-                                src={d ? d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg" : "/images/default.jpg"}
-                                layout='fill'
-                                objectFit='contain'
-                                quality={100}
-                            />
-                        </span>
-                    </div>
-                    <div className='product-item--title'>
-                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                            {d ? d.product_name : "kgon"}
-                        </div>
-                        <p>Cây (10 Gói)</p>
-                    </div>
-
-                </div>
+            <div  className="product-main grid grid-cols-3 gap-4">
+                <ShowGoi d={d}></ShowGoi>
+                <ShowCay d={d}></ShowCay>
+                <ShowThung d={d}></ShowThung>
             </div>
 
-
-            {
-                d && d.total_quantity == 0 && <>
-                    <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-                </>
-            }
-            {
-                d && d.total_quantity > 0 && <>
-                    <div className='product-item--number flex justify-center items-center'>
-                        <button onClick={e => minusNumber(d, 'barrel')}>-</button>
-                        <div className="text-[#ff0000]">
-                            {d.numberBarrel > 0 ? d.numberBarrel : ''}
-                        </div>
-                        <button onClick={e => plusNumber(d, 'barrel')}>+</button>
-                    </div>
-                </>
-            }
-            {/* <div  className='fixloishow'></div> */}
 
 
         </>)
@@ -367,6 +330,8 @@ const MainHome = () => {
         </>)
 
     }
+
+
 
     return (<>
 
