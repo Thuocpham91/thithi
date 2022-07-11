@@ -287,6 +287,7 @@ const MainHome = () => {
               
                 </div>
             </div>
+            <div  className='fixloishow'></div>
 
 
         </>)
