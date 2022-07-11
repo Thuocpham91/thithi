@@ -104,6 +104,7 @@
         }
     }
     .product-item--title{
+        h3{font-size: 16px;}
         p{
             font-style: normal;
             font-weight: 300;
@@ -215,6 +216,7 @@
                 .product-item--title{
                     padding-left: 10px;
                     text-align: left;
+                    h3{font-size: 16px;}
                     p{
                         text-align: left;
                     }
@@ -785,9 +787,6 @@
     background: #00ff58;
 }
 
-.product-item--title{
-    h3{font-size: 16px;}
-}
 .form-login{
     padding-top: 30px;
 }
