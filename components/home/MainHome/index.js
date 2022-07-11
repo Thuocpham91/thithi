@@ -270,8 +270,8 @@ const MainHome = () => {
                         <span>
                             <Image
                                 unoptimized
-                                alt={d.title}
-                                src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
+                                alt={"huo"}
+                                src={ "/images/default.jpg"}
                                 layout='fill'
                                 objectFit='contain'
                                 quality={100}
