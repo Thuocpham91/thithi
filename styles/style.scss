@@ -62,12 +62,12 @@
 .body-f2f2f2{
     background: #f2f2f2;
 }
-.main-home{
-    height: calc(100% - 149px);
-    overflow-y: auto;
-    margin: 0 -15px;
-    padding: 0 15px;
-}
+// .main-home{
+//     height: calc(100% - 149px);
+//     overflow-y: auto;
+//     margin: 0 -15px;
+//     padding: 0 15px;
+// }
 .main-home::-webkit-scrollbar-track{
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
@@ -77,12 +77,12 @@
 	width: 6px;
 	background-color: #F5F5F5;
 }
-.rulesMain{
-    height: 100%;
-}
 .main-home::-webkit-scrollbar-thumb
 {
-	background-color: #00000030;
+    background-color: #00000030;
+}
+.rulesMain{
+    height: 100%;
 }
 .list-product{
     padding-top: 20px;
@@ -804,9 +804,9 @@
         width: 70px !important;
         height: 70px !important;
     }
-    .main-home {
-        padding: 0 8px;
-    }
+    // .main-home {
+    //     padding: 0 8px;
+    // }
     .list-product{
         .gap-4 {
             gap: 8px;
