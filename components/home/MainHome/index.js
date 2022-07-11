@@ -193,7 +193,7 @@ const MainHome = () => {
                                     </span>
                                 </div>
                                 <div className='product-item--title'>
-                                    <div className='product-item--title--h3'>{d.product_name}</div>
+                                    <div className='product-item--title--h3'>{"d.product_name"}</div>
                                     <p>Gói</p>
                                 </div>
                                 {d.total_quantity == 0 && <>
