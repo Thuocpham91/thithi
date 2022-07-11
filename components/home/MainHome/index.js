@@ -193,10 +193,10 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
 
-                    <Typography variant="h3" component="div" gutterBottom>
+                    <Typography variant="h6" component="div" gutterBottom>
                         {d.product_name}
                     </Typography>
-                  
+
                     <p>Gói</p>
                 </div>
                 {d.total_quantity == 0 && <>
@@ -236,7 +236,10 @@ const MainHome = () => {
                     </span>
                 </div>
                 <div className='product-item--title'>
-                    <div className='product-item--title--h3'>{d.product_name}</div>
+                    <Typography variant="h6" component="div" gutterBottom>
+                        {d.product_name}
+                    </Typography>
+
                     <p>Cây (10 Gói)</p>
                 </div>
                 {d.total_quantity == 0 && <>
@@ -278,11 +281,10 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
 
-                    <div className='product-item--title--h3'>
-
+                    <Typography variant="h6" component="div" gutterBottom>
                         {d.product_name}
+                    </Typography>
 
-                    </div>
                     <p>Thùng (500 Gói)</p>
                 </div>
                 {
