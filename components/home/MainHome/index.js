@@ -266,11 +266,128 @@ const MainHome = () => {
 
     const ShowDiv = ({ d }) => {
 
-        if (!d) return "";
+        if (!d) return;
 
         return (<>
             <div className="product-main grid grid-cols-3 gap-4">
 
+                < div className="product-item" >
+                    <div className='product-item--img'>
+                        <span>
+                            {/* <Image
+                                unoptimized
+                                alt={d.product_name}
+                                src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
+                                layout='fill'
+                                objectFit='contain'
+                                quality={100}
+                            /> */}
+                        </span>
+                    </div>
+                    <div className='product-item--title'>
+
+                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                            {d.product_name + ""}
+                        </div>
+
+                        <p>Thùng (500 Gói)</p>
+                    </div>
+                    {
+                        d.total_quantity == 0 && <>
+                            <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                        </>
+                    }
+                    {
+                        d.total_quantity > 0 && <>
+                            <div className='product-item--number flex justify-center items-center'>
+                                <button onClick={e => minusNumber(d, 'barrel')}>-</button>
+                                <div className="text-[#ff0000]">
+                                    {d.numberBarrel > 0 ? d.numberBarrel : ''}
+                                </div>
+                                <button onClick={e => plusNumber(d, 'barrel')}>+</button>
+                            </div>
+                        </>
+                    }
+
+                </div >
+                < div className="product-item" >
+                    <div className='product-item--img'>
+                        <span>
+                            {/* <Image
+                                unoptimized
+                                alt={d.product_name}
+                                src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
+                                layout='fill'
+                                objectFit='contain'
+                                quality={100}
+                            /> */}
+                        </span>
+                    </div>
+                    <div className='product-item--title'>
+
+                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                            {d.product_name + ""}
+                        </div>
+
+                        <p>Thùng (500 Gói)</p>
+                    </div>
+                    {
+                        d.total_quantity == 0 && <>
+                            <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                        </>
+                    }
+                    {
+                        d.total_quantity > 0 && <>
+                            <div className='product-item--number flex justify-center items-center'>
+                                <button onClick={e => minusNumber(d, 'barrel')}>-</button>
+                                <div className="text-[#ff0000]">
+                                    {d.numberBarrel > 0 ? d.numberBarrel : ''}
+                                </div>
+                                <button onClick={e => plusNumber(d, 'barrel')}>+</button>
+                            </div>
+                        </>
+                    }
+
+                </div >
+                < div className="product-item" >
+                    <div className='product-item--img'>
+                        <span>
+                            {/* <Image
+                                unoptimized
+                                alt={d.product_name}
+                                src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
+                                layout='fill'
+                                objectFit='contain'
+                                quality={100}
+                            /> */}
+                        </span>
+                    </div>
+                    <div className='product-item--title'>
+
+                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                            {d.product_name + ""}
+                        </div>
+
+                        <p>Thùng (500 Gói)</p>
+                    </div>
+                    {
+                        d.total_quantity == 0 && <>
+                            <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
+                        </>
+                    }
+                    {
+                        d.total_quantity > 0 && <>
+                            <div className='product-item--number flex justify-center items-center'>
+                                <button onClick={e => minusNumber(d, 'barrel')}>-</button>
+                                <div className="text-[#ff0000]">
+                                    {d.numberBarrel > 0 ? d.numberBarrel : ''}
+                                </div>
+                                <button onClick={e => plusNumber(d, 'barrel')}>+</button>
+                            </div>
+                        </>
+                    }
+
+                </div >
             </div>
 
 
@@ -340,103 +457,9 @@ const MainHome = () => {
                     return (
                         <>
                             <div key={idx} className="product-main grid grid-cols-3 gap-4">
-                                <div className="product-item">
-                                    <div className='product-item--img'>
-                                        <span>
-                                            {/* <Image
-                                                unoptimized
-                                                alt={d.title}
-                                                src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
-                                                layout='fill'
-                                                objectFit='contain'
-                                                quality={100}
-                                            /> */}
-                                        </span>
-                                    </div>
-                                    <div className='product-item--title'>
-                                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                                            {d.product_name + ""}
-                                        </div>
-                                        <p>Cây (10 Gói)</p>
-                                    </div>
-                                    {d.total_quantity == 0 && <>
-                                        <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-                                    </>}
-                                    {d.total_quantity > 0 && <>
-                                        <div className='product-item--number flex justify-center items-center'>
-                                            <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
-                                            <div className="text-[#ff0000]">
-                                                {d.numberTobacco > 0 ? d.numberTobacco : ''}
-                                            </div>
-                                            <button onClick={e => plusNumber(d, 'tobacco')}>+</button>
-                                        </div>
-                                    </>}
-                                </div>
-                                <div className="product-item">
-                                    <div className='product-item--img'>
-                                        <span>
-                                            {/* <Image
-                                                unoptimized
-                                                alt={d.title}
-                                                src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
-                                                layout='fill'
-                                                objectFit='contain'
-                                                quality={100}
-                                            /> */}
-                                        </span>
-                                    </div>
-                                    <div className='product-item--title'>
-                                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                                            {d.product_name + ""}
-                                        </div>
-                                        <p>Cây (10 Gói)</p>
-                                    </div>
-                                    {d.total_quantity == 0 && <>
-                                        <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-                                    </>}
-                                    {d.total_quantity > 0 && <>
-                                        <div className='product-item--number flex justify-center items-center'>
-                                            <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
-                                            <div className="text-[#ff0000]">
-                                                {d.numberTobacco > 0 ? d.numberTobacco : ''}
-                                            </div>
-                                            <button onClick={e => plusNumber(d, 'tobacco')}>+</button>
-                                        </div>
-                                    </>}
-                                </div>
-                                <div className="product-item">
-                                    <div className='product-item--img'>
-                                        <span>
-                                            {/* <Image
-                                                unoptimized
-                                                alt={d.title}
-                                                src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
-                                                layout='fill'
-                                                objectFit='contain'
-                                                quality={100}
-                                            /> */}
-                                        </span>
-                                    </div>
-                                    <div className='product-item--title'>
-                                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                                            {d.product_name + ""}
-                                        </div>
-                                        <p>Cây (10 Gói)</p>
-                                    </div>
-                                    {d.total_quantity == 0 && <>
-                                        <div className='product-item--hh text-[#ff0000]'>Tạm hết</div>
-                                    </>}
-                                    {d.total_quantity > 0 && <>
-                                        <div className='product-item--number flex justify-center items-center'>
-                                            <button onClick={e => minusNumber(d, 'tobacco')}>-</button>
-                                            <div className="text-[#ff0000]">
-                                                {d.numberTobacco > 0 ? d.numberTobacco : ''}
-                                            </div>
-                                            <button onClick={e => plusNumber(d, 'tobacco')}>+</button>
-                                        </div>
-                                    </>}
-                                </div>
-
+                                <ShowGoi d={d}></ShowGoi>
+                                <ShowCay d={d}></ShowCay>
+                                <ShowThung d={d}></ShowThung>
                             </div>
 
                         </>
