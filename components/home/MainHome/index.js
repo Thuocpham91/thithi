@@ -264,8 +264,28 @@ const MainHome = () => {
 
         return (<>
 
-            <div  className="product-main grid grid-cols-3 gap-4">
-                <div className='fixloishow'></div>
+            <div className="product-main grid grid-cols-3 gap-4">
+                <div className="product-item">
+                    <div className='product-item--img'>
+                        <span>
+                            {/* <Image
+                                unoptimized
+                                alt={d.title}
+                                src={d.variants[0].photo[0] ? d.variants[0].photo[1].url : "/images/default.jpg"}
+                                layout='fill'
+                                objectFit='contain'
+                                quality={100}
+                            /> */}
+                        </span>
+                    </div>
+                    <div className='product-item--title'>
+                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
+                            {/* {d.product_name} */}
+                        </div>
+                        <p>Cây (10 Gói)</p>
+                    </div>
+              
+                </div>
             </div>
 
 
@@ -331,11 +351,11 @@ const MainHome = () => {
                 {listProduct.map(function (d, idx) {
                     return (
                         <>
-                          <div key={idx} className="product-main grid grid-cols-3 gap-4">
+                            <div key={idx} className="product-main grid grid-cols-3 gap-4">
                                 <ShowGoi d={d}></ShowGoi>
                                 <ShowCay d={d}></ShowCay>
                                 <ShowThung d={d}></ShowThung>
-                            </div> 
+                            </div>
 
                         </>
 
