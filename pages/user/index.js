@@ -24,7 +24,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 
 
-const drawerBleeding = 0;
+const drawerBleeding = 50;
 const Root = styled('div')(({ theme }) => ({
   height: '100%',
   borderRadius: '8px 8px 0 0',
@@ -100,13 +100,13 @@ const User = (props) => {
     const doks = await productService.changePoin(d);
     setLoading(false);
     if (doks.status == 200) {
-      showToast('top-center', "Đổi điểm thành công");
+      showToast('bottom-center', "Đổi điểm thành công");
       data.data.score = doks.user.score;
       localStorage.setItem('user', JSON.stringify(data));
       setInit(data.data);
 
     } else {
-      showToastEro('top-center', doks.message);
+      showToastEro('bottom-center', doks.message);
     }
 
 
@@ -178,7 +178,7 @@ const User = (props) => {
             keepMounted: true,
           }}
         >
-          <div className='user-promotion' style={{ height: '100% !important' }}>
+          <div className='user-promotion' style={{ height: '90% !important' }}>
             <div className="coupon-form--title"><CloseIcon onClick={toggleDrawer(false)} /> Tích điểm </div>
             <div className="coupon-form--content body-f2f2f2">
               <div className='main-user text-center'  >
