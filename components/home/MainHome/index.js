@@ -259,6 +259,19 @@ const MainHome = () => {
         </>)
     }
 
+    const ShowDiv = ({ d }) => {
+
+
+
+        return (<>
+
+            <div></div>
+
+
+        </>)
+
+
+    }
 
 
     const ShowThung = ({ d }) => {
@@ -329,6 +342,8 @@ const MainHome = () => {
                         </div>
                     )
                 })}
+
+                {listProduct.length < 2 ? <ShowDiv /> : ""}
             </div>
         </div>
 
