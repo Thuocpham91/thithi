@@ -104,7 +104,7 @@
         }
     }
     .product-item--title{
-        h3{font-size: 16px;}
+        .product-item--title--h3{font-size: 16px;font-weight: bold;}
         p{
             font-style: normal;
             font-weight: 300;
@@ -216,7 +216,7 @@
                 .product-item--title{
                     padding-left: 10px;
                     text-align: left;
-                    h3{font-size: 16px;}
+                    .product-item--title--h3{font-size: 16px;font-weight: bold;}
                     p{
                         text-align: left;
                     }
