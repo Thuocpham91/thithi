@@ -42,7 +42,7 @@ const HeaderHome = () => {
       let data = await productService.getCategory();
       if (data.status != 200) return;
 
-      setListCate(data.data);
+      setListCate(data.data.reverse());
       // setActiveCate(data.data[0]?data.data[0].id:0)
     }
 
