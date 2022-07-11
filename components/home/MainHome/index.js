@@ -50,7 +50,6 @@ const MainHome = () => {
                 data = JSON.parse(data.data);
 
                 dkm = data.variants;
-                setListProductK(dkm);
                 let data_user = JSON.parse(localStorage.getItem('user'));
 
                 let idstore = data_user.data.id_store;
@@ -61,6 +60,8 @@ const MainHome = () => {
                     if (check) return item;
                 });
                 dkm = listfintell.reverse();
+                setListProductK(listfintell);
+
 
                 localStorage.setItem('listProduct', JSON.stringify(listfintell));
                 localStorage.setItem('listVariants', JSON.stringify(listfintell));
