@@ -193,9 +193,9 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
 
-                    <Typography variant="h6" component="div" gutterBottom>
+                    <div style={{fontSize:16, fontWeight:"bold"}}>
                         {d.product_name}
-                    </Typography>
+                    </div>
 
                     <p>Gói</p>
                 </div>
@@ -236,10 +236,9 @@ const MainHome = () => {
                     </span>
                 </div>
                 <div className='product-item--title'>
-                    <Typography variant="h6" component="div" gutterBottom>
+                    <div style={{fontSize:16, fontWeight:"bold"}}>
                         {d.product_name}
-                    </Typography>
-
+                    </div>
                     <p>Cây (10 Gói)</p>
                 </div>
                 {d.total_quantity == 0 && <>
@@ -294,9 +293,9 @@ const MainHome = () => {
                 </div>
                 <div className='product-item--title'>
 
-                    <Typography variant="h6" component="div" gutterBottom>
+                    <div style={{fontSize:16, fontWeight:"bold"}}>
                         {d.product_name}
-                    </Typography>
+                    </div>
 
                     <p>Thùng (500 Gói)</p>
                 </div>
