@@ -178,7 +178,7 @@ const MainHome = () => {
             <div className='list-product'>
                 {listProduct.map(function (d, idx) {
                     return (
-                        <div key={idx} className="product-main grid grid-cols-3 gap-4">
+                        <div key={idx} >
                             <div className="product-item">
                                 <div className='product-item--img'>
                                     <span>
