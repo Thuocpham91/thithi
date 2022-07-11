@@ -271,7 +271,7 @@ const MainHome = () => {
         return (<>
             <div className="product-main grid grid-cols-3 gap-4">
 
-                < div className="product-item" >
+                < div className="product-item-fix" >
                     <div className='product-item--img'>
                         <span>
                             {/* <Image
@@ -284,7 +284,29 @@ const MainHome = () => {
                             /> */}
                         </span>
                     </div>
-                    <div className='product-item--title'>
+                    <div className='product-item--title-fix'>
+
+                        <div  className='product-item--title-fix' style={{ fontSize: 16, fontWeight: "bold" }}>
+                            {d.product_name + ""}
+                        </div>
+
+                        <p>Thùng (500 Gói)</p>
+                    </div>
+                </div >
+                < div className="product-item-fix" >
+                    <div className='product-item--img'>
+                        <span>
+                            {/* <Image
+                                unoptimized
+                                alt={d.product_name}
+                                src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
+                                layout='fill'
+                                objectFit='contain'
+                                quality={100}
+                            /> */}
+                        </span>
+                    </div>
+                    <div className='product-item--title-fix'>
 
                         <div style={{ fontSize: 16, fontWeight: "bold" }}>
                             {d.product_name + ""}
@@ -292,8 +314,9 @@ const MainHome = () => {
 
                         <p>Thùng (500 Gói)</p>
                     </div>
+
                 </div >
-                < div className="product-item" >
+                < div className="product-item-fix" >
                     <div className='product-item--img'>
                         <span>
                             {/* <Image
@@ -306,30 +329,7 @@ const MainHome = () => {
                             /> */}
                         </span>
                     </div>
-                    <div className='product-item--title'>
-
-                        <div style={{ fontSize: 16, fontWeight: "bold" }}>
-                            {d.product_name + ""}
-                        </div>
-
-                        <p>Thùng (500 Gói)</p>
-                    </div>
-
-                </div >
-                < div className="product-item" >
-                    <div className='product-item--img'>
-                        <span>
-                            {/* <Image
-                                unoptimized
-                                alt={d.product_name}
-                                src={d.variants[0].photo.length > 2 ? d.variants[0].photo[2].url : "/images/default.jpg"}
-                                layout='fill'
-                                objectFit='contain'
-                                quality={100}
-                            /> */}
-                        </span>
-                    </div>
-                    <div className='product-item--title'>
+                    <div className='product-item--title-fix'>
 
                         <div style={{ fontSize: 16, fontWeight: "bold" }}>
                             {d.product_name + ""}
