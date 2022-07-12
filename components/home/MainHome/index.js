@@ -421,7 +421,7 @@ const MainHome = () => {
                     )
                 })}
 
-                {listProduct.length < 2 ? <ShowDiv d={listProductK[0]} /> : ""}
+                {listProduct.length < 3 ? <ShowDiv d={listProductK[0]} /> : ""}
             </div>
         </div>
 
