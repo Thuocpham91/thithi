@@ -874,3 +874,13 @@
         box-shadow: none;
     }
 }
+@media screen and (max-width: 600px) {
+    .footer{
+        button{
+            padding: 0 3px;
+            span{
+                font-size: 13px;
+            }
+        }
+    }
+}
