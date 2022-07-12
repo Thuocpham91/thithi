@@ -45,7 +45,7 @@ async function SelectById_user(id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification where id_user = ?   order by status  ASC,created_at DESC limit 10 ',
+            query: 'select * from notification where id_user = ?   created_at DESC limit 20 ',
             values: [id_user],
         });
         return result;
