@@ -193,7 +193,6 @@ const User = () => {
 
   const openMenu = Boolean(anchorEl);
   const handleOpenMenu = (event, row) => {
-    console.log(row);
     setUserChoose(row);
     setAnchorEl(event.currentTarget);
   };

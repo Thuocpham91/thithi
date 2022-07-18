@@ -102,7 +102,6 @@ const EditExchangePoints = (chooseItem) => {
 
     }
 
-console.log(value)
     const checkJson = (string) => {
         let rp;
         try {

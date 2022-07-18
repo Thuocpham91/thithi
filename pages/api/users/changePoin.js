@@ -44,8 +44,6 @@ function handler(req, res) {
                 message: "Quý Đại lý Không có quà đổi!",
                 gif
             });
-            console.log(gif);
-            console.log(user)
 
 
             if (Number(user.score) < Number(gif.score)) return res.status(200).json({
@@ -53,7 +51,6 @@ function handler(req, res) {
                 message: "Quý Đại lý chưa đủ điểm",
             });
             const scored = Number(user.score) - Number(gif.score);
-            console.log("scored")
             if (scored == null) return res.status(200).json({
                 status: 198,
                 message: "Có lỗi sảy ra",

@@ -89,14 +89,12 @@ const AddPromotion = (FetchDataLoad) => {
     const [rowUser, setRowUser] = useState([]);
 
     const CallBack = (value) => {
-        console.log(value)
         setValueAddPromotion({ ...valueAddPromotion, users: value });
     };
     const { renderImport, setOpenImport } = ImportPoint(CallBack);
 
 
     const handleExportFile = () => {
-        console.log(rowUser)
 
         const date = new Date();
         let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
@@ -148,7 +146,6 @@ const AddPromotion = (FetchDataLoad) => {
     useEffect(() => {
 
         const fda = JSON.parse(localStorage.getItem('listVariants'));
-        console.log(fda)
         if (fda == null) return;
 
         setproductItems(fda);

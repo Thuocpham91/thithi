@@ -42,7 +42,6 @@ const Notification = () => {
 
 
     const CallBack = (value) => {
-        console.log(value);
         setValueNoti({ ...valueNoti, users: value });
     };
     const { renderImport, setOpenImport } = ImportPoint(CallBack);
@@ -82,7 +81,6 @@ const Notification = () => {
 
 
     const handleExportFile = () => {
-        console.log(rowUser)
 
         const date = new Date();
         let dj = format(date, 'yyyy-MM-dd HH:MM:ss');

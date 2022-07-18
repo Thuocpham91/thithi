@@ -30,8 +30,6 @@ const EditUser = (userChoose) => {
 
     const [listdisStrict, setListDisStrict] = useState([]);
     const [listWards, setLisWards] = useState([]);
-    console.log(userChoose);
-    console.log(valueEditUser)
 
 
     useEffect(() => {

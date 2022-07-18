@@ -92,14 +92,12 @@ const AddExchangePoints = (props) => {
 
 
     const CallBack = (value) => {
-        console.log(value)
         setValueAddExchangePoints({ ...valueAddExchangePoints, users: value });
     };
     const { renderImport, setOpenImport } = ImportPoint(CallBack);
 
 
     const handleExportFile = () => {
-        console.log(rowUser)
 
         const date = new Date();
         let dj = format(date, 'yyyy-MM-dd HH:MM:ss');

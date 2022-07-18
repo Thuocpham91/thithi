@@ -212,7 +212,6 @@ export default function FooterCart(props) {
       let dkm = [];
       let dataad = localStorage.getItem('listProduct');
       dkm = JSON.parse(dataad);
-      console.log(dkm)
       if (dkm == null) return;
 
       const check = dkm.find(item => { return item.numberPackage > 0 || item.numberTobacco > 0 || item.numberBarrel > 0 });

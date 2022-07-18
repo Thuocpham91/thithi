@@ -56,13 +56,11 @@ function handler(req, res) {
                 "key": "mabimatidsoadjoassd",
                 "file": data.files.file
             };
-            console.log(data);
             var FormData = require('form-data');
             var bodyFormData = new FormData();
              bodyFormData.append('file', data.files.file);
 
             const rps = await uploadfile(bodyFormData);
-            console.log(rps)
             res.status(200).json({ status: 200, url: "rps" });
         } catch (erro) {
             console.log(erro);

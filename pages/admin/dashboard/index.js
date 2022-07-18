@@ -84,7 +84,6 @@ export default function Dashboard() {
   const checkChagePoin = async (value) => {
     setLoading(true);
     const data = await productService.updateDataVT({ key: value, id: 281 });
-    console.log(data);
 
     if (data.status == 200) {
       toast.success("Cập nhật dữ liệu thành công");

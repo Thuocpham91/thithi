@@ -239,7 +239,6 @@ async function sentOder(data) {
      
 
         const oder = await createOder(rp2.access_token, data);
-        console.log(oder)
         return oder;
     } catch (ero) {
         console.log(ero)

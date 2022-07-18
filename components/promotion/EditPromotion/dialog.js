@@ -83,14 +83,12 @@ const EditPromotionD = (props) => {
 
 
     const CallBack = (value) => {
-        console.log(value)
         setValueAddPromotion({ ...valueAddPromotion, users: value });
     };
     const { renderImport, setOpenImport } = ImportPoint(CallBack);
 
 
     const handleExportFile = () => {
-        console.log(rowUser)
 
         const date = new Date();
         let dj = format(date, 'yyyy-MM-dd HH:MM:ss');

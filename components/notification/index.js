@@ -58,7 +58,6 @@ const ImportPoint = (CallBack) => {
                 const ws = wb.Sheets[wsname];
                 // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
                 const json = XLSX.utils.sheet_to_json(ws);
-                console.log(json)
                 const data_import = json.map(item => { return { id: item.id ,id_khataco:item.id_khataco} });
                 setDataImport(data_import);
             };

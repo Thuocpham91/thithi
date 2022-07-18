@@ -54,7 +54,6 @@ const EditUser = (dataUser, CallBack) => {
 
 
     const handleEditUser = async () => {
-        console.log(valueEditUser)
 
         if (!valueEditUser.id_store) return toast.success("Chưa chọn kho hàng");
         if (!valueEditUser.code_cityVT) return toast.success("Chưa Thành phố");

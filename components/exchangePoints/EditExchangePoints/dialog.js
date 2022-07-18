@@ -57,20 +57,17 @@ const EditExchangePointsDia = ({ open, closeDialog, data }) => {
     };
 
 
-    console.log(data)
 
     const [city, setCIty] = useState([]);
     const [rowUser, setRowUser] = useState([]);
 
 
     const CallBack = (value) => {
-        console.log(value)
         setValue({ ...value, users: value });
     };
     const { renderImport, setOpenImport } = ImportPoint(CallBack);
 
     const handleExportFile = () => {
-        console.log(rowUser)
         const date = new Date();
         let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
         dj = dj + "user";
