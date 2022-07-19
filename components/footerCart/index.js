@@ -119,7 +119,8 @@ export default function FooterCart(props) {
     });
 
     const stringprodcut = obToStringProduct(codeapp.product_name);
-    const kkk = codeapp.code + " " + stringprodcut + ":" + codeapp.title;
+    let kkk = "";
+    if (codeapp) kkk = codeapp.code ? codeapp.code : "" + " " + stringprodcut + ":" + codeapp.title;
 
 
     const order = {
@@ -256,7 +257,7 @@ export default function FooterCart(props) {
   const checkdieukien = (d) => {
     // const dataUser = JSON.parse(localStorage.getItem('user'));
 
-    if(Number(d.Number_user)>= Number(d.numberOfUses)) return 3;
+    if (Number(d.Number_user) >= Number(d.numberOfUses)) return 3;
     // let check_numberuser = false;
 
     // if (d.number_users) {
