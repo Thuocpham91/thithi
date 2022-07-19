@@ -120,7 +120,9 @@ export default function FooterCart(props) {
 
     const stringprodcut = obToStringProduct(codeapp.product_name);
     let kkk = "";
-    if (codeapp) kkk = codeapp.code ? codeapp.code : "" + " " + stringprodcut + ":" + codeapp.title;
+
+
+    if (codeapp.code && codeapp.title) kkk = codeapp.code ? codeapp.code : "" + " " + stringprodcut + ":" + codeapp.title;
 
 
     const order = {
@@ -134,7 +136,7 @@ export default function FooterCart(props) {
         "payer_type": 1
       },
       "transport_type": 2,
-      "staff_note": kkk!="" ? kkk : "Không có ghi chú",
+      "staff_note": kkk != "" ? kkk : "Không có ghi chú",
       "total_weight": 1,
       "total_money_product": 0,
       "total_ship": 0,
@@ -153,7 +155,7 @@ export default function FooterCart(props) {
         "location_type": "VIETTELPOST"
       }
     };
-
+ 
 
     const datarp = await productService.postOder(order);
     setLoading(false);
