@@ -134,7 +134,7 @@ export default function FooterCart(props) {
         "payer_type": 1
       },
       "transport_type": 2,
-      "staff_note": kkk ? kkk : "String",
+      "staff_note": kkk!="" ? kkk : "Không có ghi chú",
       "total_weight": 1,
       "total_money_product": 0,
       "total_ship": 0,
