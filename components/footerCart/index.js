@@ -123,8 +123,6 @@ export default function FooterCart(props) {
 
 
     if (codeapp.code && codeapp.title) kkk = codeapp.code ? codeapp.code : "" + " " + stringprodcut + ":" + codeapp.title;
-
-
     const order = {
       "id_code": codeapp.id ? codeapp.id : "",
       "products": dataBuy,
@@ -136,7 +134,7 @@ export default function FooterCart(props) {
         "payer_type": 1
       },
       "transport_type": 2,
-      "staff_note": kkk != "" ? kkk : "Không có ghi chú",
+      "staff_note": kkk != "" ? kkk : "",
       "total_weight": 1,
       "total_money_product": 0,
       "total_ship": 0,
@@ -155,7 +153,7 @@ export default function FooterCart(props) {
         "location_type": "VIETTELPOST"
       }
     };
- 
+
 
     const datarp = await productService.postOder(order);
     setLoading(false);
@@ -176,7 +174,6 @@ export default function FooterCart(props) {
 
     setcodeAp(item);
   }
-  // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
 
 
