@@ -160,7 +160,7 @@ const User = (props) => {
         <Global
           styles={{
             '.MuiDrawer-root > .MuiPaper-root': {
-              height: `calc(100% - ${drawerBleeding}px - 50px)`,
+              height: `calc(100% - ${drawerBleeding}px)`,
               overflow: 'visible',
             },
           }}
@@ -179,7 +179,7 @@ const User = (props) => {
           }}
         >
           <div className='user-promotion' style={{ height: '100% !important' }}>
-            <div className="coupon-form--title"><CloseIcon onClick={toggleDrawer(false)} /> Tích điểm </div>
+            <div className="coupon-form--title"><CloseIcon onClick={toggleDrawer(false)} /> </div>
             <div className="coupon-form--content body-f2f2f2">
               <div className='main-user text-center'  >
                 <div>

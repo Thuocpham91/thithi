@@ -68,7 +68,7 @@ function handler(req, res) {
             const u_s=await User.searchUserIdkhataco(idUser);
             if(u_s)  return res.status(200).json({
                 status: 199,
-                message: "Đã có người dùng dùng ID khataco",
+                message: "Đã có Đại lý dùng ID này",
             });
 
             const hash = bcrypt.hashSync(password, 10);
