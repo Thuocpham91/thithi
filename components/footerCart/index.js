@@ -122,7 +122,12 @@ export default function FooterCart(props) {
     let kkk = "";
 
 
-    if (codeapp.code && codeapp.title) kkk = codeapp.code ? codeapp.code : "" + " " + stringprodcut + ":" + codeapp.title;
+    if (codeapp.code && codeapp.title){
+
+      kkk =  codeapp.code  + " " + stringprodcut + ":" + codeapp.title;
+    }
+    
+    
     const order = {
       "id_code": codeapp.id ? codeapp.id : "",
       "products": dataBuy,
@@ -153,8 +158,7 @@ export default function FooterCart(props) {
         "location_type": "VIETTELPOST"
       }
     };
-
-
+  
     const datarp = await productService.postOder(order);
     setLoading(false);
     if (datarp.status != 200) return showToastEro('top-center', "Gửi đơn lỗi!");
