@@ -140,9 +140,7 @@ const EditPromotionD = (props) => {
             let data = await productService.getProduct();
             if (data.status != 200) return;
             data = JSON.parse(data.data);
-
             let dkm = data.variants;
-
             setproductItems(dkm);
 
         }
