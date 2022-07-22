@@ -145,10 +145,25 @@ const AddPromotion = (FetchDataLoad) => {
 
     useEffect(() => {
 
-        const fda = JSON.parse(localStorage.getItem('listVariants'));
-        if (fda == null) return;
 
-        setproductItems(fda);
+        async function fetchData() {
+            let data = await productService.getProduct();
+            if (data.status != 200) return;
+            data = JSON.parse(data.data);
+
+            let dkm = data.variants;
+
+            console.log(dkm)
+            setproductItems(dkm);
+
+        }
+        fetchData();
+
+
+
+        // const fda = JSON.parse(localStorage.getItem('listVariants'));
+        // if (fda == null) return;
+
 
     }, [])
 
@@ -224,13 +239,13 @@ const AddPromotion = (FetchDataLoad) => {
                                     disablePortal
                                     multiple
                                     fullWidth
-                                    id="combo-box-demo"
+                                    id="addproduct"
                                     onChange={(e, newValue) => {
                                         setValueAddPromotion({ ...valueAddPromotion, product: newValue })
                                     }}
                                     options={productItems}
                                     getOptionLabel={(option) => option.product_name}
-                                    renderInput={(params) => <TextField {...params} label="Sản phẩm" />}
+                                    renderInput={(params) => <TextField {...params} key={params.product_id} label="Sản phẩm" />}
                                 />
                             </Grid>
                             <Grid item xs={6}>

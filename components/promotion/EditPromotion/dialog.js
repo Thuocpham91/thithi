@@ -136,9 +136,17 @@ const EditPromotionD = (props) => {
 
     const [productItems, setproductItems] = useState([]);
     useEffect(() => {
-        const fda = JSON.parse(localStorage.getItem('listVariants'));
-        if (fda == null) return;
-        setproductItems(fda);
+        async function fetchData() {
+            let data = await productService.getProduct();
+            if (data.status != 200) return;
+            data = JSON.parse(data.data);
+
+            let dkm = data.variants;
+
+            setproductItems(dkm);
+
+        }
+        fetchData();
     }, [])
 
 
