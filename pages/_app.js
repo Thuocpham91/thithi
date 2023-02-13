@@ -19,10 +19,19 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const store = useStore(pageProps.initialReduxState)
   const [authorized, setAuthorized] = useState(false);
+
+
+
+  const loaddata =async() => {
+    authCheck(router.asPath);
+
+   
+  
+};
+  
   useEffect(() => {
     
-
-    authCheck(router.asPath);
+    loaddata();
 
     const hideContent = () => setAuthorized(false);
     router.events.on('routeChangeStart', hideContent);
