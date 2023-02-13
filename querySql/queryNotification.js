@@ -13,12 +13,12 @@ export const Notification = {
     
 };
 
-async function insert(id_user,message,status,tile) {
+async function insert(app_key,tile,message) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO notification(id_user,message,status,tile) VALUES(?,?,?,?)',
-            values: [id_user,message,status,tile],
+            query: 'INSERT INTO notifications(app_key,title,message) VALUES(?,?,?)',
+            values: [app_key,tile,message],
         });
         return result;
     } catch (error) {
@@ -31,7 +31,7 @@ async function selectByID(id,id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification where id = ? and  id_user = ?   ',
+            query: 'select * from notifications where id = ? and  id_user = ?   ',
             values: [id,id_user],
         });
         return result [0];
@@ -45,7 +45,7 @@ async function SelectById_user(id_user) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from notification where id_user = ?  order by  created_at DESC limit 20 ',
+            query: 'select * from notifications where id_user = ?  order by  created_at DESC limit 20 ',
             values: [id_user],
         });
         return result;
@@ -57,7 +57,7 @@ async function SelectById_user(id_user) {
 async function SelectAll(code) {
     try {
         const result = await excuteQuery({
-            query: 'select * from notification where status=0  order by created_at  DESC  LIMIT 20',
+            query: 'select * from notifications where 1=1  order by created_at  DESC  LIMIT 20',
             values: [code],
         });
         return result;
@@ -72,7 +72,7 @@ async function SelectAll(code) {
 async function update(ca) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  notification SET id_user=?,message=?,status=?,tile =?  where id= ?',
+            query: 'UPDATE  notifications SET id_user=?,message=?,status=?,tile =?  where id= ?',
             values: [ca.id_user, ca.message, ca.status,ca.tile,ca.id],
         });
         return result;
@@ -86,7 +86,7 @@ async function update(ca) {
 async function updateStatus(status,id) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  notification SET status= ?  where id_user= ?',
+            query: 'UPDATE  notifications SET status= ?  where id_user= ?',
             values: [status,id],
         });
         return result;
@@ -101,7 +101,7 @@ async function updateStatus(status,id) {
 async function count(id_user) {
     try {
         const result = await excuteQuery({
-            query: 'SELECT COUNT(id) AS number FROM notification  where id_user = ? and  status=0 ',
+            query: 'SELECT COUNT(id) AS number FROM notifications  where id_user = ? and  status=0 ',
             values: [id_user],
         });
         return result;

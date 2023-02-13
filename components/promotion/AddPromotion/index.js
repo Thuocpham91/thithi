@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { compareAsc, format } from 'date-fns'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import Slide from '@mui/material/Slide';
 
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
@@ -24,33 +20,13 @@ import toast from "react-hot-toast";
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 
-import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined';
-
-import parseISO from 'date-fns/parseISO';
-import * as XLSX from "xlsx";
-
-import * as FileSaver from 'file-saver';
-
-import ImportPoint from "../../notification";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 const AddPromotion = (FetchDataLoad) => {
     const [openAddPromotion, setOpenAddPromotion] = useState(false);
-    const [valueAddPromotion, setValueAddPromotion] = useState({
-        title: '',
-        code: '',
-        numberOfUses: '',
-        quantityPurchased: '',
-        promotionalQuantity: '',
-        startDate: null,
-        endDate: null,
-        product: '',
-        listId: [],
-        area: [],
-        users: [],
-    });
+    const [valueAddPromotion, setValueAddPromotion] = useState({});
 
     const handleCloseAddPromotion = () => {
         setOpenAddPromotion(false);
@@ -59,18 +35,24 @@ const AddPromotion = (FetchDataLoad) => {
     const [loading, setLoading] = useState(false);
 
 
-    const handleAddPromotion = async () => {
+    const handleAddNotification = async () => {
 
-        if (!valueAddPromotion.startDate) return toast.error("Bạn chưa nhập Thời gian  bắt đầu");
-        if (!valueAddPromotion.endDate) return toast.error("Bạn chưa nhập Thời gian kết thúc");
-        if (isNaN(Number(valueAddPromotion.numberOfUses))) return toast.error("nhập sai số");
-        if (isNaN(Number(valueAddPromotion.quantityPurchased))) return toast.error("nhập sai số lượng mua");
-        if (valueAddPromotion.product == "") return toast.error("Bạn chưa chọn product");
+        console.log(valueAddPromotion)
 
+        
+        if (!valueAddPromotion.title) return toast.error("Bạn chưa nhập title");
+        if (!valueAddPromotion.message) return toast.error("Bạn chưa nhập message");
+        if(!valueAddPromotion.app_key&&valueAddPromotion.app_key&& valueAddPromotion.app_key.length <0){
+
+            return toast.error("bạn chưa chọn app key");
+        }
+
+        
 
         setLoading(true)
 
-        const data = await productService.addPromotion(valueAddPromotion);
+        const data = await userService.addNotification(valueAddPromotion);
+        console.log(data)
         setLoading(false)
 
         if (data.status == 200) {
@@ -84,88 +66,27 @@ const AddPromotion = (FetchDataLoad) => {
 
 
 
-    const [city, setCIty] = useState([]);
+    const [listAppKey, setListAppKey] = useState([]);
 
-    const [rowUser, setRowUser] = useState([]);
 
     const CallBack = (value) => {
         setValueAddPromotion({ ...valueAddPromotion, users: value });
     };
-    const { renderImport, setOpenImport } = ImportPoint(CallBack);
-
-
-    const handleExportFile = () => {
-
-        const date = new Date();
-        let dj = format(date, 'yyyy-MM-dd HH:MM:ss');
-        dj = dj + "user";
-        const dataexport = rowUser.map(item => {
-
-            return {
-                'Tên': item.name,
-                'Số điện thoại': item.phone,
-                'Mô tả': item.description,
-                'id': item.id,
-                'id_khataco': item.id_khataco,
-            }
-        }
-        )
-        exportToCSV(dataexport, dj);
-    }
-    const exportToCSV = (csvData, fileName) => {
-        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-        const fileExtension = '.xlsx';
-
-        const ws = XLSX.utils.json_to_sheet(csvData);
-        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const data = new Blob([excelBuffer], { type: fileType });
-        FileSaver.saveAs(data, fileName + fileExtension);
-    }
-
 
 
     useEffect(() => {
 
         async function fetchData() {
-            let data = await userService.getCitiDistrict({ key: "city" });
+            let data = await productService.getAppKey();
+            console.log(data)
             if (data.status != 200) return;
-            setCIty(data.city);
-            // setDisStrict(data.district)
-            let data_user = await userService.getAll();
-            if (data_user.status != 200) return;
-            setRowUser(data_user.data);
-
-
+            setListAppKey(data.data);
+          
         }
         fetchData();
     }, []);
 
-    const [productItems, setproductItems] = useState([]);
-
-    useEffect(() => {
-
-
-        async function fetchData() {
-            let data = await productService.getProduct();
-            if (data.status != 200) return;
-            data = JSON.parse(data.data);
-
-            let dkm = data.variants;
-
-            console.log(dkm)
-            setproductItems(dkm);
-
-        }
-        fetchData();
-
-
-
-        // const fda = JSON.parse(localStorage.getItem('listVariants'));
-        // if (fda == null) return;
-
-
-    }, [])
+  
 
 
     return {
@@ -180,130 +101,50 @@ const AddPromotion = (FetchDataLoad) => {
                 maxWidth="sm"
             >
                 <DialogContent className='text-center'>
-                    <div className="header-title-popup p-4 font-bold">Thêm khuyến mại</div>
+                    <div className="header-title-popup p-4 font-bold">Tạo Notification</div>
                     <div className='form-AddPromotion'>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion.title} />
                             </Grid>
+                          
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Mã code" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, code: e.target.value })} value={valueAddPromotion.code} />
+                                <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, message: e.target.value })} value={valueAddPromotion.message} />
                             </Grid>
-                            <Grid item xs={6}>
-                                <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>
-                                    <DateTimePicker
-                                        fullWidth
-                                        className="w-full"
-                                        label="Thời gian bắt đầu"
-                                        value={valueAddPromotion.startDate}
-                                        onChange={(newValue) => {
-                                            if (newValue == "Invalid Date") return;
-                                            const date = new Date(newValue);
-                                            const dj = format(date, 'yyyy-MM-dd HH:MM:ss');
-                                            setValueAddPromotion({ ...valueAddPromotion, startDate: dj })
-                                        }}
-                                        renderInput={(params) => <TextField {...params} />}
-                                    />
-                                </LocalizationProvider>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <LocalizationProvider className="w-full" dateAdapter={AdapterDateFns}>
-                                    <DateTimePicker
-                                        className="w-full"
-                                        style={{ width: "100%" }}
-                                        fullWidth
-                                        label="Thời gian kết thúc"
-                                        value={valueAddPromotion.endDate}
-                                        minDateTime={new Date(valueAddPromotion.startDate)}
-                                        onChange={(newValue) => {
-
-                                            if (newValue == "Invalid Date") return;
-
-
-                                            const date = new Date(newValue);
-                                            const dj = format(date, 'yyyy-MM-dd HH:MM:ss')
-                                            setValueAddPromotion({ ...valueAddPromotion, endDate: dj })
-                                        }}
-                                        renderInput={(params) => <TextField {...params} />}
-                                    />
-                                </LocalizationProvider>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Lần dùng"
-                                    variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, numberOfUses: e.target.value })}
-                                    type="number"
-                                    value={valueAddPromotion.numberOfUses} />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Autocomplete
-                                    disablePortal
-                                    multiple
-                                    fullWidth
-                                    id="addproduct"
-                                    onChange={(e, newValue) => {
-                                        setValueAddPromotion({ ...valueAddPromotion, product: newValue })
-                                    }}
-                                    options={productItems}
-                                    getOptionLabel={(option) => option.product_name}
-                                    renderInput={(params) => <TextField {...params} key={params.product_id} label="Sản phẩm" />}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextField type="number" className='mb-1' fullWidth label="Số lượng mua" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, quantityPurchased: e.target.value })} value={valueAddPromotion.quantityPurchased} />
-                            </Grid>
+                          
+                           
+                         
                             {/* <Grid item xs={6}>
                                 <TextField className='mb-1' fullWidth label="Số lượng khuyến mại" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, promotionalQuantity: e.target.value })} value={valueAddPromotion.promotionalQuantity} />
                             </Grid> */}
 
                             <Grid item xs={12}>
                                 <Autocomplete
-                                    value={valueAddPromotion.area}
+                                    value={valueAddPromotion.app_key}
                                     onChange={(e, newValue) => {
-                                        setValueAddPromotion({ ...valueAddPromotion, area: newValue })
+                                        setValueAddPromotion({ ...valueAddPromotion, app_key: newValue.map(item => item.key) })
                                     }}
                                     multiple
                                     fullWidth
                                     limitTags={2}
                                     id="multiple-limit-tags"
-                                    options={city}
+                                    options={listAppKey}
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => (
-                                        <TextField fullWidth {...params} label="Tỉnh thành" placeholder="Chọn khu vực" />
+                                        <TextField fullWidth {...params} label="APP KEY" placeholder="Chọn khu vực" />
                                     )}
                                 />
 
                             </Grid>
 
 
-                            <Grid item xs={12}>
-                                <Autocomplete
-                                    multiple
-                                    fullWidth
-                                    limitTags={2}
-                                    id="multiple-limit-tags"
-                                    options={rowUser}
-                                    onChange={(event, value) => setValueAddPromotion({ ...valueAddPromotion, users: value })}
-                                    getOptionLabel={(option) => option.id_khataco}
-                                    renderInput={(params) => (
-                                        <TextField fullWidth {...params} label="ID người dùng" placeholder="Chọn id người dùng" />
-                                    )}
-                                    sx={{ width: '500px' }}
-                                />
 
-                            </Grid>
                         </Grid>
-                        <div className='flex justify-center' style={{ marginTop: 20 }}>
-                            <div className='mr-4'>
-                                <Button onClick={e => setOpenImport(true)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import Users</Button>
-                            </div>
-                            <div className='mr-4'>
-                                <Button onClick={e => handleExportFile()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Export Users</Button>
-                            </div>
-                        </div>
+           
                     </div>
                     <div className='flex justify-center mt-8 mb-3'>
                         <div className='mr-4'>
-                            <Button onClick={e => handleAddPromotion()} variant="contained" style={{ background: "#EE0232" }}>Thêm mới</Button>
+                            <Button onClick={e => handleAddNotification()} variant="contained" style={{ background: "#EE0232" }}>Thêm mới</Button>
                         </div>
                         <Button onClick={handleCloseAddPromotion} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }}>Hủy bỏ</Button>
                     </div>
@@ -316,7 +157,6 @@ const AddPromotion = (FetchDataLoad) => {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            {renderImport}
 
         </>
         )

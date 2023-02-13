@@ -13,8 +13,6 @@ export const userService = {
     get userValue () { return userSubject.value },
     login,
     logout,
-    loginViettekll,
-    getviettell,
     getAll,
     getLogin,
     changePass,
@@ -24,10 +22,7 @@ export const userService = {
     updateUser,
     getNotification,
     getCountNotification,
-    checkLoginZalo,
-    updateUserCustom,
-    deleteUser,
-    importUser,
+    addNotification,
 };
 
 function login(form) {
@@ -40,21 +35,7 @@ function login(form) {
 }
 
 
-function loginViettekll(username, password) {
-    return fetchWrapper.posth(`${baseUrl}/loginViettel`, { username, password })
-        .then(user => {
-      
-            return user;
-        });
-}
 
-function getviettell(username, password) {
-    return fetchWrapper.getVT(`${baseUrl}/loginViettel`, { username, password })
-        .then(user => {
-      
-            return user;
-        });
-}
 
 function getLogin() {
     return fetchWrapper.get(`${baseUrl}/authenticate`)
@@ -103,23 +84,11 @@ function  getNotification(data){
     return fetchWrapper.get(`${baseUrl}/notification`,data);
 }
 
+function  addNotification(data){
+    return fetchWrapper.post(`${baseUrl}/notification`,data);
+}
+
 function  getCountNotification(data){
     return fetchWrapper.get(`${baseUrl}/getcountNotification`,data);
 }
 
-function  checkLoginZalo(data){
-    return fetchWrapper.post(`${baseUrl}/loginzalo`,data);
-}
-
-function  updateUserCustom(data){
-    return fetchWrapper.post(`${baseUrl}/updateUserCustom`,data);
-}
-
-
-function  deleteUser(data){
-    return fetchWrapper.post(`${baseUrl}/deleteALL`,data);
-}
-
-function  importUser(data){
-    return fetchWrapper.post(`${baseUrl}/updateScore`,data);
-}

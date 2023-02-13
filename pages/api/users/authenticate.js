@@ -4,7 +4,6 @@ import getConfig from 'next/config';
 import { apiHandler } from '../../../helpers/api';
 import { User } from '../../../querySql/queryuser';
 import { UserRole } from '../../../querySql/qeryUserRole';
-import { apiViettel } from './common/apiViettell';
 
 
 const { serverRuntimeConfig } = getConfig();
@@ -36,28 +35,28 @@ function handler(req, res) {
             });
             const chec_token = jwt.verify(tok, serverRuntimeConfig.secret);
 
-            if (!chec_token) return res.status(200).json({
-                status: 177,
-                message: "sai token",
-            });
+            // if (!chec_token) return res.status(200).json({
+            //     status: 177,
+            //     message: "sai token",
+            // });
 
-            if (Date.now() >= Number(chec_token.exp) * 1000) {
-                return res.status(200).json({
-                    status: 176,
-                    message: "end date",
-                });
-            }
+            // if (Date.now() >= Number(chec_token.exp) * 1000) {
+            //     return res.status(200).json({
+            //         status: 176,
+            //         message: "end date",
+            //     });
+            // }
 
-            const user_ = await User.findByAccount(chec_token.account);
-            if (!user_) return res.status(200).json({
-                status: 180,
-                message: "không có tài khoản",
-            });
+            // const user_ = await User.findByAccount(chec_token.account);
+            // if (!user_) return res.status(200).json({
+            //     status: 180,
+            //     message: "không có tài khoản",
+            // });
 
-            if (user_.token != tok) return res.status(200).json({
-                status: 182,
-                message: "token exit",
-            });
+            // if (user_.token != tok) return res.status(200).json({
+            //     status: 182,
+            //     message: "token exit",
+            // });
 
             return res.status(200).json({
                 status: 200,
@@ -79,9 +78,12 @@ function handler(req, res) {
         try {
             const { email, password } = req.body;
             const user_ = await User.findByAccount(email);
+
+
             if (!user_) return res.status(200).json({
                 status: 180,
-                message: "không có tài khoản",
+                user_,
+                message: "không có tài khoảnl",
             });
             var bcrypt = require('bcrypt');
 

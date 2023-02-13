@@ -49,10 +49,10 @@ function MyApp({ Component, pageProps }) {
       if (check_login.status != 200) {
         userSubject.next(null);
         setAuthorized(false);
-        router.push({
-          pathname: '/login',
-          query: { returnUrl: router.asPath }
-        });
+        // router.push({
+        //   pathname: '/login',
+        //   query: { returnUrl: router.asPath }
+        // });
 
       }else {
         let data_user = JSON.parse(localStorage.getItem('user'));
@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }) {
   }
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(<>
-    {authorized &&    <Provider store={store}>   < Component {...pageProps} /></Provider>}
+      <Provider store={store}>   < Component {...pageProps} /></Provider>
     <Toaster position="bottom-center" />
   </>
   )

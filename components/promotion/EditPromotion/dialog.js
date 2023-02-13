@@ -26,7 +26,6 @@ import * as XLSX from "xlsx";
 
 import * as FileSaver from 'file-saver';
 
-import ImportPoint from "../../notification";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -85,7 +84,6 @@ const EditPromotionD = (props) => {
     const CallBack = (value) => {
         setValueAddPromotion({ ...valueAddPromotion, users: value });
     };
-    const { renderImport, setOpenImport } = ImportPoint(CallBack);
 
 
     const handleExportFile = () => {
@@ -137,11 +135,19 @@ const EditPromotionD = (props) => {
     const [productItems, setproductItems] = useState([]);
     useEffect(() => {
         async function fetchData() {
-            let data = await productService.getProduct();
-            if (data.status != 200) return;
-            data = JSON.parse(data.data);
-            let dkm = data.variants;
-            setproductItems(dkm);
+            try{
+
+                let data = await productService.getProduct();
+                if (data.status != 200) return;
+                data = JSON.parse(data.data);
+                let dkm = data.variants;
+                setproductItems(dkm);
+
+            }catch(error){
+
+
+            }
+           
 
         }
         fetchData();
@@ -169,7 +175,6 @@ const EditPromotionD = (props) => {
     return (
         <>
 
-            {renderImport}
 
 
             <Dialog

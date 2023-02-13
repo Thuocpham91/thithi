@@ -2,8 +2,7 @@
 
 import { apiHandler } from '../../../helpers/api';
 
-import { User } from '../../../querySql/queryuser';
-import { Notification } from '../../../querySql/queryNotification';
+import { Appkey } from '../../../querySql/queryAppKey';
 
 // } from './common/checkLogin';
 
@@ -12,20 +11,24 @@ export default apiHandler(handler);
 
 
 
+
+
+
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
-            return addNotification(req, res);
+            return addAppkey(req, res);
 
         case 'GET':
-            return getNotification(req, res);
-     
+            return getAppKey(req, res);
+        case 'PUT':
+            //return updateNotification(req, res);
         default:
             return res.status(200).end(`Method ${req.method} Not Allowed`)
     }
 
 
-    async function addNotification(req, res) {
+    async function addAppkey(req, res) {
         try {
 
             // const user = await checlogin.checkLogin(req, res);
@@ -35,14 +38,14 @@ function handler(req, res) {
             //     message: "Bạn ko có quền"
             // });
 
-            const { title, message, app_key } = req.body;
-
-          let data= await  Notification.insert(JSON.stringify(app_key),title, message );
+                 const { name, key } = req.body;
+           let data=  await    Appkey.insert(name, key );
+            
 
             return res.status(200).json({
                 status: 200,
                 data,
-                message: "Tao notification thành công",
+                message: "gưi tin thành công",
             });
 
 
@@ -59,16 +62,12 @@ function handler(req, res) {
 
 
 
-    async function getNotification(req, res) {
+
+    async function getAppKey(req, res) {
         try {
-
-
-            const data = await Notification.SelectAll();
-
-            // await Notification.updateStatus(1,user.id);
-
+            const data = await Appkey.SelectAll();
             return res.status(200).json({
-                status:200,
+                status: 200,
                 data: data,
             });
 
@@ -76,7 +75,7 @@ function handler(req, res) {
         } catch (erro) {
             console.log(erro)
             return res.status(200).json({
-                status:500,
+                status: 199,
                 message: erro
             });
 
@@ -84,6 +83,6 @@ function handler(req, res) {
 
     }
 
-
+    
 
 }

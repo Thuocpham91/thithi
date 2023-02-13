@@ -1,5 +1,4 @@
 
-import { apiViettel } from './common/apiViettell';
 
 import { apiHandler } from '../../../helpers/api';
 

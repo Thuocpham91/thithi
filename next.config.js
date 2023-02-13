@@ -27,7 +27,7 @@ module.exports = {
   reactStrictMode: true,
 
   images: {
-    domains: ['cdn.viettelsale.com', '202.92.6.221:7005'],
+    domains: ['https://images.typeform.com/', '202.92.6.221:7005'],
   },
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname

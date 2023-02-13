@@ -86,7 +86,6 @@ const Login = (props) => {
       
     };
 
-    const { renderAddLocation, setOpenEditUser } = addLocation(dataUser,CallBack = { CallBack });
 
 
     const [initValue, setiInitValuee] = React.useState({
@@ -101,12 +100,7 @@ const Login = (props) => {
     };
    
 
-    const clickHandleZalo = async (values) => {
-        const code = "q7knPWn755VQTFSW84Dv8zrAsZfiSKWmd4IeEsTPSKoAKS96Q60ZC9HHv0XePq8IrrBL62fe3bZgSkih0tnMBUT0jLCPTX9_xNQCTsbw7dwFIFbDUciREOXWhJmqH6zciokIB2f7OokOQ_KmU3zANiT1xcixDZzvsGB23YWYPJt25C4kPMvH8OHDnb4lC710bck-6p50M6_CRknw6KOt6ifUt6qkVMO4dWcL1ITJUrZTT-jtPHW1CRyfeIiM2qKmYmt0KJPzONvATkHDkG0sEd4WjHYf4MKwBYVZ2ESaCIW_TUvkwsniNtGj3dgUAubPMRnECDw-w0itx7vSpxY9I3RLKYF3XAij8Si5NeMBmbL7hJPBs_2vRUFodp4FP68W";
-        const dataa = await userService.checkLoginZalo({ code: code })
-
-
-    };
+    
 
     const [tickdk, setTickdk] = useState(true);
 
@@ -158,11 +152,8 @@ const Login = (props) => {
                                                 let data_user = JSON.parse(localStorage.getItem('user'));
 
                                                 if (data_user.data.id_store == null || data_user.data.id_store == "" || data_user.data.id_cityVT == null || data_user.data.id_districtVT == null || data_user.data.id_wardsVT == null || data_user.data.id_cityVT == "" || data_user.data.id_districtVT == "" || data_user.data.id_wardsVT == "") {
-                                                    setOpenEditUser(true);
                                                     setLoading(false);
-                                                    showToastSuccess('bottom-right', "Thêm thông tin")
-                                                    return;
-                                                } else {
+                                              
                                                     showToastSuccess('bottom-right', "Đăng nhập thành công")
 
                                                     const returnUrl = router.query.returnUrl || '/';
@@ -282,7 +273,6 @@ const Login = (props) => {
                     <CircularProgress color="inherit" />
                 </Backdrop>
             </div>
-            {renderAddLocation}
 
         </>
     )

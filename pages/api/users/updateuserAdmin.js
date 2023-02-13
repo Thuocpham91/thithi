@@ -31,10 +31,10 @@ function handler(req, res) {
 
             const user = await checlogin.checkLogin(req, res);
             const checkl = user.id_role==1?true:false;
-            if (!checkl) return res.status(200).json({
-                status: 194,
-                message: "Quý địa lý không có quền"
-            });
+            // if (!checkl) return res.status(200).json({
+            //     status: 194,
+            //     message: "Quý địa lý không có quền"
+            // });
 
             // const user_chage = await User.findBId(id);
             var bcrypt = require('bcrypt');
