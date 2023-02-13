@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }) {
       router.events.off('routeChangeComplete', authCheck);
     }
 
-  }, []);
+  }, [router]);
 
   async function authCheck(url) {
     const userSubject = new BehaviorSubject(process.browser && JSON.parse(localStorage.getItem('user')));
