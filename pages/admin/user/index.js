@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { userService } from '../../../services/user.service';
 
 import AdminLayout from "../../../layouts/Admin";
-import AddUser from "../../../components/uerAdmin/AddUser";
-import DeleteUser from "../../../components/uerAdmin/DeleteUser";
-import ChangePass from "../../../components/uerAdmin/ChangePass";
-import EditUser from "../../../components/uerAdmin/EditUser";
-import ImportPoint from "../../../components/uerAdmin/ImportPoint";
 
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
@@ -202,30 +197,30 @@ const User = () => {
 
 
   // changePass
-  const { renderChangePass, setOpenChangePass } = ChangePass(userChoose);
+  //const { renderChangePass, setOpenChangePass } = ChangePass(userChoose);
 
   const handleClickOpenChangePass = () => {
     handleCloseMenu();
-    setOpenChangePass(true);
+   // setOpenChangePass(true);
   };
 
 
 
   // deleteUser
-  const { renderDeleteUser, setOpenDeleteUser } = DeleteUser(userChoose, fetchDataLoad = { fetchDataLoad });
+  //const { renderDeleteUser, setOpenDeleteUser } = DeleteUser(userChoose, fetchDataLoad = { fetchDataLoad });
 
   const handleOpenDelte = () => {
-    setOpenDeleteUser(true);
+   // setOpenDeleteUser(true);
     handleCloseMenu();
   }
 
 
   // addUser
-  const { renderAddUser, setOpenAddUser } = AddUser(fetchDataLoad = { fetchDataLoad });
+//const { renderAddUser, setOpenAddUser } = AddUser(fetchDataLoad = { fetchDataLoad });
 
   // editUser
 
-  const { renderEditUser, setOpenEditUser } = EditUser(userChoose);
+  //const { renderEditUser, setOpenEditUser } = EditUser(userChoose);
 
   const handleOpenEditUser = () => {
     setOpenEditUser(true);
@@ -233,7 +228,7 @@ const User = () => {
   }
 
   // ImportPoint
-  const { renderImport, setOpenImport } = ImportPoint(rowUser);
+  //const { renderImport, setOpenImport } = ImportPoint(rowUser);
 
   const handleExportFile = () => {
 
@@ -277,12 +272,12 @@ const User = () => {
         <h3>Quản lý thành viên</h3>
         <div className='flex'>
           <div className='mr-4'>
-            <Button onClick={e => setOpenImport(true)} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
+            <Button variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Import điểm</Button>
           </div>
           <div className='mr-4'>
-            <Button onClick={e => handleExportFile()} variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Export Users</Button>
+            <Button  variant="outlined" style={{ color: "#EE0232", border: "1px solid #EE0232" }} startIcon={<ControlPointDuplicateOutlinedIcon />}>Export Users</Button>
           </div>
-          <Button onClick={e => setOpenAddUser(true)} variant="contained" style={{ background: "#EE0232" }} startIcon={<AddIcon />} >Thêm thành viên</Button>
+          //<Button  variant="contained" style={{ background: "#EE0232" }} startIcon={<AddIcon />} >Thêm thành viên</Button>
         </div>
 
 
@@ -427,20 +422,8 @@ const User = () => {
       </MenuItem>
     </Menu>
 
-    {/* change password */}
-    {renderChangePass}
+    
 
-    {/* delete user */}
-    {renderDeleteUser}
-
-    {/* add user */}
-    {renderAddUser}
-
-    {/* Edit User */}
-    {renderEditUser}
-
-    {/* import point */}
-    {renderImport}
 
     <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

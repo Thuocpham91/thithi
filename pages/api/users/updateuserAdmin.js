@@ -1,12 +1,10 @@
 
-import { apiViettel } from './common/apiViettell';
 
 import { apiHandler } from '../../../helpers/api';
 
 import { User } from '../../../querySql/queryuser';
 
 
-import { checlogin } from './common/checkLogin';
 
 
 export default apiHandler(handler);
@@ -29,8 +27,8 @@ function handler(req, res) {
         try {
             const { newPassword, reNewPassword, id } = req.body;
 
-            const user = await checlogin.checkLogin(req, res);
-            const checkl = user.id_role==1?true:false;
+           // const user = await checlogin.checkLogin(req, res);
+          //  const checkl = user.id_role==1?true:false;
             // if (!checkl) return res.status(200).json({
             //     status: 194,
             //     message: "Quý địa lý không có quền"

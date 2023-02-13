@@ -18,7 +18,6 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { userService } from '../../services';
 import { Formik, Form, Field } from "formik";
 import toast from 'react-hot-toast';
-import addLocation from "../../components/addLocation";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadListUser,showXND,searchProduct} from '../../Store/actions'
 
