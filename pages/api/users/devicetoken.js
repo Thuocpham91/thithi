@@ -4,10 +4,8 @@
 import { apiHandler } from '../../../helpers/api';
 
 import { User } from '../../../querySql/queryuser';
-import { Notification } from '../../../querySql/queryNotification';
 import { DeviceToken } from '../../../querySql/queryDiviceToken';
 
-const send = require('../../../components/firebase/send');
 
 
 
@@ -21,7 +19,7 @@ export default apiHandler(handler);
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
-            return addNotification(req, res);
+            return addeviceToken(req, res);
 
         case 'GET':
             return getNotification(req, res);
@@ -31,32 +29,21 @@ function handler(req, res) {
     }
 
 
-    async function addNotification(req, res) {
+    async function addeviceToken(req, res) {
         try {
 
-            // const user = await checlogin.checkLogin(req, res);
-            // const checkl = user.id_role == 1 ? true : false;
-            // if (!checkl) return res.status(200).json({
-            //     status: 194,
-            //     message: "Bạn ko có quền"
 
-            // });
-            const { title, message, app_key } = req.body;
-
-            let payload = {
-                notification: {
-                    title:title,
-                    body: message
-                }
-            };
-
-            let dataDevice = await DeviceToken.selectByAppKey(app_key);
-             for  (const item of dataDevice){
-                 send(item.device_token, payload);
-             }
+            const { app_key, device_token } = req.body;
+            let data=null;
+            let datacolum= await DeviceToken.selectByDeviceToken(device_token);
+            if(datacolum.length>0){
 
 
-          let data= await  Notification.insert(JSON.stringify(app_key),title, message,2 );
+            }else{
+                data= await DeviceToken.insert(1,device_token,app_key);
+
+            }
+
 
             return res.status(200).json({
                 status: 200,
