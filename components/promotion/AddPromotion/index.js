@@ -36,17 +36,17 @@ const AddPromotion = (FetchDataLoad) => {
 
 
     const handleAddNotification = async () => {
-
         console.log(valueAddPromotion)
-
-        
         if (!valueAddPromotion.title) return toast.error("Bạn chưa nhập title");
         if (!valueAddPromotion.message) return toast.error("Bạn chưa nhập message");
         if(!valueAddPromotion.app_key&&valueAddPromotion.app_key&& valueAddPromotion.app_key.length <0){
 
             return toast.error("bạn chưa chọn app key");
         }
+      
+      
 
+        console.log(valueAddPromotion)
         
 
         setLoading(true)
@@ -63,7 +63,6 @@ const AddPromotion = (FetchDataLoad) => {
             toast.error(data ? data.message : "có lỗi sảnh ra ở đây");
         }
     };
-
 
 
     const [listAppKey, setListAppKey] = useState([]);
@@ -108,7 +107,7 @@ const AddPromotion = (FetchDataLoad) => {
                                 <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion.title} />
                             </Grid>
                           
-                            <Grid item xs={6}>
+                            <Grid item xs={12}>
                                 <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, message: e.target.value })} value={valueAddPromotion.message} />
                             </Grid>
                           
@@ -131,13 +130,12 @@ const AddPromotion = (FetchDataLoad) => {
                                     options={listAppKey}
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => (
-                                        <TextField fullWidth {...params} label="APP KEY" placeholder="Chọn khu vực" />
+                                        <TextField fullWidth {...params} label="APP KEY" placeholder="Chọn APP KEY" />
                                     )}
                                 />
 
                             </Grid>
-
-
+                          
 
                         </Grid>
            

@@ -13,12 +13,12 @@ export const Notification = {
     
 };
 
-async function insert(app_key,tile,message) {
+async function insert(app_key,tile,message,type_app) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO notifications(app_key,title,message) VALUES(?,?,?)',
-            values: [app_key,tile,message],
+            query: 'INSERT INTO notifications(app_key,title,message,type_app) VALUES(?,?,?,?)',
+            values: [app_key,tile,message,type_app],
         });
         return result;
     } catch (error) {
