@@ -35,6 +35,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { compareAsc, format } from 'date-fns'
+import { productService } from '../../../services/product.service';
 
 // 
 import EditPromotionD from "../../../components/promotion/EditPromotion/dialog";
@@ -71,8 +72,7 @@ const checkJson = (string) => {
 const Promotion = () => {
 
     const [listPromotion, seListPromotion] = useState([]);
-
-
+    const [listAppKey, setListAppKey] = useState([]);
 
 
     async function fetchData() {
@@ -86,6 +86,15 @@ const Promotion = () => {
 
 
         fetchData();
+
+        async function fetchDataAppkey() {
+            let data = await productService.getAppKey();
+            console.log(data)
+            if (data.status != 200) return;
+            setListAppKey(data.data);
+          
+        }
+        fetchDataAppkey();
     }, []);
 
 
@@ -185,6 +194,31 @@ const Promotion = () => {
     };
 
 
+    
+    const checkNameApp =  (list,listAppkey) => {
+        
+        let aray=[];
+        try {
+            let list_=JSON.parse(list)
+
+            for(const items of list_ ){
+
+                let ob= listAppkey.find(item => item.key== items);
+
+                if(ob){
+    
+                    aray.push(ob.name)                
+                }
+    
+           }
+            
+        } catch (error) {
+            aray=[]
+        }
+    
+       return aray;
+    }
+
 
     // delete Promotion
     // const { renderDeletePromotion, setOpenDeletePromotion } = DeletePromotion(promotionChoose);
@@ -229,7 +263,7 @@ const Promotion = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell> 
-                            <TableCell>APP KEY</TableCell> 
+                            <TableCell>Tên App</TableCell> 
                             <TableCell>Tiêu đề</TableCell>
                             <TableCell>Nội dung</TableCell>
                         
@@ -244,7 +278,10 @@ const Promotion = () => {
                                     {row.id}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {row.app_key}
+                                    { checkNameApp(row.app_key,listAppKey).map(items=>{return (<>
+                                        {items}
+                                    
+                                    </>)}) }
                                 </TableCell>
                                 <TableCell  >
                                     {row.title}

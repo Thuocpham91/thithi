@@ -49,11 +49,17 @@ function handler(req, res) {
                     body: message
                 }
             };
+            
+            for await (const items of app_key){
 
-            let dataDevice = await DeviceToken.selectByAppKey(app_key);
-             for  (const item of dataDevice){
-                 send(item.device_token, payload);
-             }
+                let dataDevice = await DeviceToken.selectByAppKey(items);
+                for  (const item of dataDevice){
+                    send(item.device_token, payload);
+                }
+
+
+            }
+           
 
 
           let data= await  Notification.insert(JSON.stringify(app_key),title, message,2 );

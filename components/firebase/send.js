@@ -107,7 +107,7 @@ const defaultAppConfig = {
 
 firebaseAdmin.initializeApp(defaultAppConfig);
 
-module.exports = async function(fcm_token, payload) {
+module.exports = async function(fcm_token, payload) { 
     try {
       const options = {
           priority: "high",
