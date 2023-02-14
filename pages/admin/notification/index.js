@@ -263,7 +263,9 @@ const Promotion = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell> 
+                            <TableCell>App Key</TableCell> 
                             <TableCell>Tên App</TableCell> 
+                            
                             <TableCell>Tiêu đề</TableCell>
                             <TableCell>Nội dung</TableCell>
                         
@@ -276,6 +278,9 @@ const Promotion = () => {
                             <TableRow key={row.id}>
                                <TableCell  >
                                     {row.id}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                      {row.app_key}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
                                     { checkNameApp(row.app_key,listAppKey).map(items=>{return (<>
