@@ -113,8 +113,20 @@ module.exports = async function(fcm_token, payload) {
           priority: "high",
           timeToLive: 60 * 60 *24
       };
+
+
+      const topic = 'highScores';
+      const message = [
+        {
+          data: {
+            score: '850',
+            time: '2:45'
+          },
+          topic: topic
+        }
+      ];
         
-      await firebaseAdmin.messaging().sendToDevice(fcm_token, payload, options)
+      await firebaseAdmin.messaging().sendAll(message, true)
         .then(function(response) {
           console.log("Successfully sent message:", response);
           // if(response.results[0].error != undefined){
