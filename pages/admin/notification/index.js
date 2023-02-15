@@ -283,10 +283,7 @@ const Promotion = () => {
                                       {row.app_key}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    { checkNameApp(row.app_key,listAppKey).map(items=>{return (<>
-                                        {items}
-                                    
-                                    </>)}) }
+                                    { checkNameApp(row.app_key,listAppKey).join(";") }
                                 </TableCell>
                                 <TableCell  >
                                     {row.title}
