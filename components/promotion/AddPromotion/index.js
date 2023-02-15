@@ -27,13 +27,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const AddPromotion = (FetchDataLoad) => {
     const [openAddPromotion, setOpenAddPromotion] = useState(false);
     const [valueAddPromotion, setValueAddPromotion] = useState({});
+    const [appKeySelect, setAppKeySelect] = useState([]);
+
 
     const handleCloseAddPromotion = () => {
+        setValueAddPromotion({title:"",message:"",app_key:[]});
+        setAppKeySelect([]);
         setOpenAddPromotion(false);
     };
 
     const [loading, setLoading] = useState(false);
-
 
     const handleAddNotification = async () => {
         if (!valueAddPromotion.title) return toast.error("Bạn chưa nhập title");
@@ -48,12 +51,13 @@ const AddPromotion = (FetchDataLoad) => {
         setLoading(true)
 
         const data = await userService.addNotification(valueAddPromotion);
-        console.log(data)
         setLoading(false)
 
         if (data.status == 200) {
             toast.success("Thêm  khuyến mại thành công");
             FetchDataLoad();
+            setValueAddPromotion({title:"",message:"",app_key:[]});
+
             setOpenAddPromotion(false);
         } else {
             toast.error(data ? data.message : "có lỗi sảnh ra ở đây");
@@ -73,16 +77,17 @@ const AddPromotion = (FetchDataLoad) => {
 
         async function fetchData() {
             let data = await productService.getAppKey();
-            console.log(data)
             if (data.status != 200) return;
             setListAppKey(data.data);
+            setValueAddPromotion({title:"",message:"",app_key:[]});
+            setAppKeySelect([]);
           
         }
         fetchData();
     }, [openAddPromotion]);
 
   
-
+  
 
     return {
         setOpenAddPromotion,
@@ -100,11 +105,14 @@ const AddPromotion = (FetchDataLoad) => {
                     <div className='form-AddPromotion'>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                <TextField className='mb-1' fullWidth label="Tiêu đề" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })} value={valueAddPromotion.title} />
+                                <TextField className='mb-1' fullWidth label="Tiêu đề" 
+                                variant="outlined" 
+                                onChange={e => setValueAddPromotion({ ...valueAddPromotion, title: e.target.value })}
+                                 value={valueAddPromotion?.title} />
                             </Grid>
                           
                             <Grid item xs={12}>
-                                <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, message: e.target.value })} value={valueAddPromotion.message} />
+                                <TextField className='mb-1' fullWidth label="Nội dung" variant="outlined" onChange={e => setValueAddPromotion({ ...valueAddPromotion, message: e.target.value })} value={valueAddPromotion?.message} />
                             </Grid>
                           
                            
@@ -115,11 +123,14 @@ const AddPromotion = (FetchDataLoad) => {
 
                             <Grid item xs={12}>
                                 <Autocomplete
-                                    value={valueAddPromotion.app_key}
+                                    value={appKeySelect}
                                     onChange={(e, newValue) => {
-                                        setValueAddPromotion({ ...valueAddPromotion, app_key: newValue.map(item => item.key) })
+                                        setValueAddPromotion({ ...valueAddPromotion, app_key: newValue.map(item => item.key) });
+                                        setAppKeySelect(newValue);
                                     }}
+
                                     multiple
+ 
                                     fullWidth
                                     limitTags={2}
                                     id="multiple-limit-tags"
