@@ -36,7 +36,6 @@ const AddPromotion = (FetchDataLoad) => {
 
 
     const handleAddNotification = async () => {
-        console.log(valueAddPromotion)
         if (!valueAddPromotion.title) return toast.error("Bạn chưa nhập title");
         if (!valueAddPromotion.message) return toast.error("Bạn chưa nhập message");
         if(!valueAddPromotion.app_key&&valueAddPromotion.app_key&& valueAddPromotion.app_key.length <0){
@@ -44,10 +43,7 @@ const AddPromotion = (FetchDataLoad) => {
             return toast.error("bạn chưa chọn app key");
         }
       
-      
-
-        console.log(valueAddPromotion)
-        
+            
 
         setLoading(true)
 
@@ -83,7 +79,7 @@ const AddPromotion = (FetchDataLoad) => {
           
         }
         fetchData();
-    }, []);
+    }, [openAddPromotion]);
 
   
 
@@ -128,7 +124,7 @@ const AddPromotion = (FetchDataLoad) => {
                                     limitTags={2}
                                     id="multiple-limit-tags"
                                     options={listAppKey}
-                                    getOptionLabel={(option) => option.name}
+                                    getOptionLabel={(option) => option.key}
                                     renderInput={(params) => (
                                         <TextField fullWidth {...params} label="APP KEY" placeholder="Chọn APP KEY" />
                                     )}
