@@ -128,7 +128,7 @@ const AddPromotion = (FetchDataLoad) => {
                                     limitTags={2}
                                     id="multiple-limit-tags"
                                     options={listAppKey}
-                                    getOptionLabel={(option) => option.name}
+                                    getOptionLabel={(option) => option.key}
                                     renderInput={(params) => (
                                         <TextField fullWidth {...params} label="APP KEY" placeholder="Chọn APP KEY" />
                                     )}
