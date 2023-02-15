@@ -11,9 +11,6 @@ export default apiHandler(handler);
 
 
 
-
-
-
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
@@ -37,6 +34,8 @@ function handler(req, res) {
             //     status: 194,
             //     message: "Bạn ko có quền"
             // });
+
+
 
                  const { name, key } = req.body;
            let data=  await    Appkey.insert(name, key );
