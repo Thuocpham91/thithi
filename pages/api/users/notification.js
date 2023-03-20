@@ -2,30 +2,20 @@
 
 
 import { apiHandler } from '../../../helpers/api';
-
-import { User } from '../../../querySql/queryuser';
 import { Notification } from '../../../querySql/queryNotification';
 import { DeviceToken } from '../../../querySql/queryDiviceToken';
 
 const send = require('../../../components/firebase/send');
-
-
+const sendqh88 = require('../../../components/firebase/qh88sent.js');
 
 // } from './common/checkLogin';
-
-
 export default apiHandler(handler);
-
-
-
 function handler(req, res) {
     switch (req.method) {
         case 'POST':
             return addNotification(req, res);
-
         case 'GET':
             return getNotification(req, res);
-     
         default:
             return res.status(200).end(`Method ${req.method} Not Allowed`)
     }
@@ -54,16 +44,17 @@ function handler(req, res) {
 
                 let dataDevice = await DeviceToken.selectByAppKey(items);
                 for  (const item of dataDevice){
-                    send(item.device_token, payload);
+                    if(dataDevice.namefirebase){
+                        if(dataDevice.namefirebase=="QH88"){
+                            sendqh88(item.device_token, payload);
+                        }else{
+                            send(item.device_token, payload);
+                        }
+                    }
                 }
-
-
             }
            
-
-
           let data= await  Notification.insert(JSON.stringify(app_key),title, message,2 );
-
             return res.status(200).json({
                 status: 200,
                 data,
