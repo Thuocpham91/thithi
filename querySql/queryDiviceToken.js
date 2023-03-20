@@ -42,12 +42,12 @@ async function selectByAppKey(app_key) {
 }
 
 
-async function selectByDeviceToken(app_key) {
+async function selectByDeviceToken(app_key,namefirebase) {
 
     try {
         const result = await excuteQuery({
-            query: 'select * from device_tokens where device_token = ?  ',
-            values: [app_key],
+            query: 'select * from device_tokens where device_token = ?  and namefirebase=? ',
+            values: [app_key,namefirebase],
         });
         return result;
     } catch (error) {
