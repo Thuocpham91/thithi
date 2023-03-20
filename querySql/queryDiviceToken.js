@@ -11,12 +11,12 @@ export const DeviceToken = {
     
 };
 
-async function insert(user_id,device_token,app_key) {
+async function insert(user_id,device_token,app_key,namefirebase) {
 
     try {
         const result = await excuteQuery({
-            query: 'INSERT INTO device_tokens(user_id,device_token,app_key) VALUES(?,?,?)',
-            values: [user_id,device_token,app_key],
+            query: 'INSERT INTO device_tokens(user_id,device_token,app_key,namefirebase) VALUES(?,?,?,?)',
+            values: [user_id,device_token,app_key,namefirebase],
         });
         return result;
     } catch (error) {
@@ -63,8 +63,8 @@ async function selectByDeviceToken(app_key) {
 async function update(ca) {
     try {
         const result = await excuteQuery({
-            query: 'UPDATE  device_tokens SET id_user=?,message=?,status=?,tile =?  where id= ?',
-            values: [ca.id, ca.message, ca.status,ca.tile,ca.id],
+            query: 'UPDATE  device_tokens SET id_user=?,message=?,status=?,tile =?,namefirebase = ?  where id= ?',
+            values: [ca.id, ca.message, ca.status,ca.tile,ca.id,ca.namefirebase],
         });
         return result;
     } catch (error) {
