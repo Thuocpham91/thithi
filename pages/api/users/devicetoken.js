@@ -33,14 +33,14 @@ function handler(req, res) {
         try {
 
 
-            const { app_key, device_token } = req.body;
+            const { app_key, device_token,name_firebase } = req.body;
             let data=null;
-            let datacolum= await DeviceToken.selectByDeviceToken(device_token);
+            let datacolum= await DeviceToken.selectByDeviceToken(device_token,name_firebase);
             if(datacolum.length>0){
 
 
             }else{
-                data= await DeviceToken.insert(1,device_token,app_key);
+                data= await DeviceToken.insert(1,device_token,app_key,name_firebase);
 
             }
 
