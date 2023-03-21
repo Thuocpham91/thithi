@@ -44,13 +44,13 @@ function handler(req, res) {
 
                 let dataDevice = await DeviceToken.selectByAppKey(items);
                 for  (const item of dataDevice){
-                    if(dataDevice.namefirebase){
+                    // if(dataDevice.namefirebase){
                         // if(dataDevice.namefirebase=="QH88"){
                         //     sendqh88(item.device_token, payload);
                         // }else{
                             send(item.device_token, payload);
                         // }
-                    }
+                    // }
                 }
             }
            
