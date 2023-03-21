@@ -6,7 +6,7 @@ import { Notification } from '../../../querySql/queryNotification';
 import { DeviceToken } from '../../../querySql/queryDiviceToken';
 
 const send = require('../../../components/firebase/send');
-const sendqh88 = require('../../../components/firebase/qh88sent.js');
+//const sendqh88 = require('../../../components/firebase/qh88sent.js');
 
 // } from './common/checkLogin';
 export default apiHandler(handler);
@@ -45,11 +45,11 @@ function handler(req, res) {
                 let dataDevice = await DeviceToken.selectByAppKey(items);
                 for  (const item of dataDevice){
                     if(dataDevice.namefirebase){
-                        if(dataDevice.namefirebase=="QH88"){
-                            sendqh88(item.device_token, payload);
-                        }else{
+                        // if(dataDevice.namefirebase=="QH88"){
+                        //     sendqh88(item.device_token, payload);
+                        // }else{
                             send(item.device_token, payload);
-                        }
+                        // }
                     }
                 }
             }
