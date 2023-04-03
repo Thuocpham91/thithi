@@ -36,16 +36,15 @@ function handler(req, res) {
             // });
 
 
-                 const { name, key } = req.body;
-                 console.log(req.body)
 
+                 const { name, key } = req.body;
            let data=  await    Appkey.insert(name, key );
             
 
             return res.status(200).json({
                 status: 200,
                 data,
-                message: "Tạo app key thành công",
+                message: "gưi tin thành công",
             });
 
 

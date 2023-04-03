@@ -48,7 +48,7 @@ function handler(req, res) {
                         // if(dataDevice.namefirebase=="QH88"){
                         //     sendqh88(item.device_token, payload);
                         // }else{
-                            send(item.device_token, payload,dataDevice.namefirebase);
+                            send(item.device_token, payload);
                         // }
                     // }
                 }

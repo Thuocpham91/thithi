@@ -36,7 +36,6 @@ function handler(req, res) {
             const { app_key, device_token,name_firebase } = req.body;
             let data=null;
             let datacolum= await DeviceToken.selectByDeviceToken(device_token,name_firebase);
-            console.log(datacolum)
             if(datacolum.length>0){
 
 
