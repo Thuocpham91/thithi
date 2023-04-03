@@ -6,6 +6,7 @@ import { Appkey } from '../../../querySql/queryAppKey';
 
 // } from './common/checkLogin';
 
+const send = require('../../../components/firebase/send');
 
 export default apiHandler(handler);
 
@@ -27,25 +28,22 @@ function handler(req, res) {
 
     async function addAppkey(req, res) {
         try {
+            const { token } = req.body;
 
-            // const user = await checlogin.checkLogin(req, res);
-            // const checkl = user.id_role == 1 ? true : false;
-            // if (!checkl) return res.status(200).json({
-            //     status: 194,
-            //     message: "Bạn ko có quền"
-            // });
+            let payload = {
+                notification: {
+                    title:"title",
+                    body: "message"
+                }
+            };
 
+            send(token, payload,"QH88");
 
-                 const { name, key } = req.body;
-                 console.log(req.body)
-
-           let data=  await    Appkey.insert(name, key );
-            
-
+      
             return res.status(200).json({
                 status: 200,
-                data,
-                message: "Tạo app key thành công",
+          
+                message: "gưi tin thành công",
             });
 
 
