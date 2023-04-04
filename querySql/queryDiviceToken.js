@@ -6,7 +6,7 @@ export const DeviceToken = {
     insert,
     update,
     selectByDeviceToken,
-
+    selectByDevice_Token,
     selectByAppKey
     
 };
@@ -48,6 +48,20 @@ async function selectByDeviceToken(app_key,namefirebase) {
         const result = await excuteQuery({
             query: 'select * from device_tokens where device_token = ?  and namefirebase=? ',
             values: [app_key,namefirebase],
+        });
+        return result;
+    } catch (error) {
+      return null;
+    }
+
+}
+
+async function selectByDevice_Token(device_token) {
+
+    try {
+        const result = await excuteQuery({
+            query: 'select * from device_tokens where device_token = ?  and namefirebase=? ',
+            values: [device_token],
         });
         return result;
     } catch (error) {

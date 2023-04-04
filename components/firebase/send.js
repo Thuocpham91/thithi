@@ -27,10 +27,10 @@ module.exports = async function (fcm_token, payload, appfirebase) {
     };
 
     if (appfirebase == "QH88") {
-      fireOXbest.auth();
-      await fireOXbest.messaging().sendToDevice(fcm_token, payload, options)
-        .then(function (response) {
-          console.log(response)
+
+      fireQh.auth();
+      await fireQh.messaging().sendToDevice(fcm_token, payload, options)
+        .then(function (response) { console.log(response)
          })
         .catch(function (error) {
           console.log("Error sending message:", error.message);
@@ -39,10 +39,10 @@ module.exports = async function (fcm_token, payload, appfirebase) {
 
 
     }else{
-      fireQh.auth();
-      await fireQh.messaging().sendToDevice(fcm_token, payload, options)
+      fireOXbest.auth();
+      await fireOXbest.messaging().sendToDevice(fcm_token, payload, options)
         .then(function (response) { 
-          console.log(response)}
+         }
           )
         .catch(function (error) {
           console.log("Error sending message:", error.message);
